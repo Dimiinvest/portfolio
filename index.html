@@ -1142,28 +1142,23 @@ function renderHistory() {
 async function cryptoSeries(id, days) {
   const url = `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(id)}/market_chart?vs_currency=eur&days=${days}&interval=daily`;
   try {
-    const r = await fetch(url); if (!r.ok) throw 0;
+    const r = await fetchT(url, 12000); if (!r.ok) throw 0;
     const j = await r.json();
     const m = {};
     (j.prices || []).forEach(([ms, pr]) => { m[new Date(ms).toISOString().slice(0,10)] = pr; });
     return { map: m, cur: 'EUR' };
   } catch(e) { return null; }
 }
-async function stockSeries(sym, days) {
+function stockSeries(sym, days) {
   const range = days <= 35 ? '1mo' : days <= 100 ? '3mo' : days <= 200 ? '6mo' : '1y';
   const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=${range}`;
-  for (const wrap of PROXIES) {
-    try {
-      const r = await fetch(wrap(base), { cache:'no-store' }); if (!r.ok) continue;
-      const j = await r.json();
-      const res = j?.chart?.result?.[0]; if (!res) continue;
-      const ts = res.timestamp || [], cl = res.indicators?.quote?.[0]?.close || [];
-      const m = {};
-      ts.forEach((t, i) => { if (cl[i] != null) m[new Date(t*1000).toISOString().slice(0,10)] = cl[i]; });
-      if (Object.keys(m).length) return { map: m, cur: (res.meta?.currency || 'USD').toUpperCase() };
-    } catch(e) {}
-  }
-  return null;
+  return raceProxies(base, j => {
+    const res = j?.chart?.result?.[0]; if (!res) return null;
+    const ts = res.timestamp || [], cl = res.indicators?.quote?.[0]?.close || [];
+    const m = {};
+    ts.forEach((t, i) => { if (cl[i] != null) m[new Date(t*1000).toISOString().slice(0,10)] = cl[i]; });
+    return Object.keys(m).length ? { map: m, cur: (res.meta?.currency || 'USD').toUpperCase() } : null;
+  }, 12000);
 }
 let bfRunning = false;
 async function backfill(days = 90, silent) {
@@ -1434,9 +1429,15 @@ let toastT; function toast(msg){ const el=$('#toast'); el.textContent=msg; el.cl
 /* ============================================================
    KURSE LADEN
    ============================================================ */
+const TIMEOUT = 7000;
+function fetchT(url, ms, opts) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms || TIMEOUT);
+  return fetch(url, { ...(opts||{}), signal: c.signal }).finally(() => clearTimeout(t));
+}
 async function fetchFx() {
   try {
-    const r = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD');
+    const r = await fetchT('https://api.frankfurter.app/latest?from=EUR&to=USD', 5000);
     const j = await r.json();
     if (j?.rates?.USD) state.fx.EURUSD = j.rates.USD;
   } catch(e) { /* Fallback bleibt */ }
@@ -1444,39 +1445,55 @@ async function fetchFx() {
 async function fetchCrypto(ids) {
   if (!ids.length) return {};
   const url = `https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(ids.join(','))}&vs_currencies=eur,usd`;
-  try { const r = await fetch(url); if (!r.ok) throw 0; return await r.json(); }
+  try { const r = await fetchT(url); if (!r.ok) throw 0; return await r.json(); }
   catch(e) { return {}; }
 }
 const PROXIES = [
+  u => u,                                                              // direkt, falls erlaubt
   u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
-  u => u
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)
 ];
-async function fetchStock(sym) {
+/* Alle Wege gleichzeitig anfragen – der erste brauchbare Treffer gewinnt.
+   Vorher lief das nacheinander, ein hängender Dienst blockierte alles. */
+function raceProxies(url, parse, ms) {
+  return new Promise(resolve => {
+    let open = PROXIES.length, done = false;
+    const finish = v => { if (!done) { done = true; resolve(v); } };
+    PROXIES.forEach(async wrap => {
+      try {
+        const r = await fetchT(wrap(url), ms, { cache:'no-store' });
+        if (r.ok) { const v = parse(await r.json()); if (v != null) finish(v); }
+      } catch(e) { /* egal, ein anderer Weg läuft parallel */ }
+      if (--open === 0) finish(null);
+    });
+  });
+}
+function fetchStock(sym) {
   const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`;
-  for (const wrap of PROXIES) {
-    try {
-      const r = await fetch(wrap(base), { cache:'no-store' });
-      if (!r.ok) continue;
-      const j = await r.json();
-      const m = j?.chart?.result?.[0]?.meta;
-      if (m && (m.regularMarketPrice ?? m.previousClose)) {
-        return { price: m.regularMarketPrice ?? m.previousClose, cur: (m.currency||'USD').toUpperCase() };
-      }
-    } catch(e) { /* nächster Proxy */ }
-  }
-  return null;
+  return raceProxies(base, j => {
+    const m = j?.chart?.result?.[0]?.meta;
+    const px = m && (m.regularMarketPrice ?? m.previousClose);
+    return px ? { price: px, cur: (m.currency || 'USD').toUpperCase() } : null;
+  });
 }
 let loading = false;
 async function refreshPrices(silent) {
   if (loading || !state.positions.length) { if(!state.positions.length && !silent) toast('Keine Positionen vorhanden.'); return; }
   loading = true;
   const btn = $('#btnRefresh'); btn.disabled = true; btn.style.opacity = .55;
-  $('#statusText').textContent = 'Kurse werden geladen …';
-  await fetchFx();
+  const seen = state.lastUpdate ? state.lastUpdate.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : null;
+  $('#statusText').textContent = seen
+    ? `Kurse werden aktualisiert … (angezeigt: Stand ${seen})`
+    : 'Kurse werden geladen …';
 
+  // Wechselkurs, Krypto und Aktien laufen gleichzeitig, nicht nacheinander
   const cryptoIds = [...new Set(state.positions.filter(p=>p.type==='crypto'&&p.symbol).map(p=>p.symbol.trim().toLowerCase()))];
-  const cg = await fetchCrypto(cryptoIds);
+  const stocks = state.positions.filter(p => (p.type === 'stock' || p.type === 'etf') && p.symbol);
+  const [, cg, stockRes] = await Promise.all([
+    fetchFx(),
+    fetchCrypto(cryptoIds),
+    Promise.all(stocks.map(p => fetchStock(p.symbol.trim())))
+  ]);
   let ok = 0, fail = 0;
   state.positions.forEach(p => {
     if (p.type === 'crypto' && p.symbol) {
@@ -1485,11 +1502,10 @@ async function refreshPrices(silent) {
       else if (p.price == null) fail++;
     }
   });
-  const stocks = state.positions.filter(p => (p.type === 'stock' || p.type === 'etf') && p.symbol);
-  await Promise.all(stocks.map(async p => {
-    const d = await fetchStock(p.symbol.trim());
+  stocks.forEach((p, i) => {
+    const d = stockRes[i];
     if (d) { p.price = d.price; p.cur = d.cur; p.live = true; ok++; } else if (p.price == null) fail++;
-  }));
+  });
 
   state.lastUpdate = new Date();
   loading = false; btn.disabled = false; btn.style.opacity = 1;
