@@ -2,7 +2,7 @@
 <html lang="de" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Portfolio · Investment Tracker</title>
 <meta name="theme-color" content="#0b0b0c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,7 +39,7 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 /* Kein Doppeltipp-Zoom – Pinch-Zoom bleibt erhalten */
-html,body{margin:0;padding:0;touch-action:manipulation;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;touch-action:pan-x pan-y;-webkit-text-size-adjust:100%}
 button,.tab,.seg button,.res,.tx,label{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 body{
   padding-bottom:calc(96px + env(safe-area-inset-bottom));
@@ -665,6 +665,12 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
 <div id="tip"><div class="t1"></div><div class="t2"></div></div>
 
 <script>
+/* Zoom komplett aus: Doppeltipp per CSS, Zwei-Finger per Gesten-Events.
+   Scrollen und Wischen bleiben davon unberührt. */
+['gesturestart','gesturechange','gestureend'].forEach(ev =>
+  document.addEventListener(ev, e => e.preventDefault(), { passive:false }));
+document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preventDefault(); }, { passive:false });
+
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
