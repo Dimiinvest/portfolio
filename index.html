@@ -131,6 +131,14 @@ header.top{
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .alert.hit{background:rgba(12,163,12,.11);border-color:rgba(12,163,12,.42)}
 .alert.stop{background:rgba(208,59,59,.11);border-color:rgba(208,59,59,.42)}
+.alert.plan{background:rgba(57,135,229,.11);border-color:rgba(57,135,229,.42);flex-wrap:wrap}
+.alert.plan .body{flex:1 1 220px;min-width:0}
+.splines{margin:8px 0 0;display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--text-secondary);
+  font-variant-numeric:tabular-nums}
+.splines .more{color:var(--muted)}
+.alert.plan .acts{display:flex;gap:8px;flex:1 1 100%;margin-top:11px}
+.alert.plan .acts .btn{font-size:12.5px;padding:7px 12px}
+.sptag{color:#7fb4f5;border-color:rgba(57,135,229,.4);background:rgba(57,135,229,.13)}
 .alert .ico{font-size:16px;line-height:1.1;flex:0 0 auto}
 .alert b{font-weight:670}
 .alert .x{margin-left:auto;background:transparent;border:0;color:var(--muted);font:inherit;font-size:17px;
@@ -388,6 +396,8 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
   .grid2{grid-template-columns:1fr}
 }
 @media (max-width:560px){
+  .kpi .v{font-size:19px;letter-spacing:-.03em}
+  .hero .value{letter-spacing:-.04em}
   .dhead{flex-wrap:wrap;padding:16px}
   .dhead .pl{flex:1 1 100%;margin-left:0;text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid var(--hair)}
   .dhead .pl .a{font-size:22px}
@@ -438,6 +448,7 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
     </div>
   </section>
 
+  <section class="alerts" id="planBox" aria-live="polite"></section>
   <section class="alerts" id="alerts" aria-live="polite"></section>
 
   <section class="kpis" aria-label="Kennzahlen">
@@ -657,6 +668,39 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
     <div class="mrow">
       <button class="btn" id="tCancel">Abbrechen</button>
       <button class="btn primary" id="tSave">Übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim4">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
+    <h3 id="spTitle">Sparplan</h3>
+    <p class="msub" id="spSub">—</p>
+    <div class="form">
+      <div class="f"><label for="spAmount">Betrag je Rate</label>
+        <input id="spAmount" type="number" step="any" inputmode="decimal" placeholder="75"></div>
+      <div class="f"><label for="spEvery">Rhythmus</label>
+        <select id="spEvery">
+          <option value="week">Wöchentlich</option>
+          <option value="2weeks">Alle 2 Wochen</option>
+          <option value="month">Monatlich</option>
+        </select></div>
+      <div class="f full" id="spDowWrap"><label for="spDow">Wochentag</label>
+        <select id="spDow">
+          <option value="1">Montag</option><option value="2">Dienstag</option>
+          <option value="3">Mittwoch</option><option value="4">Donnerstag</option>
+          <option value="5">Freitag</option>
+        </select></div>
+      <div class="f full" id="spDomWrap" hidden><label for="spDom">Tag im Monat</label>
+        <input id="spDom" type="number" min="1" max="28" step="1" inputmode="numeric" value="1"></div>
+      <div class="f full"><p class="hint">Fällige Raten werden beim Öffnen der App erkannt. Du siehst vorher Datum, Kurs und Anteile und bestätigst mit einem Tipp. Gerechnet wird mit dem Tagesschlusskurs — dein echter Ausführungskurs kann minimal abweichen.</p></div>
+      <div class="f full"><div class="secbox" style="margin:0"><div class="sect" style="margin:0">Status</div>
+        <p class="hint" id="spStatus" style="margin:6px 0 0">—</p></div></div>
+    </div>
+    <div class="mrow">
+      <button class="btn ghost sp" id="spDelete" style="color:var(--bad-ink)">Sparplan entfernen</button>
+      <button class="btn" id="spCancel">Abbrechen</button>
+      <button class="btn primary" id="spSave">Speichern</button>
     </div>
   </div>
 </div>
@@ -1106,7 +1150,7 @@ async function cryptoSeries(id, days) {
   } catch(e) { return null; }
 }
 async function stockSeries(sym, days) {
-  const range = days <= 35 ? '1mo' : days <= 100 ? '3mo' : '6mo';
+  const range = days <= 35 ? '1mo' : days <= 100 ? '3mo' : days <= 200 ? '6mo' : '1y';
   const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=${range}`;
   for (const wrap of PROXIES) {
     try {
@@ -1301,7 +1345,7 @@ function renderCards() {
             <div class="nm">${esc(p.name)} <span class="tag">${typeTag}</span>${
               al==='stop' ? '<span class="tag" style="color:#ff7a7a;border-color:rgba(208,59,59,.45);background:rgba(208,59,59,.12)">Stop-Loss</span>'
             : al==='over' ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel übertroffen</span>'
-            : al==='hit'  ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel erreicht</span>' : ''}</div>
+            : al==='hit'  ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel erreicht</span>' : ''}${p.sp?'<span class="tag sptag">Sparplan</span>':''}</div>
             <div class="sym">${esc(p.symbol||'—')} · ${p.qty.toLocaleString('de-DE',{maximumFractionDigits:8})} Stk · ${p.cur}</div>
           </div>
           <div class="plbox">
@@ -1333,7 +1377,7 @@ function renderCards() {
         <button class="btn" onclick="openForm('${p.id}')">Bearbeiten</button>
         <button class="btn" onclick="openTrade('${p.id}','buy')">+ Nachkauf</button>
         <button class="btn" onclick="openTrade('${p.id}','sell')">− Verkauf</button>
-        <button class="btn" onclick="quickPrice('${p.id}')">Kurs</button>
+        <button class="btn" onclick="openPlan('${p.id}')">${p.sp?'🔁 Sparplan':'Sparplan'}</button>
       </div>
     </article>`;
   }).join('');
@@ -1597,8 +1641,8 @@ const cloud = { key:'', bin:'', on:false, busy:false, lastSync:null };
 
 function payload() {
   return { version:3, base:state.base, updatedAt: state.editStamp || Date.now(),
-           positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx}) =>
-             ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx})),
+           positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp}) =>
+             ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp})),
            history: history.slice(-500) };
 }
 /* Verlauf zweier Geräte zusammenführen – pro Tag der jüngere Eintrag */
@@ -1847,7 +1891,7 @@ $('#fType').onchange = () => {
   $('#fSym').placeholder = t==='crypto' ? 'bitcoin' : t==='stock' ? 'AAPL' : t==='etf' ? 'IWDA.AS' : '(kein Symbol)';
 };
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeForm(); $('#scrim2').classList.remove('on'); $('#scrim3').classList.remove('on'); }
+  if (e.key === 'Escape') { closeForm(); $('#scrim2').classList.remove('on'); $('#scrim3').classList.remove('on'); $('#scrim4').classList.remove('on'); }
   if (e.key === 'Enter' && $('#scrim').classList.contains('on')) saveForm();
   if (e.key === 'Enter' && $('#scrim3').classList.contains('on')) saveTrade();
 });
@@ -1873,7 +1917,8 @@ function unitOf(p) {
 const qtyStr = (q, p) => q.toLocaleString('de-DE',{maximumFractionDigits:8}) + ' ' + unitOf(p);
 const initials = n => (n||'?').replace(/[^A-Za-z0-9ÄÖÜäöü ]/g,'').split(/\s+/).filter(Boolean)
   .slice(0,2).map(w => w[0]).join('').toUpperCase() || '?';
-const today = () => new Date().toISOString().slice(0,10);
+const today = () => { const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
 const dmy = d => d ? new Date(d+'T00:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}) : 'Datum unbekannt';
 
 /* ---------- Transaktionen ----------
@@ -1998,7 +2043,7 @@ function renderDetail() {
       <span class="ic ${isSell?'sell':'buy'}">${isSell?'↓':'↑'}</span>
       <span class="mid">
         <span class="t1">${qtyStr(x.qty,p)} ${isSell?'verkauft':'gekauft'}</span>
-        <span class="t2">${dmy(x.d)}${x.derived?' · abgeleitet aus deinem Ø-Einstieg':''} · Kurs ${fmtC(x.price,p.cur)}</span>
+        <span class="t2">${dmy(x.d)}${x.derived?' · abgeleitet aus deinem Ø-Einstieg':''}${x.sp?' · Sparplan':''} · Kurs ${fmtC(x.price,p.cur)}</span>
       </span>
       <span class="rt">
         <span class="amt ${isSell?'up':''}">${isSell?'+':''}${fmtC(amount,p.cur,0)}</span>
@@ -2039,6 +2084,10 @@ function renderDetail() {
       erfasst – der Eintrag unten ist aus Menge und Ø-Einstieg abgeleitet. Trage über <b>Bearbeiten</b> ein Kaufdatum ein,
       oder buche künftige Käufe über <b>Nachkauf</b>, dann wächst die Historie mit.</span></div>`:''}
 
+    ${p.sp?`<div class="warnbox" style="background:rgba(57,135,229,.10);border-color:rgba(57,135,229,.35)"><span>🔁</span><span>
+      Sparplan aktiv: <b>${fmtC(p.sp.amount,p.cur,2)}</b> ${EVERY_LABEL[p.sp.every]}${p.sp.every==='month'?` (am ${p.sp.dom}.)`:` (${WD[p.sp.dow]}s)`}
+      · nächste Rate am <b>${dmy(nextDue(p.sp))}</b></span></div>`:''}
+
     <div class="sec-head" style="margin:20px 0 4px">
       <h2 style="font-size:16px">Kaufhistorie</h2>
       <span class="count">${buys.length} ${buys.length===1?'Kauf':'Käufe'}${sells.length?` · ${sells.length} ${sells.length===1?'Verkauf':'Verkäufe'}`:''}</span>
@@ -2049,6 +2098,7 @@ function renderDetail() {
       <button class="btn" onclick="openForm('${p.id}')">Bearbeiten</button>
       <button class="btn" onclick="openTrade('${p.id}','buy')">+ Nachkauf</button>
       <button class="btn" onclick="openTrade('${p.id}','sell')">− Verkauf</button>
+      <button class="btn" onclick="openPlan('${p.id}')">${p.sp?'🔁 Sparplan ändern':'Sparplan anlegen'}</button>
     </div>`;
 }
 
@@ -2086,7 +2136,7 @@ function renderTxList() {
       <span class="ic ${isSell?'sell':'buy'}">${isSell?'↓':'↑'}</span>
       <span class="mid">
         <span class="t1"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${col};margin-right:7px"></span>${esc(x.p.name)} ${isSell?'verkauft':'gekauft'}</span>
-        <span class="t2">${qtyStr(x.qty,x.p)} · Kurs ${fmtC(x.price,x.p.cur)}${x.derived?' · abgeleitet':''}</span>
+        <span class="t2">${qtyStr(x.qty,x.p)} · Kurs ${fmtC(x.price,x.p.cur)}${x.derived?' · abgeleitet':''}${x.sp?' · Sparplan':''}</span>
       </span>
       <span class="rt">
         <span class="amt ${isSell?'up':''}">${isSell?'+':''}${fmtC(amount,x.p.cur,0)}</span>
@@ -2116,6 +2166,186 @@ render = function() {
 };
 
 /* ============================================================
+   SPARPLÄNE
+   Fällige Raten werden erkannt, mit dem echten Tagesschlusskurs
+   bewertet und nach Bestätigung als normale Käufe gebucht.
+   ============================================================ */
+const WD = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const EVERY_LABEL = { week:'wöchentlich', '2weeks':'alle 2 Wochen', month:'monatlich' };
+const isoOf = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const isoAdd = (iso, n) => { const d = new Date(iso+'T12:00:00'); d.setDate(d.getDate()+n); return isoOf(d); };
+const isoDiff = (a, b) => Math.round((new Date(b+'T12:00:00') - new Date(a+'T12:00:00')) / 864e5);
+const monthOcc = (y, m, dom) => new Date(y, m, Math.min(dom, new Date(y, m+1, 0).getDate()), 12);
+
+/* Alle Termine, die seit der letzten Buchung fällig geworden sind */
+function dueDates(sp, upTo) {
+  const t = upTo || today(), out = [];
+  if (!sp || !sp.active || !sp.last) return out;
+  if (sp.every === 'month') {
+    let y = +sp.last.slice(0,4), m = +sp.last.slice(5,7) - 1;
+    let cur = monthOcc(y, m, sp.dom || 1);
+    const step = () => { m++; if (m > 11) { m = 0; y++; } cur = monthOcc(y, m, sp.dom || 1); };
+    while (isoOf(cur) <= sp.last) step();
+    while (isoOf(cur) <= t && out.length < 60) { out.push(isoOf(cur)); step(); }
+  } else {
+    const step = sp.every === '2weeks' ? 14 : 7;
+    let d = isoAdd(sp.last, 1), guard = 0;
+    while (new Date(d+'T12:00:00').getDay() !== (sp.dow ?? 1) && guard++ < 7) d = isoAdd(d, 1);
+    while (d <= t && out.length < 60) { out.push(d); d = isoAdd(d, step); }
+  }
+  return out;
+}
+function nextDue(sp) {
+  if (!sp || !sp.active) return null;
+  const future = today();
+  let probe = future;
+  for (let i = 0; i < 400; i++) {
+    probe = isoAdd(probe, 1);
+    const fake = { ...sp, last: today() };
+    const list = dueDates(fake, probe);
+    if (list.length) return list[0];
+  }
+  return null;
+}
+async function priceSeriesFor(p, days) {
+  if (!p.symbol) return null;
+  if (p.type === 'crypto') return cryptoSeries(p.symbol.trim().toLowerCase(), Math.min(365, Math.max(30, days)));
+  if (p.type === 'stock' || p.type === 'etf') return stockSeries(p.symbol.trim(), days);
+  return null;
+}
+/* Kurs der Reihe in die Währung der Position bringen */
+function toPosCur(v, from, p) {
+  if (from === p.cur) return v;
+  const r = state.fx.EURUSD || 1.09;
+  return from === 'EUR' ? v * r : v / r;
+}
+
+let pendingPlans = [];
+async function checkPlans() {
+  pendingPlans = [];
+  for (const p of state.positions) {
+    const due = dueDates(p.sp);
+    if (!due.length) continue;
+    const span = isoDiff(due[0], today()) + 12;
+    const sr = await priceSeriesFor(p, span);
+    if (!sr) continue;
+    const rates = [];
+    for (const d of due) {
+      if ((p.tx || []).some(x => x.sp && x.d === d)) continue;    // schon gebucht
+      let raw = null, probe = d;
+      for (let i = 0; i < 6 && raw === null; i++) {               // Wochenende/Feiertag überspringen
+        if (sr.map[probe] != null) raw = sr.map[probe]; else probe = isoAdd(probe, 1);
+      }
+      if (raw === null) continue;                                 // Kurs noch nicht da → bleibt fällig
+      const price = toPosCur(raw, sr.cur, p);
+      if (!isFinite(price) || price <= 0) continue;
+      rates.push({ d, price, qty: p.sp.amount / price });
+    }
+    if (rates.length) pendingPlans.push({ id: p.id, rates });
+  }
+  renderPlanBanner();
+}
+function renderPlanBanner() {
+  const box = $('#planBox');
+  if (!pendingPlans.length) { box.innerHTML = ''; return; }
+  box.innerHTML = pendingPlans.map(pl => {
+    const p = state.positions.find(x => x.id === pl.id); if (!p) return '';
+    const sumAmt = pl.rates.reduce((s,r) => s + r.price * r.qty, 0);
+    const sumQty = pl.rates.reduce((s,r) => s + r.qty, 0);
+    const lines = pl.rates.slice(0,5).map(r =>
+      `<span>${dmy(r.d).slice(0,6)} · Kurs ${fmtC(r.price,p.cur)} → ${r.qty.toLocaleString('de-DE',{maximumFractionDigits:6})} ${esc(unitOf(p))}</span>`).join('');
+    const more = pl.rates.length > 5 ? `<span class="more">+ ${pl.rates.length-5} weitere</span>` : '';
+    return `<div class="alert plan">
+      <span class="ico">🔁</span>
+      <span class="body">
+        <b>${esc(p.name)} — ${pl.rates.length} Sparplan-${pl.rates.length===1?'Rate':'Raten'} fällig.</b>
+        <span class="splines">${lines}${more}</span>
+        <span class="splines" style="color:var(--text-primary);font-weight:640;margin-top:7px">
+          Zusammen ${fmtC(sumAmt,p.cur,2)} für ${sumQty.toLocaleString('de-DE',{maximumFractionDigits:6})} ${esc(unitOf(p))}</span>
+      </span>
+      <span class="acts">
+        <button class="btn primary" data-book="${p.id}">Buchen</button>
+        <button class="btn" data-later="${p.id}">Später</button>
+      </span>
+    </div>`;
+  }).join('');
+  $$('#planBox [data-book]').forEach(b => b.onclick = () => bookPlan(b.dataset.book));
+  $$('#planBox [data-later]').forEach(b => b.onclick = () => {
+    pendingPlans = pendingPlans.filter(x => x.id !== b.dataset.later);
+    renderPlanBanner();
+  });
+}
+function bookPlan(id) {
+  const pl = pendingPlans.find(x => x.id === id);
+  const p = state.positions.find(x => x.id === id);
+  if (!pl || !p) return;
+  if (!Array.isArray(p.tx) || !p.tx.length) p.tx = [{ t:'buy', d: p.since || null, qty: p.qty, price: p.entry }];
+  pl.rates.forEach(r => {
+    const nq = p.qty + r.qty;
+    p.entry = (p.entry * p.qty + r.price * r.qty) / nq;
+    p.qty = nq;
+    p.tx.push({ t:'buy', d: r.d, qty: r.qty, price: r.price, sp: 1 });
+  });
+  p.tx.sort((a,b) => (a.d||'') < (b.d||'') ? -1 : (a.d||'') > (b.d||'') ? 1 : 0);
+  p.sp.last = pl.rates[pl.rates.length-1].d;
+  pendingPlans = pendingPlans.filter(x => x.id !== id);
+  render(); persist();
+  toast(`${pl.rates.length} ${pl.rates.length===1?'Rate':'Raten'} gebucht – neuer Ø-Einstieg ${fmtC(p.entry, p.cur)}`);
+}
+
+/* ---------- Sparplan-Dialog ---------- */
+let spId = null;
+function openPlan(id) {
+  const p = state.positions.find(x => x.id === id); if (!p) return;
+  spId = id;
+  const sp = p.sp;
+  $('#spTitle').textContent = 'Sparplan · ' + p.name;
+  $('#spSub').textContent = `Betrag in ${p.cur}. Die App bucht die Raten mit dem Kurs des jeweiligen Tages.`;
+  $('#spAmount').value = sp?.amount ?? '';
+  $('#spEvery').value  = sp?.every ?? 'week';
+  $('#spDow').value    = String(sp?.dow ?? 1);
+  $('#spDom').value    = sp?.dom ?? 1;
+  $('#spDelete').style.display = sp ? '' : 'none';
+  syncPlanFields();
+  const booked = (p.tx || []).filter(x => x.sp).length;
+  $('#spStatus').textContent = !sp ? 'Noch kein Sparplan angelegt. Gebucht wird ab dem nächsten Termin – dein bisheriger Bestand bleibt unverändert.'
+    : `Läuft ${EVERY_LABEL[sp.every]} · nächste Rate am ${dmy(nextDue(sp))} · bisher ${booked} ${booked===1?'Rate':'Raten'} über den Sparplan gebucht.`;
+  $('#scrim4').classList.add('on');
+  setTimeout(()=>$('#spAmount').focus(), 70);
+}
+function syncPlanFields() {
+  const monthly = $('#spEvery').value === 'month';
+  $('#spDowWrap').hidden = monthly;
+  $('#spDomWrap').hidden = !monthly;
+}
+function savePlan() {
+  const p = state.positions.find(x => x.id === spId); if (!p) return;
+  const amt = num($('#spAmount').value);
+  if (amt === null || amt <= 0) { toast('Bitte einen Betrag eintragen.'); return; }
+  const every = $('#spEvery').value;
+  p.sp = {
+    active: true, amount: amt, every,
+    dow: +$('#spDow').value, dom: Math.max(1, Math.min(28, +$('#spDom').value || 1)),
+    last: p.sp?.last || today()          // nur ab heute – nichts wird rückwirkend gebucht
+  };
+  $('#scrim4').classList.remove('on');
+  render(); persist();
+  toast(`Sparplan gespeichert – nächste Rate am ${dmy(nextDue(p.sp))}`);
+}
+function deletePlan() {
+  const p = state.positions.find(x => x.id === spId); if (!p) return;
+  delete p.sp;
+  pendingPlans = pendingPlans.filter(x => x.id !== p.id);
+  $('#scrim4').classList.remove('on');
+  render(); persist(); toast('Sparplan entfernt. Gebuchte Raten bleiben erhalten.');
+}
+$('#spCancel').onclick = () => $('#scrim4').classList.remove('on');
+$('#spSave').onclick = savePlan;
+$('#spDelete').onclick = deletePlan;
+$('#spEvery').onchange = syncPlanFields;
+$('#scrim4').onclick = e => { if (e.target === $('#scrim4')) $('#scrim4').classList.remove('on'); };
+
+/* ============================================================
    START
    ============================================================ */
 (async function boot() {
@@ -2133,8 +2363,9 @@ render = function() {
   // damit 7T/30T/90T sofort etwas zeigen statt erst in Wochen
   if (!history.length && state.positions.length && !lsGet('pt.bf.v1')) {
     lsSet('pt.bf.v1', '1');
-    backfill(90, true);
+    await backfill(90, true);
   }
+  checkPlans();
 })();
 
 /* Kurse alle 5 Minuten nachladen – nur lokal sichern, kein Cloud-Traffic */
