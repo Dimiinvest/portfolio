@@ -38,7 +38,9 @@
   --font:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
+/* Kein Doppeltipp-Zoom – Pinch-Zoom bleibt erhalten */
+html,body{margin:0;padding:0;touch-action:manipulation;-webkit-text-size-adjust:100%}
+button,.tab,.seg button,.res,.tx,label{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 body{
   padding-bottom:calc(96px + env(safe-area-inset-bottom));
   background:
