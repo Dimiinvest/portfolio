@@ -648,6 +648,7 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
       </div>
     </div>
     <p class="hint" id="lsHint" style="margin:12px 0 0"></p>
+    <p class="hint" style="margin:8px 0 0;opacity:.7">App-Version: <b id="appVer">—</b></p>
     <input type="file" id="fileIn" accept="application/json" hidden>
     <div class="mrow"><button class="btn primary" id="oClose">Schließen</button></div>
   </div>
@@ -718,6 +719,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
+const APP_VERSION = 'v11 · 18.08.2026';
 const SERIES = ['#3987e5','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -725,7 +727,7 @@ const $$ = s => [...document.querySelectorAll(s)];
 
 const state = {
   base: 'EUR',
-  fx: { EURUSD: 1.09 },
+  fx: { EURUSD: 1.09, src: 'fallback' },
   positions: [],
   cls: 'all',
   tab: 'home',
@@ -938,7 +940,14 @@ function renderAlerts() {
   const list = state.positions
     .map(p => ({ p, a: alertOf(p) }))
     .filter(x => x.a && !alertsDismissed[x.p.id]);
-  box.innerHTML = list.map(({p,a}) => {
+  // Notfall-Wechselkurs verfälscht jeden Eurobetrag von Dollar-Positionen
+  const fxWarn = (state.fx.src === 'fallback' && state.positions.some(p => p.cur === 'USD'))
+    ? `<div class="alert stop"><span class="ico">⚠️</span><span><b>Wechselkurs nicht abrufbar.</b>
+        Für deine Dollar-Positionen rechnet die App gerade mit einem Schätzwert von
+        ${state.fx.EURUSD.toFixed(2)}. Prozentwerte stimmen trotzdem, aber die Eurobeträge können
+        einige Prozent danebenliegen. Tippe auf ↻ Kurse, sobald du wieder Verbindung hast.</span></div>`
+    : '';
+  box.innerHTML = fxWarn + list.map(({p,a}) => {
     const c = calc(p), m = ALERT_TEXT[a];
     const det = a === 'stop'
       ? `Kurs ${fmtC(c.price,p.cur)} liegt unter deinem Stop-Loss von ${fmtC(p.sl,p.cur)}.`
@@ -1435,12 +1444,36 @@ function fetchT(url, ms, opts) {
   const t = setTimeout(() => c.abort(), ms || TIMEOUT);
   return fetch(url, { ...(opts||{}), signal: c.signal }).finally(() => clearTimeout(t));
 }
+/* Wechselkurs: mehrere Quellen, damit nie still mit einem Notwert
+   gerechnet wird. state.fx.src merkt sich, woher der Kurs stammt. */
+const FX_SOURCES = [
+  { u:'https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD', pick:j => j?.rates?.USD },
+  { u:'https://api.frankfurter.app/latest?from=EUR&to=USD',         pick:j => j?.rates?.USD },
+  { u:'https://open.er-api.com/v6/latest/EUR',                      pick:j => j?.rates?.USD },
+  { u:'https://api.exchangerate-api.com/v4/latest/EUR',             pick:j => j?.rates?.USD }
+];
 async function fetchFx() {
-  try {
-    const r = await fetchT('https://api.frankfurter.app/latest?from=EUR&to=USD', 5000);
-    const j = await r.json();
-    if (j?.rates?.USD) state.fx.EURUSD = j.rates.USD;
-  } catch(e) { /* Fallback bleibt */ }
+  for (const s of FX_SOURCES) {
+    try {
+      const r = await fetchT(s.u, 5000);
+      if (!r.ok) continue;
+      const v = s.pick(await r.json());
+      if (v > 0.5 && v < 2) { state.fx.EURUSD = v; state.fx.src = 'live'; return; }
+    } catch(e) { /* nächste Quelle */ }
+  }
+  state.fx.src = state.fx.src === 'crypto' ? 'crypto' : 'fallback';
+}
+/* CoinGecko liefert in derselben Antwort EUR und USD – daraus lässt sich
+   der Wechselkurs direkt ableiten, ohne zusätzliche Anfrage. */
+function fxFromCrypto(cg) {
+  for (const k in cg) {
+    const d = cg[k];
+    if (d && d.eur > 0 && d.usd > 0) {
+      const r = d.usd / d.eur;
+      if (r > 0.5 && r < 2) return r;
+    }
+  }
+  return null;
 }
 async function fetchCrypto(ids) {
   if (!ids.length) return {};
@@ -1469,7 +1502,7 @@ function raceProxies(url, parse, ms) {
   });
 }
 function fetchStock(sym) {
-  const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`;
+  const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=5d`;
   return raceProxies(base, j => {
     const m = j?.chart?.result?.[0]?.meta;
     const px = m && (m.regularMarketPrice ?? m.previousClose);
@@ -1494,6 +1527,12 @@ async function refreshPrices(silent) {
     fetchCrypto(cryptoIds),
     Promise.all(stocks.map(p => fetchStock(p.symbol.trim())))
   ]);
+  // Wenn die Wechselkursdienste nicht liefern, aus den Kryptokursen ableiten
+  if (state.fx.src !== 'live') {
+    const r = fxFromCrypto(cg);
+    if (r) { state.fx.EURUSD = r; state.fx.src = 'crypto'; }
+  }
+
   let ok = 0, fail = 0;
   state.positions.forEach(p => {
     if (p.type === 'crypto' && p.symbol) {
@@ -1512,7 +1551,7 @@ async function refreshPrices(silent) {
   const dot = $('#statusDot');
   dot.className = 'dot ' + (ok ? 'live' : 'man');
   $('#statusText').textContent = ok
-    ? `${ok} Kurs${ok===1?'':'e'} live · Stand ${state.lastUpdate.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} · EUR/USD ${state.fx.EURUSD.toFixed(3)}`
+    ? `${ok} Kurs${ok===1?'':'e'} live · Stand ${state.lastUpdate.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} · EUR/USD ${state.fx.EURUSD.toFixed(4)}${state.fx.src==='fallback'?' ⚠ geschätzt':''}`
     : 'Keine Live-Kurse verfügbar – Kurse manuell eintragen';
   if (ok) snapshot();
   render(); persist(false);
@@ -2366,6 +2405,7 @@ $('#scrim4').onclick = e => { if (e.target === $('#scrim4')) $('#scrim4').classL
    ============================================================ */
 (async function boot() {
   loadCfg(); loadHistory(); loadAlertState(); updateNotifyUi();
+  $('#appVer').textContent = APP_VERSION;
   const restored = restoreLocal();
   if (!restored) {
     if (!lsGet(LS_SEEN)) { state.positions = demoPositions(); lsSet(LS_SEEN, '1'); }
