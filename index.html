@@ -139,6 +139,7 @@ header.top{
 .alert.plan .acts{display:flex;gap:8px;flex:1 1 100%;margin-top:11px}
 .alert.plan .acts .btn{font-size:12.5px;padding:7px 12px}
 .sptag{color:#7fb4f5;border-color:rgba(57,135,229,.4);background:rgba(57,135,229,.13)}
+.vtag{color:#c9c2f2;border-color:rgba(144,133,233,.4);background:rgba(144,133,233,.13);text-transform:none;letter-spacing:.02em}
 .alert .ico{font-size:16px;line-height:1.1;flex:0 0 auto}
 .alert b{font-weight:670}
 .alert .x{margin-left:auto;background:transparent;border:0;color:var(--muted);font:inherit;font-size:17px;
@@ -183,6 +184,17 @@ header.top{
 .legend .sw{width:10px;height:10px;border-radius:3px;flex:0 0 auto;box-shadow:0 0 0 2px var(--surface-1)}
 .legend .nm{color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .legend .pc{margin-left:auto;color:var(--text-primary);font-weight:600}
+
+.venues{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair)}
+.vtitle{font-size:10.5px;font-weight:660;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:9px}
+.vrow{display:grid;grid-template-columns:minmax(64px,88px) 1fr auto auto;gap:9px;align-items:center;
+  font-size:12.5px;margin-bottom:7px}
+.vn{color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:560}
+.vbar{height:6px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
+.vbar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#3987e5,#9085e9)}
+.vv{font-weight:620}
+.vp{color:var(--muted);min-width:34px;text-align:right}
 
 /* bars */
 .bars{display:flex;flex-direction:column;gap:11px}
@@ -499,6 +511,7 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
         </div>
         <div class="legend" id="legend"></div>
       </div>
+      <div id="venueBox" class="venues" hidden></div>
     </div>
     <div class="panel">
       <div class="ph"><h2>Gewinn / Verlust je Position</h2><p id="barsSub">absolut</p></div>
@@ -593,6 +606,14 @@ input:focus,select:focus{outline:0;border-color:#3987e5;box-shadow:0 0 0 3px rgb
       <div class="f"><label for="fPrice">Aktueller Kurs</label><input id="fPrice" type="number" step="any" inputmode="decimal" placeholder="leer = automatisch"></div>
       <div class="f"><label for="fSl">Stop-Loss (optional)</label><input id="fSl" type="number" step="any" inputmode="decimal" placeholder="z.B. 38000"></div>
       <div class="f"><label for="fDate">Kaufdatum</label><input id="fDate" type="date"></div>
+      <div class="f"><label for="fVenue">Verwahrort</label>
+        <select id="fVenue">
+          <option value="">— keiner —</option>
+          <option>Trade Republic</option><option>Binance</option><option>Bitget</option>
+          <option>Coinbase</option><option>Phantom</option><option value="__other">Andere …</option>
+        </select></div>
+      <div class="f" id="fVenueOtherWrap" hidden><label for="fVenueOther">Name des Verwahrorts</label>
+        <input id="fVenueOther" placeholder="z.B. Ledger, Kraken"></div>
       <div class="f full"><p class="hint" id="symHint">Krypto: CoinGecko-ID in Kleinbuchstaben (bitcoin, ethereum, solana, ripple …). Aktien und ETFs: Yahoo-Ticker (AAPL, NVDA, VOW3.DE, IWDA.AS). Sonstiges: Kurs manuell eintragen. Der Typ bestimmt, unter welchem Filter die Position auftaucht.</p></div>
     </div>
     <div class="mrow">
@@ -719,7 +740,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v11 · 18.08.2026';
+const APP_VERSION = 'v13 · 19.08.2026';
 const SERIES = ['#3987e5','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -1180,7 +1201,7 @@ async function backfill(days = 90, silent) {
   const series = new Map();   // id -> {map,cur}
   await Promise.all(state.positions.map(async p => {
     if (!p.symbol) return;
-    const s = p.type === 'crypto' ? await cryptoSeries(p.symbol.trim().toLowerCase(), days)
+    const s = p.type === 'crypto' ? await cryptoSeries(cgId(p.symbol), days)
             : (p.type === 'stock' || p.type === 'etf') ? await stockSeries(p.symbol.trim(), days)
             : null;
     if (s) series.set(p.id, s);
@@ -1275,11 +1296,35 @@ function renderDonut() {
     }
     a0 += span;
   });
+  renderVenues();
   $('#legend').innerHTML = items.map(it => `
     <div class="row">
       <span class="sw" style="background:${it.color}"></span>
       <span class="nm">${esc(it.name)}</span>
       <span class="pc tnum">${(it.v/total*100).toFixed(1)} %</span>
+    </div>`).join('');
+}
+
+/* ----- Aufteilung nach Verwahrort ----- */
+function renderVenues() {
+  const box = $('#venueBox'); if (!box) return;
+  const map = new Map();
+  clsPositions(state.cls).forEach(p => {
+    const c = calc(p), v = (c.value !== null ? c.value : c.invest) || 0;
+    if (v <= 0) return;
+    const key = p.venue || 'Ohne Angabe';
+    map.set(key, (map.get(key) || 0) + v);
+  });
+  const list = [...map.entries()].sort((a,b) => b[1] - a[1]);
+  if (list.length < 2) { box.innerHTML = ''; box.hidden = true; return; }
+  box.hidden = false;
+  const total = list.reduce((s,x) => s + x[1], 0);
+  box.innerHTML = `<div class="vtitle">Nach Verwahrort</div>` + list.map(([n,v]) => `
+    <div class="vrow">
+      <span class="vn">${esc(n)}</span>
+      <span class="vbar"><span style="width:${(v/total*100).toFixed(1)}%"></span></span>
+      <span class="vv tnum">${fmt(v,0)}</span>
+      <span class="vp tnum">${(v/total*100).toFixed(0)} %</span>
     </div>`).join('');
 }
 
@@ -1349,7 +1394,7 @@ function renderCards() {
             <div class="nm">${esc(p.name)} <span class="tag">${typeTag}</span>${
               al==='stop' ? '<span class="tag" style="color:#ff7a7a;border-color:rgba(208,59,59,.45);background:rgba(208,59,59,.12)">Stop-Loss</span>'
             : al==='over' ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel übertroffen</span>'
-            : al==='hit'  ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel erreicht</span>' : ''}${p.sp?'<span class="tag sptag">Sparplan</span>':''}</div>
+            : al==='hit'  ? '<span class="tag" style="color:#4ade4a;border-color:rgba(12,163,12,.4);background:rgba(12,163,12,.12)">Ziel erreicht</span>' : ''}${p.sp?'<span class="tag sptag">Sparplan</span>':''}${p.venue?`<span class="tag vtag">${esc(p.venue)}</span>`:''}</div>
             <div class="sym">${esc(p.symbol||'—')} · ${p.qty.toLocaleString('de-DE',{maximumFractionDigits:8})} Stk · ${p.cur}</div>
           </div>
           <div class="plbox">
@@ -1520,7 +1565,7 @@ async function refreshPrices(silent) {
     : 'Kurse werden geladen …';
 
   // Wechselkurs, Krypto und Aktien laufen gleichzeitig, nicht nacheinander
-  const cryptoIds = [...new Set(state.positions.filter(p=>p.type==='crypto'&&p.symbol).map(p=>p.symbol.trim().toLowerCase()))];
+  const cryptoIds = [...new Set(state.positions.filter(p=>p.type==='crypto'&&p.symbol).map(p=>cgId(p.symbol)))];
   const stocks = state.positions.filter(p => (p.type === 'stock' || p.type === 'etf') && p.symbol);
   const [, cg, stockRes] = await Promise.all([
     fetchFx(),
@@ -1536,7 +1581,7 @@ async function refreshPrices(silent) {
   let ok = 0, fail = 0;
   state.positions.forEach(p => {
     if (p.type === 'crypto' && p.symbol) {
-      const d = cg[p.symbol.trim().toLowerCase()];
+      const d = cg[cgId(p.symbol)];
       if (d) { const key = p.cur.toLowerCase(); if (d[key] != null) { p.price = d[key]; p.live = true; ok++; } else { p.price = d.eur ?? d.usd; p.cur = d.eur!=null?'EUR':'USD'; p.live = true; ok++; } }
       else if (p.price == null) fail++;
     }
@@ -1577,6 +1622,10 @@ function openForm(id) {
   $('#fPrice').value= p?.price ?? '';
   $('#fSl').value   = p?.sl ?? '';
   $('#fDate').value = p ? (p.since || (Array.isArray(p.tx) && p.tx[0]?.d) || '') : today();
+  const v = p?.venue || '';
+  if (!v || VENUES.includes(v)) { $('#fVenue').value = v; $('#fVenueOther').value = ''; }
+  else { $('#fVenue').value = '__other'; $('#fVenueOther').value = v; }
+  syncVenueField();
   $('#mDelete').style.display = p ? '' : 'none';
   $('#scrim').classList.add('on');
   setTimeout(()=>$('#fName').focus(), 60);
@@ -1595,7 +1644,8 @@ function saveForm() {
   const data = {
     name, type: $('#fType').value, symbol: $('#fSym').value.trim(),
     qty, entry, t1, t2, sl: num($('#fSl').value),
-    cur: $('#fCur').value, price: num($('#fPrice').value), since: dt
+    cur: $('#fCur').value, price: num($('#fPrice').value), since: dt,
+    venue: $('#fVenue').value === '__other' ? $('#fVenueOther').value.trim() : $('#fVenue').value
   };
   if (state.editId) {
     const p = state.positions.find(x => x.id === state.editId);
@@ -1696,8 +1746,8 @@ const cloud = { key:'', bin:'', on:false, busy:false, lastSync:null };
 
 function payload() {
   return { version:3, base:state.base, updatedAt: state.editStamp || Date.now(),
-           positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp}) =>
-             ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp})),
+           positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue}) =>
+             ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue})),
            history: history.slice(-500) };
 }
 /* Verlauf zweier Geräte zusammenführen – pro Tag der jüngere Eintrag */
@@ -1941,6 +1991,8 @@ $('#viewTable').onclick = () => { state.view='table'; $('#viewCards').setAttribu
   const map = { val:'#sortVal', pl:'#sortPl', name:'#sortName' };
   $(map[k]).onclick = () => { state.sort = k; Object.values(map).forEach(s => $(s).setAttribute('aria-pressed', map[k]===s)); render(); };
 });
+function syncVenueField(){ $('#fVenueOtherWrap').hidden = $('#fVenue').value !== '__other'; }
+$('#fVenue').onchange = syncVenueField;
 $('#fType').onchange = () => {
   const t = $('#fType').value;
   $('#fSym').placeholder = t==='crypto' ? 'bitcoin' : t==='stock' ? 'AAPL' : t==='etf' ? 'IWDA.AS' : '(kein Symbol)';
@@ -1959,12 +2011,27 @@ const TICKER = { bitcoin:'BTC', ethereum:'ETH', solana:'SOL', ripple:'XRP', card
   dogecoin:'DOGE', polkadot:'DOT', chainlink:'LINK', litecoin:'LTC', 'avalanche-2':'AVAX',
   tron:'TRX', 'shiba-inu':'SHIB', uniswap:'UNI', stellar:'XLM', 'matic-network':'MATIC',
   'binancecoin':'BNB', 'the-open-network':'TON', monero:'XMR', aave:'AAVE', 'near':'NEAR',
-  cosmos:'ATOM', filecoin:'FIL', arbitrum:'ARB', optimism:'OP', 'render-token':'RNDR' };
+  cosmos:'ATOM', filecoin:'FIL', arbitrum:'ARB', optimism:'OP', 'render-token':'RNDR',
+  'ondo-finance':'ONDO', 'crypto-com-chain':'CRO', 'smooth-love-potion':'SLP',
+  'hedera-hashgraph':'HBAR', 'internet-computer':'ICP', 'immutable-x':'IMX',
+  'injective-protocol':'INJ', 'the-graph':'GRT', 'algorand':'ALGO', 'vechain':'VET',
+  'fetch-ai':'FET', 'sei-network':'SEI', 'sui':'SUI', 'aptos':'APT', 'pepe':'PEPE',
+  'bonk':'BONK', 'worldcoin-wld':'WLD', 'celestia':'TIA', 'kaspa':'KAS', 'toncoin':'TON',
+  'ethereum-classic':'ETC', 'bitcoin-cash':'BCH', 'hyperliquid':'HYPE', 'jupiter-exchange-solana':'JUP' };
+
+/* Wer „XLM“ statt „stellar“ eintippt, soll trotzdem einen Kurs bekommen.
+   Kürzel werden auf die CoinGecko-Kennung zurückübersetzt. */
+const TICKER_TO_ID = Object.fromEntries(Object.entries(TICKER).map(([id, t]) => [t.toLowerCase(), id]));
+function cgId(sym) {
+  const s = (sym || '').trim().toLowerCase();
+  return TICKER_TO_ID[s] || s;
+}
 
 const CLS_LABEL = { crypto:'Krypto', stock:'Aktie', etf:'ETF', other:'Sonstiges' };
+const VENUES = ['Trade Republic','Binance','Bitget','Coinbase','Phantom'];
 /* Einheit für Mengenangaben – bei Krypto der Ticker, sonst Stück/Anteile */
 function unitOf(p) {
-  if (p.type === 'crypto') return TICKER[(p.symbol||'').trim().toLowerCase()] || p.name;
+  if (p.type === 'crypto') return TICKER[cgId(p.symbol)] || (p.symbol||'').trim().toUpperCase() || p.name;
   if (p.type === 'etf') return 'Anteile';
   if (p.type === 'stock') return 'Aktien';
   return 'Stück';
@@ -2045,7 +2112,8 @@ function renderSearch() {
     (p.name||'').toLowerCase().includes(q) ||
     (p.symbol||'').toLowerCase().includes(q) ||
     (TICKER[(p.symbol||'').toLowerCase()]||'').toLowerCase().includes(q) ||
-    (CLS_LABEL[p.type]||'').toLowerCase().includes(q));
+    (CLS_LABEL[p.type]||'').toLowerCase().includes(q) ||
+    (p.venue||'').toLowerCase().includes(q));
   list = list.slice().sort((a,b) => (calc(b).value ?? calc(b).invest) - (calc(a).value ?? calc(a).invest));
 
   $('#sClear').hidden = !q;
@@ -2071,7 +2139,7 @@ function renderSearch() {
       <span class="av" style="background:linear-gradient(135deg,${col},${col}bb)">${esc(initials(p.name))}</span>
       <span class="mid">
         <span class="r1">${esc(p.name)} <span class="tag">${CLS_LABEL[p.type]||'—'}</span></span>
-        <span class="r2">${esc((p.symbol||'—').toUpperCase())} · ${qtyStr(p.qty,p)}</span>
+        <span class="r2">${esc((p.symbol||'—').toUpperCase())} · ${qtyStr(p.qty,p)}${p.venue?' · '+esc(p.venue):''}</span>
       </span>
       <span class="rt">
         <span class="rv">${c.value===null?fmt(c.invest,0):fmt(c.value,0)}</span>
@@ -2124,6 +2192,7 @@ function renderDetail() {
       <div class="dcell"><div class="k">Investiert</div><div class="v">${fmt(c.invest,2)}</div></div>
       <div class="dcell"><div class="k">Aktueller Wert</div><div class="v">${c.value===null?'—':fmt(c.value,2)}</div></div>
       <div class="dcell"><div class="k">Ø Kaufpreis</div><div class="v">${fmtC(p.entry,p.cur)}</div></div>
+      ${p.venue?`<div class="dcell"><div class="k">Verwahrort</div><div class="v" style="font-size:15px">${esc(p.venue)}</div></div>`:''}
       <div class="dcell"><div class="k">Gewinn / Verlust</div><div class="v ${sign(c.pl??0)}">${c.pl===null?'—':(c.pl>=0?'+':'')+fmt(c.pl,2)}</div></div>
       <div class="dcell"><div class="k">Gewinn / Verlust %</div><div class="v ${sign(c.plPct??0)}">${pct(c.plPct)}</div></div>
       ${Math.abs(c.realized)>0.005?`<div class="dcell"><div class="k">Realisiert</div><div class="v ${sign(c.realized)}">${(c.realized>=0?'+':'')+fmt(c.realized,2)}</div></div>`:''}
@@ -2264,7 +2333,7 @@ function nextDue(sp) {
 }
 async function priceSeriesFor(p, days) {
   if (!p.symbol) return null;
-  if (p.type === 'crypto') return cryptoSeries(p.symbol.trim().toLowerCase(), Math.min(365, Math.max(30, days)));
+  if (p.type === 'crypto') return cryptoSeries(cgId(p.symbol), Math.min(365, Math.max(30, days)));
   if (p.type === 'stock' || p.type === 'etf') return stockSeries(p.symbol.trim(), days);
   return null;
 }
