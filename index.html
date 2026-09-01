@@ -569,6 +569,47 @@ body.hidden-nums [data-money]{
 }
 #btnEye{transition:color .25s var(--sharp)}
 #btnEye.on{color:var(--acc);border-color:var(--acc)}
+
+/* ═══════════ Heute ═══════════ */
+.tdhead{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tdbig{font-size:40px;font-weight:300;letter-spacing:-.03em;line-height:1.05;margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.tdsep{color:var(--muted);margin:0 3px;font-weight:200}
+.tdsub{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+.tdring{width:84px;height:84px;flex:0 0 auto}
+#tdArc{transition:stroke-dashoffset .8s cubic-bezier(.2,.7,.3,1)}
+
+.tdstrip{display:flex;gap:6px;margin-top:18px}
+.tdday{flex:1;text-align:center}
+.tdday .bar{height:34px;border-radius:999px;background:rgba(255,238,210,.07);position:relative;overflow:hidden}
+.tdday .bar i{position:absolute;left:0;right:0;bottom:0;background:var(--acc);display:block;
+  border-radius:999px;transition:height .6s cubic-bezier(.2,.7,.3,1)}
+.tdday.heute .bar{box-shadow:inset 0 0 0 1px rgba(230,196,132,.45)}
+.tdday span{display:block;font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:6px;
+  letter-spacing:.06em}
+
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.cardhead h2{font-size:15px;font-weight:500;letter-spacing:-.01em}
+
+.task{display:flex;align-items:center;gap:12px;padding:13px 2px;
+  border-bottom:1px solid var(--hair);cursor:pointer;transition:opacity .25s}
+.task:last-child{border-bottom:0}
+.task .box{width:22px;height:22px;border-radius:999px;flex:0 0 auto;
+  border:1.5px solid rgba(230,196,132,.34);display:grid;place-items:center;
+  transition:all .28s cubic-bezier(.2,.7,.3,1);color:transparent;font-size:12px}
+.task.on .box{background:var(--acc);border-color:var(--acc);color:#06131a;transform:scale(1.06)}
+.task .nm{flex:1;font-size:14.5px;transition:color .25s}
+.task.on .nm{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,238,210,.28)}
+.task .del{opacity:0;border:0;background:none;color:var(--muted);cursor:pointer;font-size:17px;
+  padding:2px 6px;transition:opacity .2s}
+.task:hover .del{opacity:.8}
+.tdempty{padding:22px 2px;color:var(--muted);font-size:13.5px;line-height:1.5}
+
+.tdlink{display:flex;align-items:center;gap:12px}
+.tdlk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tdlv{margin-left:auto;font-size:15px;font-weight:500}
+.tdlp{font-size:12.5px}
+.tdlc{color:var(--muted);font-size:17px}
 </style>
 </head>
 <body>
@@ -730,12 +771,55 @@ body.hidden-nums [data-money]{
 </main>
 
 <!-- ========== DETAIL ========== -->
+<main class="wrap" id="viewToday" hidden>
+  <section class="card tdcard">
+    <div class="in">
+      <div class="tdhead">
+        <div>
+          <div class="label" id="tdDate">—</div>
+          <div class="tdbig"><span id="tdDone">0</span><span class="tdsep">/</span><span id="tdTotal">0</span></div>
+          <div class="tdsub" id="tdHint">—</div>
+        </div>
+        <svg class="tdring" viewBox="0 0 84 84" aria-hidden="true">
+          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,238,210,.10)" stroke-width="9"/>
+          <circle id="tdArc" cx="42" cy="42" r="34" fill="none" stroke="var(--acc)" stroke-width="9"
+                  stroke-linecap="round" transform="rotate(-90 42 42)"
+                  stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+        </svg>
+      </div>
+      <div class="tdstrip" id="tdStrip"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="in">
+      <div class="cardhead">
+        <h2>Aufgaben</h2>
+        <button class="btn" id="tdAdd">+ Aufgabe</button>
+      </div>
+      <div id="tdList"></div>
+    </div>
+  </section>
+
+  <section class="card" id="tdDepot" style="cursor:pointer">
+    <div class="in tdlink">
+      <span class="tdlk">Depot</span>
+      <span class="tdlv tnum" id="tdDepotVal">—</span>
+      <span class="tdlp tnum" id="tdDepotPl">—</span>
+      <span class="tdlc">›</span>
+    </div>
+  </section>
+</main>
+
 <main class="wrap" id="viewDetail" hidden>
   <button class="btn ghost backbtn" id="dBack">‹ Zurück</button>
   <section id="dBody"></section>
 </main>
 
 <nav class="tabbar" id="tabbar" role="tablist" aria-label="Bereiche">
+  <button class="tab" data-tab="today" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 12.5l2.2 2.2L15.5 10"/></svg>
+    <span>Heute</span></button>
   <button class="tab" data-tab="home" role="tab" aria-selected="true">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
     <span>Startseite</span></button>
@@ -801,6 +885,9 @@ body.hidden-nums [data-money]{
         <input id="cKey" type="password" placeholder="$2a$10$…" autocomplete="off"></div>
       <div class="f" style="margin-bottom:10px"><label for="cBin">Bin-ID <span style="text-transform:none;letter-spacing:0">(auf dem 2. Gerät eintragen)</span></label>
         <input id="cBin" placeholder="leer lassen = neu anlegen" autocomplete="off"></div>
+      <div class="f" style="margin-bottom:10px"><label for="cPass">Passwort <span style="text-transform:none;letter-spacing:0">(verschlüsselt deine Cloud-Daten)</span></label>
+        <input id="cPass" type="password" placeholder="leer lassen = unverschlüsselt" autocomplete="new-password"></div>
+      <p class="hint" id="cEncHint" style="margin:0 0 10px">Ohne Passwort liegen deine Daten im Klartext beim Anbieter. Mit Passwort sieht der nur unlesbaren Text. <b>Passwort vergessen heißt: Cloud-Daten sind verloren.</b> Auf jedem Gerät dasselbe Passwort eintragen.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn primary" id="cConnect">Verbinden</button>
         <button class="btn" id="cPush">↑ Hochladen</button>
@@ -906,7 +993,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v24 · Aurora · 01.09.2026';
+const APP_VERSION = 'v26 · Aurora · 01.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -1927,7 +2014,7 @@ const LS_DATA = 'pt.portfolio.v1';
 const LS_CFG  = 'pt.cloud.v1';
 const LS_SEEN = 'pt.seen.v1';
 let storageOk = true;
-const cloud = { key:'', bin:'', on:false, busy:false, lastSync:null };
+const cloud = { key:'', bin:'', pass:'', on:false, busy:false, lastSync:null };
 
 /* Ab Version 4 liegt alles in einem Container. Der Depot-Teil behält sein
    Format, daneben stehen die Lebensbereiche. Ältere Datensätze werden von
@@ -2022,17 +2109,23 @@ function loadCfg() {
   try {
     const j = JSON.parse(lsGet(LS_CFG) || '{}');
     cloud.key = j.key || ''; cloud.bin = j.bin || ''; cloud.on = !!(j.key && j.bin);
+    cloud.pass = j.pass || '';
+    if ($('#cPass')) $('#cPass').value = cloud.pass;
     cloud.lastSync = j.lastSync || null;
   } catch(e) {}
   $('#cKey').value = cloud.key; $('#cBin').value = cloud.bin;
   updateSyncUi();
 }
 function saveCfg() {
-  lsSet(LS_CFG, JSON.stringify({ key:cloud.key, bin:cloud.bin, lastSync:cloud.lastSync }));
+  lsSet(LS_CFG, JSON.stringify({ key:cloud.key, bin:cloud.bin, pass:cloud.pass, lastSync:cloud.lastSync }));
   updateSyncUi();
 }
 function updateSyncUi() {
   const t = $('#syncText'), b = $('#syncBadge'), s = $('#cStatus');
+  const eh = $('#cEncHint');
+  if (eh) eh.innerHTML = cloud.pass
+    ? '🔒 <b>Verschlüsselt.</b> Beim Anbieter liegt nur unlesbarer Text. Auf einem neuen Gerät brauchst du Schlüssel, Bin-ID <b>und</b> dieses Passwort.'
+    : 'Ohne Passwort liegen deine Daten im Klartext beim Anbieter. Mit Passwort sieht der nur unlesbaren Text. <b>Passwort vergessen heißt: Cloud-Daten sind verloren.</b> Auf jedem Gerät dasselbe Passwort eintragen.';
   const when = cloud.lastSync ? new Date(cloud.lastSync).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : null;
   if (!storageOk) {
     t.textContent = 'Speichern blockiert – Datei lokal öffnen';
@@ -2054,7 +2147,29 @@ async function jbFetch(url, opts) {
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }
+async function applyPass() {
+  const neu = ($('#cPass').value || '').trim();
+  const alt = cloud.pass;
+  if (neu === alt) return true;
+
+  if (neu && !alt) {
+    if (!confirm('Cloud-Daten ab jetzt verschlüsseln?\n\nWichtig: Ohne dieses Passwort kommst du an die Cloud-Daten nicht mehr heran – auch ich nicht. Schreib es dir auf.\n\nDeine Daten auf diesem Gerät bleiben in jedem Fall lesbar.')) {
+      $('#cPass').value = alt; return false;
+    }
+  }
+  if (!neu && alt) {
+    if (!confirm('Verschlüsselung abschalten?\n\nDeine Daten liegen dann wieder im Klartext beim Anbieter.')) {
+      $('#cPass').value = alt; return false;
+    }
+  }
+  cloud.pass = neu;
+  saveCfg();
+  if (cloud.on) { await cloudPush(true); toast(neu ? 'Verschlüsselt hochgeladen.' : 'Unverschlüsselt hochgeladen.'); }
+  return true;
+}
+
 async function cloudConnect() {
+  cloud.pass = ($('#cPass').value || '').trim();
   const key = $('#cKey').value.trim(), bin = $('#cBin').value.trim();
   if (!key) { toast('Bitte den Master Key eintragen.'); return; }
   cloud.key = key; cloud.busy = true; updateSyncUi(); $('#cStatus').textContent = 'Verbinde …';
@@ -2064,7 +2179,7 @@ async function cloudConnect() {
       const j = await jbFetch(`${JB}/${bin}/latest`, { method:'GET' });
       const rec = j.record;
       cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
-      if (rec && normalize(rec) && (rec.updatedAt||0) >= (state.editStamp||0)) {
+      if (rec && normalize(isEnc(rec) ? null : rec) && (rec.updatedAt||0) >= (state.editStamp||0)) {
         applyRemote(rec); toast('Verbunden – Daten aus der Cloud geladen.');
       } else { await cloudPush(); toast('Verbunden – lokale Daten hochgeladen.'); }
     } else {
@@ -2080,11 +2195,49 @@ async function cloudConnect() {
   }
   cloud.busy = false; updateSyncUi();
 }
+/* ============================================================
+   VERSCHLÜSSELUNG DER CLOUD-DATEN
+   AES-GCM 256, Schlüssel aus dem Passwort über PBKDF2.
+   Der Umschlag ist bewusst erkennbar, damit die App unverschlüsselte
+   Altdaten weiterhin lesen kann.
+   ============================================================ */
+const ENC_ITER = 250000;
+const b64 = {
+  enc: buf => btoa(String.fromCharCode(...new Uint8Array(buf))),
+  dec: str => Uint8Array.from(atob(str), c => c.charCodeAt(0))
+};
+async function deriveKey(pass, salt) {
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass),
+                                             'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt, iterations:ENC_ITER, hash:'SHA-256' },
+    base, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']);
+}
+async function encryptRec(obj, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv   = crypto.getRandomValues(new Uint8Array(12));
+  const key  = await deriveKey(pass, salt);
+  const ct   = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key,
+                 new TextEncoder().encode(JSON.stringify(obj)));
+  return { enc:1, alg:'AES-GCM', iter:ENC_ITER,
+           salt:b64.enc(salt), iv:b64.enc(iv), data:b64.enc(ct),
+           updatedAt: obj.updatedAt || Date.now() };   // Zeitstempel bleibt außen lesbar
+}
+async function decryptRec(rec, pass) {
+  const key = await deriveKey(pass, b64.dec(rec.salt));
+  const pt  = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b64.dec(rec.iv) },
+                                          key, b64.dec(rec.data));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+const isEnc = r => !!(r && r.enc === 1 && r.data && r.salt && r.iv);
+
 async function cloudPush(silent) {
   if (!cloud.on || cloud.busy) return;
   cloud.busy = true; updateSyncUi();
   try {
-    await jbFetch(`${JB}/${cloud.bin}`, { method:'PUT', body: JSON.stringify(payload()) });
+    let body = payload();
+    if (cloud.pass) body = await encryptRec(body, cloud.pass);
+    await jbFetch(`${JB}/${cloud.bin}`, { method:'PUT', body: JSON.stringify(body) });
     cloud.lastSync = Date.now(); saveCfg();
     if (!silent) toast('In die Cloud hochgeladen.');
   } catch(e) { if (!silent) toast('Hochladen fehlgeschlagen: ' + e.message); }
@@ -2095,8 +2248,26 @@ async function cloudPull(silent, compare) {
   cloud.busy = true; updateSyncUi();
   try {
     const j = await jbFetch(`${JB}/${cloud.bin}/latest`, { method:'GET' });
-    const rec = j.record;
-    if (rec && Array.isArray(rec.positions)) {
+    let rec = j.record;
+
+    if (isEnc(rec)) {
+      if (!cloud.pass) {
+        cloud.busy = false; updateSyncUi();
+        toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
+        return;                                    // lokale Daten bleiben unangetastet
+      }
+      if (compare && (rec.updatedAt||0) < (state.editStamp||0)) {
+        cloud.busy = false; await cloudPush(true); return;
+      }
+      try { rec = await decryptRec(rec, cloud.pass); }
+      catch(e) {
+        cloud.busy = false; updateSyncUi();
+        toast('Passwort passt nicht – lokale Daten bleiben unverändert.');
+        return;                                    // NIE überschreiben
+      }
+    }
+
+    if (rec && normalize(rec)) {
       if (compare && (rec.updatedAt||0) < (state.editStamp||0)) {
         cloud.busy = false; await cloudPush(true); return;   // lokal ist neuer → hochladen
       }
@@ -2224,6 +2395,9 @@ let hrT; window.addEventListener('resize', () => { clearTimeout(hrT); hrT = setT
 $('#cConnect').onclick = cloudConnect;
 $('#cPush').onclick = () => cloudPush();
 $('#cPull').onclick = () => cloudPull();
+$('#cPass').onchange = () => applyPass();
+$('#tdAdd').onclick = addAufgabe;
+$('#tdDepot').onclick = () => setTab('home');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -2329,12 +2503,14 @@ function setTab(tab, keepDetail) {
   state.tab = tab;
   if (!keepDetail) state.detailId = null;
   const showDetail = !!state.detailId;
+  $('#viewToday').hidden   = showDetail || tab !== 'today';
   $('#viewHome').hidden    = showDetail || tab !== 'home';
   $('#viewSearch').hidden  = showDetail || tab !== 'search';
   $('#viewHistory').hidden = showDetail || tab !== 'history';
   $('#viewDetail').hidden  = !showDetail;
   $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
   if (showDetail) renderDetail();
+  else if (tab === 'today') renderToday();
   else if (tab === 'search') renderSearch();
   else if (tab === 'history') renderTxList();
   window.scrollTo({ top: 0, behavior: 'auto' });
@@ -2345,6 +2521,93 @@ function openDetail(id) {
   setTab(state.tab, true);
 }
 function closeDetail() { state.detailId = null; setTab(state.tab); }
+
+/* ============================================================
+   HEUTE — Tagesaufgaben
+   Definitionen liegen in ziele.aufgaben, das Abhaken in tage[d].aufgaben.
+   ============================================================ */
+function aufgabenDefs() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.aufgaben)) state.ziele.aufgaben = [];
+  return state.ziele.aufgaben;
+}
+function erledigt(d) {
+  const t = (state.tage || {})[d];
+  return Array.isArray(t && t.aufgaben) ? t.aufgaben : [];
+}
+function toggleAufgabe(id) {
+  const d = today(), liste = erledigt(d).slice();
+  const i = liste.indexOf(id);
+  if (i > -1) liste.splice(i, 1); else liste.push(id);
+  setTagWert(d, 'aufgaben', liste.length ? liste : null);
+  renderToday();
+}
+function addAufgabe() {
+  const name = (prompt('Neue Aufgabe – was willst du täglich schaffen?') || '').trim();
+  if (!name) return;
+  if (name.length > 60) { toast('Bitte kürzer fassen.'); return; }
+  aufgabenDefs().push({ id: uid(), name });
+  persist(); renderToday();
+}
+function delAufgabe(id) {
+  const defs = aufgabenDefs();
+  const a = defs.find(x => x.id === id); if (!a) return;
+  if (!confirm(`„${a.name}" entfernen?\n\nBereits abgehakte Tage bleiben im Verlauf erhalten.`)) return;
+  state.ziele.aufgaben = defs.filter(x => x.id !== id);
+  persist(); renderToday();
+}
+
+function renderToday() {
+  const defs = aufgabenDefs(), d = today(), fertig = erledigt(d);
+  const aktiv = fertig.filter(id => defs.some(x => x.id === id)).length;
+
+  $('#tdDate').textContent = new Date(d + 'T12:00:00')
+    .toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long' });
+  $('#tdDone').textContent  = aktiv;
+  $('#tdTotal').textContent = defs.length;
+
+  const quote = defs.length ? aktiv / defs.length : 0;
+  const U = 2 * Math.PI * 34;
+  $('#tdArc').setAttribute('stroke-dashoffset', String(U * (1 - quote)));
+  $('#tdHint').textContent = !defs.length
+    ? 'Noch keine Aufgaben angelegt.'
+    : aktiv === defs.length ? 'Alles erledigt für heute.'
+    : `Noch ${defs.length - aktiv} offen.`;
+
+  /* Aufgabenliste */
+  $('#tdList').innerHTML = !defs.length
+    ? `<div class="tdempty">Leg dir ein paar Dinge an, die du täglich schaffen willst — trinken, lesen, spazieren. Ein Tipp hakt sie ab.</div>`
+    : defs.map(a => `<div class="task ${fertig.indexOf(a.id)>-1?'on':''}" data-t="${a.id}">
+         <span class="box">✓</span><span class="nm">${esc(a.name)}</span>
+         <button class="del" data-del="${a.id}" title="Entfernen">×</button></div>`).join('');
+  $$('#tdList .task').forEach(el => el.onclick = ev => {
+    if (ev.target.closest('[data-del]')) return;
+    toggleAufgabe(el.dataset.t);
+  });
+  $$('#tdList [data-del]').forEach(b => b.onclick = ev => { ev.stopPropagation(); delAufgabe(b.dataset.del); });
+
+  /* Sieben-Tage-Streifen */
+  const strip = [];
+  for (let i = 6; i >= 0; i--) {
+    const dd = isoAdd(d, -i);
+    const f = erledigt(dd).filter(id => defs.some(x => x.id === id)).length;
+    const q = defs.length ? Math.min(1, f / defs.length) : 0;
+    const wd = new Date(dd + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
+    strip.push(`<div class="tdday ${i===0?'heute':''}" title="${dmy(dd)}: ${f} von ${defs.length}">
+      <div class="bar"><i style="height:${Math.round(q*100)}%"></i></div><span>${wd}</span></div>`);
+  }
+  $('#tdStrip').innerHTML = strip.join('');
+
+  /* Depot-Zeile */
+  const t = totals('all');
+  $('#tdDepotVal').textContent = t.value === null ? '—' : fmt(t.value, 0);
+  const pl = $('#tdDepotPl');
+  if (t.pl === null) { pl.textContent = '—'; pl.className = 'tdlp tnum'; }
+  else {
+    pl.textContent = (t.pl >= 0 ? '+' : '') + fmt(t.pl, 0);
+    pl.className = 'tdlp tnum ' + sign(t.pl);
+  }
+}
 
 /* ---------- SUCHEN ---------- */
 function renderSearch() {
