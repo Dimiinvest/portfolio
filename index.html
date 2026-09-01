@@ -21,17 +21,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --plane:#05100F;
-  --surface-1:rgba(10,24,22,.72);
-  --surface-2:rgba(16,32,30,.76);
-  --surface-3:rgba(22,42,39,.80);
+  --plane:#080707;
+  --surface-1:rgba(18,16,14,.82);
+  --surface-2:rgba(26,23,20,.86);
+  --surface-3:rgba(38,34,29,.78);
   --text-primary:#FBFBFC;
   --text-secondary:#8E8E9A;
   --muted:#5B5B67;
-  --grid:#172A28;
-  --axis:#25403C;
-  --hair:#172A28;
-  --hair-strong:#25403C;
+  --grid:rgba(255,238,210,.10);
+  --axis:rgba(255,238,210,.20);
+  --hair:rgba(255,238,210,.10);
+  --hair-strong:rgba(255,238,210,.20);
   --acc:#7DD3FC;
   --acc-dim:rgba(125,211,252,.10);
   --good:#6EE7B7;
@@ -41,7 +41,7 @@
   --warn:#FCD34D;
   --s1:#7DD3FC; --s2:#FCA5A5; --s3:#6EE7B7; --s4:#FCD34D;
   --s5:#C4B5FD; --s6:#5EEAD4; --s7:#A5B4FC; --s8:#FDBA74;
-  --radius:0px;
+  --radius:16px;
   --shadow:0 0 0 1px rgba(255,255,255,.03) inset;
   --font:Archivo,-apple-system,"Segoe UI",system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
@@ -189,11 +189,11 @@ header.top{
 .donut .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .donut .center .c1{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .donut .center .c2{font-size:19px;font-weight:400;letter-spacing:-.02em}
-.legend{display:flex;flex-direction:column;gap:9px;min-width:0;flex:1 1 160px}
-.legend .row{display:flex;align-items:center;gap:9px;font-size:13px;min-width:0}
-.legend .sw{width:10px;height:10px;border-radius:0px;flex:0 0 auto;box-shadow:0 0 0 2px var(--surface-1)}
+.legend{display:flex;flex-direction:column;gap:11px;min-width:0;flex:1 1 170px}
+.legend .row{display:flex;align-items:center;gap:10px;font-size:13px;min-width:0}
+.legend .sw{width:8px;height:8px;border-radius:999px;flex:0 0 auto;box-shadow:none}
 .legend .nm{color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.legend .pc{margin-left:auto;color:var(--text-primary);font-weight:600}
+.legend .pc{margin-left:auto;color:var(--text-secondary);font-weight:400;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em}
 
 .venues{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair)}
 .vtitle{font-size:10.5px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
@@ -436,8 +436,8 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 #obGrid{
   position:fixed;inset:-44px;z-index:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,rgba(140,255,240,.016) 0 1px,transparent 1px 44px),
-    repeating-linear-gradient(90deg,rgba(140,255,240,.016) 0 1px,transparent 1px 44px);
+    repeating-linear-gradient(0deg,rgba(255,240,215,.013) 0 1px,transparent 1px 44px),
+    repeating-linear-gradient(90deg,rgba(255,240,215,.013) 0 1px,transparent 1px 44px);
   opacity:0;animation:obGridIn 2.4s var(--sharp) .4s forwards, obDrift 46s linear 3s infinite;
 }
 @keyframes obGridIn{to{opacity:1}}
@@ -446,100 +446,64 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 #obCells{position:fixed;inset:-44px;z-index:0;pointer-events:none;overflow:hidden}
 #obCells b{
   position:absolute;width:44px;height:44px;opacity:0;
-  background:rgba(45,212,191,.05);
-  border-top:1px solid rgba(45,212,191,.20);
-  border-left:1px solid rgba(45,212,191,.20);
+  background:rgba(255,215,150,.045);
+  border-top:1px solid rgba(255,215,150,.18);
+  border-left:1px solid rgba(255,215,150,.18);
 }
 @keyframes obCell{0%{opacity:0}22%{opacity:1}55%{opacity:1}100%{opacity:0}}
 
-#obMarks{position:fixed;inset:0;z-index:0;pointer-events:none;
-  opacity:0;animation:obGridIn 1.4s var(--sharp) 1.3s forwards}
-#obMarks i{position:absolute;width:9px;height:9px;border:0 solid var(--hair-strong)}
-#obMarks i:nth-child(1){top:calc(14px + env(safe-area-inset-top));left:14px;border-top-width:1px;border-left-width:1px}
-#obMarks i:nth-child(2){top:calc(14px + env(safe-area-inset-top));right:14px;border-top-width:1px;border-right-width:1px}
-#obMarks i:nth-child(3){bottom:calc(104px + env(safe-area-inset-bottom));left:14px;border-bottom-width:1px;border-left-width:1px}
-#obMarks i:nth-child(4){bottom:calc(104px + env(safe-area-inset-bottom));right:14px;border-bottom-width:1px;border-right-width:1px}
-
-.wrap,header.top,nav,.tabbar,footer{position:relative;z-index:2}
-
-/* ═══════════ OBSIDIAN · Typografie & Kanten ═══════════ */
-body{font-weight:300;letter-spacing:-.005em}
-h1,h2,h3,.hero,.big{font-weight:200;letter-spacing:-.03em}
-.tnum,.mono,code{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.logo{border:1px solid var(--hair-strong);background:var(--surface-1)!important}
-header.top{background:rgba(4,4,5,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-
-/* Wischblende beim Einlauf */
-@keyframes obWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-.ob-wipe{animation:obWipe .55s var(--sharp) both}
-
-/* Linien zeichnen sich */
-@keyframes obRule{to{transform:scaleX(1)}}
-
-@media (prefers-reduced-motion:reduce){
-  #obGrid,#obMarks{opacity:1!important;animation:none!important}
-  #obCells{display:none!important}
-  .ob-wipe{animation:none!important;clip-path:none!important}
-}
-
-/* ═══════════ OBSIDIAN · Feinschliff ═══════════ */
-.kpi:nth-child(1){--rail:#3E6E8C} .kpi:nth-child(2){--rail:#4A4A58}
-.kpi:nth-child(3){--rail:var(--bad)} .kpi:nth-child(4){--rail:var(--acc)}
-.kpi{position:relative;border-left:0}
-.kpi::before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:var(--rail)}
-
-.btn{border-radius:0;font-weight:400;letter-spacing:.03em}
-.btn.primary:hover{background:rgba(125,211,252,.18);filter:none}
-.seg button.on,.tab.on{background:var(--surface-2);color:var(--acc);
-  border-bottom:1px solid var(--acc);border-radius:0}
-.logo{box-shadow:none}
-.card,.panel,.kpi,.res,.tx{box-shadow:none}
-h1,h2,h3{font-weight:300;letter-spacing:-.02em}
-.big,.total,.hero{font-weight:200}
-.kpi .k{font-family:var(--mono);font-weight:400;letter-spacing:.18em}
-.statusline{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:none}
-
-.clsbar button[aria-pressed="true"],.clsbar button.on,.seg button[aria-pressed="true"]{
-  background:var(--acc-dim)!important;color:var(--acc)!important;
-  border-bottom:1px solid var(--acc)!important;box-shadow:none!important;
-  text-shadow:none!important;font-weight:400!important}
-.kpi .accent{opacity:.85}
-
-/* ═══════════ Hintergrund: Tiefraum ═══════════ */
 #obSpace{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 120% 70% at 50% -18%, rgba(28,120,120,.34), transparent 62%),
-    radial-gradient(ellipse 90% 60% at 100% 42%, rgba(20,150,150,.20), transparent 58%),
-    radial-gradient(ellipse 110% 55% at 0% 88%, rgba(14,90,110,.22), transparent 60%),
-    radial-gradient(ellipse 140% 90% at 50% 50%, transparent 42%, rgba(2,8,9,.72) 100%),
-    #05100F;
+    radial-gradient(ellipse 85% 50% at 58% 8%,  rgba(255,206,128,.24), transparent 62%),
+    radial-gradient(ellipse 120% 65% at 24% 2%, rgba(180,132,66,.13), transparent 64%),
+    radial-gradient(ellipse 95% 55% at 8% 94%,  rgba(72,66,104,.16), transparent 62%),
+    radial-gradient(ellipse 150% 100% at 52% 34%, transparent 30%, rgba(3,3,4,.86) 100%),
+    #070606;
   opacity:0;animation:obGridIn 2.2s var(--sharp) .2s forwards;
 }
-/* Planetenkante rechts */
-#obLimb{
-  position:fixed;top:-18vh;right:-58vw;width:150vw;height:150vw;z-index:0;pointer-events:none;
-  border-radius:50%;
-  background:radial-gradient(circle at center,
-      transparent 0 67.4%,
-      rgba(60,225,205,.16) 68%,
-      rgba(60,225,205,.07) 69.4%,
-      rgba(45,180,190,.03) 72%,
-      transparent 78%);
-  filter:blur(1.2px);
-  opacity:0;animation:obGridIn 2.8s var(--sharp) .9s forwards, obLimb 34s ease-in-out 3s infinite;
+/* Dunkler Körper */
+#obOrb{
+  position:fixed;top:-13vh;left:50%;width:56vw;height:56vw;max-width:430px;max-height:430px;
+  z-index:0;pointer-events:none;border-radius:50%;transform:translateX(-26%);
+  background:radial-gradient(circle at 38% 36%, #15120E 0 56%, #0A0908 76%, #050505 100%);
+  box-shadow:0 0 130px 46px rgba(5,5,5,.92);
+  opacity:0;animation:obGridIn 2.4s var(--sharp) .6s forwards;
 }
-@keyframes obLimb{0%,100%{transform:translate(0,0)}50%{transform:translate(-10px,14px)}}
+/* Zwei gekippte Lichtkränze, die sich kreuzen */
+#obRing1,#obRing2{
+  position:fixed;top:-12vh;left:50%;width:126vw;height:126vw;
+  max-width:960px;max-height:960px;z-index:0;pointer-events:none;border-radius:50%;
+  opacity:0;filter:blur(1.4px);
+}
+#obRing1{
+  transform:translateX(-32%) rotate(-13deg) scaleY(.24);
+  background:radial-gradient(circle at center,
+      transparent 0 45.5%, rgba(255,232,186,.26) 46.4%,
+      rgba(255,249,235,.80) 47.9%, rgba(255,222,160,.30) 49.6%,
+      rgba(196,146,78,.09) 53%, transparent 59%);
+  animation:obGridIn 2.8s var(--sharp) .9s forwards, obDrift2 44s ease-in-out 3.4s infinite;
+}
+#obRing2{
+  transform:translateX(-30%) rotate(72deg) scaleY(.30);
+  background:radial-gradient(circle at center,
+      transparent 0 45.5%, rgba(255,228,180,.18) 46.5%,
+      rgba(255,246,228,.56) 48%, rgba(255,216,150,.22) 49.8%,
+      rgba(180,134,72,.07) 53%, transparent 59%);
+  animation:obGridIn 3.2s var(--sharp) 1.3s forwards, obDrift3 50s ease-in-out 4s infinite;
+}
+@keyframes obDrift2{0%,100%{filter:blur(1.4px) brightness(1)}50%{filter:blur(1.9px) brightness(1.14)}}
+@keyframes obDrift3{0%,100%{filter:blur(1.4px) brightness(1)}50%{filter:blur(2.2px) brightness(.88)}}
 
 #obStars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;
   animation:obGridIn 3s var(--sharp) 1.3s forwards, obStarDrift 120s linear 2s infinite}
 @keyframes obStarDrift{to{transform:translateY(-30px)}}
-#obStars i{position:absolute;background:#DFF7F2;border-radius:50%}
+#obStars i{position:absolute;background:#FFF3DC;border-radius:50%}
 
 /* Panels leicht durchscheinend, damit der Nebel trägt */
 .card,.panel,.kpi,.pos,.res,.tx,.box{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
-header.top{background:rgba(5,16,15,.86)}
-nav,.tabbar{background:rgba(5,16,15,.90)}
+header.top{background:rgba(9,8,7,.88)}
+nav,.tabbar{background:rgba(9,8,7,.92)}
 
 /* Aktualisierungs-Hinweis */
 #updBar{
@@ -560,6 +524,68 @@ nav,.tabbar{background:rgba(5,16,15,.90)}
   padding:9px 15px;cursor:pointer;font-family:var(--font);font-size:12.5px;
   letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 #updBar .later{border-color:var(--hair-strong);background:none;color:var(--muted)}
+
+.swrow{display:flex;gap:11px;align-items:flex-start;cursor:pointer;
+  border:1px solid var(--hair);padding:12px 13px;background:var(--surface-1)}
+.swrow input{margin-top:2px;width:17px;height:17px;accent-color:var(--acc);flex:0 0 auto}
+.swrow b{display:block;font-weight:500;font-size:13.5px}
+.swrow small{display:block;color:var(--muted);font-size:11.5px;line-height:1.45;margin-top:3px}
+.alert.auto{border-color:rgba(110,231,183,.34)}
+.alert.auto .ico{color:var(--good-ink)}
+
+/* ═══════════ Runde Kanten ═══════════ */
+.card,.panel,.kpi,.pos,.box,.secbox,.alert,.modal,.sheet,.res,.tx,.tile,.hero{border-radius:18px}
+.kv,.tgt{border-radius:12px}
+.btn,select,input,textarea,.seg,.tab,.field,.f input,.f select{border-radius:11px}
+.seg button,.glide,.clsbar button,.acts button{border-radius:9px}
+.chip,.tag,.badge,.pill,.dpill,.sw,.swatch,.track,.vbar,.vbar span,.fill,.prog{border-radius:999px}
+.logo,.mk,.glyph,.cog,.gear{border-radius:13px}
+.kpi{overflow:hidden}
+.kpi .accent{border-radius:999px;left:12px;right:12px;width:auto}
+.swrow{border-radius:13px}
+#updBar{border-radius:18px 18px 0 0}
+header.top,nav,.tabbar{border-radius:0}
+
+/* ═══════════ Aurora · warmer Rand auf runden Flächen ═══════════ */
+.card,.panel,.kpi,.pos,.box,.secbox,.alert,.res,.tx,.modal,.swrow{
+  border-color:rgba(230,196,132,.16);
+  box-shadow:inset 0 1px 0 rgba(255,232,190,.055);
+}
+.card:hover,.kpi:hover,.res:hover{border-color:rgba(230,196,132,.30)}
+.btn,select,input,textarea,.seg,.tab{border-color:rgba(230,196,132,.20)}
+.btn:hover{border-color:rgba(230,196,132,.42)}
+.tag,.chip,.badge{border-color:rgba(230,196,132,.20)}
+.seg,.clsbar{border-color:rgba(230,196,132,.16)}
+.stripe{display:none}
+
+/* ═══════════ Zahlen verbergen ═══════════ */
+body.hidden-nums .tnum,
+body.hidden-nums .kpi .v,
+body.hidden-nums .hero,
+body.hidden-nums .vv,
+body.hidden-nums .r3,
+body.hidden-nums .val,
+body.hidden-nums .pl,
+body.hidden-nums .amt,
+body.hidden-nums .sym,
+body.hidden-nums .st .n,
+body.hidden-nums .tgt .tl,
+body.hidden-nums .tgt .foot,
+body.hidden-nums .sub,
+body.hidden-nums .dctx,
+body.hidden-nums .r2,
+body.hidden-nums .r3,
+body.hidden-nums .rt,
+body.hidden-nums .legend .val,
+body.hidden-nums .bar .amt,
+body.hidden-nums #heroSub,
+body.hidden-nums [data-money]{
+  filter:blur(9px);
+  user-select:none;pointer-events:none;
+  transition:filter .3s var(--sharp);
+}
+#btnEye{transition:color .25s var(--sharp)}
+#btnEye.on{color:var(--acc);border-color:var(--acc)}
 </style>
 </head>
 <body>
@@ -569,11 +595,12 @@ nav,.tabbar{background:rgba(5,16,15,.90)}
   <button id="updNow">Laden</button>
 </div>
 <div id="obSpace"></div>
-<div id="obLimb"></div>
+<div id="obOrb"></div>
+<div id="obRing1"></div>
+<div id="obRing2"></div>
 <div id="obStars"></div>
 <div id="obGrid"></div>
 <div id="obCells"></div>
-<div id="obMarks"><i></i><i></i><i></i><i></i></div>
 
 <header class="top">
   <div class="top-inner">
@@ -590,6 +617,7 @@ nav,.tabbar{background:rgba(5,16,15,.90)}
     </div>
     <button class="btn" id="btnRefresh" title="Kurse aktualisieren">↻ <span>Kurse</span></button>
     <button class="btn primary" id="btnAdd">+ Position</button>
+    <button class="btn icon ghost" id="btnEye" title="Zahlen verbergen" aria-pressed="false">👁</button>
     <button class="btn icon ghost" id="btnMenu" title="Mehr">⋯</button>
   </div>
 </header>
@@ -865,7 +893,14 @@ nav,.tabbar{background:rgba(5,16,15,.90)}
         </select></div>
       <div class="f full" id="spDomWrap" hidden><label for="spDom">Tag im Monat</label>
         <input id="spDom" type="number" min="1" max="28" step="1" inputmode="numeric" value="1"></div>
-      <div class="f full"><p class="hint">Fällige Raten werden beim Öffnen der App erkannt. Du siehst vorher Datum, Kurs und Anteile und bestätigst mit einem Tipp. Gerechnet wird mit dem Tagesschlusskurs — dein echter Ausführungskurs kann minimal abweichen.</p></div>
+      <div class="f full">
+        <label class="swrow" for="spAuto">
+          <input id="spAuto" type="checkbox" checked>
+          <span><b>Automatisch buchen</b>
+            <small>Fällige Raten werden beim Öffnen der App sofort gebucht, ohne Nachfrage. Du bekommst hinterher eine Meldung mit Rückgängig-Möglichkeit.</small></span>
+        </label>
+      </div>
+      <div class="f full"><p class="hint">Gerechnet wird mit dem Tagesschlusskurs — dein echter Ausführungskurs kann minimal abweichen. Ist an einem Fälligkeitstag noch kein Kurs verfügbar, bleibt die Rate offen und wird beim nächsten Start nachgeholt.</p></div>
       <div class="f full"><div class="secbox" style="margin:0"><div class="sect" style="margin:0">Status</div>
         <p class="hint" id="spStatus" style="margin:6px 0 0">—</p></div></div>
     </div>
@@ -890,7 +925,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v17 · Obsidian · 01.09.2026';
+const APP_VERSION = 'v22 · Aurora · 01.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -1025,15 +1060,12 @@ function sorted() {
 /* Farbe nach Anlageklasse statt nach Reihenfolge.
    Krypto = Weiss (hoechster Kontrast, staerkste Ausschlaege),
    Aktien = Navy, ETFs = Dunkelgruen. */
-const CLS_COLOR = {
-  crypto: '#EDEFF2',
-  stock:  '#33569B',
-  etf:    '#1F6B47',
-  other:  '#7C8794'
-};
 function colorOf(id) {
-  const p = state.positions.find(x => x.id === id);
-  return CLS_COLOR[p && p.type] || CLS_COLOR.other;
+  const ranked = state.positions
+    .map(p => ({ id:p.id, v: (calc(p).value ?? calc(p).invest) || 0 }))
+    .sort((a,b) => b.v - a.v);
+  const i = ranked.findIndex(x => x.id === id);
+  return i < 0 ? RAMP[RAMP.length-1] : rampAt(i, ranked.length);
 }
 /* Fuers Ringdiagramm: gleiche Klassenfarbe, je Position abgestuft,
    damit die Segmente unterscheidbar bleiben. */
@@ -1043,14 +1075,14 @@ function shade(hex, amt) {
   const f = v => Math.max(0, Math.min(255, Math.round(amt >= 0 ? v + (255 - v) * amt : v * (1 + amt))));
   return '#' + [f(r), f(g), f(b)].map(v => v.toString(16).padStart(2, '0')).join('');
 }
-const SHADE_STEPS = [0, -0.30, 0.20, -0.48, 0.38, -0.60, 0.55, -0.70, 0.68, -0.78];
-function shadeOf(id) {
-  const p = state.positions.find(x => x.id === id);
-  if (!p) return CLS_COLOR.other;
-  const base = CLS_COLOR[p.type] || CLS_COLOR.other;
-  const same = state.positions.filter(x => x.type === p.type);
-  const i = same.findIndex(x => x.id === p.id);
-  return shade(base, SHADE_STEPS[i % SHADE_STEPS.length]);
+/* Ringdiagramm und Legende: eine warme Abstufung, nach Anteil sortiert.
+   Der größte Posten ist der hellste. Klassenfarben taugen hier nicht —
+   mehrere Kryptos nebeneinander ergaben nur weiße Flecken.               */
+const RAMP = ['#F7E3B4','#E8C98A','#D6AE68','#C09550','#A87E40','#8E6934','#75552A','#5E4422'];
+function rampAt(i, n) {
+  if (n <= 1) return RAMP[0];
+  const k = Math.min(RAMP.length - 1, Math.round(i / (n - 1) * (RAMP.length - 1)));
+  return RAMP[k];
 }
 
 function renderHero() {
@@ -1138,13 +1170,7 @@ function renderAlerts() {
     .map(p => ({ p, a: alertOf(p) }))
     .filter(x => x.a && !alertsDismissed[x.p.id]);
   // Notfall-Wechselkurs verfälscht jeden Eurobetrag von Dollar-Positionen
-  const fxWarn = (state.fx.src === 'fallback' && state.positions.some(p => p.cur === 'USD'))
-    ? `<div class="alert stop"><span class="ico">⚠️</span><span><b>Wechselkurs nicht abrufbar.</b>
-        Für deine Dollar-Positionen rechnet die App gerade mit einem Schätzwert von
-        ${state.fx.EURUSD.toFixed(2)}. Prozentwerte stimmen trotzdem, aber die Eurobeträge können
-        einige Prozent danebenliegen. Tippe auf ↻ Kurse, sobald du wieder Verbindung hast.</span></div>`
-    : '';
-  box.innerHTML = fxWarn + list.map(({p,a}) => {
+  box.innerHTML = list.map(({p,a}) => {
     const c = calc(p), m = ALERT_TEXT[a];
     const det = a === 'stop'
       ? `Kurs ${fmtC(c.price,p.cur)} liegt unter deinem Stop-Loss von ${fmtC(p.sl,p.cur)}.`
@@ -1439,8 +1465,9 @@ function renderDonut() {
   svg.innerHTML = '';
   const items = sorted().map(p => {
     const c = calc(p);
-    return { id:p.id, name:p.name, v: (c.value !== null ? c.value : c.invest) || 0, color: shadeOf(p.id) };
-  }).filter(x => x.v > 0);
+    return { id:p.id, name:p.name, v: (c.value !== null ? c.value : c.invest) || 0 };
+  }).filter(x => x.v > 0).sort((a,b) => b.v - a.v);
+  items.forEach((it,i) => it.color = rampAt(i, items.length));
   const total = items.reduce((s,x) => s+x.v, 0);
   $('#donutCount').textContent = clsPositions(state.cls).length;
 
@@ -1563,8 +1590,7 @@ function renderCards() {
     const inZone = al === 'hit' || al === 'over';
     const typeTag = p.type === 'crypto' ? 'Krypto' : p.type === 'stock' ? 'Aktie' : p.type === 'etf' ? 'ETF' : 'Sonst.';
     return `<article class="card ${al === 'stop' ? 'stop' : inZone ? 'hit' : ''}" data-id="${p.id}">
-      <span class="stripe" style="background:${col}"></span>
-      <div class="in">
+            <div class="in">
         <div class="hd">
           <div style="min-width:0">
             <div class="nm">${esc(p.name)} <span class="tag">${typeTag}</span>${
@@ -2543,12 +2569,48 @@ async function checkPlans() {
     }
     if (rates.length) pendingPlans.push({ id: p.id, rates });
   }
+
+  /* Sparpläne mit "auto" gleich buchen. Fehlendes Feld gilt als automatisch. */
+  autoBooked = [];
+  for (const pl of pendingPlans.slice()) {
+    const p = state.positions.find(x => x.id === pl.id);
+    if (!p || !p.sp || p.sp.auto === false) continue;
+    const before = { qty: p.qty, entry: p.entry, last: p.sp.last };
+    bookPlan(pl.id, true);
+    autoBooked.push({ id: p.id, name: p.name, cur: p.cur, rates: pl.rates, before });
+  }
+  if (autoBooked.length) { render(); persist(); }
+
   renderPlanBanner();
 }
 function renderPlanBanner() {
   const box = $('#planBox');
-  if (!pendingPlans.length) { box.innerHTML = ''; return; }
-  box.innerHTML = pendingPlans.map(pl => {
+  if (!pendingPlans.length && !autoBooked.length) { box.innerHTML = ''; return; }
+
+  const autoHtml = autoBooked.map(a => {
+    const sumAmt = a.rates.reduce((s,r) => s + r.price * r.qty, 0);
+    const sumQty = a.rates.reduce((s,r) => s + r.qty, 0);
+    const p = state.positions.find(x => x.id === a.id);
+    const unit = p ? unitOf(p) : '';
+    const lines = a.rates.slice(0,5).map(r =>
+      `<span>${dmy(r.d).slice(0,6)} · Kurs ${fmtC(r.price,a.cur)} → ${r.qty.toLocaleString('de-DE',{maximumFractionDigits:6})} ${esc(unit)}</span>`).join('');
+    const more = a.rates.length > 5 ? `<span class="more">+ ${a.rates.length-5} weitere</span>` : '';
+    return `<div class="alert plan auto">
+      <span class="ico">✓</span>
+      <span class="body">
+        <b>${esc(a.name)} — ${a.rates.length} Sparplan-${a.rates.length===1?'Rate':'Raten'} automatisch gebucht.</b>
+        <span class="splines">${lines}${more}</span>
+        <span class="splines" style="color:var(--text-primary);font-weight:500;margin-top:7px">
+          Zusammen ${fmtC(sumAmt,a.cur,2)} für ${sumQty.toLocaleString('de-DE',{maximumFractionDigits:6})} ${esc(unit)}</span>
+      </span>
+      <span class="acts">
+        <button class="btn" data-undo="${a.id}">Rückgängig</button>
+        <button class="btn ghost" data-okauto="${a.id}">OK</button>
+      </span>
+    </div>`;
+  }).join('');
+
+  box.innerHTML = autoHtml + pendingPlans.map(pl => {
     const p = state.positions.find(x => x.id === pl.id); if (!p) return '';
     const sumAmt = pl.rates.reduce((s,r) => s + r.price * r.qty, 0);
     const sumQty = pl.rates.reduce((s,r) => s + r.qty, 0);
@@ -2569,13 +2631,18 @@ function renderPlanBanner() {
       </span>
     </div>`;
   }).join('');
+  $$('#planBox [data-undo]').forEach(b => b.onclick = () => undoAuto(b.dataset.undo));
+  $$('#planBox [data-okauto]').forEach(b => b.onclick = () => {
+    autoBooked = autoBooked.filter(x => x.id !== b.dataset.okauto);
+    renderPlanBanner();
+  });
   $$('#planBox [data-book]').forEach(b => b.onclick = () => bookPlan(b.dataset.book));
   $$('#planBox [data-later]').forEach(b => b.onclick = () => {
     pendingPlans = pendingPlans.filter(x => x.id !== b.dataset.later);
     renderPlanBanner();
   });
 }
-function bookPlan(id) {
+function bookPlan(id, silent) {
   const pl = pendingPlans.find(x => x.id === id);
   const p = state.positions.find(x => x.id === id);
   if (!pl || !p) return;
@@ -2589,8 +2656,25 @@ function bookPlan(id) {
   p.tx.sort((a,b) => (a.d||'') < (b.d||'') ? -1 : (a.d||'') > (b.d||'') ? 1 : 0);
   p.sp.last = pl.rates[pl.rates.length-1].d;
   pendingPlans = pendingPlans.filter(x => x.id !== id);
+  if (silent) return;
   render(); persist();
   toast(`${pl.rates.length} ${pl.rates.length===1?'Rate':'Raten'} gebucht – neuer Ø-Einstieg ${fmtC(p.entry, p.cur)}`);
+}
+
+/* ---------- Automatisch gebuchte Raten: Meldung + Rückgängig ---------- */
+let autoBooked = [];
+function undoAuto(id) {
+  const a = autoBooked.find(x => x.id === id);
+  const p = state.positions.find(x => x.id === id);
+  if (!a || !p) return;
+  const dates = a.rates.map(r => r.d);
+  p.tx = (p.tx || []).filter(x => !(x.sp && dates.indexOf(x.d) > -1));
+  p.qty   = a.before.qty;
+  p.entry = a.before.entry;
+  if (p.sp) p.sp.last = a.before.last;
+  autoBooked = autoBooked.filter(x => x.id !== id);
+  render(); persist(); renderPlanBanner();
+  toast(`${a.rates.length} ${a.rates.length===1?'Rate':'Raten'} zurückgenommen.`);
 }
 
 /* ---------- Sparplan-Dialog ---------- */
@@ -2605,11 +2689,12 @@ function openPlan(id) {
   $('#spEvery').value  = sp?.every ?? 'week';
   $('#spDow').value    = String(sp?.dow ?? 1);
   $('#spDom').value    = sp?.dom ?? 1;
+  $('#spAuto').checked = sp ? sp.auto !== false : true;
   $('#spDelete').style.display = sp ? '' : 'none';
   syncPlanFields();
   const booked = (p.tx || []).filter(x => x.sp).length;
   $('#spStatus').textContent = !sp ? 'Noch kein Sparplan angelegt. Gebucht wird ab dem nächsten Termin – dein bisheriger Bestand bleibt unverändert.'
-    : `Läuft ${EVERY_LABEL[sp.every]} · nächste Rate am ${dmy(nextDue(sp))} · bisher ${booked} ${booked===1?'Rate':'Raten'} über den Sparplan gebucht.`;
+    : `Läuft ${EVERY_LABEL[sp.every]} · ${sp.auto === false ? 'Buchung nach Bestätigung' : 'bucht automatisch'} · nächste Rate am ${dmy(nextDue(sp))} · bisher ${booked} ${booked===1?'Rate':'Raten'} über den Sparplan gebucht.`;
   $('#scrim4').classList.add('on');
   setTimeout(()=>$('#spAmount').focus(), 70);
 }
@@ -2626,6 +2711,7 @@ function savePlan() {
   p.sp = {
     active: true, amount: amt, every,
     dow: +$('#spDow').value, dom: Math.max(1, Math.min(28, +$('#spDom').value || 1)),
+    auto: $('#spAuto').checked,          // ohne Nachfrage buchen
     last: p.sp?.last || today()          // nur ab heute – nichts wird rückwirkend gebucht
   };
   $('#scrim4').classList.remove('on');
@@ -2651,6 +2737,24 @@ $('#scrim4').onclick = e => { if (e.target === $('#scrim4')) $('#scrim4').classL
 (async function boot() {
   loadCfg(); loadHistory(); loadAlertState(); updateNotifyUi();
   $('#appVer').textContent = APP_VERSION;
+
+/* Zahlen verbergen – Zustand bleibt erhalten */
+(function(){
+  var b = $('#btnEye'); if(!b) return;
+  var KEY = 'pt.hide.v1';
+  function apply(on){
+    document.body.classList.toggle('hidden-nums', on);
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.title = on ? 'Zahlen anzeigen' : 'Zahlen verbergen';
+    b.textContent = on ? '🙈' : '👁';
+  }
+  apply(lsGet(KEY) === '1');
+  b.onclick = function(){
+    var on = !document.body.classList.contains('hidden-nums');
+    lsSet(KEY, on ? '1' : '0'); apply(on);
+  };
+})();
   const restored = restoreLocal();
   if (!restored) {
     if (!lsGet(LS_SEEN)) { state.positions = demoPositions(); lsSet(LS_SEEN, '1'); }
