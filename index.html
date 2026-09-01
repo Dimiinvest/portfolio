@@ -906,13 +906,15 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v23 · Aurora · 01.09.2026';
+const APP_VERSION = 'v24 · Aurora · 01.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
 const state = {
+  tage: {},          // { '2026-09-01': { schlaf:7.2, schritte:8400, ... } }
+  ziele: {},         // { schlaf:7.5, schritte:8000, ... }
   base: 'EUR',
   fx: { EURUSD: 1.09, src: 'fallback' },
   positions: [],
@@ -1927,11 +1929,63 @@ const LS_SEEN = 'pt.seen.v1';
 let storageOk = true;
 const cloud = { key:'', bin:'', on:false, busy:false, lastSync:null };
 
+/* Ab Version 4 liegt alles in einem Container. Der Depot-Teil behält sein
+   Format, daneben stehen die Lebensbereiche. Ältere Datensätze werden von
+   normalize() hochgezogen — auch die aus der Cloud.                       */
 function payload() {
-  return { version:3, base:state.base, updatedAt: state.editStamp || Date.now(),
-           positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue}) =>
-             ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue})),
-           history: history.slice(-500) };
+  return {
+    version: 4,
+    updatedAt: state.editStamp || Date.now(),
+    base: state.base,
+    depot: {
+      positions: state.positions.map(({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue}) =>
+        ({id,name,type,symbol,qty,entry,t1,t2,sl,cur,price,realized,since,tx,sp,venue})),
+      history: history.slice(-500)
+    },
+    tage:  state.tage  || {},
+    ziele: state.ziele || {}
+  };
+}
+
+/* Bringt jeden Datensatz — alt wie neu — auf Version 4.
+   Wird nie destruktiv: unbekannte Felder bleiben erhalten. */
+function normalize(j) {
+  if (!j || typeof j !== 'object') return null;
+  if (j.version >= 4 && j.depot) {
+    return {
+      version: 4,
+      updatedAt: j.updatedAt || 0,
+      base: j.base || 'EUR',
+      depot: { positions: Array.isArray(j.depot.positions) ? j.depot.positions : [],
+               history:   Array.isArray(j.depot.history)   ? j.depot.history   : [] },
+      tage:  (j.tage  && typeof j.tage  === 'object') ? j.tage  : {},
+      ziele: (j.ziele && typeof j.ziele === 'object') ? j.ziele : {}
+    };
+  }
+  if (Array.isArray(j.positions)) {                      // Version 3 und älter
+    return {
+      version: 4,
+      updatedAt: j.updatedAt || 0,
+      base: j.base || 'EUR',
+      depot: { positions: j.positions, history: Array.isArray(j.history) ? j.history : [] },
+      tage: {}, ziele: {}
+    };
+  }
+  return null;
+}
+
+/* ---------- Tagessätze ---------- */
+function tagOf(d) {
+  if (!state.tage) state.tage = {};
+  if (!state.tage[d]) state.tage[d] = {};
+  return state.tage[d];
+}
+function setTagWert(d, feld, wert) {
+  const t = tagOf(d);
+  if (wert === null || wert === undefined || wert === '') delete t[feld];
+  else t[feld] = wert;
+  if (!Object.keys(t).length) delete state.tage[d];
+  persist();
 }
 /* Verlauf zweier Geräte zusammenführen – pro Tag der jüngere Eintrag */
 function mergeHistory(a, b) {
@@ -1953,12 +2007,14 @@ function restoreLocal() {
   const raw = lsGet(LS_DATA);
   if (!raw) return false;
   try {
-    const j = JSON.parse(raw);
-    if (!Array.isArray(j.positions)) return false;
-    state.positions = j.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
-    if (j.base) state.base = j.base;
-    if (Array.isArray(j.history)) { history = mergeHistory(history, j.history); saveHistory(); }
-    state.editStamp = j.updatedAt || 0;
+    const rec = normalize(JSON.parse(raw));
+    if (!rec) return false;
+    state.positions = rec.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
+    state.base  = rec.base;
+    state.tage  = rec.tage;
+    state.ziele = rec.ziele;
+    if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
+    state.editStamp = rec.updatedAt || 0;
     return true;
   } catch(e) { return false; }
 }
@@ -2008,7 +2064,7 @@ async function cloudConnect() {
       const j = await jbFetch(`${JB}/${bin}/latest`, { method:'GET' });
       const rec = j.record;
       cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
-      if (rec && Array.isArray(rec.positions) && (rec.updatedAt||0) >= (state.editStamp||0)) {
+      if (rec && normalize(rec) && (rec.updatedAt||0) >= (state.editStamp||0)) {
         applyRemote(rec); toast('Verbunden – Daten aus der Cloud geladen.');
       } else { await cloudPush(); toast('Verbunden – lokale Daten hochgeladen.'); }
     } else {
@@ -2051,14 +2107,18 @@ async function cloudPull(silent, compare) {
   } catch(e) { if (!silent) toast('Laden fehlgeschlagen: ' + e.message); }
   cloud.busy = false; updateSyncUi();
 }
-function applyRemote(rec) {
-  state.positions = rec.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
-  if (Array.isArray(rec.history)) { history = mergeHistory(history, rec.history); saveHistory(); }
+function applyRemote(raw) {
+  const rec = normalize(raw);
+  if (!rec) { toast('Cloud-Daten nicht lesbar – lokaler Stand bleibt.'); return; }
+  state.positions = rec.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
+  if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
+  state.tage  = rec.tage;
+  state.ziele = rec.ziele;
   state.editStamp = rec.updatedAt || Date.now();
   if (rec.base) state.base = rec.base;
   $('#curEUR').setAttribute('aria-pressed', state.base==='EUR');
   $('#curUSD').setAttribute('aria-pressed', state.base==='USD');
-  lsSet(LS_DATA, JSON.stringify({ ...rec, positions: state.positions }));
+  lsSet(LS_DATA, JSON.stringify(payload()));
   render(); refreshPrices(true);
 }
 function cloudOff() {
