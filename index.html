@@ -1124,7 +1124,8 @@ main{position:relative;z-index:1}
     <div class="secbox">
       <div class="sect">Datei</div>
       <div style="display:flex;flex-direction:column;gap:9px">
-        <button class="btn" id="oExport">⬇ Daten exportieren (JSON)</button>
+        <button class="btn" id="oBackup">⟲ Letzte Sicherungen</button>
+      <button class="btn" id="oExport">⬇ Daten exportieren (JSON)</button>
         <button class="btn" id="oImport">⬆ Daten importieren</button>
         <button class="btn" id="oCsv">⬇ Als CSV exportieren</button>
         <button class="btn" id="oDemo">✦ Demo-Daten laden</button>
@@ -1210,7 +1211,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v31 · Aurora · 08.09.2026';
+const APP_VERSION = 'v32 · Aurora · 08.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2718,8 +2719,16 @@ async function cloudConnect() {
       const j = await jbFetch(`${JB}/${bin}/latest`, { method:'GET' });
       const rec = j.record;
       cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
-      if (rec && normalize(isEnc(rec) ? null : rec) && (rec.updatedAt||0) >= (state.editStamp||0)) {
+      const fern = normalize(isEnc(rec) ? null : rec);
+      const fernHat = fern ? fern.depot.positions.length : 0;
+      const hierHat = state.positions.length;
+      /* Zeitstempel entscheiden nur, wenn beide Seiten etwas haben. Steht hier
+         nichts und dort etwas, wird immer geladen – egal wie neu der lokale
+         Stempel aussieht. */
+      if (fern && (hierHat === 0 || (rec.updatedAt||0) >= (state.editStamp||0))) {
         applyRemote(rec); toast('Verbunden – Daten aus der Cloud geladen.');
+      } else if (hierHat === 0 && fernHat === 0 && isEnc(rec) && !cloud.pass) {
+        toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
       } else { await cloudPush(); toast('Verbunden – lokale Daten hochgeladen.'); }
     } else {
       const j = await jbFetch(JB, { method:'POST', headers:{ 'X-Bin-Private':'true', 'X-Bin-Name':'portfolio-tracker' }, body: JSON.stringify(payload()) });
@@ -2770,8 +2779,36 @@ async function decryptRec(rec, pass) {
 }
 const isEnc = r => !!(r && r.enc === 1 && r.data && r.salt && r.iv);
 
+/* Letzte Sicherung vor jedem Überschreiben – liegt nur auf diesem Gerät und
+   kostet nichts. Hätte es die am 08.09.2026 gegeben, wäre nichts weg gewesen. */
+const LS_BACKUP = 'pt.backup.v1';
+function sicherungSchreiben(rec) {
+  try {
+    const alt = JSON.parse(lsGet(LS_BACKUP) || '[]');
+    const n = (rec?.depot?.positions || []).length;
+    if (!n) return;                                  // leere Stände sichern nichts
+    if (alt[0] && alt[0].updatedAt === rec.updatedAt) return;
+    alt.unshift({ updatedAt: rec.updatedAt || Date.now(), gesichertAm: Date.now(), anzahl: n, daten: rec });
+    lsSet(LS_BACKUP, JSON.stringify(alt.slice(0, 3)));
+  } catch(e) {}
+}
 async function cloudPush(silent) {
   if (!cloud.on || cloud.busy) return;
+  /* Ein Push, der drüben alles löscht, passiert nicht ungefragt. */
+  if (!state.positions.length) {
+    try {
+      const j = await jbFetch(`${JB}/${cloud.bin}/latest`, { method:'GET' });
+      const fern = normalize(isEnc(j.record) ? null : j.record);
+      const drueben = fern ? fern.depot.positions.length : 0;
+      if (drueben > 0) {
+        sicherungSchreiben(fern);
+        if (!confirm(`Achtung: In der Cloud liegen ${drueben} Positionen, hier keine einzige.\n\nHochladen würde sie dort löschen. Willst du das wirklich?\n\nAbbrechen ist fast immer richtig – dann lade stattdessen über „↓ Laden" herunter.`)) {
+          toast('Nicht hochgeladen – die Cloud bleibt, wie sie ist.');
+          return;
+        }
+      }
+    } catch(e) { /* nicht erreichbar – dann wie gehabt weiter */ }
+  }
   cloud.busy = true; updateSyncUi();
   try {
     let body = payload();
@@ -2795,7 +2832,7 @@ async function cloudPull(silent, compare) {
         toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
         return;                                    // lokale Daten bleiben unangetastet
       }
-      if (compare && (rec.updatedAt||0) < (state.editStamp||0)) {
+      if (compare && state.positions.length && (rec.updatedAt||0) < (state.editStamp||0)) {
         cloud.busy = false; await cloudPush(true); return;
       }
       try { rec = await decryptRec(rec, cloud.pass); }
@@ -2807,7 +2844,8 @@ async function cloudPull(silent, compare) {
     }
 
     if (rec && normalize(rec)) {
-      if (compare && (rec.updatedAt||0) < (state.editStamp||0)) {
+      /* Leer schlägt nie voll: nur hochladen, wenn hier überhaupt etwas steht */
+      if (compare && state.positions.length && (rec.updatedAt||0) < (state.editStamp||0)) {
         cloud.busy = false; await cloudPush(true); return;   // lokal ist neuer → hochladen
       }
       applyRemote(rec);
@@ -2820,6 +2858,9 @@ async function cloudPull(silent, compare) {
 function applyRemote(raw) {
   const rec = normalize(raw);
   if (!rec) { toast('Cloud-Daten nicht lesbar – lokaler Stand bleibt.'); return; }
+  /* Was hier steht, bevor es ersetzt wird – als Netz für den Fall, dass der
+     Fernstand schlechter ist als der eigene. */
+  if (state.positions.length) sicherungSchreiben(normalize(payload()));
   state.positions = rec.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
   if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
   state.tage  = rec.tage;
@@ -2906,6 +2947,23 @@ $('#scrim').onclick = e => { if (e.target === $('#scrim')) closeForm(); };
 $('#scrim2').onclick = e => { if (e.target === $('#scrim2')) $('#scrim2').classList.remove('on'); };
 $('#oClose').onclick = () => $('#scrim2').classList.remove('on');
 $('#oExport').onclick = exportJson;
+/* Zeigt die automatisch gesicherten Stände. Die App legt sie an, bevor ein
+   Cloud-Vorgang die Positionen ersetzt – sie liegen nur auf diesem Gerät. */
+$('#oBackup').onclick = () => {
+  let liste = [];
+  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
+  if (!liste.length) { toast('Noch keine Sicherung vorhanden.'); return; }
+  const zeilen = liste.map((b, i) =>
+    `${i+1})  ${b.anzahl} Positionen  ·  gesichert ${new Date(b.gesichertAm).toLocaleString('de-DE')}`).join('\n');
+  const wahl = prompt(`Automatische Sicherungen:\n\n${zeilen}\n\nNummer eintragen zum Wiederherstellen, leer lassen zum Abbrechen.`);
+  const n = parseInt(wahl, 10);
+  if (!n || n < 1 || n > liste.length) return;
+  const b = liste[n-1];
+  if (!confirm(`Sicherung ${n} mit ${b.anzahl} Positionen wiederherstellen?\n\nDein jetziger Stand wird ersetzt.`)) return;
+  applyRemote(b.daten);
+  render(); persist();
+  toast(`${state.positions.length} Positionen wiederhergestellt.`);
+};
 $('#oCsv').onclick = exportCsv;
 $('#oDemo').onclick = loadDemo;
 $('#oImport').onclick = () => $('#fileIn').click();
@@ -3688,7 +3746,12 @@ function essVorlagenUebernehmen() {
     }
   }
   lsSet(LS_ESS_SEED, JSON.stringify(gesehen));
-  if (neu) persist();
+  /* persist(false): Vorlagen sind KEINE Nutzeränderung. Mit persist() würde
+     state.editStamp auf jetzt springen – eine frisch installierte, leere App
+     hielte sich dann für den neueren Stand und würde die volle Cloud
+     überschreiben. Genau so sind am 08.09.2026 31 Positionen verloren
+     gegangen. Nie wieder ohne false. */
+  if (neu) persist(false);
 }
 /* Kalorien aus den Makros, falls nicht eingetragen: 4/4/9 kcal je Gramm */
 function kcalOf(l) {
