@@ -703,6 +703,63 @@ main{position:relative;z-index:1}
 /* fünf Bereiche in der Leiste – etwas enger, sonst passt „Startseite" nicht */
 .tabbar .tab{padding-left:4px;padding-right:4px}
 .tab span{font-size:10px}
+
+/* Bewertung des Tages */
+.fdscore-kopf{display:flex;align-items:center;gap:16px;margin-bottom:4px}
+.fdscore-kopf .tdring{width:78px;height:78px;flex:0 0 78px}
+.fdscore-kopf .label{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.fdscore-zahl{font-size:40px;font-weight:680;letter-spacing:-.035em;line-height:1.05;margin:2px 0 1px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdscore-zahl.up{color:var(--good-ink)} .fdscore-zahl.down{color:var(--bad-ink)}
+.fdscore-note{color:var(--text-secondary);font-size:13.5px}
+.fdscore-zeile{display:flex;align-items:center;gap:11px;padding:7px 0;border-top:1px solid var(--hair)}
+.fdscore-zeile:first-child{border-top:0;margin-top:10px}
+.fdscore-zeile .nm{flex:0 0 108px;font-size:13px;color:var(--text-secondary)}
+.fdscore-zeile .bar{flex:1 1 auto;height:5px;border-radius:99px;background:rgba(255,238,210,.09);overflow:hidden}
+.fdscore-zeile .bar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .35s ease}
+.fdscore-zeile .pt{flex:0 0 auto;font-size:13px;font-weight:600;min-width:52px;text-align:right}
+.fdscore-zeile .pt small{color:var(--muted);font-weight:400}
+.fdweek{display:flex;gap:6px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
+.fdweek .fdday{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:5px}
+.fdweek .fdday .bar{width:100%;height:46px;border-radius:8px;background:rgba(255,238,210,.06);
+  display:flex;align-items:flex-end;overflow:hidden}
+.fdweek .fdday .bar i{display:block;width:100%;border-radius:8px}
+.fdweek .fdday span{font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdweek .fdday.aktiv .bar{outline:1px solid var(--hair-strong);outline-offset:1px}
+
+.fdscore-ziel{color:var(--muted);font-size:12px;margin-top:3px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdtipp-kopf{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;margin:14px 0 8px;padding-top:13px;border-top:1px solid var(--hair)}
+.fdtipp{display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-bottom:6px;
+  padding:9px 11px;border-radius:11px;border:1px solid var(--hair);background:var(--surface-2);
+  color:var(--text-secondary);font:inherit;font-size:13.5px;cursor:pointer;min-height:44px}
+.fdtipp:hover{border-color:var(--hair-strong);color:#fff}
+.fdtipp:active{transform:scale(.985)}
+.fdtipp .ic{font-size:17px;flex:0 0 auto}
+.fdtipp .nm{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fdtipp .dl{flex:0 0 auto;color:var(--good-ink);font-weight:700;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.fdscore-zeile.passiv{opacity:.55}
+.fdscore-zeile.passiv .bar i{background:var(--muted)}
+.fdscore-zeile .nm small{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+
+.fdscore-zeile.warnung .nm small{color:var(--bad-ink)}
+.fdscore-zeile.warnung .bar i{background:var(--bad-ink)}
+
+/* Supplemente */
+.supp{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid var(--hair);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:48px}
+.supp:first-child{border-top:0}
+.supp .hk{width:26px;height:26px;flex:0 0 26px;border-radius:8px;border:1px solid var(--hair-strong);
+  display:grid;place-items:center;font-size:14px;color:transparent;transition:.15s}
+.supp.an .hk{background:var(--acc-dim);border-color:var(--acc);color:var(--acc)}
+.supp .ic{font-size:19px;flex:0 0 auto}
+.supp .nm{flex:1 1 auto;min-width:0;font-size:14.5px}
+.supp.an .nm{color:var(--text-secondary)}
+.supp .nm small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.supp .go{color:var(--muted);font-size:15px}
 </style>
 </head>
 <body>
@@ -912,6 +969,15 @@ main{position:relative;z-index:1}
     </div>
   </section>
 
+  <section class="card" id="tdSupp" style="cursor:pointer">
+    <div class="in tdlink">
+      <span class="tdlk">Supplemente</span>
+      <span class="tdlv tnum" id="tdSuppVal">—</span>
+      <span class="tdlp tnum" id="tdSuppRest">—</span>
+      <span class="tdlc">›</span>
+    </div>
+  </section>
+
   <section class="card" id="tdNoticeBox" hidden>
     <div class="in">
       <div class="cardhead"><h2>Braucht deine Aufmerksamkeit</h2></div>
@@ -925,6 +991,28 @@ main{position:relative;z-index:1}
     <h2>Ernährung</h2>
     <p id="fdSub">Antippen bucht eine Portion</p>
   </div>
+
+  <section class="card" id="fdScore">
+    <div class="in">
+      <div class="fdscore-kopf">
+        <svg class="tdring" viewBox="0 0 84 84" aria-hidden="true">
+          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,238,210,.10)" stroke-width="9"/>
+          <circle id="fdScoreArc" cx="42" cy="42" r="34" fill="none" stroke="var(--acc)" stroke-width="9"
+                  stroke-linecap="round" transform="rotate(-90 42 42)"
+                  stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+        </svg>
+        <div>
+          <div class="label">Bewertung</div>
+          <div class="fdscore-zahl" id="fdScoreVal">—</div>
+          <div class="fdscore-note" id="fdScoreNote">—</div>
+          <div class="fdscore-ziel" id="fdScoreZiel"></div>
+        </div>
+      </div>
+      <div id="fdScoreTeile"></div>
+      <div id="fdScoreTipps" hidden></div>
+      <div id="fdScoreWeek"></div>
+    </div>
+  </section>
 
   <section class="card fdday">
     <div class="in">
@@ -962,6 +1050,21 @@ main{position:relative;z-index:1}
   <div class="sec-head" id="fdLogHead" hidden><h2>Gegessen</h2><span class="count" id="fdLogCount">—</span></div>
   <section class="card" id="fdLogBox" hidden><div class="in" id="fdLog"></div></section>
 
+  <div class="sec-head">
+    <h2>Supplemente</h2>
+    <span class="count" id="suppZaehler"></span>
+    <div class="sp"></div>
+    <button class="btn icon" id="suppEdit" title="Bearbeiten">✎</button>
+    <button class="btn" id="suppAdd">+ Supplement</button>
+  </div>
+  <section class="card">
+    <div class="in">
+      <div id="suppList"></div>
+      <div id="suppWeek"></div>
+      <p class="hint" id="suppSerie" style="margin:9px 0 0"></p>
+    </div>
+  </section>
+
   <div style="margin:18px 0 4px;display:flex;gap:9px;flex-wrap:wrap">
     <button class="btn" id="fdGoals">◎ Tagesziele</button>
     <button class="btn" id="fdEdit">✎ Sachen bearbeiten</button>
@@ -990,6 +1093,27 @@ main{position:relative;z-index:1}
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>
     <span>Verlauf</span></button>
 </nav>
+
+<div class="scrim" id="scrim7">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3 id="suppFormTitle">Supplement anlegen</h3>
+    <p class="msub">Was du täglich nimmst – ein Tipp hakt es ab.</p>
+    <div class="form">
+      <div class="f full"><label for="suName">Name</label>
+        <input id="suName" type="text" placeholder="z.B. Kreatin" autocomplete="off"></div>
+      <div class="f"><label for="suIco">Symbol</label>
+        <input id="suIco" type="text" placeholder="💪" maxlength="4" autocomplete="off"></div>
+      <div class="f"><label for="suDosis">Dosis (optional)</label>
+        <input id="suDosis" type="text" placeholder="5 g" autocomplete="off"></div>
+    </div>
+    <div class="mrow">
+      <button class="btn" id="suDelete" style="color:var(--bad-ink)">Entfernen</button>
+      <div class="sp" style="margin-left:auto"></div>
+      <button class="btn" id="suCancel">Abbrechen</button>
+      <button class="btn primary" id="suSave">Speichern</button>
+    </div>
+  </div>
+</div>
 
 <div class="scrim" id="scrim5">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
@@ -1034,6 +1158,7 @@ main{position:relative;z-index:1}
         <input id="zK" type="text" inputmode="decimal" placeholder="220" autocomplete="off"></div>
       <div class="f"><label for="zF">Fett (g)</label>
         <input id="zF" type="text" inputmode="decimal" placeholder="70" autocomplete="off"></div>
+      <div class="f full"><p class="hint" id="zCheck"></p></div>
       <div class="f full"><p class="hint">Leer lassen heißt: kein Ziel für diesen Wert – der Balken bleibt dann grau.</p></div>
     </div>
     <div class="mrow"><button class="btn" id="zCancel">Abbrechen</button>
@@ -1215,7 +1340,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v33 · Aurora · 08.09.2026';
+const APP_VERSION = 'v40 · Aurora · 08.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2114,7 +2239,7 @@ function renderTable() {
 }
 
 function render() {
-  renderHero(); renderAlerts(); renderHistory(); renderDonut(); renderBars();
+  renderHero(); renderAlerts(); sicherungAnbieten(); renderHistory(); renderDonut(); renderBars();
   const vt = $('#viewToday'); if (vt && !vt.hidden) renderToday();   // Hinweise mitziehen
   if (state.view === 'cards') { $('#cards').hidden = false; $('#tableview').hidden = true; renderCards(); }
   else { $('#cards').hidden = true; $('#tableview').hidden = false; renderTable(); }
@@ -2786,6 +2911,47 @@ const isEnc = r => !!(r && r.enc === 1 && r.data && r.salt && r.iv);
 /* Letzte Sicherung vor jedem Überschreiben – liegt nur auf diesem Gerät und
    kostet nichts. Hätte es die am 08.09.2026 gegeben, wäre nichts weg gewesen. */
 const LS_BACKUP = 'pt.backup.v1';
+/* ---- Sicherheitsnetz -------------------------------------------------
+   Unabhängig von jeder Sync-Logik: einmal am Tag ein vollständiger Stand,
+   sieben Tage Vorhalt. Liegt in einem eigenen Schlüssel, den weder Cloud
+   noch Import je anfassen. Wenn irgendetwas die Positionen leert – ein
+   Fehler von mir eingeschlossen – ist der letzte gute Stand noch da. */
+function tagesSicherung() {
+  if (!state.positions.length) return;
+  let liste = [];
+  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
+  const heute = today();
+  if (liste.some(b => b.tag === heute)) return;          // heute schon gesichert
+  liste.unshift({ tag: heute, gesichertAm: Date.now(), anzahl: state.positions.length,
+                  daten: normalize(payload()) });
+  lsSet(LS_BACKUP, JSON.stringify(liste.slice(0, 7)));
+}
+/* Leeres Depot, aber eine Sicherung mit Positionen? Dann sagt die App das
+   sofort und deutlich, statt den Nutzer vor einer leeren Liste stehen zu
+   lassen. Genau das hat am 08.09.2026 gefehlt. */
+function sicherungAnbieten() {
+  if (state.positions.length) return;
+  let liste = [];
+  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
+  const gut = liste.find(b => b.anzahl > 0);
+  if (!gut) return;
+  const box = $('#alerts');
+  if (!box) return;
+  const wann = new Date(gut.gesichertAm).toLocaleString('de-DE');
+  const div = document.createElement('div');
+  div.className = 'alert stop';
+  div.innerHTML = `<span style="font-size:17px">🛟</span>
+    <span style="flex:1 1 auto"><b>Dein Depot ist leer – es gibt aber eine Sicherung.</b><br>
+    ${gut.anzahl} Positionen, gesichert am ${esc(wann)}.
+    <button class="btn" id="sicherJetzt" style="margin-top:9px">Wiederherstellen</button></span>`;
+  box.prepend(div);
+  $('#sicherJetzt').onclick = () => {
+    if (!confirm(`${gut.anzahl} Positionen aus der Sicherung vom ${wann} wiederherstellen?`)) return;
+    applyRemote(gut.daten);
+    render(); persist();
+    toast(`${state.positions.length} Positionen wiederhergestellt.`);
+  };
+}
 function sicherungSchreiben(rec) {
   try {
     const alt = JSON.parse(lsGet(LS_BACKUP) || '[]');
@@ -2852,19 +3018,28 @@ async function cloudPull(silent, compare) {
       if (compare && state.positions.length && (rec.updatedAt||0) < (state.editStamp||0)) {
         cloud.busy = false; await cloudPush(true); return;   // lokal ist neuer → hochladen
       }
-      applyRemote(rec);
+      applyRemote(rec, silent);
       cloud.lastSync = Date.now(); saveCfg();
       if (!silent) toast(`${state.positions.length} Positionen aus der Cloud geladen.`);
     }
   } catch(e) { if (!silent) toast('Laden fehlgeschlagen: ' + e.message); }
   cloud.busy = false; updateSyncUi();
 }
-function applyRemote(raw) {
+function applyRemote(raw, still) {
   const rec = normalize(raw);
   if (!rec) { toast('Cloud-Daten nicht lesbar – lokaler Stand bleibt.'); return; }
   /* Was hier steht, bevor es ersetzt wird – als Netz für den Fall, dass der
      Fernstand schlechter ist als der eigene. */
   if (state.positions.length) sicherungSchreiben(normalize(payload()));
+  /* Die Gegenrichtung zum Push-Schutz: ein leerer Cloud-Stand räumt niemals
+     ungefragt ein volles Gerät leer. Beim stillen Abgleich gar nicht erst. */
+  if (state.positions.length && !rec.depot.positions.length) {
+    const txt = `In der Cloud steht keine einzige Position, auf diesem Gerät ${state.positions.length}.\n\nLaden würde sie hier löschen. Wirklich?`;
+    if (still || !confirm(txt)) {
+      toast('Cloud-Stand ist leer – dein Gerät behält seine Positionen.');
+      return;
+    }
+  }
   state.positions = rec.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
   if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
   state.tage  = rec.tage;
@@ -3069,6 +3244,7 @@ $('#cPass').onchange = () => applyPass();
 $('#tdAdd').onclick = addAufgabe;
 $('#tdDepot').onclick = () => setTab('home');
 $('#tdFood').onclick  = () => setTab('food');
+$('#tdSupp').onclick  = () => setTab('food');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -3321,6 +3497,33 @@ function renderToday() {
       fr.textContent = rest >= 0 ? `${rest.toLocaleString('de-DE')} übrig` : `${Math.abs(rest).toLocaleString('de-DE')} drüber`;
       fr.className = 'tdlp tnum ' + (rest >= 0 ? '' : 'down');
     } else { fr.textContent = es.n ? `${es.n} Portion${es.n===1?'':'en'}` : '—'; fr.className = 'tdlp tnum'; }
+    /* Punktzahl gleich mitnehmen – dafür ist der Heute-Bildschirm da */
+    const bew = essBewertung(today());
+    if (bew) {
+      fv.textContent = `${bew.punkte} Punkte`;
+      fv.className = 'tdlv tnum ' + NOTE_KLASSE(bew.punkte);
+      fr.textContent = num(ez.kcal)
+        ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')} kcal`
+        : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`;
+      fr.className = 'tdlp tnum';
+    }
+  }
+
+  /* Supplemente – gleicher Blick wie Depot und Ernährung */
+  const sDefs = suppDefs(), sGen = suppGenommen(today());
+  const sFertig = sDefs.filter(x => sGen.indexOf(x.id) > -1).length;
+  const sv = $('#tdSuppVal'), sr = $('#tdSuppRest'), sBox = $('#tdSupp');
+  if (sBox) {
+    sBox.hidden = !sDefs.length;
+    if (sDefs.length) {
+      sv.textContent = `${sFertig} / ${sDefs.length}`;
+      sv.className = 'tdlv tnum ' + (sFertig === sDefs.length ? 'up' : '');
+      const offen = sDefs.filter(x => sGen.indexOf(x.id) === -1);
+      sr.textContent = offen.length
+        ? (offen.length <= 2 ? 'offen: ' + offen.map(x => x.name).join(', ') : `${offen.length} offen`)
+        : 'alles genommen';
+      sr.className = 'tdlp tnum';
+    }
   }
 
   const t = totals('all');
@@ -3889,7 +4092,356 @@ function balken(el, wert, ziel, mehrIstGut) {
   i.style.width = Math.min(100, Math.round(q * 100)) + '%';
   i.className = q > 1.02 ? (mehrIstGut ? 'voll' : 'drueber') : q >= .98 ? 'voll' : '';
 }
+/* ============================================================
+   BEWERTUNG 0–100
+   Bewusst allgemein gehalten: eine Kennzahl wird als Ist/Ziel-Paar mit
+   Gewicht und Art bewertet, die Summe ergibt den Tageswert. Für Aufgaben
+   und Training später dieselbe Mechanik, nur andere Kennzahlen.
+
+   Arten:
+   'fenster'  Zielbereich – zu wenig ist so schlecht wie zu viel (Kalorien)
+   'minimum'  Untergrenze – darüber gibt es keine Abzüge (Eiweiß)
+   'obergrenze' nach oben eng, nach unten großzügig (Kohlenhydrate, Fett)
+   ============================================================ */
+const TOLERANZ_VOLL = 0.07;    // bis 7 % daneben gibt es die volle Punktzahl
+const TOLERANZ_NULL = 0.30;    // ab 30 % daneben null
+
+function punkteFuer(art, ist, ziel) {
+  if (!ziel || ziel <= 0) return null;              // ohne Ziel keine Wertung
+  const q = ist / ziel;
+  if (art === 'minimum') {                          // (bleibt für spätere Bereiche)
+    if (q >= 1) return 1;
+    return Math.max(0, (q - 0.5) / 0.5);
+  }
+  const ab = Math.abs(q - 1);                        // 'fenster': treffen, nicht über- oder unterbieten
+  if (ab <= TOLERANZ_VOLL) return 1;
+  return Math.max(0, 1 - (ab - TOLERANZ_VOLL) / (TOLERANZ_NULL - TOLERANZ_VOLL));
+}
+
+/* Eiweiß ist eine Untergrenze: 160 g sind das Ziel, 180 g sind kein Fehler.
+   Kohlenhydrate und Fett sollen dagegen getroffen werden. Die Kalorien
+   geben keine Punkte, sie wirken nur als Deckel – siehe bewerteSumme. */
+const ESS_KENNZAHLEN = [
+  { key:'kcal', name:'Kalorien',      art:'fenster', gewicht:25, einheit:'kcal' },
+  { key:'p',    name:'Eiweiß',        art:'minimum', gewicht:25, einheit:'g' },
+  { key:'k',    name:'Kohlenhydrate', art:'fenster', gewicht:25, einheit:'g' },
+  { key:'f',    name:'Fett',          art:'fenster', gewicht:25, einheit:'g' }
+];
+const ZIEL_SCORE = 90;         // was der Nutzer mindestens erreichen will
+/* Kalorien, die sich aus den Makrozielen ergeben – 4/4/9 je Gramm.
+   Weichen die stark vom Kalorienziel ab, ist die 100 gar nicht erreichbar. */
+function kcalAusMakros(z) {
+  const p = num(z.p), k = num(z.k), f = num(z.f);
+  if (p === null && k === null && f === null) return null;
+  return Math.round((p||0)*4 + (k||0)*4 + (f||0)*9);
+}
+
+/* Ergebnis: null = nicht bewertbar (keine Ziele oder nichts gebucht) */
+/* Kalorien = 4·Eiweiß + 4·Kohlenhydrate + 9·Fett – also keine eigenständige
+   Größe, sondern die Summe der drei. Zusätzlich gewertet könnten sich Fehler
+   darin aufheben (zu wenig Kohlenhydrate, zu viel Fett → Kalorien exakt am
+   Ziel, unverdiente Punkte). Deshalb geben die Kalorien bei vollständigen
+   Makrozielen keine Punkte.
+
+   Sie sind aber auch nicht bedeutungslos: weil Eiweiß nach oben offen ist
+   (mehr ist kein Fehler), fehlt sonst jede Bremse – man könnte beliebig viel
+   essen und behielte 100. Die Kalorien wirken darum als DECKEL: liegen sie
+   über dem Ziel, wird der Punktestand anteilig gekürzt. Nach unten braucht
+   es keinen Deckel, das fangen die Makros selbst ab. */
+function bewerteSumme(s) {
+  const z = essZiele(), teile = [];
+  const alleMakros = num(z.p) !== null && num(z.k) !== null && num(z.f) !== null;
+  let erreicht = 0, moeglich = 0;
+  ESS_KENNZAHLEN.forEach(kz => {
+    const ist  = kz.key === 'kcal' ? s.kcal : s[kz.key];
+    const ziel = num(z[kz.key]);
+    const anteil = punkteFuer(kz.art, ist, ziel);
+    if (anteil === null) return;                     // für diese Kennzahl kein Ziel
+    const zaehlt = !(kz.key === 'kcal' && alleMakros);
+    if (zaehlt) { erreicht += anteil * kz.gewicht; moeglich += kz.gewicht; }
+    teile.push({ ...kz, ist, ziel, anteil, zaehlt, punkte: anteil * kz.gewicht });
+  });
+  if (!moeglich) return null;                        // gar keine Ziele gesetzt
+
+  let roh = erreicht / moeglich;
+  let deckel = 1, kcalZiel = num(z.kcal);
+  if (alleMakros && kcalZiel && s.kcal > kcalZiel) {
+    const drueber = s.kcal / kcalZiel - 1;
+    if (drueber > TOLERANZ_VOLL) {
+      deckel = Math.max(0, 1 - (drueber - TOLERANZ_VOLL) / (TOLERANZ_NULL - TOLERANZ_VOLL));
+    }
+  }
+  return { punkte: Math.round(roh * deckel * 100), teile, summe: s,
+           deckel, ohneDeckel: Math.round(roh * 100) };
+}
+function essBewertung(d) {
+  const s = essSumme(d);
+  if (!s.n) return null;                             // an dem Tag nichts gebucht
+  return bewerteSumme(s);
+}
+/* Was bringt mich näher an die 90? Für jedes Lebensmittel wird
+   durchgerechnet, wie der Tag mit ein oder zwei Portionen mehr dastünde. */
+function essVorschlaege(d, hoechstens = 3) {
+  const jetzt = essBewertung(d);
+  if (!jetzt || jetzt.punkte >= ZIEL_SCORE) return [];
+  const s = jetzt.summe;
+  const treffer = [];
+  essLib().forEach(l => {
+    for (let n = 1; n <= 2; n++) {
+      const probe = { kcal: s.kcal + kcalOf(l)*n, p: s.p + (num(l.p)||0)*n,
+                      k: s.k + (num(l.k)||0)*n,   f: s.f + (num(l.f)||0)*n, n: s.n + n };
+      const b = bewerteSumme(probe);
+      if (!b) return;
+      const delta = b.punkte - jetzt.punkte;
+      if (delta > 0) treffer.push({ l, n, punkte: b.punkte, delta });
+    }
+  });
+  /* je Lebensmittel nur der beste Vorschlag */
+  const proLM = {};
+  treffer.forEach(t => { if (!proLM[t.l.id] || t.delta > proLM[t.l.id].delta) proLM[t.l.id] = t; });
+  return Object.values(proLM).sort((a,b) => b.delta - a.delta).slice(0, hoechstens);
+}
+
+const NOTE = p => p >= ZIEL_SCORE ? 'Ziel erreicht' : p >= 80 ? 'Knapp dran' : p >= 65 ? 'Solide'
+                : p >= 45 ? 'Geht besser' : 'Weit weg';
+const NOTE_KLASSE = p => p >= ZIEL_SCORE ? 'up' : p >= 65 ? 'flat' : 'down';
+
+/* Schnitt über die letzten n Tage, nur Tage mit Buchungen zählen */
+function essSchnitt(tage) {
+  const werte = [];
+  for (let i = 0; i < tage; i++) {
+    const b = essBewertung(isoAdd(today(), -i));
+    if (b) werte.push(b.punkte);
+  }
+  return werte.length ? { schnitt: Math.round(werte.reduce((a,b)=>a+b,0) / werte.length), tage: werte.length } : null;
+}
+
+function renderScore() {
+  const box = $('#fdScore'); if (!box) return;
+  const d = essDatum(), b = essBewertung(d);
+  const ring = $('#fdScoreArc'), zahl = $('#fdScoreVal'), note = $('#fdScoreNote'), auf = $('#fdScoreTeile');
+
+  if (!b) {
+    const hatZiele = ESS_KENNZAHLEN.some(kz => num(essZiele()[kz.key]));
+    zahl.textContent = '—';
+    zahl.className = 'fdscore-zahl';
+    note.textContent = !hatZiele ? 'Erst Tagesziele setzen, dann gibt es Punkte'
+                                 : 'Noch nichts gebucht';
+    auf.innerHTML = '';
+    $('#fdScoreZiel').textContent = '';
+    $('#fdScoreTipps').hidden = true; $('#fdScoreTipps').innerHTML = '';
+    ring.setAttribute('stroke-dashoffset', String(2 * Math.PI * 34));
+    $('#fdScoreWeek').innerHTML = '';
+    return;
+  }
+
+  zahl.textContent = b.punkte;
+  zahl.className = 'fdscore-zahl ' + NOTE_KLASSE(b.punkte);
+  note.textContent = NOTE(b.punkte);
+  const U = 2 * Math.PI * 34;
+  ring.setAttribute('stroke-dashoffset', String(U * (1 - b.punkte / 100)));
+  ring.setAttribute('stroke', b.punkte >= ZIEL_SCORE ? 'var(--good-ink)' : b.punkte >= 65 ? 'var(--acc)' : 'var(--bad-ink)');
+  $('#fdScoreZiel').textContent = b.punkte >= ZIEL_SCORE
+    ? `Ziel von ${ZIEL_SCORE} geschafft`
+    : `noch ${ZIEL_SCORE - b.punkte} bis zum Ziel von ${ZIEL_SCORE}`;
+
+  auf.innerHTML = b.teile.map(t => {
+    const proz = Math.round(t.anteil * 100);
+    const untertitel = t.zaehlt ? ''
+      : b.deckel < 1 ? `<small>Deckel greift: −${b.ohneDeckel - b.punkte} Punkte</small>`
+      : '<small>Deckel – gibt keine Punkte, begrenzt nur</small>';
+    return `<div class="fdscore-zeile${t.zaehlt ? '' : (b.deckel < 1 ? ' warnung' : ' passiv')}">
+      <span class="nm">${esc(t.name)}${untertitel}</span>
+      <span class="bar"><i style="width:${Math.min(100, proz)}%"></i></span>
+      <span class="pt tnum">${proz}<small> %</small></span>
+    </div>`;
+  }).join('');
+
+  /* Konkreter Weg zur 90, statt nur zu benoten */
+  const vor = essVorschlaege(d);
+  const vBox = $('#fdScoreTipps');
+  if (!vor.length) { vBox.innerHTML = ''; vBox.hidden = true; }
+  else {
+    vBox.hidden = false;
+    vBox.innerHTML = `<div class="fdtipp-kopf">Das bringt dich weiter</div>` + vor.map((v, i) =>
+      `<button class="fdtipp" data-tipp="${i}">
+         <span class="ic">${esc(v.l.ico || '🍽')}</span>
+         <span class="nm">${esc(v.l.name)}${v.n > 1 ? ` · ${v.n}×` : ''}</span>
+         <span class="dl">+${v.delta}</span>
+       </button>`).join('');
+    $$('#fdScoreTipps [data-tipp]').forEach(el => el.onclick = () => {
+      const v = vor[+el.dataset.tipp];
+      for (let i = 0; i < v.n; i++) essBuchen(v.l.id);
+    });
+  }
+
+  /* Sieben Tage im Überblick – Balkenhöhe ist der Tageswert */
+  const woche = [];
+  for (let i = 6; i >= 0; i--) {
+    const tag = isoAdd(today(), -i);
+    const bb = essBewertung(tag);
+    const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
+    woche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${bb ? bb.punkte + ' Punkte' : 'nichts gebucht'}">
+      <div class="bar"><i style="height:${bb ? bb.punkte : 0}%;background:${
+        !bb ? 'transparent' : bb.punkte >= 75 ? 'var(--good-ink)' : bb.punkte >= 50 ? 'var(--acc)' : 'var(--bad-ink)'
+      }"></i></div><span>${wd}</span></div>`);
+  }
+  const sch = essSchnitt(7);
+  $('#fdScoreWeek').innerHTML = `<div class="fdweek">${woche.join('')}</div>` +
+    (sch ? `<p class="hint" style="margin:9px 0 0">Schnitt der letzten 7 Tage: <b>${sch.schnitt}</b> Punkte
+            <span style="opacity:.7">· ${sch.tage} Tag${sch.tage===1?'':'e'} mit Einträgen</span></p>` : '');
+}
+
+/* ============================================================
+   SUPPLEMENTE
+   Reiner Tageshaken: genommen oder nicht. Bewusst getrennt von der
+   Nährwert-Bewertung – ein vergessenes Zink soll den Essens-Score nicht
+   drücken. Definitionen in state.ziele.supps, Haken in state.tage[d].supps.
+   ============================================================ */
+const SUPP_VORLAGEN = [
+  { id:'s01', name:'Kreatin',    ico:'💪', dosis:'' },
+  { id:'s02', name:'Magnesium',  ico:'🧲', dosis:'' },
+  { id:'s03', name:'Zink',       ico:'🔩', dosis:'' },
+  { id:'s04', name:'Vitamin D3', ico:'☀️', dosis:'' }
+];
+const LS_SUPP_SEED = 'pt.supp.seed.v1';
+
+function suppDefs() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.supps)) state.ziele.supps = [];
+  return state.ziele.supps;
+}
+function suppVorlagenUebernehmen() {
+  let gesehen = [];
+  try { gesehen = JSON.parse(lsGet(LS_SUPP_SEED) || '[]'); } catch(e) { gesehen = []; }
+  const defs = suppDefs();
+  let neu = 0;
+  SUPP_VORLAGEN.forEach(v => {
+    if (gesehen.indexOf(v.id) > -1) return;
+    gesehen.push(v.id);
+    if (!defs.some(x => x.id === v.id)) { defs.push({ ...v }); neu++; }
+  });
+  lsSet(LS_SUPP_SEED, JSON.stringify(gesehen));
+  if (neu) persist(false);        // niemals persist() – siehe Kommentar bei essVorlagenUebernehmen
+}
+function suppGenommen(d) {
+  const t = (state.tage || {})[d];
+  return Array.isArray(t && t.supps) ? t.supps : [];
+}
+function suppToggle(id) {
+  const d = essDatum(), liste = suppGenommen(d).slice();
+  const i = liste.indexOf(id);
+  if (i > -1) liste.splice(i, 1); else liste.push(id);
+  setTagWert(d, 'supps', liste.length ? liste : null);
+  renderSupps();
+  if (!$('#viewToday').hidden) renderToday();
+}
+/* Wie viele Tage am Stück alles genommen? Motiviert mehr als eine Tagesquote. */
+function suppSerie() {
+  const defs = suppDefs();
+  if (!defs.length) return 0;
+  let n = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = isoAdd(today(), -i);
+    const g = suppGenommen(d);
+    const alle = defs.every(x => g.indexOf(x.id) > -1);
+    if (!alle) { if (i === 0) continue; break; }   // heute darf noch offen sein
+    n++;
+  }
+  return n;
+}
+
+let suppBearbeiten = false;
+function renderSupps() {
+  const box = $('#suppList'); if (!box) return;
+  const defs = suppDefs(), d = essDatum(), g = suppGenommen(d);
+  const fertig = defs.filter(x => g.indexOf(x.id) > -1).length;
+
+  $('#suppZaehler').textContent = defs.length ? `${fertig} von ${defs.length}` : '';
+  const serie = suppSerie();
+  $('#suppSerie').textContent = serie >= 2 ? `${serie} Tage am Stück vollständig` : '';
+
+  box.innerHTML = !defs.length
+    ? `<div class="fdempty">Noch nichts eingetragen. Über „+ Supplement" legst du an, was du täglich nimmst.</div>`
+    : defs.map(x => {
+        const an = g.indexOf(x.id) > -1;
+        return `<div class="supp ${an?'an':''}" data-supp="${esc(x.id)}">
+          <span class="hk">${an ? '✓' : ''}</span>
+          <span class="ic">${esc(x.ico || '💊')}</span>
+          <span class="nm">${esc(x.name)}${x.dosis ? `<small>${esc(x.dosis)}</small>` : ''}</span>
+          ${suppBearbeiten ? '<span class="go">✎</span>' : ''}
+        </div>`;
+      }).join('');
+
+  $$('#suppList [data-supp]').forEach(el => el.onclick = () => {
+    if (suppBearbeiten) openSuppForm(el.dataset.supp);
+    else suppToggle(el.dataset.supp);
+  });
+
+  /* Sieben Tage: voll, teilweise, nichts */
+  const woche = [];
+  for (let i = 6; i >= 0; i--) {
+    const tag = isoAdd(today(), -i);
+    const gg = suppGenommen(tag);
+    const anz = defs.filter(x => gg.indexOf(x.id) > -1).length;
+    const quote = defs.length ? anz / defs.length : 0;
+    const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
+    woche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${anz} von ${defs.length}">
+      <div class="bar"><i style="height:${Math.round(quote*100)}%;background:${
+        quote >= 1 ? 'var(--good-ink)' : quote > 0 ? 'var(--acc)' : 'transparent'}"></i></div>
+      <span>${wd}</span></div>`);
+  }
+  $('#suppWeek').innerHTML = defs.length ? `<div class="fdweek">${woche.join('')}</div>` : '';
+}
+
+/* ---- Anlegen und ändern ---- */
+let suppEditId = null;
+function openSuppForm(id) {
+  suppEditId = id || null;
+  const x = id ? suppDefs().find(v => v.id === id) : null;
+  $('#suppFormTitle').textContent = x ? 'Supplement bearbeiten' : 'Supplement anlegen';
+  $('#suName').value  = x?.name ?? '';
+  $('#suIco').value   = x?.ico ?? '';
+  $('#suDosis').value = x?.dosis ?? '';
+  $('#suDelete').hidden = !x;
+  $('#scrim7').classList.add('on');
+  setTimeout(() => $('#suName').focus(), 60);
+}
+function saveSupp() {
+  const name = $('#suName').value.trim();
+  if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  const daten = { name, ico: $('#suIco').value.trim().slice(0,4) || '💊',
+                  dosis: $('#suDosis').value.trim() };
+  const defs = suppDefs();
+  if (suppEditId) { const x = defs.find(v => v.id === suppEditId); if (x) Object.assign(x, daten); }
+  else defs.push({ id: uid(), ...daten });
+  $('#scrim7').classList.remove('on');
+  suppEditId = null;
+  persist(); renderSupps(); toast('Gespeichert.');
+}
+function delSupp() {
+  const x = suppDefs().find(v => v.id === suppEditId); if (!x) return;
+  if (!confirm(`„${x.name}" entfernen?\n\nBereits abgehakte Tage bleiben erhalten.`)) return;
+  state.ziele.supps = suppDefs().filter(v => v.id !== suppEditId);
+  suppEditId = null;
+  $('#scrim7').classList.remove('on');
+  persist(); renderSupps(); toast('Entfernt.');
+}
+
+$('#suppAdd').onclick = () => openSuppForm();
+$('#suppEdit').onclick = () => {
+  suppBearbeiten = !suppBearbeiten;
+  $('#suppEdit').textContent = suppBearbeiten ? '✓ Fertig' : '✎';
+  renderSupps();
+};
+$('#suCancel').onclick = () => { $('#scrim7').classList.remove('on'); suppEditId = null; };
+$('#suSave').onclick = saveSupp;
+$('#suDelete').onclick = delSupp;
+$('#scrim7').onclick = e => { if (e.target === $('#scrim7')) { $('#scrim7').classList.remove('on'); suppEditId = null; } };
+
 function renderFood() {
+  renderScore();
+  renderSupps();
   const lib = essLib(), z = essZiele(), d = essDatum(), s = essSumme(d);
   const istHeute = d === today();
 
@@ -4024,10 +4576,32 @@ function delFood() {
 }
 
 /* ---------- Ziele ---------- */
+/* Die drei Makros bestimmen die Kalorien bereits vollständig. Passt das
+   Kalorienziel nicht dazu, kann man nie alle vier gleichzeitig treffen –
+   die 100 wäre rechnerisch unerreichbar. Deshalb wird hier live gerechnet. */
+function zielePruefen() {
+  const el = $('#zCheck'); if (!el) return;
+  const p = numDe($('#zP').value), k = numDe($('#zK').value), f = numDe($('#zF').value);
+  const kcal = numDe($('#zKcal').value);
+  const ausMakros = kcalAusMakros({ p, k, f });
+  if (ausMakros === null || kcal === null) { el.innerHTML = ''; return; }
+  const ab = Math.abs(ausMakros - kcal) / kcal;
+  if (ab <= TOLERANZ_VOLL) {
+    el.innerHTML = `✓ Passt zusammen: deine Makros ergeben <b>${ausMakros.toLocaleString('de-DE')} kcal</b>.`;
+  } else {
+    el.innerHTML = `⚠ Deine Makros ergeben <b>${ausMakros.toLocaleString('de-DE')} kcal</b>, dein Kalorienziel steht auf
+      <b>${kcal.toLocaleString('de-DE')}</b>. Beides zugleich zu treffen geht rechnerisch nicht –
+      die volle Punktzahl wäre nie erreichbar.
+      <button class="btn" id="zFix" style="margin-top:9px">Kalorienziel auf ${ausMakros.toLocaleString('de-DE')} setzen</button>`;
+    const fix = $('#zFix');
+    if (fix) fix.onclick = () => { $('#zKcal').value = deIn(ausMakros); zielePruefen(); };
+  }
+}
 function openZiele() {
   const z = essZiele();
   $('#zKcal').value = deIn(z.kcal); $('#zP').value = deIn(z.p);
   $('#zK').value = deIn(z.k);       $('#zF').value = deIn(z.f);
+  zielePruefen();
   $('#scrim6').classList.add('on');
 }
 function saveZiele() {
@@ -4057,6 +4631,7 @@ $('#fdNext').onclick = () => {
 $('#lfCancel').onclick = () => { $('#scrim5').classList.remove('on'); lmEditId = null; };
 $('#lfSave').onclick   = saveFood;
 $('#lfDelete').onclick = delFood;
+['#zKcal','#zP','#zK','#zF'].forEach(sel => { const el = $(sel); if (el) el.oninput = zielePruefen; });
 $('#zCancel').onclick  = () => $('#scrim6').classList.remove('on');
 $('#zSave').onclick    = saveZiele;
 $('#scrim5').onclick = e => { if (e.target === $('#scrim5')) { $('#scrim5').classList.remove('on'); lmEditId = null; } };
@@ -4068,6 +4643,7 @@ $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classL
 (async function boot() {
   loadCfg(); loadHistory(); loadIntra(); loadAlertState(); updateNotifyUi();
   essVorlagenUebernehmen();
+  suppVorlagenUebernehmen();
   const zul = +lsGet(LS_LASTUPD);
   if (zul) state.lastUpdate = new Date(zul);   // sonst behauptet die Zeile beim Öffnen, es gäbe nie Kurse
   $('#appVer').textContent = APP_VERSION;
@@ -4093,6 +4669,7 @@ $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classL
   if (!restored) {
     if (!lsGet(LS_SEEN)) { state.positions = demoPositions(); lsSet(LS_SEEN, '1'); }
   }
+  tagesSicherung();          // erst jetzt – vorher steht in state noch nichts
   $('#curEUR').setAttribute('aria-pressed', state.base==='EUR');
   $('#curUSD').setAttribute('aria-pressed', state.base==='USD');
   render(); updateSyncUi(); setTab('home');
