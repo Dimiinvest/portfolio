@@ -1105,6 +1105,10 @@ main{position:relative;z-index:1}
         <button class="btn" id="cOff" style="color:var(--bad-ink)">Trennen</button>
       </div>
       <p class="hint" id="cStatus" style="margin:10px 0 0">Nicht verbunden.</p>
+      <div style="border-top:1px solid var(--hair);margin-top:14px;padding-top:14px">
+        <button class="btn" id="cVersions" style="width:100%">⟲ Frühere Cloud-Fassungen suchen</button>
+        <div class="hint" id="cVerOut" style="margin:10px 0 0;line-height:1.7"></div>
+      </div>
     </div>
 
     <div class="secbox">
@@ -1211,7 +1215,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v32 · Aurora · 08.09.2026';
+const APP_VERSION = 'v33 · Aurora · 08.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2949,6 +2953,74 @@ $('#oClose').onclick = () => $('#scrim2').classList.remove('on');
 $('#oExport').onclick = exportJson;
 /* Zeigt die automatisch gesicherten Stände. Die App legt sie an, bevor ein
    Cloud-Vorgang die Positionen ersetzt – sie liegen nur auf diesem Gerät. */
+/* ---- Frühere Cloud-Fassungen -----------------------------------------
+   jsonbin hebt zu jedem Bin ältere Stände auf. Das ist der Weg zurück,
+   wenn ein Gerät die Cloud mit einem schlechteren Stand überschrieben hat.
+   Nur lesen; wiederhergestellt wird erst auf ausdrückliche Bestätigung. */
+let versionen = [];
+let verLaeuft = false;
+async function cloudVersionen() {
+  if (verLaeuft) return;
+  if (!cloud.key || !cloud.bin) { toast('Erst Master Key und Bin-ID eintragen.'); return; }
+  verLaeuft = true;
+  const out = $('#cVerOut'), btn = $('#cVersions');
+  btn.disabled = true; btn.textContent = 'suche …';
+  versionen = [];
+  const zeilen = [];
+  const schreib = t => { zeilen.push(t); out.innerHTML = zeilen.join('<br>'); };
+
+  const pruefe = async (pfad, nr) => {
+    try {
+      const j = await jbFetch(`${JB}/${cloud.bin}/${pfad}`, { method:'GET' });
+      let rec = j.record;
+      if (isEnc(rec)) {
+        if (!cloud.pass) { schreib(`${pfad}: verschlüsselt – Passwort fehlt`); return true; }
+        try { rec = await decryptRec(rec, cloud.pass); }
+        catch(e) { schreib(`${pfad}: Passwort passt nicht`); return true; }
+      }
+      const norm = normalize(rec);
+      if (!norm) { schreib(`${pfad}: nicht lesbar`); return true; }
+      const n = norm.depot.positions.length;
+      versionen.push({ nr, n, rec, updatedAt: rec.updatedAt || 0 });
+      return true;
+    } catch(e) { return false; }
+  };
+
+  await pruefe('latest', 'aktuell');
+  let daneben = 0;
+  for (let v = 1; v <= 60 && daneben < 6; v++) {
+    const ok = await pruefe(String(v), v);
+    daneben = ok ? 0 : daneben + 1;
+    await sleep(120);
+  }
+
+  versionen.sort((a,b) => b.n - a.n || b.updatedAt - a.updatedAt);
+  if (!versionen.length) {
+    out.innerHTML = 'Keine Fassung abrufbar. Entweder gibt dein jsonbin-Tarif keine älteren Stände heraus, oder Schlüssel und Bin-ID stimmen nicht.';
+  } else if (!versionen.some(v => v.n > 0)) {
+    out.innerHTML = `${versionen.length} Fassung${versionen.length===1?'':'en'} gefunden – in keiner stecken Positionen.`;
+  } else {
+    out.innerHTML = versionen.filter(v => v.n > 0).slice(0, 8).map((v, i) => {
+      const wann = v.updatedAt ? new Date(v.updatedAt).toLocaleString('de-DE') : 'ohne Zeitstempel';
+      return `<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--hair)">
+        <span style="flex:1 1 auto"><b>${v.n} Position${v.n===1?'':'en'}</b><br>
+          <span style="color:var(--muted);font-size:12px">Fassung ${esc(String(v.nr))} · ${esc(wann)}</span></span>
+        <button class="btn" data-ver="${i}" style="min-height:38px;padding:8px 12px;font-size:13px">Laden</button>
+      </div>`;
+    }).join('') + '<p class="hint" style="margin:10px 0 0">Beim Laden wird dein jetziger Stand vorher automatisch gesichert.</p>';
+    $$('#cVerOut [data-ver]').forEach(b2 => b2.onclick = () => {
+      const v = versionen.filter(x => x.n > 0)[+b2.dataset.ver];
+      if (!confirm(`Fassung mit ${v.n} Positionen laden?\n\nDein jetziger Stand wird ersetzt – vorher aber gesichert (⋯ → Letzte Sicherungen).`)) return;
+      applyRemote(v.rec);
+      render(); persist();
+      toast(`${state.positions.length} Positionen wiederhergestellt.`);
+    });
+  }
+  btn.disabled = false; btn.textContent = '⟲ Frühere Cloud-Fassungen suchen';
+  verLaeuft = false;
+}
+$('#cVersions').onclick = cloudVersionen;
+
 $('#oBackup').onclick = () => {
   let liste = [];
   try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
