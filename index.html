@@ -85,8 +85,9 @@ header.top{
 .brand small{display:block;color:var(--muted);font-size:11.5px;font-weight:500;letter-spacing:.02em}
 .btn{
   appearance:none;border:1px solid var(--hair);background:var(--surface-2);color:var(--text-secondary);
-  font:inherit;font-size:13px;font-weight:550;padding:8px 13px;border-radius:0px;cursor:pointer;
-  display:inline-flex;align-items:center;gap:7px;transition:.16s ease;white-space:nowrap
+  font:inherit;font-size:13px;font-weight:550;padding:10px 14px;border-radius:0px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.16s ease;white-space:nowrap;
+  min-height:42px                     /* Daumenbreite – darunter trifft man am Handy daneben */
 }
 .btn:hover{background:var(--surface-3);color:#fff;border-color:var(--hair-strong)}
 .btn:active{transform:translateY(1px)}
@@ -95,10 +96,10 @@ header.top{
   box-shadow:none;font-weight:400;letter-spacing:.04em}
 .btn.primary:hover{filter:brightness(1.08)}
 .btn.ghost{background:transparent}
-.btn.icon{padding:8px 10px}
+.btn.icon{padding:10px 12px;min-width:42px}
 .seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--hair);border-radius:0px;padding:2px}
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;
-  font-weight:600;padding:6px 11px;border-radius:0px;cursor:pointer;transition:.15s}
+  font-weight:600;padding:9px 13px;border-radius:0px;cursor:pointer;transition:.15s;min-height:38px}
 .seg button[aria-pressed="true"]{background:var(--surface-3);color:#fff}
 
 /* ---------- hero ---------- */
@@ -139,8 +140,8 @@ header.top{
 .alert{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-radius:0px;
   border:1px solid;font-size:13.5px;line-height:1.4;animation:slideIn .3s ease}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.alert.hit{background:rgba(12,163,12,.11);border-color:rgba(12,163,12,.42)}
-.alert.stop{background:rgba(208,59,59,.11);border-color:rgba(208,59,59,.42)}
+.alert.hit{background:rgba(110,231,183,.07);border-color:rgba(110,231,183,.34)}
+.alert.stop{background:rgba(252,165,165,.07);border-color:rgba(252,165,165,.34)}
 .alert.plan{background:rgba(125,211,252,.11);border-color:rgba(125,211,252,.42);flex-wrap:wrap}
 .alert.plan .body{flex:1 1 220px;min-width:0}
 .splines{margin:8px 0 0;display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--text-secondary);
@@ -256,6 +257,7 @@ header.top{
 .tgt .foot{display:flex;justify-content:space-between;gap:8px;margin-top:9px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap}
 .tgt .foot b{color:var(--text-primary);font-weight:640}
 .card .acts{display:flex;gap:6px;padding:0 16px 14px 18px;flex-wrap:wrap}
+.card .acts button{min-height:40px;padding-left:12px;padding-right:12px}
 .card .acts .btn{font-size:12px;padding:6px 10px}
 
 /* table view */
@@ -341,8 +343,11 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 
 /* ============ Kopf der neuen Bereiche ============ */
 .vhead{margin:22px 0 14px}
+/* Der Lichtbogen im Hintergrund läuft genau hier durch – ohne diesen
+   Schatten steht der Untertitel auf hellem Grund und wird unlesbar. */
+.vhead h2,.vhead p,.sec-head h2,.sec-head .count,.tlday,.sres .cnt{text-shadow:0 1px 10px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.6)}
 .vhead h2{font-size:24px;font-weight:680;letter-spacing:-.03em;margin:0}
-.vhead p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+.vhead p{margin:4px 0 0;color:var(--text-secondary);font-size:13.5px}
 
 /* ============ Suchfeld ============ */
 .searchbar{position:relative;display:flex;align-items:center;margin-bottom:12px}
@@ -610,6 +615,94 @@ body.hidden-nums [data-money]{
 .tdlv{margin-left:auto;font-size:15px;font-weight:500}
 .tdlp{font-size:12.5px}
 .tdlc{color:var(--muted);font-size:17px}
+
+/* ---- Ruhezustand ----------------------------------------------------
+   Der Hintergrund bewegt sich dauerhaft. Liegt die App im Hintergrund
+   oder steht ein Dialog davor, kostet das nur Akku – dann anhalten.
+   Wer im System weniger Bewegung eingestellt hat, bekommt gar keine. */
+body.ruht #obSpace, body.ruht #obOrb, body.ruht #obRing1, body.ruht #obRing2,
+body.ruht #obStars, body.ruht .dot.live, body.ruht .hero:after{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){
+  #obSpace,#obOrb,#obRing1,#obRing2,#obStars,.dot.live,.hero:after{animation:none !important}
+  *{transition-duration:.01ms !important}
+}
+
+/* ---- Inhalt über den Hintergrund ------------------------------------
+   Die Hintergrundebenen liegen als position:fixed mit z-index:0 im Bild.
+   Alles im Inhalt, was selbst nicht positioniert ist, verschwindet damit
+   dahinter – so waren die Alarme für Zielzone und Stop-Loss unsichtbar.
+   pointer-events:none auf den Ebenen hat das lange verdeckt: anklickbar
+   war der Kasten, zu sehen war er nicht. */
+main{position:relative;z-index:1}
+.alert{position:relative;z-index:1}
+
+/* Hinweise auf dem Heute-Bildschirm: Zielzone, Stop-Loss, fällige Rate */
+.tdn{display:flex;align-items:center;gap:11px;padding:12px 2px;border-top:1px solid var(--hair);cursor:pointer}
+.tdn:first-child{border-top:0}
+.tdn-ic{width:32px;height:32px;flex:0 0 32px;display:grid;place-items:center;border-radius:9px;
+  background:var(--surface-2);border:1px solid var(--hair);font-size:15px}
+.tdn-tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tdn-tx b{font-size:14px;font-weight:600;line-height:1.25}
+.tdn-tx i{font-style:normal;color:var(--muted);font-size:12.5px}
+.tdn-go{color:var(--muted);font-size:17px;flex:0 0 auto}
+.tdn.gut .tdn-ic{border-color:rgba(110,231,183,.4)}
+.tdn.schlecht .tdn-ic{border-color:rgba(252,165,165,.4)}
+
+/* ============================================================
+   ERNÄHRUNG
+   Kachelraster: ein Tipp bucht eine Portion. Deshalb große Ziele,
+   klare Rückmeldung und keine Zwischendialoge.
+   ============================================================ */
+.fdday .in{padding:16px 16px 15px}
+.fdtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.fdnav{display:flex;gap:6px}
+.fdkcal{font-size:34px;font-weight:680;letter-spacing:-.03em;line-height:1.05;margin:5px 0 3px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdkcal i{font-style:normal;font-size:15px;font-weight:400;color:var(--muted);margin-left:7px;letter-spacing:0}
+.fdrest{color:var(--muted);font-size:12.5px}
+.fdbar{height:6px;border-radius:99px;background:rgba(255,238,210,.09);overflow:hidden;margin-top:7px}
+.fdbar.big{height:9px;margin-top:12px}
+.fdbar i{display:block;height:100%;width:0;border-radius:99px;background:var(--acc);transition:width .35s ease}
+.fdbar i.voll{background:var(--good-ink)}
+.fdbar i.drueber{background:var(--bad-ink)}
+.fdmakros{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}
+.fdm .k{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.fdm .v{font-size:14.5px;font-weight:600;margin-top:3px}
+
+.fdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:9px}
+.fdtile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  min-height:104px;padding:12px 8px;border-radius:var(--radius);border:1px solid var(--hair);
+  background:var(--surface-1);cursor:pointer;transition:.14s ease;text-align:center;
+  -webkit-tap-highlight-color:transparent}
+.fdtile:hover{border-color:var(--hair-strong);background:var(--surface-2)}
+.fdtile:active{transform:scale(.96)}
+.fdtile .ico{font-size:26px;line-height:1}
+.fdtile .nm{font-size:12.5px;font-weight:600;line-height:1.2;max-width:100%;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.fdtile .kc{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdtile .heute{position:absolute;top:6px;right:7px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;
+  background:var(--acc-dim);color:var(--acc);font-size:11px;font-weight:700;display:grid;place-items:center;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.fdtile.neu{border-style:dashed;color:var(--muted);background:transparent}
+.fdempty{color:var(--muted);font-size:13.5px;line-height:1.6;padding:18px 2px}
+
+.fdrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid var(--hair)}
+.fdrow:first-child{border-top:0}
+.fdrow .ico{font-size:19px;width:26px;text-align:center;flex:0 0 26px}
+.fdrow .nm{flex:1 1 auto;min-width:0;font-size:14px}
+.fdrow .nm small{display:block;color:var(--muted);font-size:12px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fdrow .kc{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13.5px;color:var(--text-secondary);white-space:nowrap;flex:0 0 auto}
+.fdrow .x{background:transparent;border:0;color:var(--muted);font-size:19px;cursor:pointer;padding:6px 4px;min-width:34px}
+.fdrow .x:hover{color:var(--bad-ink)}
+.fdmini{display:flex;gap:7px;align-items:center}
+.fdmini button{min-width:36px;min-height:36px;padding:0;justify-content:center}
+
+#toast{display:flex;align-items:center;gap:14px;max-width:min(94vw,420px);text-align:left}
+.tundo{background:transparent;border:0;color:var(--acc);font:inherit;font-size:13px;font-weight:650;
+  cursor:pointer;padding:4px 2px;white-space:nowrap}
+/* fünf Bereiche in der Leiste – etwas enger, sonst passt „Startseite" nicht */
+.tabbar .tab{padding-left:4px;padding-right:4px}
+.tab span{font-size:10px}
 </style>
 </head>
 <body>
@@ -681,9 +774,9 @@ body.hidden-nums [data-money]{
       <div><h2>Wertentwicklung</h2><p id="histSub">Gesamtes Depot</p></div>
       <div class="ctrls">
         <div class="seg rangebar" role="group" aria-label="Zeitraum">
+          <button id="r1" aria-pressed="false">1T</button>
           <button id="r7" aria-pressed="false">7T</button>
           <button id="r30" aria-pressed="false">30T</button>
-          <button id="r90" aria-pressed="false">90T</button>
           <button id="rAll" aria-pressed="true">Alles</button>
         </div>
         <div class="delta flat" id="histDelta">—</div>
@@ -746,7 +839,7 @@ body.hidden-nums [data-money]{
   </div>
   <div class="searchbar">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-    <input id="sQuery" type="search" placeholder="Name oder Symbol, z.B. Bitcoin oder NVDA"
+    <input id="sQuery" aria-label="Positionen durchsuchen" type="search" placeholder="Name oder Symbol, z.B. Bitcoin oder NVDA"
            autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
     <button id="sClear" class="sclear" hidden aria-label="Suche löschen">×</button>
   </div>
@@ -809,6 +902,70 @@ body.hidden-nums [data-money]{
       <span class="tdlc">›</span>
     </div>
   </section>
+
+  <section class="card" id="tdFood" style="cursor:pointer">
+    <div class="in tdlink">
+      <span class="tdlk">Ernährung</span>
+      <span class="tdlv tnum" id="tdFoodVal">—</span>
+      <span class="tdlp tnum" id="tdFoodRest">—</span>
+      <span class="tdlc">›</span>
+    </div>
+  </section>
+
+  <section class="card" id="tdNoticeBox" hidden>
+    <div class="in">
+      <div class="cardhead"><h2>Braucht deine Aufmerksamkeit</h2></div>
+      <div id="tdNotices"></div>
+    </div>
+  </section>
+</main>
+
+<main class="wrap" id="viewFood" hidden>
+  <div class="vhead">
+    <h2>Ernährung</h2>
+    <p id="fdSub">Antippen bucht eine Portion</p>
+  </div>
+
+  <section class="card fdday">
+    <div class="in">
+      <div class="fdtop">
+        <div>
+          <div class="label" id="fdDate">—</div>
+          <div class="fdkcal"><span id="fdKcal">0</span><i id="fdKcalZiel">/ 0 kcal</i></div>
+          <div class="fdrest" id="fdRest">—</div>
+        </div>
+        <div class="fdnav">
+          <button class="btn icon ghost" id="fdPrev" title="Tag zurück">‹</button>
+          <button class="btn icon ghost" id="fdNext" title="Tag vor">›</button>
+        </div>
+      </div>
+      <div class="fdbar big"><i id="fdBarKcal"></i></div>
+      <div class="fdmakros">
+        <div class="fdm"><div class="k">Eiweiß</div><div class="v tnum" id="fdP">—</div>
+          <div class="fdbar"><i id="fdBarP"></i></div></div>
+        <div class="fdm"><div class="k">Kohlenhydrate</div><div class="v tnum" id="fdK">—</div>
+          <div class="fdbar"><i id="fdBarK"></i></div></div>
+        <div class="fdm"><div class="k">Fett</div><div class="v tnum" id="fdF">—</div>
+          <div class="fdbar"><i id="fdBarF"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-head">
+    <h2>Meine Sachen</h2>
+    <span class="count" id="fdCount">—</span>
+    <div class="sp"></div>
+    <button class="btn" id="fdAdd">+ Lebensmittel</button>
+  </div>
+  <div class="fdgrid" id="fdGrid"></div>
+
+  <div class="sec-head" id="fdLogHead" hidden><h2>Gegessen</h2><span class="count" id="fdLogCount">—</span></div>
+  <section class="card" id="fdLogBox" hidden><div class="in" id="fdLog"></div></section>
+
+  <div style="margin:18px 0 4px;display:flex;gap:9px;flex-wrap:wrap">
+    <button class="btn" id="fdGoals">◎ Tagesziele</button>
+    <button class="btn" id="fdEdit">✎ Sachen bearbeiten</button>
+  </div>
 </main>
 
 <main class="wrap" id="viewDetail" hidden>
@@ -826,10 +983,63 @@ body.hidden-nums [data-money]{
   <button class="tab" data-tab="search" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
     <span>Suchen</span></button>
+  <button class="tab" data-tab="food" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a2.5 2.5 0 0 0 5 0V3"/><path d="M8.5 3v8"/><path d="M8.5 13v8"/><path d="M17 3c-1.4 1.6-2 3.4-2 5.5 0 1.7.7 2.8 2 3.2V21"/></svg>
+    <span>Essen</span></button>
   <button class="tab" data-tab="history" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>
     <span>Verlauf</span></button>
 </nav>
+
+<div class="scrim" id="scrim5">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
+    <h3 id="fdFormTitle">Lebensmittel anlegen</h3>
+    <p class="msub">Nährwerte pro Portion – so, wie du es normalerweise isst.</p>
+    <div class="form">
+      <div class="f full"><label for="lfName">Name</label>
+        <input id="lfName" type="text" placeholder="z.B. Magerquark 250 g" autocomplete="off"></div>
+      <div class="f"><label for="lfIco">Symbol</label>
+        <input id="lfIco" type="text" placeholder="🥣" maxlength="4" autocomplete="off"></div>
+      <div class="f"><label for="lfPortion">Portion</label>
+        <input id="lfPortion" type="text" placeholder="1 Becher" autocomplete="off"></div>
+      <div class="f"><label for="lfKcal">Kalorien (kcal)</label>
+        <input id="lfKcal" type="text" inputmode="decimal" placeholder="180" autocomplete="off"></div>
+      <div class="f"><label for="lfP">Eiweiß (g)</label>
+        <input id="lfP" type="text" inputmode="decimal" placeholder="30" autocomplete="off"></div>
+      <div class="f"><label for="lfK">Kohlenhydrate (g)</label>
+        <input id="lfK" type="text" inputmode="decimal" placeholder="10" autocomplete="off"></div>
+      <div class="f"><label for="lfF">Fett (g)</label>
+        <input id="lfF" type="text" inputmode="decimal" placeholder="1" autocomplete="off"></div>
+      <div class="f full"><p class="hint" id="lfHint">Kalorien darfst du leer lassen – dann werden sie aus Eiweiß, Kohlenhydraten und Fett gerechnet.</p></div>
+    </div>
+    <div class="mrow">
+      <button class="btn" id="lfDelete" style="color:var(--bad-ink)">Löschen</button>
+      <div class="sp" style="margin-left:auto"></div>
+      <button class="btn" id="lfCancel">Abbrechen</button>
+      <button class="btn primary" id="lfSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim6">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3>Tagesziele</h3>
+    <p class="msub">Was du pro Tag erreichen willst.</p>
+    <div class="form">
+      <div class="f"><label for="zKcal">Kalorien (kcal)</label>
+        <input id="zKcal" type="text" inputmode="decimal" placeholder="2200" autocomplete="off"></div>
+      <div class="f"><label for="zP">Eiweiß (g)</label>
+        <input id="zP" type="text" inputmode="decimal" placeholder="160" autocomplete="off"></div>
+      <div class="f"><label for="zK">Kohlenhydrate (g)</label>
+        <input id="zK" type="text" inputmode="decimal" placeholder="220" autocomplete="off"></div>
+      <div class="f"><label for="zF">Fett (g)</label>
+        <input id="zF" type="text" inputmode="decimal" placeholder="70" autocomplete="off"></div>
+      <div class="f full"><p class="hint">Leer lassen heißt: kein Ziel für diesen Wert – der Balken bleibt dann grau.</p></div>
+    </div>
+    <div class="mrow"><button class="btn" id="zCancel">Abbrechen</button>
+      <button class="btn primary" id="zSave">Speichern</button></div>
+  </div>
+</div>
 
 <div class="scrim" id="scrim">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
@@ -840,14 +1050,14 @@ body.hidden-nums [data-money]{
       <div class="f"><label for="fType">Typ</label>
         <select id="fType"><option value="crypto">Krypto</option><option value="stock">Aktie</option><option value="etf">ETF</option><option value="other">Sonstiges</option></select></div>
       <div class="f"><label for="fSym">Symbol / ID</label><input id="fSym" placeholder="bitcoin · AAPL"></div>
-      <div class="f"><label for="fQty">Menge</label><input id="fQty" type="number" step="any" inputmode="decimal" placeholder="0,5"></div>
-      <div class="f"><label for="fEntry">Einstiegskurs</label><input id="fEntry" type="number" step="any" inputmode="decimal" placeholder="42000"></div>
-      <div class="f"><label for="fT1">Ziel von</label><input id="fT1" type="number" step="any" inputmode="decimal" placeholder="80000"></div>
-      <div class="f"><label for="fT2">Ziel bis</label><input id="fT2" type="number" step="any" inputmode="decimal" placeholder="95000"></div>
+      <div class="f"><label for="fQty">Menge</label><input id="fQty" type="text" inputmode="decimal" autocomplete="off" placeholder="0,5"></div>
+      <div class="f"><label for="fEntry">Einstiegskurs</label><input id="fEntry" type="text" inputmode="decimal" autocomplete="off" placeholder="42000"></div>
+      <div class="f"><label for="fT1">Ziel von</label><input id="fT1" type="text" inputmode="decimal" autocomplete="off" placeholder="80000"></div>
+      <div class="f"><label for="fT2">Ziel bis</label><input id="fT2" type="text" inputmode="decimal" autocomplete="off" placeholder="95000"></div>
       <div class="f"><label for="fCur">Währung</label>
         <select id="fCur"><option value="EUR">EUR</option><option value="USD">USD</option></select></div>
-      <div class="f"><label for="fPrice">Aktueller Kurs</label><input id="fPrice" type="number" step="any" inputmode="decimal" placeholder="leer = automatisch"></div>
-      <div class="f"><label for="fSl">Stop-Loss (optional)</label><input id="fSl" type="number" step="any" inputmode="decimal" placeholder="z.B. 38000"></div>
+      <div class="f"><label for="fPrice">Aktueller Kurs</label><input id="fPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="leer = automatisch"></div>
+      <div class="f"><label for="fSl">Stop-Loss (optional)</label><input id="fSl" type="text" inputmode="decimal" autocomplete="off" placeholder="z.B. 38000"></div>
       <div class="f"><label for="fDate">Kaufdatum</label><input id="fDate" type="date"></div>
       <div class="f"><label for="fVenue">Verwahrort</label>
         <select id="fVenue">
@@ -905,6 +1115,13 @@ body.hidden-nums [data-money]{
     </div>
 
     <div class="secbox">
+      <div class="sect">🩺 Kursquellen</div>
+      <p class="hint" style="margin:0 0 10px">Prüft jeden Weg einzeln. Wenn Kurse fehlen, steht hier, woran es liegt: gedrosselter Dienst oder ein Kürzel, das es bei Yahoo nicht gibt.</p>
+      <button class="btn" id="oDiag">🩺 Kursquellen prüfen</button>
+      <div class="hint" id="diagOut" style="margin:10px 0 0;line-height:1.7"></div>
+    </div>
+
+    <div class="secbox">
       <div class="sect">Datei</div>
       <div style="display:flex;flex-direction:column;gap:9px">
         <button class="btn" id="oExport">⬇ Daten exportieren (JSON)</button>
@@ -926,8 +1143,8 @@ body.hidden-nums [data-money]{
     <h3 id="tTitle">Nachkaufen</h3>
     <p class="msub" id="tSub">—</p>
     <div class="form">
-      <div class="f"><label for="tQty">Menge</label><input id="tQty" type="number" step="any" inputmode="decimal" placeholder="0,1"></div>
-      <div class="f"><label for="tPrice">Kurs</label><input id="tPrice" type="number" step="any" inputmode="decimal"></div>
+      <div class="f"><label for="tQty">Menge</label><input id="tQty" type="text" inputmode="decimal" autocomplete="off" placeholder="0,1"></div>
+      <div class="f"><label for="tPrice">Kurs</label><input id="tPrice" type="text" inputmode="decimal" autocomplete="off"></div>
       <div class="f full"><label for="tDate">Datum</label><input id="tDate" type="date"></div>
       <div class="f full"><p class="hint" id="tHint">—</p></div>
       <div class="f full"><div class="secbox" style="margin:0"><div class="sect" style="margin:0">Vorschau</div>
@@ -946,7 +1163,7 @@ body.hidden-nums [data-money]{
     <p class="msub" id="spSub">—</p>
     <div class="form">
       <div class="f"><label for="spAmount">Betrag je Rate</label>
-        <input id="spAmount" type="number" step="any" inputmode="decimal" placeholder="75"></div>
+        <input id="spAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="75"></div>
       <div class="f"><label for="spEvery">Rhythmus</label>
         <select id="spEvery">
           <option value="week">Wöchentlich</option>
@@ -993,7 +1210,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v26 · Aurora · 01.09.2026';
+const APP_VERSION = 'v31 · Aurora · 08.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -1037,6 +1254,20 @@ function migrate(p) {
   return p;
 }
 const num = v => (v === null || v === undefined || v === '' || isNaN(+v)) ? null : +v;
+/* Zahleneingabe aus einem Feld. Auf der deutschen iPhone-Tastatur liegt das
+   Komma – mit type=number verwirft der Browser „0,35" still und liefert ein
+   leeres Feld. Deshalb Textfelder, und hier wird beides gelesen. */
+const numDe = v => {
+  if (v === null || v === undefined) return null;
+  let s = String(v).trim().replace(/[\s\u00A0€$]/g, '');
+  if (!s) return null;
+  const k = s.lastIndexOf(','), pt = s.lastIndexOf('.');
+  if (k > -1 && pt > -1) s = k > pt ? s.replace(/\./g,'').replace(',','.') : s.replace(/,/g,'');
+  else if (k > -1) s = s.replace(/\./g,'').replace(',','.');
+  return (s === '' || isNaN(+s)) ? null : +s;
+};
+/* und zurück ins Feld, damit dort steht, was der Nutzer auch tippen würde */
+const deIn = v => (v === null || v === undefined || v === '') ? '' : String(v).replace('.', ',');
 
 /* ---------- Währung ---------- */
 function conv(v, from) {
@@ -1056,6 +1287,17 @@ function fmtC(v, cur, dec) {
   const a = Math.abs(v);
   if (dec === undefined) dec = a >= 1000 ? 0 : a >= 1 ? 2 : 4;
   return new Intl.NumberFormat('de-DE', { style:'currency', currency:cur, minimumFractionDigits:dec, maximumFractionDigits:dec }).format(v);
+}
+/* „vor 20 Minuten" sagt mehr als eine nackte Uhrzeit, wenn der Stand alt ist */
+function alterText(d) {
+  const min = Math.round((Date.now() - d.getTime()) / 60000);
+  if (min < 2)  return 'gerade eben';
+  if (min < 60) return `vor ${min} Minuten`;
+  const std = Math.round(min/60);
+  if (std < 24) return `vor ${std} Stunde${std===1?'':'n'}`;
+  const tage = Math.round(std/24);
+  return tage === 1 ? 'gestern, ' + d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})
+                    : `vor ${tage} Tagen`;
 }
 const pct = v => (v === null || isNaN(v)) ? '—' : (v >= 0 ? '+' : '') + v.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' %';
 const sign = v => v > 0.0000001 ? 'up' : v < -0.0000001 ? 'down' : 'flat';
@@ -1093,7 +1335,7 @@ const clsPositions = cls => state.positions.filter(p => inCls(p, cls));
 
 function totals(cls) {
   cls = cls || 'all';
-  let inv = 0, val = 0, tval = 0, known = 0, real = 0, count = 0;
+  let inv = 0, val = 0, tval = 0, known = 0, real = 0, count = 0, mitZiel = 0;
   clsPositions(cls).forEach(p => {
     const c = calc(p);
     count++;
@@ -1102,9 +1344,10 @@ function totals(cls) {
     tval += (c.tVal !== null ? c.tVal : (c.value !== null ? c.value : c.invest || 0));
     real += c.realized || 0;
     if (c.value !== null) known++;
+    if (c.tVal !== null) mitZiel++;      // ohne Zielzone wäre die Kachel nur eine Kopie von G/V
   });
   return { inv, val, tval, real, count, pl: val - inv, plPct: inv ? (val - inv) / inv * 100 : 0,
-           tpl: tval - inv, tpct: inv ? (tval - inv) / inv * 100 : 0, known };
+           tpl: tval - inv, tpct: inv ? (tval - inv) / inv * 100 : 0, known, mitZiel };
 }
 
 /* ---------- Alarm-Zustand je Position ---------- */
@@ -1171,6 +1414,7 @@ function renderHero() {
     ? `${fmt(t.inv,2)} investiert in ${n} Position${n===1?'':'en'}${cls==='all'?'':' ('+clsName+')'}`
     : (state.positions.length ? `Keine Positionen in ${clsName}` : 'Noch keine Positionen angelegt');
 
+  updateStatusLine();
   $('#kInv').textContent = fmt(t.inv, 2);
   $('#kInvD').textContent = n + ' Position' + (n===1?'':'en') + (cls==='all' ? '' : ' · ' + clsName);
   $('#kVal').textContent = live ? fmt(t.val, 2) : '—';
@@ -1180,8 +1424,16 @@ function renderHero() {
   kpl.className = 'v tnum ' + (live ? sign(t.pl) : 'flat');
   $('#kPlD').textContent = live ? pct(t.plPct) + ' auf das eingesetzte Kapital' : 'Kurse noch nicht geladen';
   $('#kPlAcc').style.background = !live ? 'var(--s7)' : t.pl >= 0 ? GOOD : BAD;
-  $('#kTgt').textContent = (t.tpl>=0?'+':'') + fmt(t.tpl,2);
-  $('#kTgtD').textContent = pct(t.tpct) + ' · Zielwert ' + fmt(t.tval,0);
+  /* Ohne gesetzte Zielzone rechnet tval mit dem aktuellen Wert weiter –
+     dann stünde hier dasselbe wie bei Gewinn/Verlust. Lieber ehrlich sein. */
+  if (!t.mitZiel) {
+    $('#kTgt').textContent = '—';
+    $('#kTgtD').textContent = n ? 'Noch keine Zielzone gesetzt' : 'Keine Positionen';
+  } else {
+    $('#kTgt').textContent = (t.tpl>=0?'+':'') + fmt(t.tpl,2);
+    $('#kTgtD').textContent = pct(t.tpct) + ' · Zielwert ' + fmt(t.tval,0)
+      + (t.mitZiel < n ? ` · ${t.mitZiel} von ${n} mit Ziel` : '');
+  }
   const rb = $('#kRealBox');
   if (Math.abs(t.real) > 0.005) {
     rb.hidden = false;
@@ -1301,9 +1553,11 @@ function updateNotifyUi() {
    ============================================================ */
 const LS_HIST = 'pt.history.v2';
 const LS_HIST_OLD = 'pt.history.v1';
+const LS_INTRA = 'pt.intra.v1';
 let history = [];
+let intra = [];                       // Punkte innerhalb des Tages
 let histRange = 'all';
-const RANGE_DAYS = { '7':7, '30':30, '90':90, 'all':100000 };
+const RANGE_DAYS = { '7':7, '30':30, 'all':100000 };
 
 function loadHistory() {
   try { history = JSON.parse(lsGet(LS_HIST) || '[]'); } catch(e) { history = []; }
@@ -1334,15 +1588,55 @@ function snapshot() {
   saveHistory();
 }
 
+/* Tagesverlauf: eigener Puffer, nur auf diesem Gerät, nichts davon geht
+   in die Cloud – sonst würde jeder Kursabruf den Sync aufblähen.
+   Höchstens alle vier Minuten ein Punkt, Vorhalt 40 Stunden. */
+function loadIntra() {
+  try { intra = JSON.parse(lsGet(LS_INTRA) || '[]'); } catch(e) { intra = []; }
+  intra = intra.filter(p => p && p.t > Date.now() - 40*3600e3);
+}
+function saveIntra() {
+  intra = intra.filter(p => p.t > Date.now() - 40*3600e3).slice(-600);
+  lsSet(LS_INTRA, JSON.stringify(intra));
+}
+function intraSnapshot() {
+  if (!state.positions.length) return;
+  const s = {};
+  CLASSES.forEach(c => {
+    const t = totals(c.key);
+    if (t.count && t.known) s[c.key] = { v: Math.round(t.val*100)/100, i: Math.round(t.inv*100)/100 };
+  });
+  if (!Object.keys(s).length) return;
+  const now = Date.now(), last = intra[intra.length-1];
+  const rec = { t: now, c: state.base, s };
+  if (last && last.c === state.base && now - last.t < 240000) intra[intra.length-1] = rec;
+  else intra.push(rec);
+  saveIntra();
+}
+/* 1 Tag: gestriger Schlusswert als Startpunkt, dann die Punkte von heute.
+   Ohne den Startpunkt wäre die Kurve morgens leer. */
+function intraSeries(cls) {
+  const t0 = new Date(); t0.setHours(0,0,0,0);
+  const pts = intra
+    .filter(p => p.c === state.base && p.t >= t0.getTime() && p.s && p.s[cls] && isFinite(p.s[cls].v))
+    .map(p => ({ t: p.t, v: p.s[cls].v, i: p.s[cls].i }));
+  const heute = new Date().toISOString().slice(0,10);
+  const gestern = [...history].reverse()
+    .find(h => h.d < heute && h.c === state.base && h.s && h.s[cls] && isFinite(h.s[cls].v));
+  if (gestern) pts.unshift({ t: t0.getTime(), v: gestern.s[cls].v, i: gestern.s[cls].i, ref: true });
+  return pts;
+}
+
 /* Reihe für die aktive Kombination Klasse + Zeitraum */
 function histSeries(cls, range) {
+  if (range === '1') return intraSeries(cls);
   const all = history
     .filter(h => h.c === state.base && h.s && h.s[cls] && isFinite(h.s[cls].v))
-    .map(h => ({ d: h.d, v: h.s[cls].v, i: h.s[cls].i, bf: !!h.bf }));
+    .map(h => ({ t: Date.parse(h.d + 'T12:00:00'), d: h.d, v: h.s[cls].v, i: h.s[cls].i, bf: !!h.bf }));
   const days = RANGE_DAYS[range] ?? 100000;
   if (days >= 100000) return all;
-  const from = new Date(Date.now() - (days-1)*864e5).toISOString().slice(0,10);
-  const cut = all.filter(h => h.d >= from);
+  const ab = new Date(); ab.setHours(0,0,0,0); ab.setDate(ab.getDate() - (days-1));
+  const cut = all.filter(h => h.t >= ab.getTime());
   return cut.length >= 2 ? cut : all.slice(-Math.max(2, Math.min(all.length, days)));
 }
 
@@ -1350,12 +1644,15 @@ function renderHistory() {
   const svg = $('#hist'), hint = $('#histHint'), box = $('#histBox');
   const clsName = CLASSES.find(c => c.key === state.cls)?.label || 'Alle';
   const data = histSeries(state.cls, histRange);
+  const eintag = histRange === '1';
   svg.innerHTML = ''; svg.removeAttribute('style');
   const dEl = $('#histDelta');
 
   if (data.length < 2) {
     const anyCls = history.some(h => h.s && h.s[state.cls]);
-    hint.textContent = !history.length
+    hint.textContent = eintag
+      ? 'Für heute liegen noch nicht genug Messpunkte vor. Die Kurve entsteht mit jedem Kursabruf – spätestens morgen früh steht der gestrige Schluss als Startpunkt darin.'
+      : !history.length
       ? 'Noch kein Verlauf vorhanden. Die App merkt sich ab jetzt einmal pro Tag deine Werte – oder du baust den Verlauf sofort aus echten historischen Kursen nach: ⋯ → „Verlauf nachbauen".'
       : !anyCls
       ? `Für ${clsName} liegen noch keine Verlaufsdaten vor.`
@@ -1366,53 +1663,126 @@ function renderHistory() {
   }
   hint.textContent = '';
 
-  const W = Math.max(240, box.clientWidth || 800), H = 174, padT = 16, padB = 24;
+  const W = Math.max(240, box.clientWidth || 800), H = 170;
+  const padT = 16, padB = 26, padL = 2, padR = 46;   // rechts die Werteachse
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  /* Zeitproportional statt gleichabständig: fehlende Tage reißen dann eine
+     echte Lücke, statt die Kurve stillschweigend zu stauchen. */
+  const t0 = data[0].t, t1 = data[data.length-1].t;
+  const span = Math.max(1, t1 - t0);
+  const X = i => padL + ((data[i].t - t0) / span) * (W - padL - padR);
+
   const vs = data.map(d => d.v);
   let lo = Math.min(...vs), hi = Math.max(...vs);
   if (hi === lo) { hi = lo * 1.01 + 1; lo = lo * 0.99 - 1; }
-  const padY = (hi - lo) * 0.14; lo -= padY; hi += padY;
-  const X = i => data.length === 1 ? W/2 : (i / (data.length-1)) * W;
+  const padY = (hi - lo) * 0.16; lo -= padY; hi += padY;
   const Y = v => padT + (1 - (v - lo)/(hi - lo)) * (H - padT - padB);
+
   const ns = 'http://www.w3.org/2000/svg';
   const mk = (n, at, txt) => { const e = document.createElementNS(ns, n);
     for (const k in at) e.setAttribute(k, at[k]); if (txt !== undefined) e.textContent = txt; return e; };
+  const MONO = 'JetBrains Mono, ui-monospace, monospace';
+  /* Beschriftung mit Feld dahinter – sonst laufen Gitterlinie oder Kurve
+     mitten durch die Zahl. Monospace, deshalb ist die Breite berechenbar. */
+  const label = (x, y, txt, anchor) => {
+    const w = txt.length * 6.05 + 9;
+    const rx = anchor === 'end' ? x - w + 4 : anchor === 'start' ? x - 4 : x - w/2;
+    svg.appendChild(mk('rect', { x:rx, y:y-9.5, width:w, height:13, rx:3, fill:'#141210', opacity:.95 }));
+    svg.appendChild(mk('text', { x, y, fill:'var(--muted)', 'font-size':10, 'font-family':MONO,
+                                 'text-anchor':anchor || 'middle' }, txt));
+  };
 
   // Veränderung im gewählten Zeitraum
   const first = data[0], last = data[data.length-1];
   const chg = last.v - first.v;
   const chgP = first.v ? chg / first.v * 100 : 0;
   const up = chg >= 0;
-  const col = up ? '#0ca30c' : '#d03b3b';
+  const col = up ? '#6EE7B7' : '#FCA5A5';       // wie die Kennzahlen, nicht dunkler
 
-  // Referenzlinie: eingesetztes Kapital
-  if (last.i >= lo && last.i <= hi) {
-    svg.appendChild(mk('line', { x1:0, x2:W, y1:Y(last.i), y2:Y(last.i), stroke:'var(--axis)', 'stroke-width':1, 'stroke-dasharray':'4 4' }));
-    svg.appendChild(mk('text', { x:3, y:Y(last.i)-6, fill:'var(--muted)', 'font-size':10.5 }, 'investiert'));
+  /* --- Y-Achse: wenige runde Werte, Haarlinien im Hintergrund --- */
+  const kfmt = v => {
+    const a = Math.abs(v);
+    if (a >= 1e6) return (v/1e6).toLocaleString('de-DE',{maximumFractionDigits:2}) + ' Mio';
+    if (a >= 1000) return (v/1000).toLocaleString('de-DE',{maximumFractionDigits:1}) + 'k';
+    return v.toLocaleString('de-DE',{maximumFractionDigits:0});
+  };
+  const raw = (hi - lo) / 3, mag = Math.pow(10, Math.floor(Math.log10(Math.max(raw, 1e-9))));
+  const n = raw / mag, step = (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag;
+  for (let v = Math.ceil(lo/step)*step; v <= hi; v += step) {
+    const y = Y(v);
+    if (y < padT - 2 || y > H - padB + 2) continue;
+    svg.appendChild(mk('line', { x1:0, x2:W-padR+4, y1:y, y2:y, stroke:'var(--hair)', 'stroke-width':1 }));
+    svg.appendChild(mk('text', { x:W-3, y:y+3.5, fill:'var(--muted)', 'font-size':10,
+                                 'font-family':MONO, 'text-anchor':'end' }, kfmt(v)));
   }
+
+  // Referenzlinie: eingesetztes Kapital – bei der Tagessicht der gestrige Schluss
+  const refV = eintag ? first.v : last.i;
+  const refT = eintag ? 'gestern' : 'investiert';
+  if (refV >= lo && refV <= hi) {
+    svg.appendChild(mk('line', { x1:0, x2:W-padR+4, y1:Y(refV), y2:Y(refV), stroke:'var(--axis)',
+                                 'stroke-width':1, 'stroke-dasharray':'4 4' }));
+    label(3, Y(refV)-5, refT, 'start');
+  }
+
+  /* --- Fläche + Linie --- */
   const line = data.map((d,i) => `${i?'L':'M'}${X(i).toFixed(1)} ${Y(d.v).toFixed(1)}`).join(' ');
   const gid = 'grad' + (up?'u':'d');
   const defs = mk('defs', {}); defs.innerHTML =
     `<linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
-       <stop offset="0%" stop-color="${col}" stop-opacity=".32"/>
+       <stop offset="0%" stop-color="${col}" stop-opacity=".26"/>
        <stop offset="100%" stop-color="${col}" stop-opacity="0"/></linearGradient>`;
   svg.appendChild(defs);
-  svg.appendChild(mk('path', { d:`${line} L${W} ${H-padB} L0 ${H-padB} Z`, fill:`url(#${gid})`, stroke:'none' }));
-  svg.appendChild(mk('path', { d:line, fill:'none', stroke:col, 'stroke-width':2, 'stroke-linejoin':'round', 'stroke-linecap':'round' }));
-  svg.appendChild(mk('circle', { cx:X(data.length-1), cy:Y(last.v), r:4, fill:col, stroke:'var(--surface-1)', 'stroke-width':2 }));
+  svg.appendChild(mk('path', { d:`${line} L${X(data.length-1)} ${H-padB} L${X(0)} ${H-padB} Z`,
+                               fill:`url(#${gid})`, stroke:'none' }));
+  svg.appendChild(mk('path', { d:line, fill:'none', stroke:col, 'stroke-width':2,
+                               'stroke-linejoin':'round', 'stroke-linecap':'round' }));
 
-  const fd = d => new Date(d+'T00:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
-  svg.appendChild(mk('text', { x:2, y:H-6, fill:'var(--muted)', 'font-size':10.5 }, fd(first.d)));
-  svg.appendChild(mk('text', { x:W-2, y:H-6, fill:'var(--muted)', 'font-size':10.5, 'text-anchor':'end' }, fd(last.d)));
+  /* --- Hoch und Tief benennen, nicht jeden Punkt --- */
+  if (data.length >= 4 && hi !== lo) {
+    const iMax = vs.indexOf(Math.max(...vs)), iMin = vs.indexOf(Math.min(...vs));
+    [[iMax, -1], [iMin, 1]].forEach(([i, richtung]) => {
+      if (i === data.length-1) return;                        // am Endpunkt sitzt schon der Marker
+      const y = Y(data[i].v);
+      // nach oben, außer es ist oben zu eng – dann nach unten (und umgekehrt)
+      let dy = richtung < 0 ? -9 : 16;
+      if (dy < 0 && y - padT < 13) dy = 16;
+      if (dy > 0 && (H - padB) - y < 18) dy = -9;
+      const x = Math.min(W-padR-26, Math.max(28, X(i)));
+      svg.appendChild(mk('circle', { cx:X(i), cy:y, r:2.5, fill:'var(--muted)' }));
+      label(x, y+dy, fmt(data[i].v,0));
+    });
+  }
+  svg.appendChild(mk('circle', { cx:X(data.length-1), cy:Y(last.v), r:4, fill:col,
+                                 stroke:'var(--surface-1)', 'stroke-width':2 }));
+
+  /* --- X-Achse: drei bis vier Marken statt nur Anfang und Ende --- */
+  const fLabel = ms => eintag
+    ? new Date(ms).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})
+    : new Date(ms).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+  const marks = W < 420 ? 3 : 4;
+  for (let k = 0; k < marks; k++) {
+    const f = k / (marks - 1);
+    const x = padL + f * (W - padL - padR);
+    svg.appendChild(mk('text', {
+      x: k === 0 ? 2 : k === marks-1 ? W-padR : x,
+      y: H-7, fill:'var(--muted)', 'font-size':10.5, 'font-family':MONO,
+      'text-anchor': k === 0 ? 'start' : k === marks-1 ? 'end' : 'middle'
+    }, fLabel(t0 + f * span)));
+  }
 
   // Fadenkreuz + Marker (im SVG, damit es exakt sitzt)
-  const cl = mk('line', { x1:0, x2:0, y1:padT-8, y2:H-padB, stroke:'var(--hair-strong)', 'stroke-width':1, opacity:0 });
+  const cl = mk('line', { x1:0, x2:0, y1:padT-10, y2:H-padB, stroke:'var(--hair-strong)', 'stroke-width':1, opacity:0 });
   const cm = mk('circle', { r:5, fill:col, stroke:'var(--surface-1)', 'stroke-width':2.5, opacity:0 });
   svg.appendChild(cl); svg.appendChild(cm);
 
   // Beschriftung aus dem tatsächlich abgedeckten Zeitraum, nicht aus dem Knopf
-  const spanDays = Math.round((new Date(last.d) - new Date(first.d)) / 864e5) + 1;
-  const labelRange = spanDays === 1 ? '1 Tag' : `${spanDays} Tage`;
+  const spanDays = Math.round(span / 864e5) + 1;
+  const labelRange = eintag ? 'heute'
+    : spanDays <= 1 ? '1 Tag'
+    : spanDays > 60 ? `${Math.round(spanDays/30.4)} Monate`
+    : `${spanDays} Tage`;
   const bfNote = data.some(d => d.bf) ? ' · aus historischen Kursen' : '';
   $('#histSub').innerHTML = `${clsName === 'Alle' ? 'Gesamtes Depot' : esc(clsName)} · ${labelRange}${bfNote}`;
   dEl.className = 'delta ' + sign(chg);
@@ -1422,15 +1792,18 @@ function renderHistory() {
   const at = ev => {
     const r = box.getBoundingClientRect();
     const src = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
-    const rel = (src.clientX - r.left) / Math.max(1, r.width);
-    const i = Math.max(0, Math.min(data.length-1, Math.round(rel * (data.length-1))));
+    const px = ((src.clientX - r.left) / Math.max(1, r.width)) * W;
+    let i = 0, bd = Infinity;                       // nächster Punkt, nicht nächster Index
+    for (let k = 0; k < data.length; k++) { const d = Math.abs(X(k) - px); if (d < bd) { bd = d; i = k; } }
     const p = data[i];
     cl.setAttribute('x1', X(i)); cl.setAttribute('x2', X(i)); cl.setAttribute('opacity', 1);
     cm.setAttribute('cx', X(i)); cm.setAttribute('cy', Y(p.v)); cm.setAttribute('opacity', 1);
     const gv = p.v - p.i, gvP = p.i ? gv / p.i * 100 : 0;
-    showTip(src,
-      new Date(p.d+'T00:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}),
-      `${clsName === 'Alle' ? 'Portfolio' : clsName}: ${fmt(p.v,2)} ${gv>=0?'Gewinn':'Verlust'}: ${(gv>=0?'+':'')+fmt(gv,2)} (${pct(gvP)})`);
+    const wann = eintag
+      ? new Date(p.t).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) + ' Uhr' + (p.ref ? ' · gestriger Schluss' : '')
+      : new Date(p.t).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+    showTip(src, wann,
+      `${clsName === 'Alle' ? 'Portfolio' : clsName}: ${fmt(p.v,2)} ${gv>=0?'Gewinn':'Verlust'}: ${(gv>=0?'+':'')+fmt(gv,2)} (${pct(gvP)})`);
   };
   const off = () => { cl.setAttribute('opacity',0); cm.setAttribute('opacity',0); hideTip(); };
   box.onmousemove = at; box.onmouseleave = off;
@@ -1737,6 +2110,7 @@ function renderTable() {
 
 function render() {
   renderHero(); renderAlerts(); renderHistory(); renderDonut(); renderBars();
+  const vt = $('#viewToday'); if (vt && !vt.hidden) renderToday();   // Hinweise mitziehen
   if (state.view === 'cards') { $('#cards').hidden = false; $('#tableview').hidden = true; renderCards(); }
   else { $('#cards').hidden = true; $('#tableview').hidden = false; renderTable(); }
 }
@@ -1751,6 +2125,14 @@ function showTip(ev, t1, t2){ tip.querySelector('.t1').textContent=t1; tip.query
 function hideTip(){ tip.style.opacity=0; }
 let toastT; function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('on');
   clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('on'), 3200); }
+/* Meldung mit Rückgängig – besser als eine Sicherheitsabfrage vor jedem Tipp */
+function toastUndo(msg, fn){
+  const el=$('#toast');
+  el.innerHTML = `<span>${esc(msg)}</span><button class="tundo">Rückgängig</button>`;
+  el.classList.add('on');
+  el.querySelector('.tundo').onclick = () => { el.classList.remove('on'); fn && fn(); };
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('on'), 5200);
+}
 
 /* ============================================================
    KURSE LADEN
@@ -1799,25 +2181,149 @@ async function fetchCrypto(ids) {
   catch(e) { return {}; }
 }
 const PROXIES = [
-  u => u,                                                              // direkt, falls erlaubt
-  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)
+  { n:'direkt',     w:u => u },                                        // falls der Browser es erlaubt
+  { n:'allorigins', w:u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u) },
+  { n:'codetabs',   w:u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u) },
+  { n:'corsproxy',  w:u => 'https://corsproxy.io/?url=' + encodeURIComponent(u) }
 ];
+/* Manche Dienste reichen die Antwort in { contents: "…" } verpackt durch.
+   Deshalb erst Text holen und notfalls auspacken statt blind r.json(). */
+async function readJson(r) {
+  let j;
+  try { j = JSON.parse(await r.text()); } catch(e) { return null; }
+  if (j && typeof j.contents === 'string') { try { j = JSON.parse(j.contents); } catch(e) { return null; } }
+  return j;
+}
 /* Alle Wege gleichzeitig anfragen – der erste brauchbare Treffer gewinnt.
    Vorher lief das nacheinander, ein hängender Dienst blockierte alles. */
 function raceProxies(url, parse, ms) {
   return new Promise(resolve => {
     let open = PROXIES.length, done = false;
     const finish = v => { if (!done) { done = true; resolve(v); } };
-    PROXIES.forEach(async wrap => {
+    PROXIES.forEach(async p => {
       try {
-        const r = await fetchT(wrap(url), ms, { cache:'no-store' });
-        if (r.ok) { const v = parse(await r.json()); if (v != null) finish(v); }
+        const r = await fetchT(p.w(url), ms, { cache:'no-store' });
+        if (r.ok) { const j = await readJson(r); const v = j && parse(j); if (v != null) finish(v); }
       } catch(e) { /* egal, ein anderer Weg läuft parallel */ }
       if (--open === 0) finish(null);
     });
   });
 }
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+/* Häppchenweise statt alles auf einmal – siehe Kommentar bei sparkAll. */
+async function inChunks(items, size, fn) {
+  const out = [];
+  for (let i = 0; i < items.length; i += size) {
+    out.push(...await Promise.all(items.slice(i, i+size).map(fn)));
+    if (i + size < items.length) await sleep(300);
+  }
+  return out;
+}
+/* ---- Aktien und ETFs -------------------------------------------------
+   NICHT ein Abruf pro Papier. Bei 14 Papieren wären das über vier Wege
+   56 gleichzeitige Anfragen; die CORS-Dienste drosseln das und liefern
+   dann fast nichts. Genau daran lag es, dass zuletzt nur die Kryptokurse
+   ankamen – die laufen über eine einzige CoinGecko-Anfrage.
+   Also: erst der Sammelendpunkt (alle Symbole in einer Anfrage), und nur
+   was dabei fehlt, wird einzeln und gedrosselt nachgeholt.
+   spark liefert keine Währung – die bleibt deshalb die der Position, und
+   Papiere ohne bisherigen Kurs gehen immer über den Einzelabruf. */
+function sparkAll(syms) {
+  const u = `https://query1.finance.yahoo.com/v7/finance/spark?symbols=${encodeURIComponent(syms.join(','))}&range=1d&interval=5m`;
+  return raceProxies(u, j => {
+    const out = {};
+    const put = (sym, px) => { if (sym && px > 0) out[String(sym).toUpperCase()] = px; };
+    if (Array.isArray(j?.spark?.result)) {              // ältere Antwortform
+      j.spark.result.forEach(r => {
+        const rs = r?.response?.[0];
+        const cl = (rs?.indicators?.quote?.[0]?.close || []).filter(v => v != null);
+        put(r.symbol || rs?.meta?.symbol, cl.length ? cl[cl.length-1] : rs?.meta?.previousClose);
+      });
+    } else {
+      for (const k in j) {
+        const d = j[k]; if (!d || typeof d !== 'object') continue;
+        const cl = (d.close || []).filter(v => v != null);
+        put(d.symbol || k, cl.length ? cl[cl.length-1] : (d.previousClose ?? d.chartPreviousClose));
+      }
+    }
+    return Object.keys(out).length ? out : null;
+  }, 9000);
+}
+/* ---- Diagnose -------------------------------------------------------
+   Am Handy gibt es keine Konsole. Deshalb prüft die App jeden Weg selbst
+   und schreibt das Ergebnis in die Einstellungen. */
+async function probe(url, ms) {
+  const t0 = Date.now();
+  try {
+    const r = await fetchT(url, ms || 9000, { cache:'no-store' });
+    const dt = Date.now() - t0;
+    if (!r.ok) return { ok:false, txt:`HTTP ${r.status}`, ms:dt };
+    const j = await readJson(r);
+    return j ? { ok:true, j, ms:dt } : { ok:false, txt:'unlesbare Antwort', ms:dt };
+  } catch(e) {
+    return { ok:false, ms: Date.now()-t0,
+             txt: e.name === 'AbortError' ? 'Zeitüberschreitung' : (e.message || 'blockiert') };
+  }
+}
+let diagRunning = false;
+async function runDiag() {
+  if (diagRunning) return;
+  diagRunning = true;
+  const out = $('#diagOut'), btn = $('#oDiag');
+  btn.disabled = true; btn.textContent = 'prüfe …';
+  const L = []; const add = s => { L.push(s); out.innerHTML = L.join('<br>'); };
+
+  const cids = [...new Set(state.positions.filter(p=>p.type==='crypto'&&p.symbol).map(p=>cgId(p.symbol)))];
+  if (cids.length) {
+    const r = await probe(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(cids.join(','))}&vs_currencies=eur`);
+    add(r.ok
+      ? `<b>Krypto (CoinGecko)</b> ✓ ${Object.keys(r.j||{}).length} von ${cids.length} Kürzeln bekannt · ${r.ms} ms`
+      : `<b>Krypto (CoinGecko)</b> ✕ ${esc(r.txt)}`);
+    const unbekannt = cids.filter(id => !r.j || !r.j[id]);
+    if (r.ok && unbekannt.length) add(`&nbsp;&nbsp;unbekanntes Kürzel: <b>${esc(unbekannt.join(', '))}</b>`);
+  }
+
+  const fx = await probe(FX_SOURCES[0].u, 6000);
+  add(`<b>Wechselkurs</b> ${fx.ok ? '✓ ' + fx.ms + ' ms' : '✕ ' + esc(fx.txt)}`);
+
+  const syms = [...new Set(state.positions.filter(p=>(p.type==='stock'||p.type==='etf')&&p.symbol).map(p=>p.symbol.trim()))];
+  if (!syms.length) { add('<b>Aktien/ETFs</b> keine Papiere eingetragen'); }
+  else {
+    const u = `https://query1.finance.yahoo.com/v7/finance/spark?symbols=${encodeURIComponent(syms.join(','))}&range=1d&interval=5m`;
+    add(`<b>Aktien/ETFs</b> ${syms.length} Papiere, Sammelabruf über ${PROXIES.length} Wege:`);
+    const gefunden = new Set();
+    let wegOffen = false;                       // hat überhaupt ein Weg geantwortet?
+    for (const p of PROXIES) {
+      const r = await probe(p.w(u), 9000);
+      if (r.ok) wegOffen = true;
+      let n = 0;
+      if (r.ok && r.j) for (const k in r.j) {
+        const d = r.j[k]; if (!d || typeof d !== 'object') continue;
+        const cl = (d.close||[]).filter(v=>v!=null);
+        const px = cl.length ? cl[cl.length-1] : (d.previousClose ?? d.chartPreviousClose);
+        if (px > 0) { n++; gefunden.add(String(d.symbol||k).toUpperCase()); }
+      }
+      add(`&nbsp;&nbsp;${esc(p.n)}: ${r.ok ? (n ? `✓ ${n} Kurse · ${r.ms} ms` : `antwortet, aber 0 Kurse · ${r.ms} ms`) : '✕ ' + esc(r.txt)}`);
+      await sleep(200);
+    }
+    const fehlt = syms.filter(s => !gefunden.has(s.toUpperCase()));
+    if (!fehlt.length) add('&nbsp;&nbsp;<b>alle Papiere gefunden</b>');
+    else {
+      add(`&nbsp;&nbsp;ohne Treffer im Sammelabruf: <b>${esc(fehlt.join(', '))}</b> – jetzt einzeln:`);
+      for (const s of fehlt) {
+        const d = await fetchStock(s);
+        add(`&nbsp;&nbsp;&nbsp;&nbsp;${esc(s)}: ${d ? `✓ ${fmt(d.price,2)} ${esc(d.cur)}`
+          : wegOffen ? '✕ kein Kurs – Kürzel gegen ISIN/WKN prüfen'
+                     : '✕ kein Kurs – es antwortet gerade aber kein einziger Weg, liegt also vermutlich nicht am Kürzel'}`);
+        await sleep(250);
+      }
+    }
+  }
+  add('<span style="opacity:.7">Fertig. Fällt jeder Weg aus, drosseln die Dienste gerade – später nochmal versuchen. Antworten die Wege, und nur einzelne Papiere finden keinen Kurs, dann stimmt deren Kürzel nicht.</span>');
+  btn.disabled = false; btn.textContent = '🩺 Kursquellen prüfen';
+  diagRunning = false;
+}
+
 function fetchStock(sym) {
   const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=5d`;
   return raceProxies(base, j => {
@@ -1827,6 +2333,22 @@ function fetchStock(sym) {
   });
 }
 let loading = false;
+let liveOk = 0;                       // wie viele Kurse beim letzten Abruf wirklich ankamen
+/* Eigene Funktion, damit die Zeile auch nach manuell eingetragenen Kursen
+   stimmt und nicht bis zum nächsten Abruf eine alte Aussage stehen bleibt. */
+function updateStatusLine() {
+  const dot = $('#statusDot'), txt = $('#statusText');
+  if (!dot || !txt || loading) return;
+  const bekannt = totals('all').known;
+  dot.className = 'dot ' + (liveOk ? 'live' : 'man');
+  txt.textContent = liveOk && state.lastUpdate
+    ? `${liveOk} Kurs${liveOk===1?'':'e'} live · Stand ${state.lastUpdate.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} · EUR/USD ${state.fx.EURUSD.toFixed(4)}${state.fx.src==='fallback'?' ⚠ geschätzt':''}`
+    : state.lastUpdate
+    ? `Kurse gerade nicht abrufbar – angezeigt ist der Stand von ${alterText(state.lastUpdate)}`
+    : bekannt
+    ? `${bekannt} Kurs${bekannt===1?'':'e'} eingetragen – keine Live-Kurse abgerufen`
+    : 'Noch keine Kurse geladen – Kurse manuell eintragen';
+}
 async function refreshPrices(silent) {
   if (loading || !state.positions.length) { if(!state.positions.length && !silent) toast('Keine Positionen vorhanden.'); return; }
   loading = true;
@@ -1839,11 +2361,21 @@ async function refreshPrices(silent) {
   // Wechselkurs, Krypto und Aktien laufen gleichzeitig, nicht nacheinander
   const cryptoIds = [...new Set(state.positions.filter(p=>p.type==='crypto'&&p.symbol).map(p=>cgId(p.symbol)))];
   const stocks = state.positions.filter(p => (p.type === 'stock' || p.type === 'etf') && p.symbol);
-  const [, cg, stockRes] = await Promise.all([
+  const syms = [...new Set(stocks.map(p => p.symbol.trim()))];
+  const [, cg, spark] = await Promise.all([
     fetchFx(),
     fetchCrypto(cryptoIds),
-    Promise.all(stocks.map(p => fetchStock(p.symbol.trim())))
+    syms.length ? sparkAll(syms) : null
   ]);
+  /* Einzeln nachholen: was der Sammelabruf nicht hatte – und alles, was
+     noch nie einen Kurs hatte, weil dafür die Währung feststehen muss. */
+  const ohneKurs = new Set(stocks.filter(p => p.price == null).map(p => p.symbol.trim().toUpperCase()));
+  const fehlt = syms.filter(s => ohneKurs.has(s.toUpperCase()) || !(spark && spark[s.toUpperCase()] > 0));
+  const einzeln = {};
+  if (fehlt.length) {
+    $('#statusText').textContent = `Kurse werden geladen … (${fehlt.length} einzeln)`;
+    await inChunks(fehlt, 3, async s => { const d = await fetchStock(s); if (d) einzeln[s.toUpperCase()] = d; });
+  }
   // Wenn die Wechselkursdienste nicht liefern, aus den Kryptokursen ableiten
   if (state.fx.src !== 'live') {
     const r = fxFromCrypto(cg);
@@ -1858,22 +2390,28 @@ async function refreshPrices(silent) {
       else if (p.price == null) fail++;
     }
   });
-  stocks.forEach((p, i) => {
-    const d = stockRes[i];
-    if (d) { p.price = d.price; p.cur = d.cur; p.live = true; ok++; } else if (p.price == null) fail++;
+  const ohneTreffer = [];
+  stocks.forEach(p => {
+    const s = p.symbol.trim().toUpperCase();
+    const e = einzeln[s];
+    if (e) { p.price = e.price; p.cur = e.cur; p.live = true; ok++; return; }
+    const px = spark && spark[s];
+    if (px > 0) { p.price = px; p.live = true; ok++; return; }   // Währung bleibt wie eingetragen
+    ohneTreffer.push(p.symbol.trim());
+    if (p.price == null) fail++;
   });
 
-  state.lastUpdate = new Date();
+  if (ok) { state.lastUpdate = new Date(); lsSet(LS_LASTUPD, String(Date.now())); }
   loading = false; btn.disabled = false; btn.style.opacity = 1;
-  const dot = $('#statusDot');
-  dot.className = 'dot ' + (ok ? 'live' : 'man');
-  $('#statusText').textContent = ok
-    ? `${ok} Kurs${ok===1?'':'e'} live · Stand ${state.lastUpdate.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} · EUR/USD ${state.fx.EURUSD.toFixed(4)}${state.fx.src==='fallback'?' ⚠ geschätzt':''}`
-    : 'Keine Live-Kurse verfügbar – Kurse manuell eintragen';
-  if (ok) snapshot();
+  liveOk = ok;
+  updateStatusLine();
+  if (ok) { snapshot(); intraSnapshot(); }
   render(); persist(false);
   checkAlerts(true);
-  if (!silent) toast(ok ? `${ok} Kurse aktualisiert${fail?`, ${fail} ohne Kurs`:''}` : 'Keine Kurse abrufbar – bitte manuell eintragen.');
+  const nf = ohneTreffer.length;
+  if (!silent) toast(ok
+    ? `${ok} Kurse aktualisiert${nf ? `, ${nf} ohne Treffer – ⋯ → Kursquellen prüfen` : ''}`
+    : 'Keine Kurse abrufbar – ⋯ → Kursquellen prüfen.');
 }
 
 /* ============================================================
@@ -1886,13 +2424,13 @@ function openForm(id) {
   $('#fName').value = p?.name ?? '';
   $('#fType').value = p?.type ?? 'crypto';
   $('#fSym').value  = p?.symbol ?? '';
-  $('#fQty').value  = p?.qty ?? '';
-  $('#fEntry').value= p?.entry ?? '';
-  $('#fT1').value   = p?.t1 ?? '';
-  $('#fT2').value   = p?.t2 ?? '';
+  $('#fQty').value  = deIn(p?.qty);
+  $('#fEntry').value= deIn(p?.entry);
+  $('#fT1').value   = deIn(p?.t1);
+  $('#fT2').value   = deIn(p?.t2);
   $('#fCur').value  = p?.cur ?? 'EUR';
-  $('#fPrice').value= p?.price ?? '';
-  $('#fSl').value   = p?.sl ?? '';
+  $('#fPrice').value= deIn(p?.price);
+  $('#fSl').value   = deIn(p?.sl);
   $('#fDate').value = p ? (p.since || (Array.isArray(p.tx) && p.tx[0]?.d) || '') : today();
   const v = p?.venue || '';
   if (!v || VENUES.includes(v)) { $('#fVenue').value = v; $('#fVenueOther').value = ''; }
@@ -1906,17 +2444,17 @@ function closeForm(){ $('#scrim').classList.remove('on'); }
 
 function saveForm() {
   const name = $('#fName').value.trim();
-  const qty = num($('#fQty').value), entry = num($('#fEntry').value);
+  const qty = numDe($('#fQty').value), entry = numDe($('#fEntry').value);
   if (!name) { toast('Bitte einen Namen eingeben.'); return; }
   if (qty === null || qty <= 0) { toast('Bitte eine Menge größer 0 eingeben.'); return; }
   if (entry === null || entry <= 0) { toast('Bitte einen Einstiegskurs eingeben.'); return; }
-  let t1 = num($('#fT1').value), t2 = num($('#fT2').value);
+  let t1 = numDe($('#fT1').value), t2 = numDe($('#fT2').value);
   if (t1 !== null && t2 !== null && t2 < t1) { const s = t1; t1 = t2; t2 = s; }
   const dt = $('#fDate').value || null;
   const data = {
     name, type: $('#fType').value, symbol: $('#fSym').value.trim(),
-    qty, entry, t1, t2, sl: num($('#fSl').value),
-    cur: $('#fCur').value, price: num($('#fPrice').value), since: dt,
+    qty, entry, t1, t2, sl: numDe($('#fSl').value),
+    cur: $('#fCur').value, price: numDe($('#fPrice').value), since: dt,
     venue: $('#fVenue').value === '__other' ? $('#fVenueOther').value.trim() : $('#fVenue').value
   };
   if (state.editId) {
@@ -1954,8 +2492,8 @@ function openTrade(id, mode) {
   trade = { id, mode };
   $('#tTitle').textContent = mode === 'buy' ? 'Nachkaufen' : 'Verkaufen';
   $('#tSub').textContent = `${p.name} · aktuell ${p.qty.toLocaleString('de-DE',{maximumFractionDigits:8})} Stück zu ø ${fmtC(p.entry,p.cur)}`;
-  $('#tQty').value = ''; $('#tQty').max = mode === 'sell' ? p.qty : '';
-  $('#tPrice').value = c.price ?? '';
+  $('#tQty').value = '';
+  $('#tPrice').value = deIn(c.price);
   $('#tDate').value = today();
   $('#tHint').textContent = mode === 'buy'
     ? 'Die App rechnet daraus deinen neuen Durchschnitts-Einstieg. Zielzone und Stop-Loss bleiben unverändert.'
@@ -1966,7 +2504,7 @@ function openTrade(id, mode) {
 }
 function updateTradePreview() {
   const p = state.positions.find(x => x.id === trade.id); if (!p) return;
-  const q = num($('#tQty').value), pr = num($('#tPrice').value);
+  const q = numDe($('#tQty').value), pr = numDe($('#tPrice').value);
   const el = $('#tPrev');
   if (q === null || q <= 0 || pr === null || pr <= 0) { el.textContent = 'Menge und Kurs eintragen …'; return; }
   if (trade.mode === 'buy') {
@@ -1983,7 +2521,7 @@ function updateTradePreview() {
 }
 function saveTrade() {
   const p = state.positions.find(x => x.id === trade.id); if (!p) return;
-  const q = num($('#tQty').value), pr = num($('#tPrice').value);
+  const q = numDe($('#tQty').value), pr = numDe($('#tPrice').value);
   if (q === null || q <= 0) { toast('Bitte eine Menge eintragen.'); return; }
   if (pr === null || pr <= 0) { toast('Bitte einen Kurs eintragen.'); return; }
   const dt = $('#tDate').value || today();
@@ -2013,6 +2551,7 @@ function saveTrade() {
 const LS_DATA = 'pt.portfolio.v1';
 const LS_CFG  = 'pt.cloud.v1';
 const LS_SEEN = 'pt.seen.v1';
+const LS_LASTUPD = 'pt.lastupd.v1';     // wann zuletzt echte Kurse ankamen, gerätelokal
 let storageOk = true;
 const cloud = { key:'', bin:'', pass:'', on:false, busy:false, lastSync:null };
 
@@ -2385,12 +2924,13 @@ $('#tSave').onclick = saveTrade;
 $('#tQty').oninput = updateTradePreview;
 $('#tPrice').oninput = updateTradePreview;
 $('#scrim3').onclick = e => { if (e.target === $('#scrim3')) $('#scrim3').classList.remove('on'); };
-['7','30','90','all'].forEach(k => {
-  const map = { '7':'#r7', '30':'#r30', '90':'#r90', 'all':'#rAll' };
+['1','7','30','all'].forEach(k => {
+  const map = { '1':'#r1', '7':'#r7', '30':'#r30', 'all':'#rAll' };
   $(map[k]).onclick = () => { histRange = k; Object.values(map).forEach(s => $(s).setAttribute('aria-pressed', map[k]===s)); renderHistory(); };
 });
 CLASSES.forEach(c => { $('#cls-' + c.key).onclick = () => setCls(c.key); });
 $('#oBackfill').onclick = () => backfill(90);
+$('#oDiag').onclick = runDiag;
 let hrT; window.addEventListener('resize', () => { clearTimeout(hrT); hrT = setTimeout(renderHistory, 180); });
 $('#cConnect').onclick = cloudConnect;
 $('#cPush').onclick = () => cloudPush();
@@ -2398,6 +2938,7 @@ $('#cPull').onclick = () => cloudPull();
 $('#cPass').onchange = () => applyPass();
 $('#tdAdd').onclick = addAufgabe;
 $('#tdDepot').onclick = () => setTab('home');
+$('#tdFood').onclick  = () => setTab('food');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -2507,12 +3048,14 @@ function setTab(tab, keepDetail) {
   $('#viewHome').hidden    = showDetail || tab !== 'home';
   $('#viewSearch').hidden  = showDetail || tab !== 'search';
   $('#viewHistory').hidden = showDetail || tab !== 'history';
+  $('#viewFood').hidden    = showDetail || tab !== 'food';
   $('#viewDetail').hidden  = !showDetail;
   $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
   if (showDetail) renderDetail();
   else if (tab === 'today') renderToday();
   else if (tab === 'search') renderSearch();
   else if (tab === 'history') renderTxList();
+  else if (tab === 'food') renderFood();
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 function openDetail(id) {
@@ -2557,6 +3100,41 @@ function delAufgabe(id) {
   persist(); renderToday();
 }
 
+/* Was heute wirklich Aufmerksamkeit braucht: erreichte Zielzonen,
+   gerissene Stop-Losses und fällige Sparplanraten. Bisher stand das nur
+   auf der Startseite – der Heute-Bildschirm war fast leer. */
+function renderTodayNotices() {
+  const box = $('#tdNotices'), sec = $('#tdNoticeBox');
+  if (!box || !sec) return;
+  const zeilen = [];
+
+  state.positions.forEach(p => {
+    const a = alertOf(p); if (!a) return;
+    const m = ALERT_TEXT[a], c = calc(p);
+    zeilen.push({ id: p.id, gut: a !== 'stop', ico: m.ico, titel: `${p.name} — ${m.t}`,
+      unten: c.price !== null
+        ? `Kurs ${fmtC(c.price, p.cur)}` + (c.pl !== null ? ` · ${(c.pl>=0?'+':'')+fmt(c.pl,0)}` : '')
+        : 'Kurs unbekannt' });
+  });
+
+  (typeof pendingPlans !== 'undefined' ? pendingPlans : []).forEach(pl => {
+    const p = state.positions.find(x => x.id === pl.id); if (!p) return;
+    const n = pl.rates.length;
+    zeilen.push({ id: p.id, gut: true, ico: '📅', titel: `${p.name} — ${n} Sparplanrate${n===1?'':'n'} offen`,
+      unten: 'Im Depot buchen oder verwerfen' });
+  });
+
+  if (!zeilen.length) { sec.hidden = true; box.innerHTML = ''; return; }
+  sec.hidden = false;
+  box.innerHTML = zeilen.map(z => `
+    <div class="tdn ${z.gut?'gut':'schlecht'}" data-go="${esc(z.id)}">
+      <span class="tdn-ic">${z.ico}</span>
+      <span class="tdn-tx"><b>${esc(z.titel)}</b><i>${esc(z.unten)}</i></span>
+      <span class="tdn-go">›</span>
+    </div>`).join('');
+  $$('#tdNotices .tdn').forEach(el => el.onclick = () => openDetail(el.dataset.go));
+}
+
 function renderToday() {
   const defs = aufgabenDefs(), d = today(), fertig = erledigt(d);
   const aktiv = fertig.filter(id => defs.some(x => x.id === id)).length;
@@ -2599,10 +3177,27 @@ function renderToday() {
   $('#tdStrip').innerHTML = strip.join('');
 
   /* Depot-Zeile */
+  renderTodayNotices();
+
+  /* Ernährung: derselbe Blick wie beim Depot – Stand und was noch geht */
+  const ez = essZiele(), es = essSumme(today());
+  const fv = $('#tdFoodVal'), fr = $('#tdFoodRest');
+  if (fv && fr) {
+    fv.textContent = num(ez.kcal)
+      ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')}`
+      : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`;
+    if (num(ez.kcal)) {
+      const rest = Math.round(ez.kcal - es.kcal);
+      fr.textContent = rest >= 0 ? `${rest.toLocaleString('de-DE')} übrig` : `${Math.abs(rest).toLocaleString('de-DE')} drüber`;
+      fr.className = 'tdlp tnum ' + (rest >= 0 ? '' : 'down');
+    } else { fr.textContent = es.n ? `${es.n} Portion${es.n===1?'':'en'}` : '—'; fr.className = 'tdlp tnum'; }
+  }
+
   const t = totals('all');
-  $('#tdDepotVal').textContent = t.value === null ? '—' : fmt(t.value, 0);
+  const hatKurse = t.known > 0;
+  $('#tdDepotVal').textContent = hatKurse ? fmt(t.val, 0) : '—';
   const pl = $('#tdDepotPl');
-  if (t.pl === null) { pl.textContent = '—'; pl.className = 'tdlp tnum'; }
+  if (!hatKurse) { pl.textContent = '—'; pl.className = 'tdlp tnum'; }
   else {
     pl.textContent = (t.pl >= 0 ? '+' : '') + fmt(t.pl, 0);
     pl.className = 'tdlp tnum ' + sign(t.pl);
@@ -2989,7 +3584,7 @@ function openPlan(id) {
   const sp = p.sp;
   $('#spTitle').textContent = 'Sparplan · ' + p.name;
   $('#spSub').textContent = `Betrag in ${p.cur}. Die App bucht die Raten mit dem Kurs des jeweiligen Tages.`;
-  $('#spAmount').value = sp?.amount ?? '';
+  $('#spAmount').value = deIn(sp?.amount);
   $('#spEvery').value  = sp?.every ?? 'week';
   $('#spDow').value    = String(sp?.dow ?? 1);
   $('#spDom').value    = sp?.dom ?? 1;
@@ -3009,7 +3604,7 @@ function syncPlanFields() {
 }
 function savePlan() {
   const p = state.positions.find(x => x.id === spId); if (!p) return;
-  const amt = num($('#spAmount').value);
+  const amt = numDe($('#spAmount').value);
   if (amt === null || amt <= 0) { toast('Bitte einen Betrag eintragen.'); return; }
   const every = $('#spEvery').value;
   p.sp = {
@@ -3036,10 +3631,310 @@ $('#spEvery').onchange = syncPlanFields;
 $('#scrim4').onclick = e => { if (e.target === $('#scrim4')) $('#scrim4').classList.remove('on'); };
 
 /* ============================================================
+   ERNÄHRUNG
+   Bibliothek und Ziele liegen in state.ziele, das Gegessene in
+   state.tage[d].essen — beides geht damit ohne Zutun in den Sync.
+   Ein Tipp auf eine Kachel bucht eine Portion; korrigiert wird über
+   die Tagesliste oder das Rückgängig im Hinweis.
+   ============================================================ */
+const ESS_STD = { kcal: null, p: null, k: null, f: null };
+
+/* Vorlagen: Sachen, die ich für dich eintrage. Jede hat eine feste
+   Kennung; einmal übernommen, taucht sie nie wieder von selbst auf –
+   gelöschte Einträge bleiben also gelöscht. */
+const ESS_VORLAGEN = [
+  { id:'f01', name:'Wraps Weizen', ico:'🌯', portion:'1 Stück · 40 g', kcal:128, p:2.4, k:15.6, f:3.5 },
+  { id:'f02', name:'Körniger Frischkäse', ico:'🥣', portion:'100 g', kcal:80, p:12, k:3, f:2.2 },
+  { id:'f03', name:'Whey Coffee Caramel', ico:'🥤', portion:'30 g mit Wasser', kcal:112, p:21, k:2.8, f:1.7 },
+  { id:'f04', name:'Milch 1,5 %', ico:'🥛', portion:'100 ml', kcal:47, p:3.4, k:4.9, f:1.5 },
+  { id:'f05', name:'Rote-Bete-Saft', ico:'🧃', portion:'100 ml', kcal:36, p:1, k:8, f:0.5 },
+  { id:'f06', name:'Haferflocken', ico:'🌾', portion:'100 g', kcal:372, p:13.5, k:58.7, f:7 },
+  { id:'f07', name:'Reis', ico:'🍚', portion:'1 Beutel · 62,5 g roh', kcal:219, p:4.6, k:48, f:null },
+  { id:'f08', name:'Wraps groß', ico:'🫓', portion:'100 g', kcal:286, p:8, k:50, f:null },
+  { id:'f09', name:'Käse', ico:'🧀', portion:'1 Scheibe', kcal:77, p:4.2, k:null, f:null },
+  { id:'f10', name:'Kefir', ico:'🍶', portion:'100 ml', kcal:43, p:3.4, k:null, f:null }
+];
+/* Einmalige Zielvorgabe – greift nur, solange gar kein Ziel gesetzt ist */
+const ESS_ZIEL_VORGABE = { kcal: 2000, p: 160, k: 225, f: 67 };
+const LS_ESS_SEED = 'pt.food.seed.v1';
+
+function essZiele() {
+  if (!state.ziele) state.ziele = {};
+  if (!state.ziele.essen || typeof state.ziele.essen !== 'object') state.ziele.essen = { ...ESS_STD };
+  return state.ziele.essen;
+}
+function essLib() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.lebensmittel)) state.ziele.lebensmittel = [];
+  return state.ziele.lebensmittel;
+}
+function essVorlagenUebernehmen() {
+  if (!ESS_VORLAGEN.length) return;
+  let gesehen = [];
+  try { gesehen = JSON.parse(lsGet(LS_ESS_SEED) || '[]'); } catch(e) { gesehen = []; }
+  const lib = essLib();
+  let neu = 0;
+  ESS_VORLAGEN.forEach(v => {
+    if (gesehen.indexOf(v.id) > -1) return;
+    gesehen.push(v.id);
+    if (!lib.some(x => x.id === v.id)) { lib.push({ ...v }); neu++; }
+  });
+  /* Ziele nur beim allerersten Mal vorbelegen, danach nie wieder anfassen */
+  if (gesehen.indexOf('ziele') === -1) {
+    gesehen.push('ziele');
+    const z = essZiele();
+    if (num(z.kcal) === null && num(z.p) === null && num(z.k) === null && num(z.f) === null) {
+      Object.assign(z, ESS_ZIEL_VORGABE); neu++;
+    }
+  }
+  lsSet(LS_ESS_SEED, JSON.stringify(gesehen));
+  if (neu) persist();
+}
+/* Kalorien aus den Makros, falls nicht eingetragen: 4/4/9 kcal je Gramm */
+function kcalOf(l) {
+  if (num(l.kcal) !== null) return +l.kcal;
+  return Math.round((num(l.p)||0)*4 + (num(l.k)||0)*4 + (num(l.f)||0)*9);
+}
+function essTag(d) {
+  const t = (state.tage || {})[d];
+  return Array.isArray(t && t.essen) ? t.essen : [];
+}
+function essSumme(d) {
+  const lib = essLib(), s = { kcal:0, p:0, k:0, f:0, n:0 };
+  essTag(d).forEach(e => {
+    const l = lib.find(x => x.id === e.lid); if (!l) return;
+    const n = e.n || 1;
+    s.kcal += kcalOf(l) * n;
+    s.p += (num(l.p)||0) * n;
+    s.k += (num(l.k)||0) * n;
+    s.f += (num(l.f)||0) * n;
+    s.n += n;
+  });
+  return s;
+}
+let essTagAnzeige = null;                    // null = heute
+const essDatum = () => essTagAnzeige || today();
+
+/* ---------- Buchen ---------- */
+let letzteBuchung = null;
+function essBuchen(lid) {
+  const l = essLib().find(x => x.id === lid); if (!l) return;
+  const d = essDatum(), liste = essTag(d).slice();
+  liste.push({ lid, n: 1, t: Date.now() });
+  setTagWert(d, 'essen', liste);
+  letzteBuchung = { d, lid };
+  renderFood();
+  toastUndo(`${l.ico || '🍽'} ${l.name} · ${kcalOf(l)} kcal`, essBuchungZurueck);
+}
+function essBuchungZurueck() {
+  if (!letzteBuchung) return;
+  const { d, lid } = letzteBuchung;
+  const liste = essTag(d).slice();
+  for (let i = liste.length - 1; i >= 0; i--) {
+    if (liste[i].lid === lid) { liste.splice(i, 1); break; }
+  }
+  setTagWert(d, 'essen', liste.length ? liste : null);
+  letzteBuchung = null;
+  renderFood();
+  toast('Zurückgenommen.');
+}
+function essEintragWeg(idx) {
+  const d = essDatum(), liste = essTag(d).slice();
+  if (idx < 0 || idx >= liste.length) return;
+  liste.splice(idx, 1);
+  setTagWert(d, 'essen', liste.length ? liste : null);
+  renderFood();
+}
+
+/* ---------- Anzeige ---------- */
+function balken(el, wert, ziel, mehrIstGut) {
+  const i = $(el); if (!i) return;
+  if (!ziel) { i.style.width = '0%'; i.className = ''; return; }
+  const q = wert / ziel;
+  i.style.width = Math.min(100, Math.round(q * 100)) + '%';
+  i.className = q > 1.02 ? (mehrIstGut ? 'voll' : 'drueber') : q >= .98 ? 'voll' : '';
+}
+function renderFood() {
+  const lib = essLib(), z = essZiele(), d = essDatum(), s = essSumme(d);
+  const istHeute = d === today();
+
+  $('#fdDate').textContent = istHeute ? 'Heute' : new Date(d + 'T12:00:00')
+    .toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long' });
+  $('#fdNext').disabled = istHeute;
+  $('#fdNext').style.opacity = istHeute ? .35 : 1;
+
+  $('#fdKcal').textContent = Math.round(s.kcal).toLocaleString('de-DE');
+  $('#fdKcalZiel').textContent = num(z.kcal) ? `/ ${(+z.kcal).toLocaleString('de-DE')} kcal` : 'kcal';
+  const rest = num(z.kcal) ? Math.round(z.kcal - s.kcal) : null;
+  $('#fdRest').textContent = rest === null
+    ? (s.n ? `${s.n} Portion${s.n===1?'':'en'} · kein Kalorienziel gesetzt` : 'Noch nichts gebucht')
+    : rest >= 0 ? `noch ${rest.toLocaleString('de-DE')} kcal übrig`
+                : `${Math.abs(rest).toLocaleString('de-DE')} kcal über dem Ziel`;
+  balken('#fdBarKcal', s.kcal, num(z.kcal));
+
+  const zeig = (elV, elB, wert, ziel, gut) => {
+    $(elV).textContent = num(ziel)
+      ? `${Math.round(wert)} / ${Math.round(ziel)} g`
+      : `${Math.round(wert)} g`;
+    balken(elB, wert, num(ziel), gut);
+  };
+  zeig('#fdP', '#fdBarP', s.p, z.p, true);      // beim Eiweiß ist mehr kein Problem
+  zeig('#fdK', '#fdBarK', s.k, z.k, false);
+  zeig('#fdF', '#fdBarF', s.f, z.f, false);
+
+  /* Kachelraster – häufig Gebuchtes zuerst, damit der Daumen kurze Wege hat */
+  const zaehler = {};
+  Object.keys(state.tage || {}).forEach(tag => {
+    (Array.isArray(state.tage[tag].essen) ? state.tage[tag].essen : [])
+      .forEach(e => { zaehler[e.lid] = (zaehler[e.lid] || 0) + (e.n || 1); });
+  });
+  const heute = {};
+  essTag(d).forEach(e => { heute[e.lid] = (heute[e.lid] || 0) + (e.n || 1); });
+
+  const sortiert = lib.slice().sort((a, b) =>
+    (zaehler[b.id] || 0) - (zaehler[a.id] || 0) || a.name.localeCompare(b.name, 'de'));
+
+  $('#fdCount').textContent = lib.length ? `${lib.length} gespeichert` : '';
+  $('#fdGrid').innerHTML = (lib.length
+    ? sortiert.map(l => `
+      <div class="fdtile" data-lm="${esc(l.id)}" title="${esc(l.name)} – antippen bucht eine Portion">
+        ${heute[l.id] ? `<span class="heute">${heute[l.id]}×</span>` : ''}
+        <span class="ico">${esc(l.ico || '🍽')}</span>
+        <span class="nm">${esc(l.name)}</span>
+        <span class="kc">${kcalOf(l)} kcal</span>
+      </div>`).join('')
+    : `<div class="fdempty" style="grid-column:1/-1">Noch nichts gespeichert. Leg deine üblichen Sachen einmal an – danach reicht ein Tipp auf die Kachel, um sie zu buchen.<br><br>Du kannst sie mir auch einfach nennen, dann trage ich sie für dich ein.</div>`)
+    + `<div class="fdtile neu" data-neu="1"><span class="ico">＋</span><span class="nm">Neu</span></div>`;
+
+  $$('#fdGrid [data-lm]').forEach(el => {
+    el.onclick = () => essLmTipp(el.dataset.lm);
+  });
+  $$('#fdGrid [data-neu]').forEach(el => el.onclick = () => openFoodForm());
+
+  /* Tagesliste */
+  const liste = essTag(d);
+  $('#fdLogHead').hidden = !liste.length;
+  $('#fdLogBox').hidden = !liste.length;
+  $('#fdLogCount').textContent = liste.length ? `${Math.round(s.kcal).toLocaleString('de-DE')} kcal` : '';
+  if (liste.length) {
+    $('#fdLog').innerHTML = liste.map((e, i) => {
+      const l = lib.find(x => x.id === e.lid);
+      const nm = l ? l.name : 'Gelöschtes Lebensmittel';
+      const uhr = e.t ? new Date(e.t).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : '';
+      const kc = l ? kcalOf(l) * (e.n||1) : 0;
+      const mk = l ? `${Math.round((num(l.p)||0)*(e.n||1))} E · ${Math.round((num(l.k)||0)*(e.n||1))} KH · ${Math.round((num(l.f)||0)*(e.n||1))} F` : '';
+
+      return `<div class="fdrow">
+        <span class="ico">${esc(l && l.ico || '🍽')}</span>
+        <span class="nm">${esc(nm)}${(e.n||1) > 1 ? ` · ${e.n}×` : ''}<small>${uhr}${mk ? ' · ' + mk : ''}</small></span>
+        <span class="kc">${kc} kcal</span>
+        <button class="x" data-weg="${i}" title="Entfernen">×</button>
+      </div>`;
+    }).join('');
+    $$('#fdLog [data-weg]').forEach(b => b.onclick = () => essEintragWeg(+b.dataset.weg));
+  }
+}
+/* Im Bearbeiten-Modus öffnet ein Tipp den Dialog statt zu buchen */
+let essBearbeiten = false;
+function essLmTipp(id) {
+  if (essBearbeiten) openFoodForm(id);
+  else essBuchen(id);
+}
+
+/* ---------- Lebensmittel anlegen und ändern ---------- */
+let lmEditId = null;
+function openFoodForm(id) {
+  lmEditId = id || null;
+  const l = id ? essLib().find(x => x.id === id) : null;
+  $('#fdFormTitle').textContent = l ? 'Lebensmittel bearbeiten' : 'Lebensmittel anlegen';
+  $('#lfName').value    = l?.name ?? '';
+  $('#lfIco').value     = l?.ico ?? '';
+  $('#lfPortion').value = l?.portion ?? '';
+  $('#lfKcal').value    = deIn(l?.kcal);
+  $('#lfP').value       = deIn(l?.p);
+  $('#lfK').value       = deIn(l?.k);
+  $('#lfF').value       = deIn(l?.f);
+  $('#lfDelete').hidden = !l;
+  $('#scrim5').classList.add('on');
+  setTimeout(() => $('#lfName').focus(), 60);
+}
+function saveFood() {
+  const name = $('#lfName').value.trim();
+  if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  const p = numDe($('#lfP').value), k = numDe($('#lfK').value), f = numDe($('#lfF').value);
+  let kcal = numDe($('#lfKcal').value);
+  if (kcal === null && p === null && k === null && f === null) {
+    toast('Trag wenigstens die Kalorien oder die Nährwerte ein.'); return;
+  }
+  const daten = { name, ico: $('#lfIco').value.trim().slice(0,4) || '🍽',
+                  portion: $('#lfPortion').value.trim() || '', kcal, p, k, f };
+  const lib = essLib();
+  if (lmEditId) {
+    const l = lib.find(x => x.id === lmEditId); if (l) Object.assign(l, daten);
+  } else {
+    lib.push({ id: uid(), ...daten });
+  }
+  $('#scrim5').classList.remove('on');
+  persist(); renderFood();
+  toast(lmEditId ? 'Gespeichert.' : `${daten.ico} ${name} angelegt – Kachel antippen bucht eine Portion.`);
+  lmEditId = null;
+}
+function delFood() {
+  const l = essLib().find(x => x.id === lmEditId); if (!l) return;
+  if (!confirm(`„${l.name}" löschen?\n\nBereits gebuchte Tage behalten den Eintrag, zeigen ihn aber ohne Nährwerte.`)) return;
+  state.ziele.lebensmittel = essLib().filter(x => x.id !== lmEditId);
+  lmEditId = null;
+  $('#scrim5').classList.remove('on');
+  persist(); renderFood(); toast('Gelöscht.');
+}
+
+/* ---------- Ziele ---------- */
+function openZiele() {
+  const z = essZiele();
+  $('#zKcal').value = deIn(z.kcal); $('#zP').value = deIn(z.p);
+  $('#zK').value = deIn(z.k);       $('#zF').value = deIn(z.f);
+  $('#scrim6').classList.add('on');
+}
+function saveZiele() {
+  const z = essZiele();
+  z.kcal = numDe($('#zKcal').value); z.p = numDe($('#zP').value);
+  z.k = numDe($('#zK').value);       z.f = numDe($('#zF').value);
+  $('#scrim6').classList.remove('on');
+  persist(); renderFood(); toast('Ziele gespeichert.');
+}
+
+/* ---------- Verdrahtung ---------- */
+$('#fdAdd').onclick    = () => openFoodForm();
+$('#fdGoals').onclick  = openZiele;
+$('#fdEdit').onclick   = () => {
+  essBearbeiten = !essBearbeiten;
+  $('#fdEdit').textContent = essBearbeiten ? '✓ Fertig' : '✎ Sachen bearbeiten';
+  $('#fdSub').textContent = essBearbeiten
+    ? 'Antippen öffnet das Lebensmittel zum Ändern'
+    : 'Antippen bucht eine Portion';
+};
+$('#fdPrev').onclick = () => { essTagAnzeige = isoAdd(essDatum(), -1); renderFood(); };
+$('#fdNext').onclick = () => {
+  const n = isoAdd(essDatum(), 1);
+  essTagAnzeige = n >= today() ? null : n;
+  renderFood();
+};
+$('#lfCancel').onclick = () => { $('#scrim5').classList.remove('on'); lmEditId = null; };
+$('#lfSave').onclick   = saveFood;
+$('#lfDelete').onclick = delFood;
+$('#zCancel').onclick  = () => $('#scrim6').classList.remove('on');
+$('#zSave').onclick    = saveZiele;
+$('#scrim5').onclick = e => { if (e.target === $('#scrim5')) { $('#scrim5').classList.remove('on'); lmEditId = null; } };
+$('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classList.remove('on'); };
+
+/* ============================================================
    START
    ============================================================ */
 (async function boot() {
-  loadCfg(); loadHistory(); loadAlertState(); updateNotifyUi();
+  loadCfg(); loadHistory(); loadIntra(); loadAlertState(); updateNotifyUi();
+  essVorlagenUebernehmen();
+  const zul = +lsGet(LS_LASTUPD);
+  if (zul) state.lastUpdate = new Date(zul);   // sonst behauptet die Zeile beim Öffnen, es gäbe nie Kurse
   $('#appVer').textContent = APP_VERSION;
 
 /* Zahlen verbergen – Zustand bleibt erhalten */
@@ -3136,6 +4031,23 @@ window.addEventListener('beforeunload', () => { lsSet(LS_DATA, JSON.stringify(pa
   document.addEventListener('visibilitychange', function(){
     if (!document.hidden) setTimeout(check, 1200);
   });
+})();
+
+/* Bewegter Hintergrund anhalten, solange niemand hinsieht oder ein Dialog
+   davor steht – am iPhone-Homescreen spart das spürbar Akku. */
+(function(){
+  function ruhe(){
+    var dialogOffen = !!document.querySelector('.scrim.on');
+    document.body.classList.toggle('ruht', document.hidden || dialogOffen);
+  }
+  document.addEventListener('visibilitychange', ruhe);
+  // nur die Dialoghüllen beobachten, nicht die ganze Seite – sonst
+  // feuert der Beobachter bei jedem Neuzeichnen
+  var mo = new MutationObserver(ruhe);
+  document.querySelectorAll('.scrim').forEach(function(el){
+    mo.observe(el, { attributes:true, attributeFilter:['class'] });
+  });
+  ruhe();
 })();
 </script>
 </body>
