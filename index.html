@@ -760,6 +760,20 @@ main{position:relative;z-index:1}
 .supp.an .nm{color:var(--text-secondary)}
 .supp .nm small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
 .supp .go{color:var(--muted);font-size:15px}
+
+/* Mengeneingabe beim Buchen */
+.mgrow{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+.mgrow input{flex:1 1 auto;font-size:30px;font-weight:600;text-align:center;padding:14px 12px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-.02em}
+.mgeinheit{flex:0 0 auto;color:var(--muted);font-size:17px;font-weight:600;min-width:38px}
+.mgquick{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.mgquick button{flex:1 1 0;min-width:62px;min-height:40px;padding:8px 6px;font-size:13px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.mgvorschau{border-top:1px solid var(--hair);padding-top:12px;margin-bottom:4px}
+.mgv{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:13.5px}
+.mgv .k{color:var(--muted)}
+.mgv .v{font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:600}
+.mgv.gross .v{font-size:17px}
 </style>
 </head>
 <body>
@@ -1094,6 +1108,21 @@ main{position:relative;z-index:1}
     <span>Verlauf</span></button>
 </nav>
 
+<div class="scrim" id="scrim8">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
+    <h3 id="mgTitle">Menge</h3>
+    <p class="msub" id="mgSub">—</p>
+    <div class="mgrow">
+      <input id="mgMenge" type="text" inputmode="decimal" autocomplete="off">
+      <span class="mgeinheit" id="mgEinheit">g</span>
+    </div>
+    <div class="mgquick" id="mgQuick"></div>
+    <div class="mgvorschau" id="mgVorschau"></div>
+    <div class="mrow"><button class="btn" id="mgCancel">Abbrechen</button>
+      <button class="btn primary" id="mgSave">Buchen</button></div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim7">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
     <h3 id="suppFormTitle">Supplement anlegen</h3>
@@ -1124,8 +1153,13 @@ main{position:relative;z-index:1}
         <input id="lfName" type="text" placeholder="z.B. Magerquark 250 g" autocomplete="off"></div>
       <div class="f"><label for="lfIco">Symbol</label>
         <input id="lfIco" type="text" placeholder="🥣" maxlength="4" autocomplete="off"></div>
-      <div class="f"><label for="lfPortion">Portion</label>
-        <input id="lfPortion" type="text" placeholder="1 Becher" autocomplete="off"></div>
+      <div class="f"><label for="lfMenge">Nährwerte gelten für</label>
+        <div style="display:flex;gap:7px">
+          <input id="lfMenge" type="text" inputmode="decimal" placeholder="100" autocomplete="off" style="flex:1 1 auto">
+          <select id="lfEinheit" style="flex:0 0 84px">
+            <option value="g">g</option><option value="ml">ml</option><option value="Stk">Stück</option>
+          </select>
+        </div></div>
       <div class="f"><label for="lfKcal">Kalorien (kcal)</label>
         <input id="lfKcal" type="text" inputmode="decimal" placeholder="180" autocomplete="off"></div>
       <div class="f"><label for="lfP">Eiweiß (g)</label>
@@ -1134,7 +1168,7 @@ main{position:relative;z-index:1}
         <input id="lfK" type="text" inputmode="decimal" placeholder="10" autocomplete="off"></div>
       <div class="f"><label for="lfF">Fett (g)</label>
         <input id="lfF" type="text" inputmode="decimal" placeholder="1" autocomplete="off"></div>
-      <div class="f full"><p class="hint" id="lfHint">Kalorien darfst du leer lassen – dann werden sie aus Eiweiß, Kohlenhydraten und Fett gerechnet.</p></div>
+      <div class="f full"><p class="hint" id="lfHint">Trag die Nährwerte so ein, wie sie auf der Packung stehen – meist pro 100 g. Beim Buchen gibst du dann deine tatsächliche Menge an, die App rechnet um.<br>Kalorien darfst du leer lassen, dann werden sie aus Eiweiß, Kohlenhydraten und Fett gerechnet.</p></div>
     </div>
     <div class="mrow">
       <button class="btn" id="lfDelete" style="color:var(--bad-ink)">Löschen</button>
@@ -1340,7 +1374,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v40 · Aurora · 08.09.2026';
+const APP_VERSION = 'v41 · Aurora · 10.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -3976,16 +4010,16 @@ const ESS_STD = { kcal: null, p: null, k: null, f: null };
    Kennung; einmal übernommen, taucht sie nie wieder von selbst auf –
    gelöschte Einträge bleiben also gelöscht. */
 const ESS_VORLAGEN = [
-  { id:'f01', name:'Wraps Weizen', ico:'🌯', portion:'1 Stück · 40 g', kcal:128, p:2.4, k:15.6, f:3.5 },
-  { id:'f02', name:'Körniger Frischkäse', ico:'🥣', portion:'100 g', kcal:80, p:12, k:3, f:2.2 },
-  { id:'f03', name:'Whey Coffee Caramel', ico:'🥤', portion:'30 g mit Wasser', kcal:112, p:21, k:2.8, f:1.7 },
-  { id:'f04', name:'Milch 1,5 %', ico:'🥛', portion:'100 ml', kcal:47, p:3.4, k:4.9, f:1.5 },
-  { id:'f05', name:'Rote-Bete-Saft', ico:'🧃', portion:'100 ml', kcal:36, p:1, k:8, f:0.5 },
-  { id:'f06', name:'Haferflocken', ico:'🌾', portion:'100 g', kcal:372, p:13.5, k:58.7, f:7 },
-  { id:'f07', name:'Reis', ico:'🍚', portion:'1 Beutel · 62,5 g roh', kcal:219, p:4.6, k:48, f:null },
-  { id:'f08', name:'Wraps groß', ico:'🫓', portion:'100 g', kcal:286, p:8, k:50, f:null },
-  { id:'f09', name:'Käse', ico:'🧀', portion:'1 Scheibe', kcal:77, p:4.2, k:null, f:null },
-  { id:'f10', name:'Kefir', ico:'🍶', portion:'100 ml', kcal:43, p:3.4, k:null, f:null }
+  { id:'f01', name:'Wraps Weizen', ico:'🌯', menge:40,   einheit:'g',  kcal:128, p:2.4, k:15.6, f:3.5 },
+  { id:'f02', name:'Körniger Frischkäse', ico:'🥣', menge:100, einheit:'g',  kcal:80, p:12, k:3, f:2.2 },
+  { id:'f03', name:'Whey Coffee Caramel', ico:'🥤', menge:30,  einheit:'g',  kcal:112, p:21, k:2.8, f:1.7 },
+  { id:'f04', name:'Milch 1,5 %', ico:'🥛', menge:100, einheit:'ml', kcal:47, p:3.4, k:4.9, f:1.5 },
+  { id:'f05', name:'Rote-Bete-Saft', ico:'🧃', menge:100, einheit:'ml', kcal:36, p:1, k:8, f:0.5 },
+  { id:'f06', name:'Haferflocken', ico:'🌾', menge:100, einheit:'g',  kcal:372, p:13.5, k:58.7, f:7 },
+  { id:'f07', name:'Reis', ico:'🍚', menge:62.5, einheit:'g', kcal:219, p:4.6, k:48, f:null },
+  { id:'f08', name:'Wraps groß', ico:'🫓', menge:100, einheit:'g',  kcal:286, p:8, k:50, f:null },
+  { id:'f09', name:'Käse', ico:'🧀', menge:1,   einheit:'Stk', kcal:77, p:4.2, k:null, f:null },
+  { id:'f10', name:'Kefir', ico:'🍶', menge:100, einheit:'ml', kcal:43, p:3.4, k:null, f:null }
 ];
 /* Einmalige Zielvorgabe – greift nur, solange gar kein Ziel gesetzt ist */
 const ESS_ZIEL_VORGABE = { kcal: 2000, p: 160, k: 225, f: 67 };
@@ -4028,6 +4062,27 @@ function essVorlagenUebernehmen() {
      gegangen. Nie wieder ohne false. */
   if (neu) persist(false);
 }
+/* Bezugsmenge eines Lebensmittels. Ältere Einträge hatten nur den Freitext
+   „portion" – daraus wird die erste Zahl samt Einheit herausgelesen, damit
+   auch die weiter umgerechnet werden können. */
+const EINHEITEN = ['g', 'ml', 'Stk'];
+function bezug(l) {
+  if (num(l.menge) !== null && +l.menge > 0) {
+    return { menge: +l.menge, einheit: EINHEITEN.includes(l.einheit) ? l.einheit : 'g' };
+  }
+  const t = String(l.portion || '');
+  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(g|ml|kg|l)\b/i);
+  if (m) {
+    let z = +m[1].replace(',', '.'), e = m[2].toLowerCase();
+    if (e === 'kg') { z *= 1000; e = 'g'; }
+    if (e === 'l')  { z *= 1000; e = 'ml'; }
+    if (z > 0) return { menge: z, einheit: e === 'ml' ? 'ml' : 'g' };
+  }
+  return { menge: 1, einheit: 'Stk' };          // „1 Scheibe", „1 Becher" …
+}
+const bezugText = l => { const b = bezug(l);
+  return `${b.menge.toLocaleString('de-DE',{maximumFractionDigits:2})} ${b.einheit}`; };
+
 /* Kalorien aus den Makros, falls nicht eingetragen: 4/4/9 kcal je Gramm */
 function kcalOf(l) {
   if (num(l.kcal) !== null) return +l.kcal;
@@ -4055,14 +4110,18 @@ const essDatum = () => essTagAnzeige || today();
 
 /* ---------- Buchen ---------- */
 let letzteBuchung = null;
-function essBuchen(lid) {
+function essBuchen(lid, faktor, menge) {
   const l = essLib().find(x => x.id === lid); if (!l) return;
+  const n = (faktor === undefined || faktor === null) ? 1 : faktor;
   const d = essDatum(), liste = essTag(d).slice();
-  liste.push({ lid, n: 1, t: Date.now() });
+  liste.push({ lid, n, m: menge ?? null, t: Date.now() });
   setTagWert(d, 'essen', liste);
   letzteBuchung = { d, lid };
   renderFood();
-  toastUndo(`${l.ico || '🍽'} ${l.name} · ${kcalOf(l)} kcal`, essBuchungZurueck);
+  const wieviel = menge != null
+    ? `${menge.toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`
+    : bezugText(l);
+  toastUndo(`${l.ico || '🍽'} ${l.name} · ${wieviel} · ${Math.round(kcalOf(l)*n)} kcal`, essBuchungZurueck);
 }
 function essBuchungZurueck() {
   if (!letzteBuchung) return;
@@ -4508,12 +4567,17 @@ function renderFood() {
       const l = lib.find(x => x.id === e.lid);
       const nm = l ? l.name : 'Gelöschtes Lebensmittel';
       const uhr = e.t ? new Date(e.t).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : '';
-      const kc = l ? kcalOf(l) * (e.n||1) : 0;
-      const mk = l ? `${Math.round((num(l.p)||0)*(e.n||1))} E · ${Math.round((num(l.k)||0)*(e.n||1))} KH · ${Math.round((num(l.f)||0)*(e.n||1))} F` : '';
+      const n = e.n || 1;
+      const kc = l ? Math.round(kcalOf(l) * n) : 0;
+      const mk = l ? `${Math.round((num(l.p)||0)*n)} E · ${Math.round((num(l.k)||0)*n)} KH · ${Math.round((num(l.f)||0)*n)} F` : '';
+      /* Wie viel es war: die gebuchte Menge, sonst das Vielfache der Bezugsmenge */
+      const wieviel = !l ? ''
+        : e.m != null ? `${(+e.m).toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`
+        : `${(bezug(l).menge * n).toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`;
 
       return `<div class="fdrow">
         <span class="ico">${esc(l && l.ico || '🍽')}</span>
-        <span class="nm">${esc(nm)}${(e.n||1) > 1 ? ` · ${e.n}×` : ''}<small>${uhr}${mk ? ' · ' + mk : ''}</small></span>
+        <span class="nm">${esc(nm)}${wieviel ? ` · ${esc(wieviel)}` : ''}<small>${uhr}${mk ? ' · ' + mk : ''}</small></span>
         <span class="kc">${kc} kcal</span>
         <button class="x" data-weg="${i}" title="Entfernen">×</button>
       </div>`;
@@ -4523,9 +4587,63 @@ function renderFood() {
 }
 /* Im Bearbeiten-Modus öffnet ein Tipp den Dialog statt zu buchen */
 let essBearbeiten = false;
+/* ---- Menge beim Buchen -----------------------------------------------
+   Die Nährwerte stehen für eine Bezugsmenge (meist 100 g). Wer 90 g isst,
+   soll 90 g buchen – die App rechnet anteilig. Das Feld ist mit der
+   Bezugsmenge vorbelegt, ein Tipp auf „Buchen" reicht also im Normalfall. */
+let mgLid = null;
+function openMenge(lid) {
+  const l = essLib().find(x => x.id === lid); if (!l) return;
+  mgLid = lid;
+  const bz = bezug(l);
+  $('#mgTitle').textContent = `${l.ico || '🍽'} ${l.name}`;
+  $('#mgSub').textContent = `Nährwerte gelten für ${bezugText(l)} · ${kcalOf(l)} kcal`;
+  $('#mgEinheit').textContent = bz.einheit;
+  $('#mgMenge').value = deIn(bz.menge);
+  /* Schnellwahl: gängige Vielfache der Bezugsmenge, ohne krumme Zahlen */
+  const faktoren = bz.einheit === 'Stk' ? [0.5, 1, 2, 3] : [0.5, 1, 1.5, 2];
+  $('#mgQuick').innerHTML = faktoren.map(f => {
+    const m = Math.round(bz.menge * f * 100) / 100;
+    return `<button class="btn" data-mg="${m}">${m.toLocaleString('de-DE',{maximumFractionDigits:2})} ${bz.einheit}</button>`;
+  }).join('');
+  $$('#mgQuick [data-mg]').forEach(b2 => b2.onclick = () => {
+    $('#mgMenge').value = deIn(+b2.dataset.mg); mgVorschau();
+  });
+  mgVorschau();
+  $('#scrim8').classList.add('on');
+  setTimeout(() => { const el = $('#mgMenge'); el.focus(); el.select(); }, 70);
+}
+function mgFaktor() {
+  const l = essLib().find(x => x.id === mgLid); if (!l) return null;
+  const m = numDe($('#mgMenge').value);
+  if (m === null || m <= 0) return null;
+  return { l, m, f: m / bezug(l).menge };
+}
+function mgVorschau() {
+  const el = $('#mgVorschau'), a = mgFaktor();
+  if (!a) { el.innerHTML = '<p class="hint" style="margin:0">Menge eintragen …</p>'; return; }
+  const w = (v) => v === null || v === undefined ? '—'
+    : (Math.round(v * a.f * 10) / 10).toLocaleString('de-DE',{maximumFractionDigits:1});
+  el.innerHTML = `
+    <div class="mgv gross"><span class="k">Kalorien</span><span class="v">${Math.round(kcalOf(a.l) * a.f)} kcal</span></div>
+    <div class="mgv"><span class="k">Eiweiß</span><span class="v">${w(num(a.l.p))} g</span></div>
+    <div class="mgv"><span class="k">Kohlenhydrate</span><span class="v">${w(num(a.l.k))} g</span></div>
+    <div class="mgv"><span class="k">Fett</span><span class="v">${w(num(a.l.f))} g</span></div>`;
+}
+function mgBuchen() {
+  const a = mgFaktor();
+  if (!a) { toast('Bitte eine Menge eintragen.'); return; }
+  $('#scrim8').classList.remove('on');
+  essBuchen(a.l.id, a.f, a.m);
+}
+$('#mgMenge').oninput = mgVorschau;
+$('#mgCancel').onclick = () => { $('#scrim8').classList.remove('on'); mgLid = null; };
+$('#mgSave').onclick   = mgBuchen;
+$('#scrim8').onclick = e => { if (e.target === $('#scrim8')) { $('#scrim8').classList.remove('on'); mgLid = null; } };
+
 function essLmTipp(id) {
   if (essBearbeiten) openFoodForm(id);
-  else essBuchen(id);
+  else openMenge(id);
 }
 
 /* ---------- Lebensmittel anlegen und ändern ---------- */
@@ -4536,7 +4654,9 @@ function openFoodForm(id) {
   $('#fdFormTitle').textContent = l ? 'Lebensmittel bearbeiten' : 'Lebensmittel anlegen';
   $('#lfName').value    = l?.name ?? '';
   $('#lfIco').value     = l?.ico ?? '';
-  $('#lfPortion').value = l?.portion ?? '';
+  const bz = l ? bezug(l) : { menge:100, einheit:'g' };
+  $('#lfMenge').value   = l ? deIn(bz.menge) : '';
+  $('#lfEinheit').value = bz.einheit;
   $('#lfKcal').value    = deIn(l?.kcal);
   $('#lfP').value       = deIn(l?.p);
   $('#lfK').value       = deIn(l?.k);
@@ -4554,7 +4674,8 @@ function saveFood() {
     toast('Trag wenigstens die Kalorien oder die Nährwerte ein.'); return;
   }
   const daten = { name, ico: $('#lfIco').value.trim().slice(0,4) || '🍽',
-                  portion: $('#lfPortion').value.trim() || '', kcal, p, k, f };
+                  menge: numDe($('#lfMenge').value) || 100,
+                  einheit: $('#lfEinheit').value, portion: '', kcal, p, k, f };
   const lib = essLib();
   if (lmEditId) {
     const l = lib.find(x => x.id === lmEditId); if (l) Object.assign(l, daten);
