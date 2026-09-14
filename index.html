@@ -774,6 +774,25 @@ main{position:relative;z-index:1}
 .mgv .k{color:var(--muted)}
 .mgv .v{font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:600}
 .mgv.gross .v{font-size:17px}
+
+/* Eintragen per Text */
+.kicard .in{padding:14px 14px 13px}
+.kirow{display:flex;gap:8px}
+.kirow input{flex:1 1 auto;min-width:0}
+.kirow button{flex:0 0 auto}
+.kizeile{display:flex;align-items:center;gap:10px;padding:11px 2px;border-top:1px solid var(--hair)}
+.kizeile:first-child{border-top:0}
+.kizeile .ico{font-size:19px;flex:0 0 auto}
+.kizeile .ktx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.kizeile .ktx b{font-size:14px;font-weight:600;line-height:1.25}
+.kizeile .ktx small{color:var(--muted);font-size:11.5px;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.kizeile input{flex:0 0 86px;text-align:right;padding:8px 10px;font-size:14px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.kizeile .eh{flex:0 0 auto;color:var(--muted);font-size:12.5px;min-width:26px}
+.kizeile .x{background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer;padding:6px 2px}
+.kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10.5px;font-weight:700;
+  background:rgba(230,196,132,.14);color:#E6C484;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -1006,6 +1025,17 @@ main{position:relative;z-index:1}
     <p id="fdSub">Antippen bucht eine Portion</p>
   </div>
 
+  <section class="card kicard">
+    <div class="in">
+      <div class="kirow">
+        <input id="kiText" type="text" autocomplete="off" enterkeyhint="done"
+               placeholder="Was hast du gegessen?" aria-label="Gegessenes eintragen">
+        <button class="btn primary" id="kiGo">Eintragen</button>
+      </div>
+      <p class="hint" id="kiHint" style="margin:9px 0 0">z.B. „90 g Haferflocken, 1 Whey und 2 Wraps" – zum Diktieren das Mikrofon deiner Tastatur nutzen.</p>
+    </div>
+  </section>
+
   <section class="card" id="fdScore">
     <div class="in">
       <div class="fdscore-kopf">
@@ -1107,6 +1137,16 @@ main{position:relative;z-index:1}
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>
     <span>Verlauf</span></button>
 </nav>
+
+<div class="scrim" id="scrim9">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
+    <h3>Das habe ich verstanden</h3>
+    <p class="msub" id="kiSub">—</p>
+    <div id="kiListe"></div>
+    <div class="mrow"><button class="btn" id="kiCancel">Abbrechen</button>
+      <button class="btn primary" id="kiSave">Alles buchen</button></div>
+  </div>
+</div>
 
 <div class="scrim" id="scrim8">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
@@ -1278,6 +1318,19 @@ main{position:relative;z-index:1}
     </div>
 
     <div class="secbox">
+      <div class="sect">✨ Eintragen per Text</div>
+      <p class="hint" style="margin:0 0 10px">Ohne Schlüssel erkennt die App nur, was in deiner Lebensmittelliste steht – das reicht für den Alltag. Mit einem Google-Schlüssel versteht sie auch alles andere und schätzt die Nährwerte. Kostenlos über <b>aistudio.google.com</b> → <i>Get API key</i>.</p>
+      <div class="f" style="margin-bottom:8px"><label for="kiKey">Google-API-Schlüssel</label>
+        <input id="kiKey" type="password" placeholder="AIza…" autocomplete="off"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="kiConnect">Verbinden</button>
+        <button class="btn" id="kiOff" style="color:var(--bad-ink)">Trennen</button>
+      </div>
+      <p class="hint" id="kiStatus" style="margin:10px 0 0">Nicht eingerichtet.</p>
+      <p class="hint" style="margin:8px 0 0;opacity:.75">Der Schlüssel bleibt auf diesem Gerät und wird nicht mit der Cloud abgeglichen. Beim Nachfragen gehen dein Text und die Namen deiner Lebensmittel an Google.</p>
+    </div>
+
+    <div class="secbox">
       <div class="sect">🩺 Kursquellen</div>
       <p class="hint" style="margin:0 0 10px">Prüft jeden Weg einzeln. Wenn Kurse fehlen, steht hier, woran es liegt: gedrosselter Dienst oder ein Kürzel, das es bei Yahoo nicht gibt.</p>
       <button class="btn" id="oDiag">🩺 Kursquellen prüfen</button>
@@ -1374,7 +1427,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v41 · Aurora · 10.09.2026';
+const APP_VERSION = 'v42 · Aurora · 10.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -4498,6 +4551,299 @@ $('#suSave').onclick = saveSupp;
 $('#suDelete').onclick = delSupp;
 $('#scrim7').onclick = e => { if (e.target === $('#scrim7')) { $('#scrim7').classList.remove('on'); suppEditId = null; } };
 
+/* ============================================================
+   EINTRAGEN PER TEXT
+   Zwei Stufen, bewusst in dieser Reihenfolge:
+   1. Gegen die eigene Bibliothek abgleichen – kostenlos, offline und
+      mit exakten Nährwerten. Deckt den Alltag ab, weil hier immer
+      dieselben Sachen gegessen werden.
+   2. Nur was übrig bleibt, geht an Gemini. Dessen Nährwerte sind
+      Schätzungen und werden entsprechend gekennzeichnet.
+   ============================================================ */
+const LS_KI = 'pt.ki.v1';                 // Zugang bleibt auf dem Gerät, nie in der Cloud
+const ki = { key:'', modell:'', an:false };
+
+function loadKi() {
+  try { Object.assign(ki, JSON.parse(lsGet(LS_KI) || '{}')); } catch(e) {}
+}
+function saveKi() { lsSet(LS_KI, JSON.stringify({ key:ki.key, modell:ki.modell, an:ki.an })); }
+
+/* ---- Stufe 1: eigener Bestand ---- */
+const normal = s => String(s || '').toLowerCase()
+  .replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'ss')
+  .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+
+/* Zerlegt „90g Haferflocken, 1 Whey und 2 Wraps" in einzelne Angaben. */
+function textTeile(text) {
+  return String(text || '')
+    .split(/[,;\n]|\bund\b|\bsowie\b|\bdazu\b|\bplus\b/i)
+    .map(t => t.trim()).filter(t => t.length > 1);
+}
+/* Zahl + Einheit aus einem Stück lesen – egal ob davor oder dahinter. */
+function mengeAusText(t) {
+  const m = t.match(/(\d+(?:[.,]\d+)?)\s*(kg|g|ml|l|stk|stück|stueck|x|mal)?/i);
+  if (!m) return { zahl: null, einheit: null, rest: t };
+  let zahl = +m[1].replace(',', '.');
+  let e = (m[2] || '').toLowerCase();
+  if (e === 'kg') { zahl *= 1000; e = 'g'; }
+  else if (e === 'l') { zahl *= 1000; e = 'ml'; }
+  else if (['stk','stück','stueck','x','mal'].includes(e)) e = 'Stk';
+  else if (e !== 'g' && e !== 'ml') e = null;      // reine Zahl = Anzahl Portionen
+  return { zahl, einheit: e, rest: t.replace(m[0], ' ') };
+}
+/* Bestes Lebensmittel zu einem Suchbegriff. Bewertet: ganze Wörter zählen
+   mehr als Teiltreffer, kürzere Namen gewinnen bei gleichem Treffer. */
+function findeLm(suche) {
+  const s = normal(suche);
+  if (!s) return null;
+  const woerter = s.split(' ').filter(w => w.length > 2);
+  let best = null, bestWert = 0;
+  essLib().forEach(l => {
+    const n = normal(l.name);
+    const nw = n.split(' ');
+    let wert = 0;
+    if (n === s) wert = 100;
+    else {
+      woerter.forEach(w => {
+        if (nw.includes(w)) wert += 10;
+        else if (n.includes(w)) wert += 6;
+        else if (w.length >= 5 && nw.some(x => x.startsWith(w.slice(0,5)))) wert += 4;
+      });
+      nw.forEach(w => { if (w.length > 2 && s.includes(w)) wert += 3; });
+    }
+    if (wert > bestWert || (wert === bestWert && wert > 0 && best && n.length < normal(best.name).length)) {
+      best = l; bestWert = wert;
+    }
+  });
+  return bestWert >= 6 ? { l: best, wert: bestWert } : null;
+}
+/* Ergebnis je Textstück: erkannt (mit Faktor) oder offen */
+function erkenneText(text) {
+  const treffer = [], offen = [];
+  textTeile(text).forEach(teil => {
+    const { zahl, einheit, rest } = mengeAusText(teil);
+    const gef = findeLm(rest);
+    if (!gef) { offen.push(teil.trim()); return; }
+    const bz = bezug(gef.l);
+    let faktor, menge;
+    if (einheit && einheit !== 'Stk' && einheit === bz.einheit) {
+      menge = zahl; faktor = zahl / bz.menge;             // „90 g" bei Bezug 100 g
+    } else if (einheit && einheit !== 'Stk' && einheit !== bz.einheit) {
+      menge = zahl; faktor = zahl / bz.menge;             // g/ml gemischt: trotzdem anteilig
+    } else {
+      const n = zahl || 1;                                 // „2 Wraps" = zwei Portionen
+      faktor = n; menge = bz.menge * n;
+    }
+    treffer.push({ lid: gef.l.id, name: gef.l.name, ico: gef.l.ico, faktor,
+                   menge: Math.round(menge * 100) / 100, einheit: bz.einheit, quelle: 'eigen' });
+  });
+  return { treffer, offen };
+}
+
+/* ---- Stufe 2: Gemini ---- */
+const GEM = 'https://generativelanguage.googleapis.com/v1beta';
+async function kiModelle(key) {
+  const r = await fetchT(`${GEM}/models?key=${encodeURIComponent(key)}`, 12000);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const j = await r.json();
+  return (j.models || [])
+    .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+    .map(m => m.name.replace(/^models\//, ''));
+}
+/* Bevorzugt ein schnelles, günstiges Modell – die Namen ändern sich über
+   die Zeit, deshalb wird die Liste abgefragt statt fest verdrahtet. */
+function waehleModell(liste) {
+  const punkte = m => {
+    let p = 0;
+    if (/flash/.test(m)) p += 10;                 // schnell und günstig reicht hier
+    if (/lite/.test(m)) p -= 1;                   // etwas schwächer, nur zweite Wahl
+    if (/preview|exp|thinking|tts|image|embedding|vision|audio|live/.test(m)) p -= 50;
+    const v = m.match(/gemini-(\d+(?:\.\d+)?)/);
+    if (v) p += Math.min(20, parseFloat(v[1]) * 4);   // neuere Fassung schlägt „lite"
+    return p;
+  };
+  return liste.slice().sort((a,b) => punkte(b) - punkte(a))[0] || '';
+}
+async function kiFragen(text, offeneTeile) {
+  if (!ki.an || !ki.key || !ki.modell) return [];
+  const lib = essLib().map(l => ({ id:l.id, name:l.name, menge:bezug(l).menge, einheit:bezug(l).einheit }));
+  const anweisung =
+`Du hilfst beim Ernährungstagebuch. Der Nutzer schreibt auf Deutsch, was er gegessen hat.
+Ordne jede Angabe einem Lebensmittel aus SEINER Liste zu, wenn es passt – dann nur "id" und die Menge.
+Nur wenn nichts passt, schätze die Nährwerte selbst und setz "geschaetzt" auf true.
+Mengen ohne Einheit sind Portionen/Stück. Antworte ausschließlich mit JSON.
+
+Seine Liste:
+${JSON.stringify(lib)}
+
+Sein Text:
+${text}
+
+Diese Teile konnte die App nicht zuordnen, kümmere dich vor allem darum:
+${JSON.stringify(offeneTeile)}`;
+
+  const body = {
+    contents: [{ role:'user', parts:[{ text: anweisung }] }],
+    generationConfig: {
+      temperature: 0,
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type:'OBJECT',
+        properties: {
+          eintraege: { type:'ARRAY', items: { type:'OBJECT', properties: {
+            id:{type:'STRING'}, name:{type:'STRING'},
+            menge:{type:'NUMBER'}, einheit:{type:'STRING'},
+            kcal:{type:'NUMBER'}, eiweiss:{type:'NUMBER'},
+            kohlenhydrate:{type:'NUMBER'}, fett:{type:'NUMBER'},
+            geschaetzt:{type:'BOOLEAN'}
+          }}}
+        }
+      }
+    }
+  };
+  const r = await fetchT(`${GEM}/models/${ki.modell}:generateContent?key=${encodeURIComponent(ki.key)}`,
+    25000, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const j = await r.json();
+  const roh = j?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+  let daten; try { daten = JSON.parse(roh); } catch(e) { throw new Error('Antwort nicht lesbar'); }
+  return (daten.eintraege || []).map(e => {
+    const l = e.id ? essLib().find(x => x.id === e.id) : null;
+    if (l) {
+      const bz = bezug(l);
+      const menge = num(e.menge) ?? bz.menge;
+      const faktor = (e.einheit && e.einheit !== 'Stk') ? menge / bz.menge : menge;
+      return { lid:l.id, name:l.name, ico:l.ico, faktor,
+               menge: Math.round((e.einheit && e.einheit !== 'Stk' ? menge : bz.menge*menge) * 100)/100,
+               einheit: bz.einheit, quelle:'ki' };
+    }
+    return { neu:true, name: e.name || 'Unbekannt', ico:'✨',
+             menge: num(e.menge) ?? 1, einheit: e.einheit || 'g',
+             kcal: num(e.kcal), p: num(e.eiweiss), k: num(e.kohlenhydrate), f: num(e.fett),
+             faktor: 1, quelle:'ki', geschaetzt: true };
+  });
+}
+
+/* ---- Ablauf: erkennen, zeigen, buchen ---- */
+let kiVorschlag = [];
+async function kiEintragen() {
+  const text = $('#kiText').value.trim();
+  if (!text) { toast('Schreib kurz, was du gegessen hast.'); return; }
+  const btn = $('#kiGo');
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    const { treffer, offen } = erkenneText(text);
+    let ergaenzung = [];
+    if (offen.length && ki.an && ki.key && ki.modell) {
+      try { ergaenzung = await kiFragen(text, offen); }
+      catch(e) { toast('Nachfrage fehlgeschlagen: ' + e.message); }
+    }
+    /* Doppelte vermeiden: was die KI nochmal für dasselbe Lebensmittel liefert, fliegt raus */
+    const schonDa = new Set(treffer.map(t => t.lid));
+    kiVorschlag = treffer.concat(ergaenzung.filter(e => e.neu || !schonDa.has(e.lid)));
+
+    if (!kiVorschlag.length) {
+      toast(ki.an ? 'Nichts erkannt – versuch es anders zu formulieren.'
+                  : 'Nichts aus deiner Liste erkannt. Mit einem Google-Schlüssel (⋯ → Eintragen per Text) versteht die App auch alles andere.');
+      return;
+    }
+    const unklar = offen.filter(o => !ergaenzung.length);
+    $('#kiSub').textContent = unklar.length
+      ? `${kiVorschlag.length} erkannt · nicht zugeordnet: ${unklar.join(', ')}`
+      : `${kiVorschlag.length} ${kiVorschlag.length===1?'Eintrag':'Einträge'} – Mengen kannst du noch ändern.`;
+    kiListeZeichnen();
+    $('#scrim9').classList.add('on');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Eintragen';
+  }
+}
+function kiListeZeichnen() {
+  $('#kiListe').innerHTML = kiVorschlag.map((v, i) => `
+    <div class="kizeile">
+      <span class="ico">${esc(v.ico || '🍽')}</span>
+      <span class="ktx"><b>${esc(v.name)}${v.geschaetzt ? ' <span class="kimarke">geschätzt</span>' : ''}</b>
+        <small>${v.geschaetzt
+          ? `${Math.round(v.kcal||0)} kcal · ${Math.round(v.p||0)} E · ${Math.round(v.k||0)} KH · ${Math.round(v.f||0)} F`
+          : `${Math.round(kcalOf(essLib().find(x=>x.id===v.lid) || {}) * v.faktor)} kcal`}</small></span>
+      <input type="text" inputmode="decimal" data-mg="${i}" value="${esc(deIn(v.menge))}">
+      <span class="eh">${esc(v.einheit || '')}</span>
+      <button class="x" data-weg="${i}" title="Entfernen">×</button>
+    </div>`).join('');
+  $$('#kiListe [data-mg]').forEach(el => el.oninput = () => {
+    const v = kiVorschlag[+el.dataset.mg], m = numDe(el.value);
+    if (m === null || m <= 0) return;
+    if (v.neu) { v.faktor = m / (v.menge || 1); }
+    else {
+      const l = essLib().find(x => x.id === v.lid); if (!l) return;
+      v.faktor = m / bezug(l).menge;
+    }
+    v.menge = m;
+  });
+  $$('#kiListe [data-weg]').forEach(el => el.onclick = () => {
+    kiVorschlag.splice(+el.dataset.weg, 1);
+    if (!kiVorschlag.length) { $('#scrim9').classList.remove('on'); return; }
+    kiListeZeichnen();
+  });
+}
+function kiBuchen() {
+  let n = 0;
+  kiVorschlag.forEach(v => {
+    if (v.neu) {
+      /* Geschätztes wird als eigenes Lebensmittel angelegt – beim nächsten Mal
+         steht es in der Liste und muss nicht wieder geraten werden. */
+      const l = { id: uid(), name: v.name, ico: v.ico || '✨',
+                  menge: v.menge || 1, einheit: v.einheit || 'g',
+                  kcal: v.kcal, p: v.p, k: v.k, f: v.f, geschaetzt: true };
+      essLib().push(l);
+      essBuchen(l.id, 1, l.menge); n++;
+    } else {
+      essBuchen(v.lid, v.faktor, v.menge); n++;
+    }
+  });
+  $('#scrim9').classList.remove('on');
+  $('#kiText').value = '';
+  kiVorschlag = [];
+  persist(); renderFood();
+  toast(`${n} ${n===1?'Eintrag':'Einträge'} gebucht.`);
+}
+
+/* ---- Einstellungen ---- */
+function kiUiAktualisieren() {
+  const st = $('#kiStatus'); if (!st) return;
+  st.textContent = ki.an && ki.modell
+    ? `Verbunden · Modell ${ki.modell}`
+    : 'Nicht eingerichtet – die App erkennt nur Sachen aus deiner Liste.';
+  const f = $('#kiKey'); if (f && ki.key && !f.value) f.value = ki.key;
+}
+async function kiVerbinden() {
+  const key = $('#kiKey').value.trim();
+  if (!key) { toast('Bitte den Schlüssel eintragen.'); return; }
+  const btn = $('#kiConnect'); btn.disabled = true; btn.textContent = 'prüfe …';
+  $('#kiStatus').textContent = 'Verbinde …';
+  try {
+    const liste = await kiModelle(key);
+    const m = waehleModell(liste);
+    if (!m) throw new Error('kein passendes Modell gefunden');
+    ki.key = key; ki.modell = m; ki.an = true; saveKi();
+    $('#kiStatus').textContent = `Verbunden · Modell ${m} · ${liste.length} verfügbar`;
+    toast('Eintragen per Text ist eingerichtet.');
+  } catch(e) {
+    ki.an = false; saveKi();
+    $('#kiStatus').textContent = 'Hat nicht geklappt (' + e.message + '). Schlüssel prüfen.';
+  }
+  btn.disabled = false; btn.textContent = 'Verbinden';
+}
+$('#kiGo').onclick = kiEintragen;
+$('#kiText').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); kiEintragen(); } };
+$('#kiCancel').onclick = () => { $('#scrim9').classList.remove('on'); kiVorschlag = []; };
+$('#kiSave').onclick = kiBuchen;
+$('#scrim9').onclick = e => { if (e.target === $('#scrim9')) { $('#scrim9').classList.remove('on'); kiVorschlag = []; } };
+$('#kiConnect').onclick = kiVerbinden;
+$('#kiOff').onclick = () => {
+  ki.key = ''; ki.modell = ''; ki.an = false; saveKi();
+  $('#kiKey').value = ''; kiUiAktualisieren(); toast('Getrennt.');
+};
+
 function renderFood() {
   renderScore();
   renderSupps();
@@ -4765,6 +5111,7 @@ $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classL
   loadCfg(); loadHistory(); loadIntra(); loadAlertState(); updateNotifyUi();
   essVorlagenUebernehmen();
   suppVorlagenUebernehmen();
+  loadKi(); kiUiAktualisieren();
   const zul = +lsGet(LS_LASTUPD);
   if (zul) state.lastUpdate = new Date(zul);   // sonst behauptet die Zeile beim Öffnen, es gäbe nie Kurse
   $('#appVer').textContent = APP_VERSION;
