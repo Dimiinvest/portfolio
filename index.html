@@ -895,6 +895,126 @@ main{position:relative;z-index:1}
 .gyfilter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 11px;
   color:var(--text-secondary);font-size:12.5px}
 .gyfilter b{color:var(--text-primary);font-weight:640}
+
+/* Plan-Vorschau */
+.gyvor-kopf{display:flex;align-items:center;gap:10px;margin:0 0 4px}
+.gyvor-kopf h3{flex:1 1 auto;text-align:center;margin:0;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gyvor-kopf button{flex:0 0 auto}
+.gyvor-zul{color:var(--text-secondary);font-size:13px;margin:0 0 14px;text-align:center}
+.gyvorrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 2px;
+  border:0;border-top:1px solid var(--hair);background:transparent;color:var(--text-primary);
+  font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gyvorrow:first-child{border-top:0}
+.gyvorrow:hover{background:rgba(255,238,210,.035)}
+.gyvorrow:active{transform:scale(.99)}
+.gyvorrow .ico{font-size:21px;flex:0 0 28px;text-align:center}
+.gyvorrow .nm{flex:1 1 auto;min-width:0;font-size:14.5px;font-weight:600;line-height:1.3}
+.gyvorrow .nm b{color:var(--acc);font-weight:700;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyvorrow .nm small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:3px}
+.gyvorrow .hk{flex:0 0 auto;color:var(--good-ink);font-size:12.5px;font-weight:700;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+/* Satzvorgabe im Plandialog */
+.plrow .n{flex:0 0 46px;text-align:center;padding:7px 4px;font-size:13.5px;font-weight:600;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.plkopf2{display:flex;justify-content:flex-end;padding-right:96px;margin-bottom:2px}
+.plkopf2 i{font-style:normal;color:var(--muted);font-size:10px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase}
+
+/* ============ Workout-Bildschirm ============
+   Eigene Ebene über allem (auch über der Tableiste, die bei z-index 70 liegt).
+   Während des Trainings soll nichts ablenken. */
+#wkView{position:fixed;inset:0;z-index:90;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,238,210,.045),transparent 380px);
+  padding:0 0 calc(96px + env(safe-area-inset-bottom))}
+.wktop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
+  background:linear-gradient(to bottom,rgba(12,11,10,.98) 70%,rgba(12,11,10,0));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.wkwrap{padding:4px 16px 0;max-width:640px;margin:0 auto}
+.wkkopf h2{font-size:26px;font-weight:680;letter-spacing:-.03em;margin:8px 0 8px}
+.wkmeta{display:flex;flex-direction:column;gap:4px;margin-bottom:22px;
+  color:var(--text-secondary);font-size:13.5px}
+.wkmeta span{display:flex;align-items:center;gap:8px}
+.wkmeta i{font-style:normal}
+.wkmeta .tnum{font-size:15px;color:var(--text-primary);font-weight:600;letter-spacing:.01em}
+
+.wkue{margin-bottom:26px}
+.wkue h3{color:var(--acc);font-size:16.5px;font-weight:640;letter-spacing:-.015em;
+  margin:0 0 2px;line-height:1.25}
+.wkue .mg{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;margin:0 0 10px}
+.wkzeile,.wkkopfzeile{display:grid;grid-template-columns:34px 1fr 64px 58px 46px;
+  gap:7px;align-items:center}
+.wkkopfzeile{color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:0 0 7px;text-align:center}
+.wkkopfzeile .vor{text-align:left;padding-left:4px}
+.wkzeile{padding:5px 0;border-radius:11px;transition:background .18s}
+.wkzeile.ok{background:rgba(110,231,183,.09)}
+.wkzeile .nr{text-align:center;font-size:13px;font-weight:700;color:var(--text-secondary);
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.wkzeile.ok .nr{color:var(--good-ink)}
+.wkzeile .vor{font-size:12.5px;color:var(--muted);padding-left:4px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wkzeile input{text-align:center;padding:10px 4px;font-size:16px;font-weight:600;
+  font-family:'JetBrains Mono',ui-monospace,monospace;border-radius:10px}
+.wkzeile .hk{width:40px;height:40px;border-radius:10px;border:1px solid var(--hair-strong);
+  background:var(--surface-2);color:var(--muted);font-size:17px;cursor:pointer;
+  display:grid;place-items:center;padding:0;-webkit-tap-highlight-color:transparent;
+  transition:.15s;justify-self:center}
+.wkzeile .hk:hover{border-color:var(--good-ink);color:var(--good-ink)}
+.wkzeile.ok .hk{background:var(--good-ink);border-color:var(--good-ink);color:#06281c;font-weight:800}
+.wkplus{width:100%;justify-content:center;margin-top:9px}
+
+/* Pausenleiste */
+.wkbar{position:fixed;left:0;right:0;bottom:0;z-index:95;overflow:hidden;
+  border-top:1px solid var(--hair);background:rgba(16,15,14,.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding-bottom:env(safe-area-inset-bottom)}
+.wkbar .fuell{position:absolute;left:0;top:0;bottom:0;width:100%;
+  background:rgba(125,211,252,.16);transition:width .25s linear}
+.wkbar.fertig{border-top-color:var(--good-ink)}
+.wkbar.fertig .fuell{background:rgba(110,231,183,.26);width:100% !important;
+  animation:wkblink 1s ease-in-out infinite}
+@keyframes wkblink{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.wkbar.fertig .fuell{animation:none}}
+.wkbar .inhalt{position:relative;display:flex;align-items:center;gap:10px;padding:12px 14px}
+.wkbar button{flex:0 0 auto;appearance:none;border:1px solid var(--hair);border-radius:10px;
+  background:var(--surface-2);color:var(--text-secondary);font:inherit;font-size:13px;
+  padding:9px 12px;cursor:pointer;min-height:40px}
+.wkbar button:hover{color:#fff;border-color:var(--hair-strong)}
+.wkbar .zeit{flex:1 1 auto;text-align:center;font-size:22px;font-weight:700;letter-spacing:-.02em;
+  font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--acc)}
+.wkbar.fertig .zeit{color:var(--good-ink)}
+
+/* Der Pausen-Dialog wird aus der Workout-Ebene (z-index 90) heraus geöffnet
+   und muss deshalb über ihr und über der Pausenleiste (95) liegen. */
+#scrim15{z-index:110}
+.wkuekopf{display:flex;align-items:flex-start;gap:10px}
+.wkuekopf > div{flex:1 1 auto;min-width:0}
+.wkpz{flex:0 0 auto;appearance:none;border:1px solid var(--hair);border-radius:99px;
+  background:var(--surface-2);color:var(--text-secondary);font:inherit;font-size:12px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;padding:7px 11px;cursor:pointer;
+  white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.wkpz:hover{border-color:var(--acc);color:var(--acc)}
+.wkpz.eigen{border-color:var(--acc);color:var(--acc);background:var(--acc-dim)}
+
+/* Pausenlänge */
+.tmquick{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:7px;margin:6px 0 14px}
+.tmquick button{min-height:44px;justify-content:center;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.tmquick button.an{background:var(--acc-dim);border-color:var(--acc);color:var(--acc)}
+
+/* Hinweis auf dem Gym-Bildschirm, dass ein Workout läuft */
+.wklaeuft{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  padding:13px 14px;margin:0 0 14px;border-radius:var(--radius);
+  border:1px solid var(--acc);background:var(--acc-dim);color:var(--text-primary);
+  font:inherit;font-size:14px;cursor:pointer}
+.wklaeuft b{color:var(--acc)}
+.wklaeuft .sp{flex:1 1 auto}
+.wklaeuft .go{color:var(--acc);font-size:17px}
 </style>
 </head>
 <body>
@@ -1232,6 +1352,11 @@ main{position:relative;z-index:1}
     <p id="gySub">Antippen trägt Sätze ein</p>
   </div>
 
+  <button class="wklaeuft" id="gyWeiter" hidden>
+    <span>🏋️</span><span><b>Workout läuft</b> <i style="font-style:normal" id="gyWeiterSub"></i></span>
+    <span class="sp"></span><span class="go">›</span>
+  </button>
+
   <div class="sec-head">
     <h2>Trainingspläne</h2>
     <span class="count" id="gyPlanCount"></span>
@@ -1326,6 +1451,72 @@ main{position:relative;z-index:1}
     <span>Verlauf</span></button>
 </nav>
 
+<div id="wkView" hidden>
+  <div class="wktop">
+    <button class="btn ghost" id="wkZurueck">‹ Zurück</button>
+    <button class="btn icon ghost" id="wkPauseBtn" title="Pausenlänge einstellen">⏱</button>
+    <div class="sp" style="flex:1 1 auto"></div>
+    <button class="btn primary" id="wkEnde">Beenden</button>
+  </div>
+  <div class="wkwrap">
+    <div class="wkkopf">
+      <h2 id="wkName">—</h2>
+      <div class="wkmeta">
+        <span>🗓 <i style="font-style:normal" id="wkDatum">—</i></span>
+        <span>🕐 <i class="tnum" id="wkUhr">0:00</i></span>
+      </div>
+    </div>
+    <div id="wkBody"></div>
+    <button class="btn" id="wkExtra" style="width:100%;justify-content:center;margin:18px 0 4px">
+      + Übung ergänzen</button>
+  </div>
+  <div class="wkbar" id="wkBar" hidden>
+    <div class="fuell" id="wkBarFuell"></div>
+    <div class="inhalt">
+      <button id="wkMinus">−15</button>
+      <span class="zeit" id="wkRest">3:00</span>
+      <button id="wkPlus">+15</button>
+      <button id="wkSkip">Fertig</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim15">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
+    <h3 id="tmTitle">Pause zwischen den Sätzen</h3>
+    <p class="msub" id="tmSub">Läuft von selbst los, sobald du einen Satz abhakst.</p>
+    <div class="tmquick" id="tmQuick"></div>
+    <button class="btn" id="tmStd" hidden
+            style="width:100%;justify-content:center;margin-bottom:12px">↩ Wie überall</button>
+    <div class="form">
+      <div class="f full"><label for="tmSek">Eigener Wert (Sekunden)</label>
+        <input id="tmSek" type="text" inputmode="numeric" placeholder="180" autocomplete="off"></div>
+      <div class="f full"><p class="hint">0 oder leer schaltet den Timer ab.<br>
+        Am Ende färbt sich die Leiste grün und schreibt „Pause vorbei". Bewusst ohne Ton:
+        Auf dem iPhone kann eine Webseite nicht über laufende Musik klingen — sie würde
+        deine Musik jedes Mal unterbrechen.</p></div>
+    </div>
+    <div class="mrow"><button class="btn" id="tmCancel">Abbrechen</button>
+      <button class="btn primary" id="tmSave">Speichern</button></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim14">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <div class="gyvor-kopf">
+      <button class="btn icon ghost" id="vorClose" title="Schließen">✕</button>
+      <h3 id="vorTitle">Plan</h3>
+      <button class="btn" id="vorEdit">Bearbeiten</button>
+    </div>
+    <p class="gyvor-zul" id="vorZuletzt">—</p>
+    <div id="vorListe"></div>
+    <div class="mrow">
+      <button class="btn primary" id="vorStart"
+              style="width:100%;justify-content:center;padding:14px">Workout beginnen</button>
+    </div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim13">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(460px,100%)">
     <h3 id="plTitle">Plan anlegen</h3>
@@ -1389,8 +1580,10 @@ main{position:relative;z-index:1}
           <option value="kraft">Kraft (Sätze)</option>
           <option value="ausdauer">Ausdauer (Zeit)</option>
         </select></div>
-      <div class="f full"><label for="ubMuskel">Muskelgruppe</label>
+      <div class="f"><label for="ubMuskel">Muskelgruppe</label>
         <select id="ubMuskel"></select></div>
+      <div class="f"><label for="ubPause">Pause (Sekunden)</label>
+        <input id="ubPause" type="text" inputmode="numeric" placeholder="wie überall" autocomplete="off"></div>
     </div>
     <div class="mrow">
       <button class="btn" id="ubDelete" style="color:var(--bad-ink)">Löschen</button>
@@ -1572,11 +1765,39 @@ main{position:relative;z-index:1}
 
     <div class="secbox">
       <div class="sect">☁ Cloud-Sync <span id="syncBadge" class="tag">aus</span></div>
-      <p class="hint" style="margin:0 0 10px">Damit Handy und PC denselben Stand haben. Kostenlos über <b>jsonbin.io</b>: dort registrieren → <i>API Keys</i> → <b>Master Key</b> kopieren und hier einfügen.</p>
-      <div class="f" style="margin-bottom:8px"><label for="cKey">Master Key</label>
-        <input id="cKey" type="password" placeholder="$2a$10$…" autocomplete="off"></div>
-      <div class="f" style="margin-bottom:10px"><label for="cBin">Bin-ID <span style="text-transform:none;letter-spacing:0">(auf dem 2. Gerät eintragen)</span></label>
-        <input id="cBin" placeholder="leer lassen = neu anlegen" autocomplete="off"></div>
+      <div class="seg" id="cArt" role="group" aria-label="Speicherort" style="margin:0 0 12px;width:100%">
+        <button data-art="github" aria-pressed="true">GitHub (privat)</button>
+        <button data-art="jsonbin" aria-pressed="false">jsonbin</button>
+      </div>
+
+      <div id="cGh">
+        <p class="hint" style="margin:0 0 10px"><b>Empfohlen.</b> Deine Daten landen als eine JSON-Datei in einem
+        <b>privaten</b> GitHub-Repo. Keine Größenbeschränkung, und <b>jeder Speichervorgang wird ein Commit</b> —
+        du kannst also jeden früheren Stand zurückholen.</p>
+        <ol class="hint" style="margin:0 0 12px;padding-left:20px;line-height:1.8">
+          <li>Auf GitHub ein <b>neues privates Repo</b> anlegen, z.B. <b>tracker-daten</b>. Leer lassen genügt.</li>
+          <li><b>github.com/settings/personal-access-tokens</b> → <i>Generate new token</i> →
+              <i>Fine-grained</i>. Unter <i>Repository access</i> nur dieses eine Repo wählen,
+              unter <i>Permissions</i> → <i>Repository permissions</i> → <b>Contents: Read and write</b>.
+              Laufzeit ruhig lang setzen, sonst musst du ihn erneuern.</li>
+          <li>Token kopieren und hier einfügen — er bleibt auf diesem Gerät.</li>
+        </ol>
+        <div class="f" style="margin-bottom:8px"><label for="cGhRepo">Repo</label>
+          <input id="cGhRepo" placeholder="Dimiinvest/tracker-daten" autocomplete="off"></div>
+        <div class="f" style="margin-bottom:8px"><label for="cGhToken">Zugriffstoken</label>
+          <input id="cGhToken" type="password" placeholder="github_pat_…" autocomplete="off"></div>
+        <div class="f" style="margin-bottom:10px"><label for="cGhPfad">Dateiname</label>
+          <input id="cGhPfad" placeholder="tracker.json" autocomplete="off"></div>
+      </div>
+
+      <div id="cJb" hidden>
+        <p class="hint" style="margin:0 0 10px">Der bisherige Weg. Kostenlos über <b>jsonbin.io</b>: dort registrieren → <i>API Keys</i> → <b>Master Key</b> kopieren und hier einfügen.
+        <b>Achtung: Der Gratistarif hört bei 100 KB auf</b> — ein Jahr Nutzung wiegt rund 130 KB.</p>
+        <div class="f" style="margin-bottom:8px"><label for="cKey">Master Key</label>
+          <input id="cKey" type="password" placeholder="$2a$10$…" autocomplete="off"></div>
+        <div class="f" style="margin-bottom:10px"><label for="cBin">Bin-ID <span style="text-transform:none;letter-spacing:0">(auf dem 2. Gerät eintragen)</span></label>
+          <input id="cBin" placeholder="leer lassen = neu anlegen" autocomplete="off"></div>
+      </div>
       <div class="f" style="margin-bottom:10px"><label for="cPass">Passwort <span style="text-transform:none;letter-spacing:0">(verschlüsselt deine Cloud-Daten)</span></label>
         <input id="cPass" type="password" placeholder="leer lassen = unverschlüsselt" autocomplete="new-password"></div>
       <p class="hint" id="cEncHint" style="margin:0 0 10px">Ohne Passwort liegen deine Daten im Klartext beim Anbieter. Mit Passwort sieht der nur unlesbaren Text. <b>Passwort vergessen heißt: Cloud-Daten sind verloren.</b> Auf jedem Gerät dasselbe Passwort eintragen.</p>
@@ -1588,7 +1809,7 @@ main{position:relative;z-index:1}
       </div>
       <p class="hint" id="cStatus" style="margin:10px 0 0">Nicht verbunden.</p>
       <div style="border-top:1px solid var(--hair);margin-top:14px;padding-top:14px">
-        <button class="btn" id="cVersions" style="width:100%">⟲ Frühere Cloud-Fassungen suchen</button>
+        <button class="btn" id="cVersions" style="width:100%">⟲ Frühere Fassungen anzeigen</button>
         <div class="hint" id="cVerOut" style="margin:10px 0 0;line-height:1.7"></div>
       </div>
     </div>
@@ -1611,6 +1832,34 @@ main{position:relative;z-index:1}
       </div>
       <p class="hint" id="kiStatus" style="margin:10px 0 0">Nicht eingerichtet.</p>
       <p class="hint" style="margin:8px 0 0;opacity:.75">Der Schlüssel bleibt auf diesem Gerät und wird nicht mit der Cloud abgeglichen. Beim Nachfragen gehen dein Text und die Namen deiner Lebensmittel an Google.</p>
+    </div>
+
+    <div class="secbox">
+      <div class="sect">🏃 Strava <span id="stBadge" class="tag">aus</span></div>
+      <p class="hint" style="margin:0 0 10px">Holt deine Läufe und Radfahrten von selbst herein — sie landen als
+      Ausdauer-Einträge im Trainingsbereich. Krafttraining kommt <b>nicht</b> von Strava, das trägst du hier
+      weiter mit Sätzen und Gewicht ein; sonst stünde alles doppelt in der Wochenwertung.</p>
+      <p class="hint" style="margin:0 0 10px">Dazwischen braucht es eine kleine <b>Brücke</b>, weil Strava ein
+      Geheimnis verlangt, das nicht in dieses öffentliche Repo darf. Die Datei <b>strava-worker.js</b> enthält
+      die Anleitung: Strava-Anwendung anlegen, Worker bei Cloudflare hochladen (kostenlos), Adresse hier eintragen.</p>
+      <div class="f" style="margin-bottom:10px"><label for="stWorker">Adresse der Brücke</label>
+        <input id="stWorker" placeholder="https://strava-bruecke.deinname.workers.dev" autocomplete="off"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="stConnect">Mit Strava verbinden</button>
+        <button class="btn" id="stSync">↻ Jetzt abgleichen</button>
+        <button class="btn" id="stOff" style="color:var(--bad-ink)">Trennen</button>
+      </div>
+      <p class="hint" id="stStatus" style="margin:10px 0 0">Nicht eingerichtet.</p>
+      <div style="border-top:1px solid var(--hair);margin-top:14px;padding-top:12px">
+        <p class="hint" style="margin:0 0 8px">Falls die Rückkehr in die App nicht klappt: Die Brücke zeigt am Ende
+        einen Code an — den hier einfügen.</p>
+        <div class="f" style="margin-bottom:8px"><label for="stCode">Code aus der Brücke</label>
+          <input id="stCode" type="password" placeholder="wird auf der Brücken-Seite angezeigt" autocomplete="off"></div>
+        <button class="btn" id="stCodeSave">Code übernehmen</button>
+      </div>
+      <p class="hint" style="margin:10px 0 0;opacity:.75">Der Zugang bleibt auf diesem Gerät und wird nicht mit der
+      Cloud abgeglichen. Eine Webseite kann nicht im Hintergrund arbeiten: Neue Aktivitäten kommen beim nächsten
+      Öffnen der App — mit dem richtigen Datum.</p>
     </div>
 
     <div class="secbox">
@@ -1710,7 +1959,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v45 · Aurora · 14.09.2026';
+const APP_VERSION = 'v53 · Aurora · 15.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -3053,7 +3302,8 @@ const LS_CFG  = 'pt.cloud.v1';
 const LS_SEEN = 'pt.seen.v1';
 const LS_LASTUPD = 'pt.lastupd.v1';     // wann zuletzt echte Kurse ankamen, gerätelokal
 let storageOk = true;
-const cloud = { key:'', bin:'', pass:'', on:false, busy:false, lastSync:null };
+const cloud = { art:'jsonbin', key:'', bin:'', pass:'', on:false, busy:false, lastSync:null,
+                ghToken:'', ghRepo:'', ghPfad:'tracker.json', ghSha:null };
 
 /* Ab Version 4 liegt alles in einem Container. Der Depot-Teil behält sein
    Format, daneben stehen die Lebensbereiche. Ältere Datensätze werden von
@@ -3163,16 +3413,28 @@ function restoreLocal() {
 function loadCfg() {
   try {
     const j = JSON.parse(lsGet(LS_CFG) || '{}');
-    cloud.key = j.key || ''; cloud.bin = j.bin || ''; cloud.on = !!(j.key && j.bin);
+    cloud.key = j.key || ''; cloud.bin = j.bin || '';
+    /* Wer schon jsonbin eingerichtet hat, bleibt dort — nur ein frisches
+       Gerät startet auf dem empfohlenen Weg. */
+    cloud.art = j.art ? (j.art === 'github' ? 'github' : 'jsonbin')
+              : (j.key ? 'jsonbin' : 'github');
+    cloud.ghToken = j.ghToken || ''; cloud.ghRepo = j.ghRepo || '';
+    cloud.ghPfad = j.ghPfad || 'tracker.json';
+    cloud.on = cloud.art === 'github' ? !!(cloud.ghToken && cloud.ghRepo) : !!(j.key && j.bin);
     cloud.pass = j.pass || '';
     if ($('#cPass')) $('#cPass').value = cloud.pass;
     cloud.lastSync = j.lastSync || null;
   } catch(e) {}
   $('#cKey').value = cloud.key; $('#cBin').value = cloud.bin;
+  $('#cGhRepo').value = cloud.ghRepo; $('#cGhToken').value = cloud.ghToken;
+  $('#cGhPfad').value = cloud.ghPfad;
+  setzeArt(cloud.art);
   updateSyncUi();
 }
 function saveCfg() {
-  lsSet(LS_CFG, JSON.stringify({ key:cloud.key, bin:cloud.bin, pass:cloud.pass, lastSync:cloud.lastSync }));
+  lsSet(LS_CFG, JSON.stringify({ art:cloud.art, key:cloud.key, bin:cloud.bin, pass:cloud.pass,
+                                 ghToken:cloud.ghToken, ghRepo:cloud.ghRepo, ghPfad:cloud.ghPfad,
+                                 lastSync:cloud.lastSync }));
   updateSyncUi();
 }
 function updateSyncUi() {
@@ -3188,12 +3450,205 @@ function updateSyncUi() {
     s.textContent = 'Dieser Browser erlaubt kein Speichern (z.B. in einer Vorschau). Lade die Datei herunter und öffne sie direkt.';
   } else if (cloud.busy) { t.textContent = 'Sync läuft …'; b.textContent = 'sync'; }
   else if (cloud.on)   { t.textContent = when ? `Cloud synchron · ${when}` : 'Cloud verbunden'; b.textContent = 'an';
-                         s.textContent = `Verbunden. Bin-ID: ${cloud.bin}` + (when ? ` · zuletzt ${when}` : ''); }
+                         s.textContent = (cloud.art === 'github'
+                           ? `Verbunden mit ${cloud.ghRepo}/${cloud.ghPfad}`
+                           : `Verbunden. Bin-ID: ${cloud.bin}`) + (when ? ` · zuletzt ${when}` : ''); }
   else { t.textContent = 'Cloud-Sync einrichten'; b.textContent = 'aus';
          s.textContent = 'Nicht verbunden – Daten liegen nur in diesem Browser.'; }
   $('#lsHint').textContent = storageOk
     ? 'Deine Positionen werden automatisch in diesem Browser gespeichert und beim Öffnen wiederhergestellt.'
     : 'Achtung: automatisches Speichern ist hier nicht möglich – bitte per Export sichern.';
+}
+
+/* ============================================================
+   SPEICHERORT — zwei Wege, dieselbe Schutzlogik darüber
+   ------------------------------------------------------------
+   'jsonbin'  wie seit jeher: ein Datensatz, nur der letzte Stand.
+              Im Gratistarif bei 100 KB zu Ende — ein volles Jahr
+              Nutzung wiegt rund 130 KB, die Wand kommt also.
+   'github'   eine JSON-Datei in einem PRIVATEN Repo. Kein Größenlimit,
+              und jeder Speichervorgang ist ein Commit. Damit gibt es
+              eine echte Versionshistorie statt nur des letzten Standes —
+              genau das, was am 08.09.2026 gefehlt hat.
+
+   cloudPush() und cloudPull() kennen den Unterschied nicht. Sie reden
+   nur mit remoteLesen() und remoteSchreiben(); alle Sicherungen aus
+   v32–v45 (leer schlägt nie voll, Rückfragen, Tagessicherung) bleiben
+   unverändert darüber liegen.
+   ============================================================ */
+const GH = 'https://api.github.com';
+let ghZuletzt = '';                    // zuletzt geschriebener Text, gegen leere Commits
+
+async function ghFetch(pfad, opts) {
+  const r = await fetch(GH + pfad, {
+    ...opts,
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + cloud.ghToken,
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(opts?.headers || {})
+    }
+  });
+  if (r.status === 404) return { fehlt: true };
+  if (!r.ok) {
+    let t = '';
+    try { t = (await r.json()).message || ''; } catch (e) {}
+    throw new Error('HTTP ' + r.status + (t ? ' – ' + t : ''));
+  }
+  return r.json();
+}
+/* GitHub kodiert Inhalte base64, mit Zeilenumbrüchen dazwischen.
+   Über TextEncoder/TextDecoder, sonst zerfallen Umlaute und Emojis. */
+const ghDecode = s => new TextDecoder().decode(
+  Uint8Array.from(atob(String(s).replace(/\s/g, '')), c => c.charCodeAt(0)));
+const ghEncode = s => {
+  const b = new TextEncoder().encode(s);
+  let roh = '';
+  for (let i = 0; i < b.length; i += 8192) roh += String.fromCharCode(...b.subarray(i, i + 8192));
+  return btoa(roh);
+};
+const ghPfadDatei = () => `/repos/${cloud.ghRepo}/contents/${encodeURIComponent(cloud.ghPfad || 'tracker.json')}`;
+
+async function ghLesen(ref) {
+  const j = await ghFetch(ghPfadDatei() + (ref ? '?ref=' + encodeURIComponent(ref) : '?_=' + Date.now()));
+  if (j.fehlt) { if (!ref) cloud.ghSha = null; return null; }
+  if (!ref) cloud.ghSha = j.sha;
+  try { return JSON.parse(ghDecode(j.content)); }
+  catch (e) { throw new Error('Datei im Repo ist kein gültiges JSON'); }
+}
+async function ghSchreiben(body) {
+  const txt = JSON.stringify(body);
+  if (txt === ghZuletzt) return;               // nichts geändert, kein leerer Commit
+  const schreib = sha => ghFetch(ghPfadDatei(), {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: 'Tracker ' + new Date().toISOString().slice(0, 16).replace('T', ' '),
+      content: ghEncode(txt),
+      ...(sha ? { sha } : {})
+    })
+  });
+  try {
+    const j = await schreib(cloud.ghSha);
+    if (j && j.content) cloud.ghSha = j.content.sha;
+  } catch (e) {
+    /* Veralteter sha — das andere Gerät war schneller. Einmal frisch lesen
+       und nochmal schreiben; „letzter Schreiber gewinnt" wie gehabt. */
+    if (!/\b(409|422)\b/.test(e.message)) throw e;
+    await ghLesen();
+    const j = await schreib(cloud.ghSha);
+    if (j && j.content) cloud.ghSha = j.content.sha;
+  }
+  ghZuletzt = txt;
+}
+/* Die Commit-Liste der Datei — das ist die Versionshistorie. */
+async function ghCommits(anzahl) {
+  const j = await ghFetch(`/repos/${cloud.ghRepo}/commits?path=${encodeURIComponent(cloud.ghPfad || 'tracker.json')}`
+    + `&per_page=${anzahl || 30}&_=${Date.now()}`);
+  return Array.isArray(j) ? j : [];
+}
+
+/* ---- gemeinsame Schicht ---- */
+async function remoteLesen() {
+  if (cloud.art === 'github') return await ghLesen();
+  const j = await jbFetch(`${JB}/${cloud.bin}/latest`, { method: 'GET' });
+  return j.record;
+}
+async function remoteSchreiben(body) {
+  if (cloud.art === 'github') return await ghSchreiben(body);
+  await jbFetch(`${JB}/${cloud.bin}`, { method: 'PUT', body: JSON.stringify(body) });
+}
+
+/* ---- Verbinden mit GitHub ---- */
+async function cloudConnectGh() {
+  cloud.pass = ($('#cPass').value || '').trim();
+  const repo  = $('#cGhRepo').value.trim().replace(/^https?:\/\/github\.com\//i, '').replace(/\.git$/,'').replace(/\/+$/,'');
+  const token = $('#cGhToken').value.trim();
+  const pfad  = ($('#cGhPfad').value || '').trim() || 'tracker.json';
+  if (!/^[^/]+\/[^/]+$/.test(repo)) { toast('Repo bitte als benutzer/repo eintragen.'); return; }
+  if (!token) { toast('Bitte den Zugriffstoken eintragen.'); return; }
+
+  cloud.art = 'github'; cloud.ghRepo = repo; cloud.ghToken = token; cloud.ghPfad = pfad;
+  cloud.busy = true; updateSyncUi(); $('#cStatus').textContent = 'Verbinde …';
+  try {
+    /* Erst prüfen, ob das Repo überhaupt erreichbar und privat ist. */
+    const info = await ghFetch(`/repos/${repo}`);
+    if (info.fehlt) throw new Error('Repo nicht gefunden – Name richtig? Token für dieses Repo freigegeben?');
+    if (!info.private) {
+      if (!confirm(`Achtung: „${repo}" ist ÖFFENTLICH.\n\nDeine Daten wären für jeden lesbar. Nur fortfahren, wenn du ein Passwort für die Verschlüsselung gesetzt hast.\n\nTrotzdem verbinden?`)) {
+        cloud.busy = false; cloud.art = 'jsonbin'; updateSyncUi();
+        $('#cStatus').textContent = 'Abgebrochen – bitte ein privates Repo nehmen.'; return;
+      }
+    }
+    const rec = await ghLesen();
+    cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
+
+    const fern = normalize(isEnc(rec) ? null : rec);
+    const fernHat = fern ? fern.depot.positions.length : 0;
+    const hierHat = state.positions.length;
+    /* Gleiche Regel wie bei jsonbin: Zeitstempel entscheidet nur, wenn
+       beide Seiten etwas haben. Leer schlägt nie voll. */
+    if (rec && fern && (hierHat === 0 || (rec.updatedAt || 0) >= (state.editStamp || 0))) {
+      applyRemote(rec); toast('Verbunden – Daten aus dem Repo geladen.');
+    } else if (rec && hierHat === 0 && fernHat === 0 && isEnc(rec) && !cloud.pass) {
+      toast('Daten im Repo sind verschlüsselt – bitte Passwort eintragen.');
+    } else {
+      cloud.busy = false;          // siehe Kommentar beim jsonbin-Weg
+      await cloudPush();
+      cloud.busy = true;
+      toast(rec ? 'Verbunden – lokale Daten hochgeladen.' : 'Verbunden – Datei im Repo angelegt.');
+    }
+  } catch (e) {
+    cloud.on = false; cloud.art = 'github';
+    $('#cStatus').textContent = 'Verbindung fehlgeschlagen: ' + e.message;
+    toast('Verbindung fehlgeschlagen.');
+  }
+  cloud.busy = false; updateSyncUi();
+}
+
+/* ---- Versionshistorie aus den Commits ---- */
+async function ghVersionen() {
+  const out = $('#cVerOut'), btn = $('#cVersions');
+  btn.disabled = true; btn.textContent = 'lade …';
+  out.innerHTML = '';
+  try {
+    const commits = await ghCommits(30);
+    if (!commits.length) { out.innerHTML = 'Noch keine gespeicherten Fassungen im Repo.'; return; }
+    out.innerHTML = commits.map((c, i) => {
+      const wann = new Date(c.commit.author.date).toLocaleString('de-DE');
+      return `<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--hair)">
+        <span style="flex:1 1 auto"><b>${esc(wann)}</b><br>
+          <span style="color:var(--muted);font-size:12px">${esc(c.sha.slice(0,7))}${i===0?' · aktuell':''}</span></span>
+        <button class="btn" data-ghver="${esc(c.sha)}" style="min-height:38px;padding:8px 12px;font-size:13px">Ansehen</button>
+      </div>`;
+    }).join('') + `<p class="hint" style="margin:10px 0 0">Jede Zeile ist ein Speicherstand. „Ansehen" zeigt erst, was drinsteckt – geladen wird erst nach Rückfrage, und dein jetziger Stand wird vorher gesichert.</p>`;
+
+    $$('#cVerOut [data-ghver]').forEach(b2 => b2.onclick = async () => {
+      const sha = b2.dataset.ghver;
+      b2.disabled = true; b2.textContent = '…';
+      try {
+        let rec = await ghLesen(sha);
+        if (isEnc(rec)) {
+          if (!cloud.pass) { toast('Diese Fassung ist verschlüsselt – Passwort fehlt.'); b2.textContent = 'Ansehen'; b2.disabled = false; return; }
+          try { rec = await decryptRec(rec, cloud.pass); }
+          catch (e) { toast('Passwort passt nicht zu dieser Fassung.'); b2.textContent = 'Ansehen'; b2.disabled = false; return; }
+        }
+        const norm = normalize(rec);
+        if (!norm) { toast('Diese Fassung ist nicht lesbar.'); b2.textContent = 'Ansehen'; b2.disabled = false; return; }
+        const n = norm.depot.positions.length;
+        const tage = Object.keys(norm.tage || {}).length;
+        if (confirm(`Fassung ${sha.slice(0,7)}\n\n${n} Position${n===1?'':'en'}, ${tage} Tag${tage===1?'':'e'} mit Einträgen.\n\nDiesen Stand laden?\n\nDein jetziger Stand wird ersetzt – vorher aber gesichert (⋯ → Letzte Sicherungen).`)) {
+          applyRemote(rec);
+          persist();
+          toast('Fassung geladen.');
+        }
+      } catch (e) { toast('Konnte die Fassung nicht laden: ' + e.message); }
+      b2.textContent = 'Ansehen'; b2.disabled = false;
+    });
+  } catch (e) {
+    out.innerHTML = 'Fehler beim Abruf: ' + esc(e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = '⟲ Frühere Fassungen anzeigen';
+  }
 }
 
 const JB = 'https://api.jsonbin.io/v3/b';
@@ -3224,6 +3679,8 @@ async function applyPass() {
 }
 
 async function cloudConnect() {
+  if (cloud.art === 'github') return cloudConnectGh();
+  cloud.art = 'jsonbin';
   cloud.pass = ($('#cPass').value || '').trim();
   const key = $('#cKey').value.trim(), bin = $('#cBin').value.trim();
   if (!key) { toast('Bitte den Master Key eintragen.'); return; }
@@ -3244,7 +3701,12 @@ async function cloudConnect() {
         applyRemote(rec); toast('Verbunden – Daten aus der Cloud geladen.');
       } else if (hierHat === 0 && fernHat === 0 && isEnc(rec) && !cloud.pass) {
         toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
-      } else { await cloudPush(); toast('Verbunden – lokale Daten hochgeladen.'); }
+      } else {
+        cloud.busy = false;        // sonst steigt cloudPush sofort wieder aus
+        await cloudPush();
+        cloud.busy = true;
+        toast('Verbunden – lokale Daten hochgeladen.');
+      }
     } else {
       const j = await jbFetch(JB, { method:'POST', headers:{ 'X-Bin-Private':'true', 'X-Bin-Name':'portfolio-tracker' }, body: JSON.stringify(payload()) });
       cloud.bin = j.metadata.id; cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
@@ -3353,8 +3815,8 @@ async function cloudPush(silent) {
   /* Ein Push, der drüben alles löscht, passiert nicht ungefragt. */
   if (!state.positions.length) {
     try {
-      const j = await jbFetch(`${JB}/${cloud.bin}/latest`, { method:'GET' });
-      const fern = normalize(isEnc(j.record) ? null : j.record);
+      const roh = await remoteLesen();
+      const fern = normalize(isEnc(roh) ? null : roh);
       const drueben = fern ? fern.depot.positions.length : 0;
       if (drueben > 0) {
         sicherungSchreiben(fern);
@@ -3369,7 +3831,7 @@ async function cloudPush(silent) {
   try {
     let body = payload();
     if (cloud.pass) body = await encryptRec(body, cloud.pass);
-    await jbFetch(`${JB}/${cloud.bin}`, { method:'PUT', body: JSON.stringify(body) });
+    await remoteSchreiben(body);
     cloud.lastSync = Date.now(); saveCfg();
     if (!silent) toast('In die Cloud hochgeladen.');
   } catch(e) { if (!silent) toast('Hochladen fehlgeschlagen: ' + e.message); }
@@ -3379,8 +3841,14 @@ async function cloudPull(silent, compare) {
   if (!cloud.on || cloud.busy) return;
   cloud.busy = true; updateSyncUi();
   try {
-    const j = await jbFetch(`${JB}/${cloud.bin}/latest`, { method:'GET' });
-    let rec = j.record;
+    let rec = await remoteLesen();
+    /* Beim GitHub-Weg kann die Datei noch gar nicht existieren. */
+    if (rec === null || rec === undefined) {
+      cloud.busy = false; updateSyncUi();
+      if (state.positions.length || Object.keys(state.tage||{}).length) await cloudPush(silent);
+      else if (!silent) toast('Im Repo liegt noch nichts.');
+      return;
+    }
 
     if (isEnc(rec)) {
       if (!cloud.pass) {
@@ -3439,7 +3907,9 @@ function applyRemote(raw, still) {
 }
 function cloudOff() {
   cloud.on = false; cloud.key = ''; cloud.bin = '';
+  cloud.ghToken = ''; cloud.ghRepo = ''; cloud.ghSha = null; ghZuletzt = '';
   $('#cKey').value = ''; $('#cBin').value = '';
+  $('#cGhRepo').value = ''; $('#cGhToken').value = '';
   saveCfg(); toast('Cloud-Sync getrennt. Lokale Daten bleiben erhalten.');
 }
 
@@ -3522,6 +3992,13 @@ let versionen = [];
 let verLaeuft = false;
 async function cloudVersionen() {
   if (verLaeuft) return;
+  /* Bei GitHub gibt es echte Versionen – die Commits der Datei. */
+  if (cloud.art === 'github') {
+    if (!cloud.ghToken || !cloud.ghRepo) { toast('Erst Repo und Token eintragen.'); return; }
+    verLaeuft = true;
+    try { await ghVersionen(); } finally { verLaeuft = false; }
+    return;
+  }
   if (!cloud.key || !cloud.bin) { toast('Erst Master Key und Bin-ID eintragen.'); return; }
   verLaeuft = true;
   const out = $('#cVerOut'), btn = $('#cVersions');
@@ -3623,6 +4100,20 @@ CLASSES.forEach(c => { $('#cls-' + c.key).onclick = () => setCls(c.key); });
 $('#oBackfill').onclick = () => backfill(90);
 $('#oDiag').onclick = runDiag;
 let hrT; window.addEventListener('resize', () => { clearTimeout(hrT); hrT = setTimeout(renderHistory, 180); });
+function setzeArt(art) {
+  cloud.art = art === 'github' ? 'github' : 'jsonbin';
+  $$('#cArt [data-art]').forEach(b => b.setAttribute('aria-pressed', b.dataset.art === cloud.art));
+  $('#cGh').hidden = cloud.art !== 'github';
+  $('#cJb').hidden = cloud.art !== 'jsonbin';
+  updateSyncUi();
+}
+$$('#cArt [data-art]').forEach(b => b.onclick = () => {
+  if (cloud.on && b.dataset.art !== cloud.art) {
+    if (!confirm('Speicherort wechseln?\n\nDie Verbindung zum bisherigen Ort wird getrennt. Deine Daten auf diesem Gerät bleiben unangetastet und werden beim Verbinden hochgeladen.')) return;
+    cloud.on = false;
+  }
+  setzeArt(b.dataset.art);
+});
 $('#cConnect').onclick = cloudConnect;
 $('#cPush').onclick = () => cloudPush();
 $('#cPull').onclick = () => cloudPull();
@@ -5459,6 +5950,13 @@ const GYM_START_UE = ['g01','g02','g03','g04','g05','g06','g07','g08','g09','g10
                       'g11','g12','g13','g14','g15','g16','g17','g18','g19','g20','g21','g22'];
 const GYM_START_PLAN = ['tp1','tp2','tp3'];
 function gymStartdatenRaus() {
+  /* Reste der Ton-Versuche aus v49/v50 wegräumen – die Felder werden nicht
+     mehr gelesen und haben im Sync-Container nichts verloren. */
+  const z = gymZiele();
+  if ('ton' in z || 'signal' in z || 'kbName' in z) {
+    delete z.ton; delete z.signal; delete z.kbName;
+    persist(false);
+  }
   if (lsGet(LS_GYM_CLEAN)) return;
   lsSet(LS_GYM_CLEAN, '1');
   const tage = state.tage || {};
@@ -5474,7 +5972,7 @@ function gymStartdatenRaus() {
   if (ueWeg.length)   state.ziele.uebungen = lib.filter(u => ueWeg.indexOf(u.id) === -1);
   if (planWeg.length) state.ziele.plaene   = plaene.filter(p => planWeg.indexOf(p.id) === -1);
   /* keine Plan-Einträge auf gelöschte Übungen stehen lassen */
-  gymPlaene().forEach(p => { p.ueids = (p.ueids || []).filter(id => gymUe(id)); });
+  gymPlaene().forEach(p => { p.ue = planUe(p).filter(x => gymUe(x.id)); });
   if (vorher !== gymLib().length + gymPlaene().length) persist(false);   // kein Nutzereingriff
 }
 
@@ -5516,8 +6014,8 @@ function gymVorlagenUebernehmen() {
     gesehen.push(marke);
     if (!plaene.some(x => x.id === v.id)) {
       /* nur Übungen aufnehmen, die es auch gibt */
-      const ueids = v.ueids.filter(id => lib.some(u => u.id === id));
-      plaene.push({ id: v.id, name: v.name, ueids }); neu++;
+      const ue = (v.ue || []).filter(x => lib.some(u => u.id === x.id));
+      plaene.push({ id: v.id, name: v.name, ue }); neu++;
     }
   });
   if (gesehen.indexOf('ziele') === -1) {
@@ -5539,9 +6037,12 @@ function gymTag(d) {
   return Array.isArray(t && t.training) ? t.training : [];
 }
 const gymUe = id => gymLib().find(x => x.id === id) || null;
-const satzZahl = e => (e && Array.isArray(e.s)) ? e.s.length : 0;
-const satzVol  = e => (e && Array.isArray(e.s))
-  ? e.s.reduce((a, s) => a + (num(s.w)||0) * (num(s.g)||0), 0) : 0;
+/* Ein Satz zählt erst, wenn er abgehakt ist (`ok`). Einträge aus dem
+   schnellen Kachel-Dialog haben gar kein `ok` und gelten weiter als gemacht —
+   sonst wären alle Altdaten auf einen Schlag wertlos. */
+const satzFertig = e => (e && Array.isArray(e.s)) ? e.s.filter(s => s.ok !== false) : [];
+const satzZahl = e => satzFertig(e).length;
+const satzVol  = e => satzFertig(e).reduce((a, s) => a + (num(s.w)||0) * (num(s.g)||0), 0);
 
 /* Gibt es überhaupt schon Trainingsdaten? Solange nicht, zeigt die App
    „noch nichts eingetragen" statt einer entmutigenden 0. */
@@ -5647,7 +6148,7 @@ function satzText(e) {
     return t.join(' · ');
   }
   const g = [];
-  e.s.forEach(s => {
+  satzFertig(e).forEach(s => {
     const letzte = g[g.length - 1];
     const w = num(s.w) || 0, gew = num(s.g);
     if (letzte && letzte.w === w && letzte.g === gew) letzte.n++;
@@ -5688,14 +6189,29 @@ function gymHaeufigkeit() {
 let gymBearbeiten = false;
 
 /* ---------- Trainingspläne ----------
-   Ein Plan ist nur eine Reihenfolge von Übungen: {id, name, ueids}.
-   „Starten" merkt den Plan am Tag (state.tage[d].plan) – daraus ergibt sich
-   sowohl das „zuletzt"-Datum auf der Kachel als auch der Filter im Raster.
-   Bewusst höchstens ein Plan je Tag; wer quer trainiert, schaltet auf
-   „Alle Übungen" und bucht frei. */
+   Ein Plan ist eine Reihenfolge von Übungen mit Satzvorgabe:
+   {id, name, ue:[{id, n}]}. `n` ist, wie viele Sätze der Plan vorsieht —
+   das „2 ×" vor der Übung. Ältere Pläne hatten nur `ueids` (nur ids, ohne
+   Satzzahl); planUe() zieht die einmalig auf das neue Format nach.
+
+   Tipp auf eine Plankachel öffnet die Vorschau (was drin ist, wann zuletzt
+   gelaufen), erst „Workout beginnen" setzt state.tage[d].plan. Daraus ergibt
+   sich das „zuletzt"-Datum und der Filter im Übungsraster. Bewusst höchstens
+   ein Plan je Tag; wer quer trainiert, schaltet auf „Alle Übungen". */
 let gymAlle = false;                         // Filter im Raster aufgehoben?
 
 const gymPlan = id => gymPlaene().find(p => p.id === id) || null;
+/* Einträge eines Plans, immer als [{id, n}] – auch bei Altbestand */
+function planUe(p) {
+  if (!p) return [];
+  if (!Array.isArray(p.ue)) {
+    p.ue = Array.isArray(p.ueids) ? p.ueids.map(id => ({ id, n: 3 })) : [];
+    delete p.ueids;
+  }
+  p.ue = p.ue.filter(x => x && x.id)
+             .map(x => ({ id: x.id, n: Math.max(1, Math.min(30, Math.round(+x.n) || 3)) }));
+  return p.ue;
+}
 function gymPlanDesTages(d) {
   const pid = ((state.tage || {})[d] || {}).plan;
   return pid ? gymPlan(pid) : null;
@@ -5712,27 +6228,28 @@ function wannText(d) {
   if (n < 21) return `vor ${n} Tagen`;
   return dmy(d);
 }
+/* Wie viele Sätze dieser Übung stehen am gezeigten Tag schon? */
+function gymSaetzeAm(d, ueid) {
+  const e = gymTag(d).find(x => x.ueid === ueid);
+  return e ? (satzZahl(e) || (num(e.min) ? 1 : 0)) : 0;
+}
 function gymPlanStarten(id) {
   const p = gymPlan(id); if (!p) return;
-  const d = gymDatum();
-  if (gymPlanDesTages(d) && gymPlanDesTages(d).id === id) { gymAlle = !gymAlle; renderGym(); return; }
-  gymAlle = false;
-  setTagWert(d, 'plan', id);
-  renderGym();
-  toast(`Plan „${p.name}" läuft${d === today() ? '' : ' am ' + dmy(d)} · ${p.ueids.length} Übungen`);
+  wkStarten(id, gymDatum());          // eigene Ebene, siehe Abschnitt WORKOUT
 }
 
 function renderGymPlaene() {
   const box = $('#gyPlans'); if (!box) return;
-  const plaene = gymPlaene(), d = gymDatum(), liste = gymTag(d);
+  const plaene = gymPlaene(), d = gymDatum();
   const aktiv = gymPlanDesTages(d);
   $('#gyPlanCount').textContent = plaene.length ? `${plaene.length}` : '';
 
   box.innerHTML = plaene.map(p => {
-    const namen = p.ueids.map(id => (gymUe(id) || {}).name).filter(Boolean);
+    const eintraege = planUe(p);
+    const namen = eintraege.map(x => (gymUe(x.id) || {}).name).filter(Boolean);
     const zul = gymPlanZuletzt(p.id);
     const an = aktiv && aktiv.id === p.id;
-    const fertig = p.ueids.filter(id => liste.some(e => e.ueid === id)).length;
+    const fertig = eintraege.filter(x => gymSaetzeAm(d, x.id) > 0).length;
     return `<div class="gyplan ${an ? 'an' : ''}" data-plstart="${esc(p.id)}">
       <div class="pk">
         <span class="nm">${esc(p.name)}</span>
@@ -5741,7 +6258,7 @@ function renderGymPlaene() {
       <p class="ue">${namen.length ? esc(namen.join(', ')) : 'Noch keine Übung – über ••• ergänzen'}</p>
       <div class="fuss">
         <span>${namen.length} Übung${namen.length === 1 ? '' : 'en'}</span>
-        ${an ? `<span class="fort">${fertig} von ${p.ueids.length} erledigt</span>`
+        ${an ? `<span class="fort">${fertig} von ${eintraege.length} erledigt</span>`
              : zul ? `<span>🕐 ${esc(wannText(zul))}</span>` : `<span>noch nie</span>`}
       </div>
     </div>`;
@@ -5752,7 +6269,7 @@ function renderGymPlaene() {
 
   $$('#gyPlans [data-plstart]').forEach(el => el.onclick = ev => {
     if (ev.target.closest('[data-pledit]')) return;
-    gymPlanStarten(el.dataset.plstart);
+    openPlanVorschau(el.dataset.plstart);
   });
   $$('#gyPlans [data-pledit]').forEach(b => b.onclick = ev => {
     ev.stopPropagation(); openGymPlan(b.dataset.pledit);
@@ -5760,8 +6277,47 @@ function renderGymPlaene() {
   $$('#gyPlans [data-plneu]').forEach(el => el.onclick = () => openGymPlan());
 }
 
+/* ---- Vorschau: was steht an, wann war es zuletzt dran ---- */
+let vorPlanId = null;
+function openPlanVorschau(id) {
+  const p = gymPlan(id); if (!p) return;
+  vorPlanId = id;
+  const d = gymDatum(), eintraege = planUe(p), zul = gymPlanZuletzt(id);
+  const aktiv = gymPlanDesTages(d);
+  const laeuft = aktiv && aktiv.id === id;
+
+  $('#vorTitle').textContent = p.name;
+  $('#vorZuletzt').textContent = zul
+    ? `Zuletzt durchgeführt: ${wannText(zul)}`
+    : 'Noch nie durchgeführt';
+  $('#vorStart').textContent = (laeuft && wkLaeuft(d)) ? 'Workout fortsetzen'
+                             : laeuft ? 'Workout beginnen' : 'Workout beginnen';
+
+  $('#vorListe').innerHTML = !eintraege.length
+    ? `<div class="fdempty" style="padding:14px 2px">Noch keine Übung im Plan – oben auf „Bearbeiten".</div>`
+    : eintraege.map(x => {
+        const u = gymUe(x.id);
+        if (!u) return '';
+        const hat = gymSaetzeAm(d, x.id);
+        return `<button class="gyvorrow" data-vorue="${esc(x.id)}">
+          <span class="ico">${esc(u.ico || '🏋️')}</span>
+          <span class="nm"><b>${x.n} ×</b> ${esc(u.name)}
+            <small>${esc(u.muskel || '')}</small></span>
+          <span class="hk">${hat ? `${hat}/${x.n} ✓` : ''}</span>
+        </button>`;
+      }).join('');
+
+  /* Eine Zeile antippen geht direkt in die Satzeingabe – dann muss man den
+     Plan nicht erst starten, um eine einzelne Übung nachzutragen. */
+  $$('#vorListe [data-vorue]').forEach(b => b.onclick = () => {
+    $('#scrim14').classList.remove('on');
+    openSatz(b.dataset.vorue);
+  });
+  $('#scrim14').classList.add('on');
+}
+
 /* ---- Plan anlegen und ändern ---- */
-let plEditId = null, plUeIds = [];
+let plEditId = null, plEintraege = [];
 function plPickFuellen() {
   const lib = gymLib();
   const gruppen = MUSKELN.concat(['']);
@@ -5778,36 +6334,49 @@ function plPickFuellen() {
 }
 function plListeZeichnen() {
   const box = $('#plListe');
-  box.innerHTML = !plUeIds.length
+  box.innerHTML = !plEintraege.length
     ? `<div class="fdempty" style="padding:12px 2px">Noch nichts drin – unten eine Übung wählen und hinzufügen.</div>`
-    : plUeIds.map((id, i) => {
-        const u = gymUe(id);
+    : `<div class="plkopf2"><i>Sätze</i></div>` + plEintraege.map((x, i) => {
+        const u = gymUe(x.id);
         const aus = ' style="opacity:.22;cursor:default"';
         return `<div class="plrow">
           <span class="ico">${esc(u ? (u.ico || '🏋️') : '❔')}</span>
           <span class="nm">${esc(u ? u.name : 'Gelöschte Übung')}</span>
+          <input class="n" type="text" inputmode="numeric" data-pln="${i}"
+                 value="${x.n}" aria-label="Sätze für ${esc(u ? u.name : '')}">
           <button data-plup="${i}" title="nach oben"${i === 0 ? aus : ''}>↑</button>
-          <button data-pldn="${i}" title="nach unten"${i === plUeIds.length - 1 ? aus : ''}>↓</button>
+          <button data-pldn="${i}" title="nach unten"${i === plEintraege.length - 1 ? aus : ''}>↓</button>
           <button class="x" data-plx="${i}" title="aus dem Plan nehmen">×</button>
         </div>`;
       }).join('');
   const tausch = (i, j) => {
-    if (j < 0 || j >= plUeIds.length) return;
-    const t = plUeIds[i]; plUeIds[i] = plUeIds[j]; plUeIds[j] = t;
+    if (j < 0 || j >= plEintraege.length) return;
+    plZahlenLesen();
+    const t = plEintraege[i]; plEintraege[i] = plEintraege[j]; plEintraege[j] = t;
     plListeZeichnen();
   };
   $$('#plListe [data-plup]').forEach(b => b.onclick = () => tausch(+b.dataset.plup, +b.dataset.plup - 1));
   $$('#plListe [data-pldn]').forEach(b => b.onclick = () => tausch(+b.dataset.pldn, +b.dataset.pldn + 1));
   $$('#plListe [data-plx]').forEach(b => b.onclick = () => {
-    plUeIds.splice(+b.dataset.plx, 1); plListeZeichnen();
+    plZahlenLesen();
+    plEintraege.splice(+b.dataset.plx, 1); plListeZeichnen();
+  });
+}
+/* Die Satzfelder stehen im DOM – vor jedem Umbauen zurück ins Array holen,
+   sonst geht eine gerade getippte Zahl beim Sortieren verloren. */
+function plZahlenLesen() {
+  $$('#plListe [data-pln]').forEach(el => {
+    const i = +el.dataset.pln, n = numDe(el.value);
+    if (plEintraege[i]) plEintraege[i].n = Math.max(1, Math.min(30, Math.round(n) || 1));
   });
 }
 /* Übung anlegen, ohne den Plan zu verlassen – der Dialog kommt obendrauf und
    die neue Übung landet gleich unten im Plan. */
 function plNeueUebung() {
-  const letzte = plUeIds.length ? gymUe(plUeIds[plUeIds.length - 1]) : null;
+  plZahlenLesen();
+  const letzte = plEintraege.length ? gymUe(plEintraege[plEintraege.length - 1].id) : null;
   openUebung(null, neuId => {
-    plUeIds.push(neuId);
+    plEintraege.push({ id: neuId, n: 3 });
     plPickFuellen(); plListeZeichnen();
     toast('Angelegt und in den Plan gelegt.');
   }, letzte ? letzte.muskel : null);
@@ -5815,7 +6384,7 @@ function plNeueUebung() {
 function openGymPlan(id) {
   plEditId = id || null;
   const p = id ? gymPlan(id) : null;
-  plUeIds = p ? p.ueids.slice() : [];
+  plEintraege = p ? planUe(p).map(x => ({ ...x })) : [];
   $('#plTitle').textContent = p ? 'Plan ändern' : 'Plan anlegen';
   $('#plName').value = p?.name ?? '';
   $('#plDelete').hidden = !p;
@@ -5826,12 +6395,13 @@ function openGymPlan(id) {
 function saveGymPlan() {
   const name = $('#plName').value.trim();
   if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  plZahlenLesen();
   const plaene = gymPlaene();
   if (plEditId) {
     const p = plaene.find(x => x.id === plEditId);
-    if (p) { p.name = name; p.ueids = plUeIds.slice(); }
+    if (p) { p.name = name; p.ue = plEintraege.map(x => ({ ...x })); delete p.ueids; }
   } else {
-    plaene.push({ id: uid(), name, ueids: plUeIds.slice() });
+    plaene.push({ id: uid(), name, ue: plEintraege.map(x => ({ ...x })) });
   }
   $('#scrim13').classList.remove('on');
   plEditId = null;
@@ -5889,13 +6459,14 @@ function renderGym() {
   const fBox = $('#gyFilterBox');
   fBox.hidden = !plan;
   if (plan) {
-    const fertig = plan.ueids.filter(id => liste.some(e => e.ueid === id)).length;
-    $('#gyFilterText').innerHTML = `Plan <b>${esc(plan.name)}</b> · ${fertig} von ${plan.ueids.length} erledigt`;
+    const eintraege = planUe(plan);
+    const fertig = eintraege.filter(x => gymSaetzeAm(d, x.id) > 0).length;
+    $('#gyFilterText').innerHTML = `Plan <b>${esc(plan.name)}</b> · ${fertig} von ${eintraege.length} erledigt`;
     $('#gyAlleBtn').textContent = gymAlle ? '↩ Nur der Plan' : 'Alle Übungen';
   }
   const haeufig = gymHaeufigkeit();
   const sortiert = (plan && !gymAlle)
-    ? plan.ueids.map(id => lib.find(u => u.id === id)).filter(Boolean)
+    ? planUe(plan).map(x => lib.find(u => u.id === x.id)).filter(Boolean)
     : lib.slice().sort((a, b) => (haeufig[b.id] || 0) - (haeufig[a.id] || 0));
   $('#gyCount').textContent = sortiert.length ? `${sortiert.length}` : '';
   $('#gyGrid').innerHTML = !sortiert.length
@@ -5905,8 +6476,12 @@ function renderGym() {
     : sortiert.map(u => {
         const heute = liste.find(e => e.ueid === u.id);
         const letzt = heute || (gymLetzter(u.id, d) || {}).e;
+        /* Läuft ein Plan, zeigt die Marke den Stand gegen die Vorgabe: „2/3" */
+        const soll = plan ? (planUe(plan).find(x => x.id === u.id) || {}).n : null;
+        const marke = soll ? `${satzZahl(heute) || 0}/${soll}`
+                           : (heute ? (satzZahl(heute) || '✓') : '');
         return `<button class="gytile" data-gy="${esc(u.id)}">
-          ${heute ? `<span class="heute">${satzZahl(heute) || '✓'}</span>` : ''}
+          ${marke ? `<span class="heute">${marke}</span>` : ''}
           <span class="kopf"><span class="ico">${esc(u.ico || '🏋️')}</span>
             <span class="nm">${esc(u.name)}</span></span>
           <span class="lz">${letzt ? esc(satzText(letzt)) : 'noch nie'}</span>
@@ -5915,8 +6490,20 @@ function renderGym() {
       }).join('');
   $$('#gyGrid [data-gy]').forEach(el => el.onclick = () => {
     if (gymBearbeiten) openUebung(el.dataset.gy);
+    else if (wkLaeuft(d)) wkOeffnen(d);        // im Workout wird in der Tabelle eingetragen
     else openSatz(el.dataset.gy);
   });
+
+  /* Läuft gerade ein Workout, ist der Weg zurück hinein das Wichtigste */
+  const wb = $('#gyWeiter');
+  if (wb) {
+    wb.hidden = !wkLaeuft(d);
+    if (!wb.hidden) {
+      const pl = gymPlanDesTages(d);
+      $('#gyWeiterSub').textContent = (pl ? pl.name : 'Freies Training') +
+        ` · ${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}`;
+    }
+  }
 
   renderGymPlaene();
   renderGymScore();
@@ -6046,7 +6633,12 @@ function openSatz(ueid) {
     /* Vorbelegen: heutiger Eintrag, sonst das letzte Mal, sonst eine leere Zeile.
        So ist Wiederholen zwei Tipps – öffnen und speichern. */
     const quelle = vorhanden ? vorhanden.s : (letzt ? letzt.e.s : null);
-    const saetze = (quelle && quelle.length) ? quelle : [{ w:10, g:null }];
+    /* Kein Vorbild da? Dann so viele leere Zeilen, wie der laufende Plan
+       vorsieht – „2 × Chest Fly" öffnet mit zwei Zeilen. */
+    const plan = gymPlanDesTages(d);
+    const soll = plan ? (planUe(plan).find(x => x.id === ueid) || {}).n : null;
+    const saetze = (quelle && quelle.length) ? quelle
+                 : Array.from({ length: soll || 1 }, () => ({ w:10, g:null }));
     saetze.forEach(s => $('#szListe').appendChild(szZeile(s.w ?? '', deIn(num(s.g)))));
     szNummern();
   }
@@ -6103,6 +6695,7 @@ function openUebung(id, danach, muskelVorgabe) {
   $('#ubTyp').value   = u?.typ ?? 'kraft';
   $('#ubMuskel').innerHTML = MUSKELN.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
   $('#ubMuskel').value = u?.muskel ?? muskelVorgabe ?? 'Brust';
+  $('#ubPause').value = deIn(num(u?.pause));
   $('#ubDelete').hidden = !u;
   $('#scrim11').classList.add('on');
   setTimeout(() => $('#ubName').focus(), 60);
@@ -6110,8 +6703,11 @@ function openUebung(id, danach, muskelVorgabe) {
 function saveUebung() {
   const name = $('#ubName').value.trim();
   if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  const p = numDe($('#ubPause').value);
   const daten = { name, ico: $('#ubIco').value.trim().slice(0,4) || '🏋️',
-                  typ: $('#ubTyp').value, muskel: $('#ubMuskel').value };
+                  typ: $('#ubTyp').value, muskel: $('#ubMuskel').value,
+                  /* leer heißt: nimm die allgemeine Pause */
+                  pause: (p === null || p < 0) ? null : Math.round(p) };
   const lib = gymLib();
   let id = ubEditId;
   if (id) { const u = lib.find(x => x.id === id); if (u) Object.assign(u, daten); }
@@ -6157,9 +6753,14 @@ $('#gyAlleBtn').onclick = () => { gymAlle = !gymAlle; renderGym(); };
 $('#plAdd').onclick = () => {
   const id = $('#plPick').value;
   if (!id) { toast('Es gibt noch keine Übung zum Hinzufügen.'); return; }
-  plUeIds.push(id);                       // Wiederholungen sind erlaubt (z.B. Aufwärmsatz + Hauptübung)
+  plZahlenLesen();
+  plEintraege.push({ id, n: 3 });          // Wiederholungen sind erlaubt (z.B. Aufwärmsatz + Hauptübung)
   plListeZeichnen();
 };
+$('#vorClose').onclick = () => $('#scrim14').classList.remove('on');
+$('#vorEdit').onclick  = () => { $('#scrim14').classList.remove('on'); openGymPlan(vorPlanId); };
+$('#vorStart').onclick = () => { $('#scrim14').classList.remove('on'); gymPlanStarten(vorPlanId); };
+$('#scrim14').onclick = e => { if (e.target === $('#scrim14')) $('#scrim14').classList.remove('on'); };
 $('#plNeu').onclick    = plNeueUebung;
 $('#plSave').onclick   = saveGymPlan;
 $('#plDelete').onclick = delGymPlan;
@@ -6200,11 +6801,601 @@ $('#wzCancel').onclick = () => $('#scrim12').classList.remove('on');
 $('#scrim12').onclick = e => { if (e.target === $('#scrim12')) $('#scrim12').classList.remove('on'); };
 
 /* ============================================================
+   WORKOUT — der Bildschirm während des Trainings
+   „Workout beginnen" öffnet eine eigene Ebene über der ganzen App:
+   je Übung eine Tabelle Satz · Vorher · kg · Wdh · ✓. Abhaken speichert
+   den Satz und startet die Pausenuhr.
+
+   Was wo liegt:
+   - state.tage[d].plan    welcher Plan läuft (schon seit v44)
+   - state.tage[d].wstart  Beginn als Zeitstempel; daran hängt die laufende
+                           Uhr und die Erkennung „Workout läuft noch"
+   - state.tage[d].wdauer  Dauer in Sekunden, beim Beenden festgehalten
+   - state.ziele.training.pause   Pausenlänge in Sekunden (0 = aus)
+
+   Ein Satz ist erst „gemacht", wenn er abgehakt ist: `s[].ok`. satzZahl(),
+   satzVol() und satzText() zählen deshalb nur Sätze mit ok !== false.
+   Einträge aus dem schnellen Kachel-Dialog haben gar kein ok und gelten
+   wie bisher als gemacht — Altdaten bleiben damit gültig.
+   ============================================================ */
+const PAUSE_STD = 180;
+const mmss = s => Math.floor(s / 60) + ':' + String(Math.max(0, s) % 60).padStart(2, '0');
+const pauseLaenge = () => {
+  const v = num(gymZiele().pause);
+  return v === null ? PAUSE_STD : Math.max(0, Math.round(v));
+};
+/* Pause für eine bestimmte Übung: eigener Wert schlägt den allgemeinen.
+   `null` am Übungsdatensatz heißt ausdrücklich „wie überall". */
+function pauseFuer(ueid) {
+  const u = gymUe(ueid);
+  const v = u ? num(u.pause) : null;
+  return v === null ? pauseLaenge() : Math.max(0, Math.round(v));
+}
+
+let wkDatum = null;                       // Tag, an dem das Workout läuft
+let wkUhrT = null;
+
+const wkLaeuft = d => !!((state.tage || {})[d || today()] || {}).wstart;
+
+function wkOeffnen(d) {
+  wkDatum = d || today();
+  $('#wkView').hidden = false;
+  document.body.style.overflow = 'hidden';
+  wkZeichnen();
+  clearInterval(wkUhrT);
+  wkUhrT = setInterval(wkUhr, 1000);
+  wkUhr();
+  window.scrollTo(0, 0);
+  $('#wkView').scrollTop = 0;
+}
+function wkSchliessen() {
+  /* Die Pause läuft absichtlich weiter: „Zurück" ist kein Abbruch, und der
+     Gong ist der eigentliche Zweck. Die Leiste steckt in #wkView und ist
+     damit ohnehin mit ausgeblendet; beim Zurückkommen stimmt sie wieder,
+     weil pauseTick gegen Date.now() rechnet. Nur wkBeenden stoppt wirklich. */
+  $('#wkView').hidden = true;
+  document.body.style.overflow = '';
+  clearInterval(wkUhrT); wkUhrT = null;
+  renderGym();
+}
+function wkUhr() {
+  const t = (state.tage || {})[wkDatum] || {};
+  if (!t.wstart) { $('#wkUhr').textContent = '0:00'; return; }
+  const sek = Math.max(0, Math.round((Date.now() - t.wstart) / 1000));
+  const h = Math.floor(sek / 3600);
+  $('#wkUhr').textContent = (h ? h + ':' + String(Math.floor(sek / 60) % 60).padStart(2, '0')
+                               : String(Math.floor(sek / 60)))
+    + ':' + String(sek % 60).padStart(2, '0');
+}
+
+/* Der Satz an Position i vom letzten Mal – die graue Spalte „Vorher" */
+function wkVorher(ueid, i) {
+  const l = gymLetzter(ueid, wkDatum);
+  if (!l) return null;
+  const fertig = (l.e.s || []).filter(s => s.ok !== false);
+  return fertig[i] || null;
+}
+/* Wie viele Zeilen zeigt eine Übung? Gespeichertes gewinnt, sonst die
+   Planvorgabe, mindestens aber so viele wie beim letzten Mal. */
+function wkZeilen(ueid, sollN) {
+  const e = gymTag(wkDatum).find(x => x.ueid === ueid);
+  const da = (e && Array.isArray(e.s)) ? e.s.map(s => ({ ...s })) : [];
+  const l = gymLetzter(ueid, wkDatum);
+  const vorher = l ? (l.e.s || []).filter(s => s.ok !== false) : [];
+  /* Gespeichertes bleibt stehen und wird auf die Planvorgabe AUFGEFÜLLT.
+     Vorher endete die Liste beim letzten gespeicherten Satz – nach jedem
+     Neuzeichnen waren die noch leeren Zeilen weg und man konnte den Rest
+     des Satzes nicht mehr eintragen. */
+  const n = Math.max(da.length, sollN || 1, vorher.length || 0);
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    out.push(da[i] ? da[i]
+                   : { w: vorher[i] ? vorher[i].w : null,
+                       g: vorher[i] ? vorher[i].g : null, ok: false });
+  }
+  return out;
+}
+
+function wkZeilenHtml(ueid, s, i) {
+  const v = wkVorher(ueid, i);
+  return `<div class="wkzeile ${s.ok ? 'ok' : ''}" data-ue="${esc(ueid)}" data-i="${i}">
+    <span class="nr">${i + 1}</span>
+    <span class="vor">${v ? `${v.g ? kg(v.g) + ' kg × ' : ''}${v.w}` : '—'}</span>
+    <input class="kg" type="text" inputmode="decimal" autocomplete="off"
+           value="${s.g === null || s.g === undefined ? '' : deIn(s.g)}" aria-label="Gewicht">
+    <input class="wd" type="text" inputmode="numeric" autocomplete="off"
+           value="${s.w === null || s.w === undefined ? '' : s.w}" aria-label="Wiederholungen">
+    <button class="hk" title="Satz abhaken">✓</button>
+  </div>`;
+}
+
+function wkZeichnen() {
+  const d = wkDatum, plan = gymPlanDesTages(d);
+  $('#wkName').textContent = plan ? plan.name : 'Freies Training';
+  $('#wkDatum').textContent = dmy(d);
+
+  /* Reihenfolge: erst der Plan, dann alles, was heute sonst noch dazukam */
+  const ausPlan = plan ? planUe(plan) : [];
+  const extra = gymTag(d).filter(e => !ausPlan.some(x => x.id === e.ueid))
+                         .map(e => ({ id: e.ueid, n: (e.s || []).length || 1 }));
+  const liste = ausPlan.concat(extra);
+
+  $('#wkBody').innerHTML = !liste.length
+    ? `<div class="fdempty">Keine Übung im Plan. Über „+ Übung ergänzen" holst du dir welche dazu.</div>`
+    : liste.map(x => {
+        const u = gymUe(x.id); if (!u) return '';
+        const zeilen = wkZeilen(x.id, x.n);
+        const ps = pauseFuer(x.id);
+        return `<div class="wkue" data-wkue="${esc(x.id)}">
+          <div class="wkuekopf">
+            <div>
+              <h3>${esc(u.name)}</h3>
+              <p class="mg">${esc(u.muskel || '')}</p>
+            </div>
+            <button class="wkpz ${num(u.pause) === null ? '' : 'eigen'}" data-wkpause="${esc(x.id)}"
+                    title="Pause für diese Übung">⏱ ${ps ? mmss(ps) : 'aus'}</button>
+          </div>
+          <div class="wkkopfzeile">
+            <span class="nr">Satz</span><span class="vor">Vorher</span>
+            <span class="kg">kg</span><span class="wd">Wdh</span><span class="hk">✓</span>
+          </div>
+          <div class="wkzeilen">${zeilen.map((s, i) => wkZeilenHtml(x.id, s, i)).join('')}</div>
+          <button class="btn wkplus" data-wkplus="${esc(x.id)}">+ Satz${ps ? ` (${mmss(ps)})` : ''}</button>
+        </div>`;
+      }).join('');
+
+  wkVerdrahten();
+}
+
+/* Bewusst kein Neuzeichnen beim Tippen – sonst springt der Fokus aus dem Feld.
+   Deshalb werden die Handler nach jedem Umbau einzeln neu gesetzt. */
+function wkVerdrahten() {
+  $$('#wkBody .wkzeile').forEach(z => {
+    const ueid = z.dataset.ue;
+    z.querySelector('.hk').onclick = () => wkHaken(z);
+    z.querySelectorAll('input').forEach(inp => {
+      inp.onchange = () => wkSpeichern(ueid);
+      inp.onblur   = () => wkSpeichern(ueid);
+    });
+  });
+  $$('#wkBody [data-wkplus]').forEach(b => b.onclick = () => wkSatzDazu(b.dataset.wkplus));
+  $$('#wkBody [data-wkpause]').forEach(b => b.onclick = () => openPause(b.dataset.wkpause));
+}
+function wkNummern(ueid) {
+  $$(`#wkBody [data-wkue="${CSS.escape(ueid)}"] .wkzeile`)
+    .forEach((z, i) => { z.dataset.i = i; z.querySelector('.nr').textContent = i + 1; });
+}
+function wkSatzDazu(ueid) {
+  const box = $(`#wkBody [data-wkue="${CSS.escape(ueid)}"] .wkzeilen`); if (!box) return;
+  const letzte = box.lastElementChild;
+  const s = letzte
+    ? { w: numDe(letzte.querySelector('.wd').value), g: numDe(letzte.querySelector('.kg').value), ok:false }
+    : { w:null, g:null, ok:false };
+  box.insertAdjacentHTML('beforeend', wkZeilenHtml(ueid, s, box.children.length));
+  wkNummern(ueid); wkVerdrahten(); wkSpeichern(ueid);
+}
+
+function wkHaken(z) {
+  const ueid = z.dataset.ue, an = !z.classList.contains('ok');
+  z.classList.toggle('ok', an);
+  const altBest = gymBest(ueid, wkDatum);
+  wkSpeichern(ueid);
+  if (an) {
+    pauseStart(ueid);
+    const g = numDe(z.querySelector('.kg').value);
+    if (g !== null && g > 0 && g > altBest) {
+      const u = gymUe(ueid);
+      toast(`🏆 Bestleistung: ${u ? u.name : ''} mit ${kg(g)} kg`);
+    }
+  } else pauseStop();
+}
+
+/* Liest alle Zeilen einer Übung aus dem DOM und schreibt sie in den Tag. */
+function wkSpeichern(ueid) {
+  const d = wkDatum, liste = gymTag(d).slice();
+  const s = [];
+  $$(`#wkBody [data-wkue="${CSS.escape(ueid)}"] .wkzeile`).forEach(z => {
+    const w = numDe(z.querySelector('.wd').value);
+    const g = numDe(z.querySelector('.kg').value);
+    const ok = z.classList.contains('ok');
+    if (w === null && g === null && !ok) return;      // leere, offene Zeile nicht speichern
+    s.push({ w: w === null ? 0 : w, g: g === null ? null : g, ok });
+  });
+  const i = liste.findIndex(e => e.ueid === ueid);
+  if (!s.length) { if (i > -1) liste.splice(i, 1); }
+  else if (i > -1) liste[i] = { ...liste[i], ueid, s, t: Date.now() };
+  else liste.push({ ueid, s, t: Date.now() });
+  setTagWert(d, 'training', liste.length ? liste : null);
+}
+
+/* ---- Pausenuhr ---- */
+let pauseT = null, pauseBis = 0, pauseGanz = 0;
+function pauseStart(ueid) {
+  const sek = ueid ? pauseFuer(ueid) : pauseLaenge();
+  if (!sek) return;                                   // Timer aus
+  pauseGanz = sek;
+  pauseBis = Date.now() + sek * 1000;
+  $('#wkBar').hidden = false;
+  $('#wkBar').classList.remove('fertig');
+  clearInterval(pauseT);
+  pauseT = setInterval(pauseTick, 200);
+  pauseTick();
+}
+function pauseTick() {
+  const rest = pauseBis - Date.now();
+  $('#wkRest').textContent = mmss(Math.ceil(Math.max(0, rest) / 1000));
+  $('#wkBarFuell').style.width = Math.max(0, Math.min(100, rest / (pauseGanz * 1000) * 100)) + '%';
+  if (rest <= 0) {
+    clearInterval(pauseT); pauseT = null;
+    $('#wkBar').classList.add('fertig');
+    $('#wkRest').textContent = 'Pause vorbei';
+    /* Absichtlich stumm: Auf dem iPhone beansprucht jede Web-Wiedergabe die
+       Audioausgabe allein und würde die Musik des Nutzers unterbrechen. Er hört
+       beim Training Musik — deshalb meldet sich die Pause nur sichtbar.
+       Vibrieren kostet nichts und kann Safari ohnehin nicht. */
+    try { if (navigator.vibrate) navigator.vibrate([180, 90, 180]); } catch(e) {}
+    setTimeout(() => { if (!pauseT) pauseStop(); }, 9000);   // einziges Signal, also länger stehen lassen
+  }
+}
+function pauseStop() {
+  clearInterval(pauseT); pauseT = null;
+  const bar = $('#wkBar');
+  if (bar) { bar.hidden = true; bar.classList.remove('fertig'); }
+}
+function pauseSchieben(sek) {
+  if ($('#wkBar').hidden) return;
+  pauseBis += sek * 1000;
+  pauseGanz = Math.max(pauseGanz, Math.ceil((pauseBis - Date.now()) / 1000));
+  if (pauseBis > Date.now()) {
+    $('#wkBar').classList.remove('fertig');
+    if (!pauseT) pauseT = setInterval(pauseTick, 200);
+  }
+  pauseTick();
+}
+
+/* Kommt die App aus dem Hintergrund zurück, sind die Timer stehengeblieben.
+   Die Uhr rechnet ohnehin gegen Date.now(), also reicht ein Anstoß. */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || $('#wkView').hidden) return;
+  wkUhr();
+  if (!$('#wkBar').hidden) pauseTick();
+});
+
+/* ---- Start und Ende ---- */
+function wkStarten(planId, d) {
+  const tag = d || gymDatum();
+  if (planId) setTagWert(tag, 'plan', planId);
+  setTagWert(tag, 'wstart', Date.now());
+  gymAlle = false;
+  wkOeffnen(tag);
+}
+function wkBeenden() {
+  const d = wkDatum, t = (state.tage || {})[d] || {};
+  const sek = t.wstart ? Math.round((Date.now() - t.wstart) / 1000) : 0;
+  const liste = gymTag(d);
+  const saetze = liste.reduce((a, e) => a + satzZahl(e), 0);
+  const vol = liste.reduce((a, e) => a + satzVol(e), 0);
+  if (!saetze && !confirm('Es ist noch kein Satz abgehakt. Workout trotzdem beenden?')) return;
+  setTagWert(d, 'wstart', null);
+  if (sek > 30) setTagWert(d, 'wdauer', sek);
+  pauseStop();                        // beim echten Beenden auch den Gong abbestellen
+  wkSchliessen();
+  toast(`Fertig · ${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}` +
+        (vol ? ` · ${Math.round(vol).toLocaleString('de-DE')} kg` : '') +
+        (sek > 30 ? ` · ${mmss(sek)} min` : ''));
+}
+/* Übung ergänzen, die nicht im Plan steht */
+function wkUebungDazu() {
+  const lib = gymLib();
+  if (!lib.length) { toast('Erst eine Übung anlegen.'); return; }
+  const drin = gymTag(wkDatum).map(e => e.ueid);
+  const plan = gymPlanDesTages(wkDatum);
+  if (plan) planUe(plan).forEach(x => drin.push(x.id));
+  const frei = lib.filter(u => drin.indexOf(u.id) === -1);
+  if (!frei.length) { toast('Alle Übungen sind schon dabei.'); return; }
+  const namen = frei.map((u, i) => `${i + 1}. ${u.name}`).join('\n');
+  const wahl = prompt('Welche Übung ergänzen?\n\n' + namen + '\n\nNummer eintragen:');
+  const i = parseInt(wahl, 10) - 1;
+  if (!(i >= 0 && i < frei.length)) return;
+  const d = wkDatum, liste = gymTag(d).slice();
+  liste.push({ ueid: frei[i].id, s: [{ w:null, g:null, ok:false }], t: Date.now() });
+  setTagWert(d, 'training', liste);
+  wkZeichnen();
+}
+
+/* ---- Pausenlänge einstellen ---- */
+const PAUSE_WAHL = [45, 60, 90, 120, 150, 180, 210, 240, 300];
+let tmUeId = null;                      // null = allgemeine Pause, sonst eine Übung
+/* Ohne id: die Pause für alle. Mit id: nur für diese Übung – dann gibt es
+   zusätzlich „Wie überall", das den eigenen Wert wieder herausnimmt. */
+function openPause(ueid) {
+  tmUeId = ueid || null;
+  const u = tmUeId ? gymUe(tmUeId) : null;
+  const jetzt = tmUeId ? pauseFuer(tmUeId) : pauseLaenge();
+  $('#tmTitle').textContent = u ? `Pause · ${u.name}` : 'Pause zwischen den Sätzen';
+  $('#tmSub').textContent = u
+    ? (num(u.pause) === null
+        ? `Nutzt gerade die allgemeine Pause von ${mmss(pauseLaenge())} min.`
+        : 'Gilt nur für diese Übung.')
+    : 'Läuft von selbst los, sobald du einen Satz abhakst. Einzelne Übungen können abweichen.';
+  $('#tmStd').hidden = !u || num(u.pause) === null;
+  $('#tmQuick').innerHTML = PAUSE_WAHL.map(s =>
+    `<button class="btn ${s === jetzt ? 'an' : ''}" data-tm="${s}">${mmss(s)}</button>`).join('');
+  $$('#tmQuick [data-tm]').forEach(b => b.onclick = () => {
+    $('#tmSek').value = b.dataset.tm;
+    $$('#tmQuick [data-tm]').forEach(x => x.classList.toggle('an', x === b));
+  });
+  $('#tmSek').value = String(jetzt);
+  $('#scrim15').classList.add('on');
+}
+function savePause() {
+  const v = numDe($('#tmSek').value);
+  const sek = (v === null || v < 0) ? 0 : Math.round(v);
+  if (tmUeId) {
+    const u = gymUe(tmUeId); if (u) u.pause = sek;
+  } else {
+    gymZiele().pause = sek;
+  }
+  pauseDialogZu(sek);
+}
+/* Eigenen Wert wieder herausnehmen – die Übung folgt dann wieder allen anderen */
+function pauseStandard() {
+  const u = tmUeId ? gymUe(tmUeId) : null;
+  if (u) u.pause = null;
+  pauseDialogZu(pauseLaenge(), true);
+}
+function pauseDialogZu(sek, zurueck) {
+  const name = tmUeId ? (gymUe(tmUeId) || {}).name : null;
+  $('#scrim15').classList.remove('on');
+  tmUeId = null;
+  persist();
+  if (!$('#wkView').hidden) wkZeichnen();
+  toast(!sek ? 'Pausenuhr aus.'
+       : zurueck ? `${name}: wieder ${mmss(sek)} min wie überall`
+       : name ? `${name}: ${mmss(sek)} min Pause`
+       : `Pause überall: ${mmss(sek)} min`);
+}
+
+/* ---- Verdrahtung ---- */
+$('#gyWeiter').onclick   = () => wkOeffnen(gymDatum());
+$('#wkZurueck').onclick  = wkSchliessen;
+$('#wkEnde').onclick     = wkBeenden;
+$('#wkPauseBtn').onclick = () => openPause();
+$('#wkExtra').onclick    = wkUebungDazu;
+$('#wkMinus').onclick    = () => pauseSchieben(-15);
+$('#wkPlus').onclick     = () => pauseSchieben(15);
+$('#wkSkip').onclick     = pauseStop;
+$('#tmCancel').onclick   = () => $('#scrim15').classList.remove('on');
+$('#tmSave').onclick     = savePause;
+$('#tmStd').onclick      = pauseStandard;
+$('#scrim15').onclick = e => { if (e.target === $('#scrim15')) $('#scrim15').classList.remove('on'); };
+
+/* ============================================================
+   STRAVA
+   Läufe und Radfahrten landen als Ausdauer-Einträge im Trainingsbereich,
+   ohne dass man etwas antippt. Holt bei jedem Öffnen der App nachträglich,
+   was seit dem letzten Mal dazugekommen ist — eine Webseite kann nicht im
+   Hintergrund arbeiten, das Datum stimmt aber trotzdem.
+
+   Warum eine Brücke (strava-worker.js) dazwischen liegt: Strava verlangt
+   beim Token-Tausch ein CLIENT_SECRET. Das darf nicht in index.html stehen,
+   weil das Repo öffentlich ist, und Strava blockt Browser-Anfragen per CORS.
+   Der Worker kennt das Geheimnis, die App nicht.
+
+   Zugang in pt.strava.v1 — GERÄTELOKAL, nie im Sync-Container. Ein
+   Dauerzugang gehört nicht in einen Datensatz, der über jsonbin oder ein
+   Repo läuft.
+   ============================================================ */
+const LS_STRAVA = 'pt.strava.v1';
+const LS_ST_CHK = 'pt.strava.chk';      // Drossel, damit nicht jeder Start abfragt
+const ST_GAP = 15 * 60 * 1000;
+const ST_ERSTMAL = 90;                  // beim ersten Mal nur die letzten 90 Tage
+
+const strava = { worker:'', refresh:'', access:'', exp:0, last:0, athlet:'' };
+
+function loadStrava() {
+  try { Object.assign(strava, JSON.parse(lsGet(LS_STRAVA) || '{}')); } catch(e) {}
+  if ($('#stWorker')) $('#stWorker').value = strava.worker || '';
+  stravaAusAdresse();
+  stravaUi();
+}
+/* Rückkehr von der Brücke: der Dauerzugang steht in der Adresse.
+   Läuft beim Start UND auf hashchange — je nachdem, ob iOS die App neu lädt
+   oder nur die Adresse austauscht, passiert nämlich nur eines von beidem. */
+function stravaAusAdresse() {
+  const m = String(location.hash || '').match(/[#&]strava=([^&]+)/);
+  if (!m) return false;
+  strava.refresh = decodeURIComponent(m[1]);
+  strava.access = ''; strava.exp = 0;
+  saveStrava();
+  try { history.replaceState(null, '', location.pathname + location.search); }
+  catch(e) { location.hash = ''; }
+  toast('Strava verbunden.');
+  return true;
+}
+window.addEventListener('hashchange', () => {
+  if (stravaAusAdresse()) stravaSync();
+});
+function saveStrava() {
+  lsSet(LS_STRAVA, JSON.stringify(strava));
+  stravaUi();
+}
+const stravaAn = () => !!(strava.worker && strava.refresh);
+
+/* ---- Sportart → Übung ---------------------------------------------- */
+const STRAVA_SPORT = {
+  Run:'Laufen', TrailRun:'Trailrun', VirtualRun:'Laufen (virtuell)',
+  Ride:'Radfahren', VirtualRide:'Radfahren (Rolle)', GravelRide:'Gravelbike',
+  MountainBikeRide:'Mountainbike', EBikeRide:'E-Bike',
+  Swim:'Schwimmen', Walk:'Gehen', Hike:'Wandern',
+  Rowing:'Rudergerät', Elliptical:'Crosstrainer', StairStepper:'Stepper',
+  Yoga:'Yoga', Pilates:'Pilates', Soccer:'Fußball', Tennis:'Tennis',
+  Badminton:'Badminton', Squash:'Squash', Golf:'Golf',
+  AlpineSki:'Ski', NordicSki:'Skilanglauf', Snowboard:'Snowboard',
+  Kayaking:'Kajak', Canoeing:'Kanu', Skateboard:'Skateboard',
+  InlineSkate:'Inliner', IceSkate:'Schlittschuh', RockClimbing:'Klettern'
+};
+/* Krafttraining kommt NICHT von Strava herüber — das trägt der Nutzer hier
+   selbst mit Sätzen und Gewicht ein. Sonst stünde jede Einheit doppelt in
+   der Wochenwertung. */
+const STRAVA_AUS = ['WeightTraining','Crossfit','Workout','HighIntensityIntervalTraining'];
+const ST_ICO = { Laufen:'🏃', Trailrun:'⛰️', 'Laufen (virtuell)':'🏃', Radfahren:'🚴',
+  'Radfahren (Rolle)':'🚲', Gravelbike:'🚵', Mountainbike:'🚵', 'E-Bike':'🔋',
+  Schwimmen:'🏊', Gehen:'🚶', Wandern:'🥾', Rudergerät:'🚣', Crosstrainer:'⚙️',
+  Stepper:'🪜', Yoga:'🧘', Pilates:'🧘', Fußball:'⚽', Tennis:'🎾', Golf:'⛳',
+  Ski:'🎿', Skilanglauf:'🎿', Snowboard:'🏂', Kajak:'🛶', Kanu:'🛶', Klettern:'🧗' };
+
+/* Passende Übung finden oder anlegen. Gibt es sie schon unter demselben
+   Namen (egal wie groß geschrieben), wird die genommen. */
+function stravaUebung(sportTyp) {
+  if (STRAVA_AUS.indexOf(sportTyp) > -1) return null;
+  const name = STRAVA_SPORT[sportTyp] || String(sportTyp || 'Aktivität').replace(/([a-z])([A-Z])/g, '$1 $2');
+  const lib = gymLib();
+  const treffer = lib.find(u => normal(u.name) === normal(name));
+  if (treffer) return treffer;
+  const u = { id: uid(), name, ico: ST_ICO[name] || '🏅', typ:'ausdauer', muskel:'Cardio', pause:null };
+  lib.push(u);
+  return u;
+}
+
+/* ---- Zugang ---- */
+async function stravaAccess() {
+  if (strava.access && strava.exp && Date.now() < (strava.exp - 60) * 1000) return strava.access;
+  const r = await fetchT(strava.worker.replace(/\/+$/,'') + '/refresh', 15000, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ refresh: strava.refresh })
+  });
+  if (!r.ok) throw new Error('Zugang erneuern fehlgeschlagen (HTTP ' + r.status + ')');
+  const j = await r.json();
+  if (!j.access) throw new Error(j.fehler || 'Antwort ohne Zugang');
+  strava.access = j.access;
+  if (j.refresh) strava.refresh = j.refresh;    // Strava tauscht ihn gelegentlich aus
+  strava.exp = j.exp || 0;
+  saveStrava();
+  return strava.access;
+}
+
+/* ---- Eine Aktivität eintragen. Ändert state, speichert aber NICHT —
+        das macht stravaSync einmal am Ende für alle. ---- */
+function stravaBuchen(akt) {
+  const d = String(akt.start_date_local || akt.start_date || '').slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return false;
+  const u = stravaUebung(akt.sport_type || akt.type);
+  if (!u) return false;
+  const sid = String(akt.id);
+  const liste = gymTag(d).slice();
+  /* Dubletten über die Strava-Kennung, nicht über Datum oder Dauer. */
+  if (liste.some(e => (e.sids || []).indexOf(sid) > -1)) return false;
+
+  const min = Math.round((akt.moving_time || akt.elapsed_time || 0) / 60);
+  const km  = Math.round((akt.distance || 0) / 100) / 10;
+  const i = liste.findIndex(e => e.ueid === u.id);
+  if (i > -1) {
+    /* Zweiter Lauf am selben Tag: zusammenzählen, das Modell kennt je Übung
+       und Tag nur einen Eintrag. */
+    const e = { ...liste[i] };
+    e.min  = (num(e.min) || 0) + min;
+    e.km   = Math.round(((num(e.km) || 0) + km) * 10) / 10 || null;
+    e.sids = (e.sids || []).concat(sid);
+    liste[i] = e;
+  } else {
+    liste.push({ ueid: u.id, s: [], min, km: km || null, sids: [sid], t: Date.now() });
+  }
+  const t = tagOf(d);
+  t.training = liste;
+  return true;
+}
+
+let stLaeuft = false;
+async function stravaSync(still) {
+  if (!stravaAn() || stLaeuft) return 0;
+  stLaeuft = true;
+  if (!still) $('#stStatus').textContent = 'Frage Strava …';
+  let neu = 0;
+  try {
+    const access = await stravaAccess();
+    const ab = strava.last || Math.floor((Date.now() - ST_ERSTMAL * 864e5) / 1000);
+    let jüngste = strava.last || 0;
+    const basis = strava.worker.replace(/\/+$/,'');
+    for (let seite = 1; seite <= 5; seite++) {
+      const r = await fetchT(`${basis}/activities?after=${ab}&page=${seite}&per_page=100`, 20000,
+        { headers: { Authorization: 'Bearer ' + access } });
+      if (!r.ok) throw new Error('Abruf fehlgeschlagen (HTTP ' + r.status + ')');
+      const liste = await r.json();
+      if (!Array.isArray(liste) || !liste.length) break;
+      liste.forEach(a => {
+        if (stravaBuchen(a)) neu++;
+        const ts = Math.floor(new Date(a.start_date || a.start_date_local).getTime() / 1000);
+        if (ts && ts > jüngste) jüngste = ts;
+      });
+      if (liste.length < 100) break;
+    }
+    if (jüngste) strava.last = jüngste + 1;
+    lsSet(LS_ST_CHK, String(Date.now()));
+    saveStrava();
+    if (neu) {
+      persist();                           // einmal für alles, nicht je Aktivität
+      if (!$('#viewGym').hidden) renderGym();
+      if (!$('#viewToday').hidden) renderToday();
+      toast(`${neu} Aktivität${neu === 1 ? '' : 'en'} von Strava übernommen.`);
+    } else if (!still) {
+      toast('Nichts Neues bei Strava.');
+    }
+  } catch(e) {
+    if (!still) { $('#stStatus').textContent = 'Fehler: ' + e.message; toast('Strava: ' + e.message); }
+  }
+  stLaeuft = false;
+  stravaUi();
+  return neu;
+}
+
+function stravaUi() {
+  const b = $('#stBadge'), s = $('#stStatus');
+  if (!b || !s) return;
+  b.textContent = stravaAn() ? 'an' : 'aus';
+  if (!strava.worker) { s.textContent = 'Nicht eingerichtet – erst die Adresse der Brücke eintragen.'; return; }
+  if (!strava.refresh) { s.textContent = 'Brücke eingetragen, aber noch nicht mit Strava verbunden.'; return; }
+  const wann = strava.last ? new Date(strava.last * 1000).toLocaleDateString('de-DE') : null;
+  s.textContent = 'Verbunden.' + (wann ? ` Zuletzt geholt bis ${wann}.` : ` Beim ersten Abgleich kommen die letzten ${ST_ERSTMAL} Tage.`);
+}
+
+/* ---- Verdrahtung ---- */
+$('#stConnect').onclick  = () => stravaVerbinden();
+$('#stSync').onclick     = () => stravaSync();
+$('#stOff').onclick      = () => stravaOff();
+$('#stCodeSave').onclick = () => stravaCodeUebernehmen();
+
+function stravaVerbinden() {
+  const w = $('#stWorker').value.trim().replace(/\/+$/,'');
+  if (!/^https:\/\/[^\s/]+\.[^\s/]+/.test(w)) { toast('Bitte die vollständige Adresse der Brücke eintragen.'); return; }
+  strava.worker = w; saveStrava();
+  location.href = w + '/login';
+}
+function stravaCodeUebernehmen() {
+  const c = $('#stCode').value.trim();
+  const w = $('#stWorker').value.trim().replace(/\/+$/,'');
+  if (!c) { toast('Bitte den Code aus der Brücke einfügen.'); return; }
+  if (w) strava.worker = w;
+  strava.refresh = c; strava.access = ''; strava.exp = 0;
+  saveStrava();
+  $('#stCode').value = '';
+  toast('Zugang übernommen.');
+  stravaSync();
+}
+function stravaOff() {
+  if (!confirm('Strava trennen?\n\nBereits übernommene Aktivitäten bleiben erhalten.')) return;
+  strava.refresh = ''; strava.access = ''; strava.exp = 0; strava.last = 0;
+  saveStrava();
+  toast('Strava getrennt.');
+}
+
+/* ============================================================
    START
    ============================================================ */
 (async function boot() {
   loadCfg(); loadHistory(); loadIntra(); loadAlertState(); updateNotifyUi();
   loadKi(); kiUiAktualisieren();
+  loadStrava();
   const zul = +lsGet(LS_LASTUPD);
   if (zul) state.lastUpdate = new Date(zul);   // sonst behauptet die Zeile beim Öffnen, es gäbe nie Kurse
   $('#appVer').textContent = APP_VERSION;
@@ -6242,6 +7433,9 @@ $('#scrim12').onclick = e => { if (e.target === $('#scrim12')) $('#scrim12').cla
   $('#curEUR').setAttribute('aria-pressed', state.base==='EUR');
   $('#curUSD').setAttribute('aria-pressed', state.base==='USD');
   render(); updateSyncUi(); setTab('home');
+  /* Läuft noch ein Workout, direkt wieder hineinspringen. Wichtig geworden,
+     seit der Kurzbefehl-Weg die App kurz verlässt. */
+  if (wkLaeuft(today())) { setTab('gym'); wkOeffnen(today()); }
   if (cloud.on) await cloudPull(true, true);
   await refreshPrices(true);
   // Beim ersten Start den Verlauf einmal aus echten Kursen aufbauen,
@@ -6251,6 +7445,11 @@ $('#scrim12').onclick = e => { if (e.target === $('#scrim12')) $('#scrim12').cla
     await backfill(90, true);
   }
   checkPlans();
+  /* Strava zum Schluss und gedrosselt – erst wenn alles andere steht. */
+  if (stravaAn()) {
+    const zul = +lsGet(LS_ST_CHK) || 0;
+    if (Date.now() - zul > ST_GAP) stravaSync(true);
+  }
 })();
 
 /* Kurse alle 5 Minuten nachladen – nur lokal sichern, kein Cloud-Traffic */
