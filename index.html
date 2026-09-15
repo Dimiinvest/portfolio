@@ -793,6 +793,108 @@ main{position:relative;z-index:1}
 .kizeile .x{background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer;padding:6px 2px}
 .kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10.5px;font-weight:700;
   background:rgba(230,196,132,.14);color:#E6C484;margin-left:6px;vertical-align:middle}
+
+/* ============ Training ============ */
+.gygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:9px}
+.gytile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;
+  appearance:none;-webkit-appearance:none;font:inherit;color:var(--text-primary);
+  min-height:88px;padding:12px 12px 11px;border-radius:var(--radius);border:1px solid var(--hair);
+  background:var(--surface-1);cursor:pointer;transition:.14s ease;text-align:left;
+  -webkit-tap-highlight-color:transparent}
+.gytile:hover{border-color:var(--hair-strong);background:var(--surface-2)}
+.gytile:active{transform:scale(.97)}
+.gytile .kopf{display:flex;align-items:center;gap:8px;width:100%;padding-right:22px}
+.gytile .ico{font-size:19px;line-height:1;flex:0 0 auto}
+.gytile .nm{font-size:13px;font-weight:600;line-height:1.2;flex:1 1 auto;min-width:0;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.gytile .mg{font-size:9.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
+  font-weight:600;margin-top:auto;padding-top:5px}
+.gytile .lz{font-size:11px;color:var(--text-secondary);margin-top:3px;max-width:100%;
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gytile .heute{position:absolute;top:8px;right:9px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;
+  background:var(--acc-dim);color:var(--acc);font-size:11px;font-weight:700;display:grid;place-items:center;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gytile.neu{border-style:dashed;color:var(--muted);background:transparent;
+  align-items:center;justify-content:center;text-align:center}
+
+.gyrow{display:flex;align-items:flex-start;gap:11px;padding:11px 2px;border-top:1px solid var(--hair)}
+.gyrow:first-child{border-top:0}
+.gyrow .ico{font-size:19px;width:26px;text-align:center;flex:0 0 26px;padding-top:1px}
+.gyrow .nm{flex:1 1 auto;min-width:0;font-size:14px}
+.gyrow .nm small{display:block;color:var(--muted);font-size:11.5px;margin-top:3px;line-height:1.5;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyrow .vol{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;
+  color:var(--text-secondary);white-space:nowrap;flex:0 0 auto;padding-top:1px}
+.gyrow .x{background:transparent;border:0;color:var(--muted);font-size:19px;cursor:pointer;
+  padding:4px;min-width:32px}
+.gyrow .x:hover{color:var(--bad-ink)}
+.gypr{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;
+  background:rgba(110,231,183,.15);color:var(--good-ink);margin-left:6px;vertical-align:middle}
+
+/* Sätze eintragen */
+.gysatz{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.gysatz .nr{flex:0 0 22px;color:var(--muted);font-size:12px;font-weight:700;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gysatz input{flex:1 1 0;min-width:0;text-align:center;font-size:18px;font-weight:600;padding:11px 6px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gysatz .eh{flex:0 0 auto;color:var(--muted);font-size:12.5px;min-width:32px}
+.gysatz .x{background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer;
+  padding:6px 2px;min-width:28px}
+.gysatz .x:hover{color:var(--bad-ink)}
+.gyletzt{color:var(--text-secondary);font-size:12.5px;margin:0 0 12px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gymuskel{display:flex;flex-wrap:wrap;gap:6px}
+.gymus{padding:5px 11px;border-radius:99px;font-size:11.5px;border:1px solid var(--hair);
+  color:var(--muted);font-weight:600;background:transparent;cursor:pointer;font-family:inherit}
+.gymus.an{border-color:var(--good-ink);color:var(--good-ink);background:rgba(110,231,183,.10)}
+.gykpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:12px;margin-top:4px}
+
+.fdtop .label{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+/* sechs Bereiche in der unteren Leiste – die Beschriftung darf nicht umbrechen */
+.tab svg{width:21px;height:21px}
+.tab span{font-size:10px;white-space:nowrap}
+@media (max-width:380px){.tab span{font-size:9px}.tab{padding:7px 2px 6px}}
+
+/* Trainingspläne */
+.gyplans{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:9px}
+.gyplan{position:relative;display:flex;flex-direction:column;gap:7px;padding:14px 13px 12px;
+  min-height:132px;border-radius:var(--radius);border:1px solid var(--hair);
+  background:var(--surface-1);cursor:pointer;transition:.14s ease;text-align:left;
+  -webkit-tap-highlight-color:transparent}
+.gyplan:hover{border-color:var(--hair-strong);background:var(--surface-2)}
+.gyplan:active{transform:scale(.985)}
+.gyplan.an{border-color:var(--acc);background:linear-gradient(165deg,rgba(125,211,252,.10),transparent 60%),var(--surface-1)}
+.gyplan .pk{display:flex;align-items:flex-start;gap:8px}
+.gyplan .nm{flex:1 1 auto;min-width:0;font-size:15px;font-weight:640;letter-spacing:-.015em;line-height:1.25}
+.gyplan .mehr{flex:0 0 auto;width:32px;height:27px;border-radius:9px;border:0;cursor:pointer;
+  background:var(--surface-3);color:var(--acc);font-size:12px;line-height:1;letter-spacing:1.5px;
+  display:grid;place-items:center}
+.gyplan .mehr:hover{background:var(--acc-dim)}
+.gyplan .ue{margin:0;color:var(--text-secondary);font-size:12px;line-height:1.45;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}
+.gyplan .fuss{margin-top:auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  color:var(--muted);font-size:11px;font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyplan .fuss .fort{color:var(--acc)}
+.gyplan.neu{border-style:dashed;color:var(--muted);align-items:center;justify-content:center;
+  text-align:center;background:transparent;font-size:13.5px}
+
+.plrow{display:flex;align-items:center;gap:8px;padding:9px 2px;border-top:1px solid var(--hair)}
+.plrow:first-child{border-top:0}
+.plrow .ico{font-size:17px;flex:0 0 22px;text-align:center}
+.plrow .nm{flex:1 1 auto;min-width:0;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plrow button{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:15px;
+  padding:5px 3px;min-width:28px;font-family:inherit}
+.plrow button:hover{color:#fff}
+.plrow .x:hover{color:var(--bad-ink)}
+.pladd{display:flex;gap:8px;margin-top:12px}
+.pladd select{flex:1 1 auto;min-width:0}
+.pladd button{flex:0 0 auto}
+.plkopf{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;margin:14px 0 4px}
+.gyfilter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 11px;
+  color:var(--text-secondary);font-size:12.5px}
+.gyfilter b{color:var(--text-primary);font-weight:640}
 </style>
 </head>
 <body>
@@ -1011,6 +1113,15 @@ main{position:relative;z-index:1}
     </div>
   </section>
 
+  <section class="card" id="tdGym" style="cursor:pointer">
+    <div class="in tdlink">
+      <span class="tdlk">Training</span>
+      <span class="tdlv tnum" id="tdGymVal">—</span>
+      <span class="tdlp tnum" id="tdGymRest">—</span>
+      <span class="tdlc">›</span>
+    </div>
+  </section>
+
   <section class="card" id="tdNoticeBox" hidden>
     <div class="in">
       <div class="cardhead"><h2>Braucht deine Aufmerksamkeit</h2></div>
@@ -1115,6 +1226,80 @@ main{position:relative;z-index:1}
   </div>
 </main>
 
+<main class="wrap" id="viewGym" hidden>
+  <div class="vhead">
+    <h2>Training</h2>
+    <p id="gySub">Antippen trägt Sätze ein</p>
+  </div>
+
+  <div class="sec-head">
+    <h2>Trainingspläne</h2>
+    <span class="count" id="gyPlanCount"></span>
+    <div class="sp"></div>
+    <button class="btn" id="gyPlanAdd">+ Plan</button>
+  </div>
+  <div class="gyplans" id="gyPlans"></div>
+
+  <section class="card" id="gyScore">
+    <div class="in">
+      <div class="fdscore-kopf">
+        <svg class="tdring" viewBox="0 0 84 84" aria-hidden="true">
+          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,238,210,.10)" stroke-width="9"/>
+          <circle id="gyArc" cx="42" cy="42" r="34" fill="none" stroke="var(--acc)" stroke-width="9"
+                  stroke-linecap="round" transform="rotate(-90 42 42)"
+                  stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+        </svg>
+        <div>
+          <div class="label">Letzte 7 Tage</div>
+          <div class="fdscore-zahl" id="gyVal">—</div>
+          <div class="fdscore-note" id="gyNote">—</div>
+          <div class="fdscore-ziel" id="gyZiel"></div>
+        </div>
+      </div>
+      <div id="gyTeile"></div>
+      <div id="gyTipps" hidden></div>
+      <div id="gyWeek"></div>
+    </div>
+  </section>
+
+  <section class="card fdday">
+    <div class="in">
+      <div class="fdtop">
+        <div>
+          <div class="label" id="gyDate">—</div>
+          <div class="fdkcal"><span id="gySaetze">0</span><i id="gySaetzeSub">Sätze</i></div>
+          <div class="fdrest" id="gyRest">—</div>
+        </div>
+        <div class="fdnav">
+          <button class="btn icon ghost" id="gyPrev" title="Tag zurück">‹</button>
+          <button class="btn icon ghost" id="gyNext" title="Tag vor">›</button>
+        </div>
+      </div>
+      <div class="gymuskel" id="gyGruppen" style="margin-top:15px"></div>
+    </div>
+  </section>
+
+  <div class="sec-head" id="gyLogHead" hidden><h2>Erledigt</h2><span class="count" id="gyLogCount">—</span></div>
+  <section class="card" id="gyLogBox" hidden><div class="in" id="gyLog"></div></section>
+
+  <div class="sec-head">
+    <h2>Übungen</h2>
+    <span class="count" id="gyCount">—</span>
+    <div class="sp"></div>
+    <button class="btn" id="gyAdd">+ Übung</button>
+  </div>
+  <p class="gyfilter" id="gyFilterBox" hidden>
+    <span id="gyFilterText"></span>
+    <button class="btn" id="gyAlleBtn" style="padding:5px 10px;font-size:12px">Alle Übungen</button>
+  </p>
+  <div class="gygrid" id="gyGrid"></div>
+
+  <div style="margin:18px 0 4px;display:flex;gap:9px;flex-wrap:wrap">
+    <button class="btn" id="gyGoals">◎ Wochenziele</button>
+    <button class="btn" id="gyEdit">✎ Übungen bearbeiten</button>
+  </div>
+</main>
+
 <main class="wrap" id="viewDetail" hidden>
   <button class="btn ghost backbtn" id="dBack">‹ Zurück</button>
   <section id="dBody"></section>
@@ -1126,17 +1311,115 @@ main{position:relative;z-index:1}
     <span>Heute</span></button>
   <button class="tab" data-tab="home" role="tab" aria-selected="true">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
-    <span>Startseite</span></button>
-  <button class="tab" data-tab="search" role="tab" aria-selected="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-    <span>Suchen</span></button>
+    <span>Depot</span></button>
   <button class="tab" data-tab="food" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a2.5 2.5 0 0 0 5 0V3"/><path d="M8.5 3v8"/><path d="M8.5 13v8"/><path d="M17 3c-1.4 1.6-2 3.4-2 5.5 0 1.7.7 2.8 2 3.2V21"/></svg>
     <span>Essen</span></button>
+  <button class="tab" data-tab="gym" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5"/><path d="M7 6.5v11"/><path d="M17 6.5v11"/><path d="M20 9.5v5"/><path d="M7 12h10"/></svg>
+    <span>Gym</span></button>
+  <button class="tab" data-tab="search" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+    <span>Suchen</span></button>
   <button class="tab" data-tab="history" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>
     <span>Verlauf</span></button>
 </nav>
+
+<div class="scrim" id="scrim13">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(460px,100%)">
+    <h3 id="plTitle">Plan anlegen</h3>
+    <p class="msub">Die Reihenfolge ist die, in der du trainierst – sie lässt sich jederzeit ändern.</p>
+    <div class="form">
+      <div class="f full"><label for="plName">Name</label>
+        <input id="plName" type="text" placeholder="z.B. Brust & Rücken" autocomplete="off"></div>
+    </div>
+    <div class="plkopf">Übungen im Plan</div>
+    <div id="plListe"></div>
+    <div class="pladd" id="plAddRow">
+      <select id="plPick" aria-label="Übung auswählen"></select>
+      <button class="btn" id="plAdd">+ Hinzufügen</button>
+    </div>
+    <button class="btn primary" id="plNeu"
+            style="width:100%;justify-content:center;margin-top:8px">+ Neue Übung anlegen</button>
+    <div class="mrow">
+      <button class="btn" id="plDelete" style="color:var(--bad-ink)">Löschen</button>
+      <div class="sp" style="margin-left:auto"></div>
+      <button class="btn" id="plCancel">Abbrechen</button>
+      <button class="btn primary" id="plSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim10">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
+    <h3 id="szTitle">Übung</h3>
+    <p class="msub" id="szSub">—</p>
+    <p class="gyletzt" id="szLetzt" hidden></p>
+    <div id="szListe"></div>
+    <div id="szAusdauer" hidden>
+      <div class="form">
+        <div class="f"><label for="szMin">Dauer (Minuten)</label>
+          <input id="szMin" type="text" inputmode="decimal" placeholder="30" autocomplete="off"></div>
+        <div class="f"><label for="szKm">Distanz (km)</label>
+          <input id="szKm" type="text" inputmode="decimal" placeholder="5" autocomplete="off"></div>
+      </div>
+    </div>
+    <button class="btn" id="szPlus" style="width:100%;justify-content:center;margin-top:2px">+ Satz</button>
+    <div class="mrow">
+      <button class="btn" id="szDelete" style="color:var(--bad-ink)">Entfernen</button>
+      <div class="sp" style="margin-left:auto"></div>
+      <button class="btn" id="szCancel">Abbrechen</button>
+      <button class="btn primary" id="szSave">Eintragen</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim11">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3 id="ubTitle">Übung anlegen</h3>
+    <p class="msub">Was du im Gym machst – Kraft wird in Sätzen gezählt, Ausdauer in Minuten.</p>
+    <div class="form">
+      <div class="f full"><label for="ubName">Name</label>
+        <input id="ubName" type="text" placeholder="z.B. Bankdrücken" autocomplete="off"></div>
+      <div class="f"><label for="ubIco">Symbol</label>
+        <input id="ubIco" type="text" placeholder="🏋️" maxlength="4" autocomplete="off"></div>
+      <div class="f"><label for="ubTyp">Art</label>
+        <select id="ubTyp">
+          <option value="kraft">Kraft (Sätze)</option>
+          <option value="ausdauer">Ausdauer (Zeit)</option>
+        </select></div>
+      <div class="f full"><label for="ubMuskel">Muskelgruppe</label>
+        <select id="ubMuskel"></select></div>
+    </div>
+    <div class="mrow">
+      <button class="btn" id="ubDelete" style="color:var(--bad-ink)">Löschen</button>
+      <div class="sp" style="margin-left:auto"></div>
+      <button class="btn" id="ubCancel">Abbrechen</button>
+      <button class="btn primary" id="ubSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim12">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3>Wochenziele</h3>
+    <p class="msub">Was du in sieben Tagen schaffen willst.</p>
+    <div class="form">
+      <div class="f"><label for="wzEinheiten">Trainingstage</label>
+        <input id="wzEinheiten" type="text" inputmode="decimal" placeholder="4" autocomplete="off"></div>
+      <div class="f"><label for="wzSaetze">Sätze</label>
+        <input id="wzSaetze" type="text" inputmode="decimal" placeholder="60" autocomplete="off"></div>
+      <div class="f"><label for="wzGruppen">Muskelgruppen</label>
+        <input id="wzGruppen" type="text" inputmode="decimal" placeholder="5" autocomplete="off"></div>
+      <div class="f"><label for="wzMinuten">Minuten (optional)</label>
+        <input id="wzMinuten" type="text" inputmode="decimal" placeholder="180" autocomplete="off"></div>
+      <div class="f full"><p class="hint">Gezählt werden immer die letzten sieben Tage, nicht die Kalenderwoche – so ist der Wert an jedem Wochentag vergleichbar. Ein Ruhetag zieht dich also nicht runter.<br>Leer lassen heißt: kein Ziel – der Wert fällt aus der Bewertung, die Punkte werden auf den Rest umgerechnet.</p></div>
+    </div>
+    <div class="mrow"><button class="btn" id="wzCancel">Abbrechen</button>
+      <button class="btn primary" id="wzSave">Speichern</button></div>
+  </div>
+</div>
 
 <div class="scrim" id="scrim9">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
@@ -1427,7 +1710,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v42 · Aurora · 10.09.2026';
+const APP_VERSION = 'v45 · Aurora · 14.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2842,6 +3125,22 @@ function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ sto
 let pushT;
 function persist(toCloud = true) {
   if (toCloud) state.editStamp = Date.now();   // echte Änderung des Nutzers
+  else if (!state.positions.length) {
+    /* Zweite Sicherung gegen die Fehlerklasse vom 08.09.2026: Was die App von
+       SICH AUS schreibt (Vorlagen, Aufräumen, Migration), darf ein gefülltes
+       Depot niemals leeren. Genau das ist passiert, solange die Vorlagen vor
+       restoreLocal() liefen – payload() nahm das noch leere state.positions
+       und überschrieb damit den lokalen Datensatz. Die Reihenfolge im boot()
+       ist korrigiert; dieser Riegel fängt jeden künftigen Fall ab.
+       Ein echtes Leeren durch den Nutzer läuft über persist(true) und bleibt
+       davon unberührt. */
+    try {
+      const alt = JSON.parse(lsGet(LS_DATA) || 'null');
+      if (alt && alt.depot && Array.isArray(alt.depot.positions) && alt.depot.positions.length) {
+        updateSyncUi(); return;
+      }
+    } catch(e) {}
+  }
   lsSet(LS_DATA, JSON.stringify(payload()));
   updateSyncUi();
   if (toCloud && cloud.on) { clearTimeout(pushT); pushT = setTimeout(() => cloudPush(true), 2500); }
@@ -3332,6 +3631,7 @@ $('#tdAdd').onclick = addAufgabe;
 $('#tdDepot').onclick = () => setTab('home');
 $('#tdFood').onclick  = () => setTab('food');
 $('#tdSupp').onclick  = () => setTab('food');
+$('#tdGym').onclick   = () => setTab('gym');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -3442,6 +3742,7 @@ function setTab(tab, keepDetail) {
   $('#viewSearch').hidden  = showDetail || tab !== 'search';
   $('#viewHistory').hidden = showDetail || tab !== 'history';
   $('#viewFood').hidden    = showDetail || tab !== 'food';
+  $('#viewGym').hidden     = showDetail || tab !== 'gym';
   $('#viewDetail').hidden  = !showDetail;
   $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
   if (showDetail) renderDetail();
@@ -3449,6 +3750,7 @@ function setTab(tab, keepDetail) {
   else if (tab === 'search') renderSearch();
   else if (tab === 'history') renderTxList();
   else if (tab === 'food') renderFood();
+  else if (tab === 'gym') renderGym();
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 function openDetail(id) {
@@ -3610,6 +3912,20 @@ function renderToday() {
         ? (offen.length <= 2 ? 'offen: ' + offen.map(x => x.name).join(', ') : `${offen.length} offen`)
         : 'alles genommen';
       sr.className = 'tdlp tnum';
+    }
+  }
+
+  /* Training – anders als Essen ein Wochenwert, siehe Kommentar dort */
+  const gLib = gymLib(), gBox = $('#tdGym');
+  if (gBox) {
+    gBox.hidden = !gLib.length;
+    if (gLib.length) {
+      const gb = gymBewertung(today()), gw = gymWoche(today());
+      const gv = $('#tdGymVal'), gr = $('#tdGymRest');
+      if (gb) { gv.textContent = `${gb.punkte} Punkte`; gv.className = 'tdlv tnum ' + NOTE_KLASSE(gb.punkte); }
+      else    { gv.textContent = '—'; gv.className = 'tdlv tnum'; }
+      gr.textContent = `${gw.einheiten} Tag${gw.einheiten === 1 ? '' : 'e'} · ${gw.saetze} ${gw.saetze === 1 ? 'Satz' : 'Sätze'} in 7 Tagen`;
+      gr.className = 'tdlp tnum';
     }
   }
 
@@ -4225,6 +4541,10 @@ function punkteFuer(art, ist, ziel) {
     if (q >= 1) return 1;
     return Math.max(0, (q - 0.5) / 0.5);
   }
+  /* 'anteil': lineare Untergrenze ohne Deckel – die Hälfte geschafft gibt die
+     halbe Punktzahl. Für das Training richtig (zwei von vier Einheiten sind
+     nicht null wert), fürs Essen falsch, dort ist zu viel ein Fehler. */
+  if (art === 'anteil') return Math.min(1, Math.max(0, q));
   const ab = Math.abs(q - 1);                        // 'fenster': treffen, nicht über- oder unterbieten
   if (ab <= TOLERANZ_VOLL) return 1;
   return Math.max(0, 1 - (ab - TOLERANZ_VOLL) / (TOLERANZ_NULL - TOLERANZ_VOLL));
@@ -5105,12 +5425,785 @@ $('#scrim5').onclick = e => { if (e.target === $('#scrim5')) { $('#scrim5').clas
 $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classList.remove('on'); };
 
 /* ============================================================
+   TRAINING
+   Übungen liegen in state.ziele.uebungen, die Wochenziele in
+   state.ziele.training, das Erledigte in state.tage[d].training —
+   alles im gemeinsamen Sync-Container, kein eigener Speicherschlüssel.
+
+   Bewertet wird NICHT der einzelne Tag, sondern die letzten sieben Tage.
+   Training ist nun mal nicht täglich: ein Ruhetag würde sonst eine Null
+   geben, obwohl er zum Plan gehört. Sieben rollende Tage statt der
+   Kalenderwoche, damit der Wert an jedem Wochentag vergleichbar bleibt.
+
+   Ein Eintrag: { ueid, s:[{w,g}], min, km, t }
+   w = Wiederholungen, g = Gewicht in kg. Je Übung und Tag genau ein
+   Eintrag — ein zweiter Tipp auf dieselbe Kachel ergänzt Sätze,
+   statt eine Dublette anzulegen.
+   ============================================================ */
+const MUSKELN = ['Brust','Rücken','Beine','Schultern','Arme','Rumpf','Cardio'];
+
+/* Vorlagen wie bei den Lebensmitteln: feste Kennung, einmal übernommen
+   taucht eine gelöschte Übung nie wieder von selbst auf. */
+/* Bewusst LEER: der Nutzer baut erst seine Pläne und trägt die Übungen selbst
+   ein (ausdrücklich so gewünscht, 14.09.2026). Der Mechanismus bleibt stehen,
+   falls später doch etwas mitgeliefert werden soll – dann feste ids vergeben
+   und wie beim Essen mit persist(false) übernehmen. */
+const GYM_VORLAGEN = [];
+const GYM_PLAN_VORLAGEN = [];
+
+/* Einmaliges Aufräumen: v43/v44 hatten 22 Übungen und 3 Pläne vorangelegt.
+   Raus damit – aber nur, was unberührt ist. Was schon gebucht oder gelaufen
+   ist, bleibt; gelöscht wird nie etwas, woran Daten hängen. */
+const LS_GYM_CLEAN = 'pt.gym.clean.v1';
+const GYM_START_UE = ['g01','g02','g03','g04','g05','g06','g07','g08','g09','g10',
+                      'g11','g12','g13','g14','g15','g16','g17','g18','g19','g20','g21','g22'];
+const GYM_START_PLAN = ['tp1','tp2','tp3'];
+function gymStartdatenRaus() {
+  if (lsGet(LS_GYM_CLEAN)) return;
+  lsSet(LS_GYM_CLEAN, '1');
+  const tage = state.tage || {};
+  const benutzt = {}, gelaufen = {};
+  for (const d in tage) {
+    gymTag(d).forEach(e => { benutzt[e.ueid] = true; });
+    if (tage[d].plan) gelaufen[tage[d].plan] = true;
+  }
+  const ueWeg   = GYM_START_UE.filter(id => !benutzt[id]);
+  const planWeg = GYM_START_PLAN.filter(id => !gelaufen[id]);
+  const lib = gymLib(), plaene = gymPlaene();
+  const vorher = lib.length + plaene.length;
+  if (ueWeg.length)   state.ziele.uebungen = lib.filter(u => ueWeg.indexOf(u.id) === -1);
+  if (planWeg.length) state.ziele.plaene   = plaene.filter(p => planWeg.indexOf(p.id) === -1);
+  /* keine Plan-Einträge auf gelöschte Übungen stehen lassen */
+  gymPlaene().forEach(p => { p.ueids = (p.ueids || []).filter(id => gymUe(id)); });
+  if (vorher !== gymLib().length + gymPlaene().length) persist(false);   // kein Nutzereingriff
+}
+
+const LS_GYM_SEED = 'pt.gym.seed.v1';
+const GYM_ZIEL_VORGABE = { einheiten:4, saetze:60, gruppen:5, minuten:null };
+const GYM_STD = { einheiten:null, saetze:null, gruppen:null, minuten:null };
+
+function gymLib() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.uebungen)) state.ziele.uebungen = [];
+  return state.ziele.uebungen;
+}
+function gymPlaene() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.plaene)) state.ziele.plaene = [];
+  return state.ziele.plaene;
+}
+function gymZiele() {
+  if (!state.ziele) state.ziele = {};
+  if (!state.ziele.training || typeof state.ziele.training !== 'object') state.ziele.training = { ...GYM_STD };
+  return state.ziele.training;
+}
+function gymVorlagenUebernehmen() {
+  /* kein früher Ausstieg bei leeren Vorlagen – die Wochenziele sollen
+     trotzdem einmal vorbelegt werden */
+  let gesehen = [];
+  try { gesehen = JSON.parse(lsGet(LS_GYM_SEED) || '[]'); } catch(e) { gesehen = []; }
+  const lib = gymLib();
+  let neu = 0;
+  GYM_VORLAGEN.forEach(v => {
+    if (gesehen.indexOf(v.id) > -1) return;
+    gesehen.push(v.id);
+    if (!lib.some(x => x.id === v.id)) { lib.push({ ...v }); neu++; }
+  });
+  const plaene = gymPlaene();
+  GYM_PLAN_VORLAGEN.forEach(v => {
+    const marke = 'plan:' + v.id;
+    if (gesehen.indexOf(marke) > -1) return;
+    gesehen.push(marke);
+    if (!plaene.some(x => x.id === v.id)) {
+      /* nur Übungen aufnehmen, die es auch gibt */
+      const ueids = v.ueids.filter(id => lib.some(u => u.id === id));
+      plaene.push({ id: v.id, name: v.name, ueids }); neu++;
+    }
+  });
+  if (gesehen.indexOf('ziele') === -1) {
+    gesehen.push('ziele');
+    const z = gymZiele();
+    if (num(z.einheiten) === null && num(z.saetze) === null && num(z.gruppen) === null) {
+      Object.assign(z, GYM_ZIEL_VORGABE); neu++;
+    }
+  }
+  lsSet(LS_GYM_SEED, JSON.stringify(gesehen));
+  /* persist(false) — siehe essVorlagenUebernehmen: von der App selbst
+     angelegte Daten dürfen editStamp nicht setzen, sonst hält sich eine
+     frisch installierte, leere App für den neueren Stand. */
+  if (neu) persist(false);
+}
+
+function gymTag(d) {
+  const t = (state.tage || {})[d];
+  return Array.isArray(t && t.training) ? t.training : [];
+}
+const gymUe = id => gymLib().find(x => x.id === id) || null;
+const satzZahl = e => (e && Array.isArray(e.s)) ? e.s.length : 0;
+const satzVol  = e => (e && Array.isArray(e.s))
+  ? e.s.reduce((a, s) => a + (num(s.w)||0) * (num(s.g)||0), 0) : 0;
+
+/* Gibt es überhaupt schon Trainingsdaten? Solange nicht, zeigt die App
+   „noch nichts eingetragen" statt einer entmutigenden 0. */
+function gymHatDaten() {
+  const tage = state.tage || {};
+  for (const d in tage) if (Array.isArray(tage[d].training) && tage[d].training.length) return true;
+  return false;
+}
+
+/* Die sieben Tage, die auf `bis` enden. */
+function gymWoche(bis) {
+  const w = { einheiten:0, saetze:0, gruppen:0, minuten:0, volumen:0, gruppenListe:[], tage:[] };
+  for (let i = 6; i >= 0; i--) {
+    const d = isoAdd(bis, -i);
+    const liste = gymTag(d);
+    let saetze = 0, vol = 0, min = 0;
+    liste.forEach(e => {
+      saetze += satzZahl(e);
+      vol    += satzVol(e);
+      min    += num(e.min) || 0;
+      const u = gymUe(e.ueid);
+      if (u && u.muskel && w.gruppenListe.indexOf(u.muskel) === -1) w.gruppenListe.push(u.muskel);
+    });
+    if (liste.length) w.einheiten++;
+    w.saetze += saetze; w.volumen += vol; w.minuten += min;
+    w.tage.push({ d, saetze, vol, min, n: liste.length });
+  }
+  w.gruppen = w.gruppenListe.length;
+  return w;
+}
+
+/* Alle vier sind Untergrenzen mit linearer Kurve ('anteil'): mehr ist nie
+   ein Fehler, halb geschafft gibt halbe Punkte. Beim Essen wäre das falsch
+   (zu viel ist dort ein Fehler), beim Training ist es genau richtig. */
+const GYM_KENNZAHLEN = [
+  { key:'einheiten', name:'Trainingstage', art:'anteil', gewicht:35, einheit:'' },
+  { key:'saetze',    name:'Sätze',         art:'anteil', gewicht:35, einheit:'' },
+  { key:'gruppen',   name:'Muskelgruppen', art:'anteil', gewicht:30, einheit:'' },
+  { key:'minuten',   name:'Minuten',       art:'anteil', gewicht:20, einheit:'min' }
+];
+
+function bewerteWoche(w) {
+  const z = gymZiele(), teile = [];
+  let erreicht = 0, moeglich = 0;
+  GYM_KENNZAHLEN.forEach(kz => {
+    const ziel = num(z[kz.key]);
+    const anteil = punkteFuer(kz.art, w[kz.key], ziel);
+    if (anteil === null) return;                  // ohne Ziel fällt die Kennzahl raus
+    erreicht += anteil * kz.gewicht;
+    moeglich += kz.gewicht;
+    teile.push({ ...kz, ist: w[kz.key], ziel, anteil, zaehlt: true, punkte: anteil * kz.gewicht });
+  });
+  if (!moeglich) return null;
+  return { punkte: Math.round(erreicht / moeglich * 100), teile, woche: w };
+}
+function gymBewertung(d) {
+  if (!gymHatDaten()) return null;
+  return bewerteWoche(gymWoche(d));
+}
+
+/* Was fehlt noch zur 90? Für jede Übung wird durchgerechnet, wie die Woche
+   mit drei zusätzlichen Sätzen dastünde — fehlende Muskelgruppen bringen
+   dabei automatisch am meisten. */
+function gymVorschlaege(d, hoechstens = 3) {
+  const jetzt = gymBewertung(d);
+  if (!jetzt || jetzt.punkte >= ZIEL_SCORE) return [];
+  const w = jetzt.woche;
+  const heuteLeer = gymTag(d).length === 0;
+  const treffer = [];
+  gymLib().forEach(u => {
+    const neueGruppe = u.muskel && w.gruppenListe.indexOf(u.muskel) === -1;
+    const probe = {
+      einheiten: w.einheiten + (heuteLeer ? 1 : 0),
+      saetze:    w.saetze + (u.typ === 'ausdauer' ? 0 : 3),
+      gruppen:   w.gruppen + (neueGruppe ? 1 : 0),
+      minuten:   w.minuten + (u.typ === 'ausdauer' ? 20 : 0)
+    };
+    const b = bewerteWoche(probe);
+    if (!b) return;
+    const delta = b.punkte - jetzt.punkte;
+    if (delta > 0) treffer.push({ u, delta, grund: neueGruppe ? u.muskel + ' fehlt noch' : '' });
+  });
+  const proGruppe = {};
+  treffer.forEach(t => {
+    const k = t.u.muskel || t.u.id;
+    if (!proGruppe[k] || t.delta > proGruppe[k].delta) proGruppe[k] = t;
+  });
+  return Object.values(proGruppe).sort((a,b) => b.delta - a.delta).slice(0, hoechstens);
+}
+
+/* ---------- Anzeige-Hilfen ---------- */
+let gymTagAnzeige = null;                    // null = heute
+const gymDatum = () => gymTagAnzeige || today();
+
+const kg = v => v.toLocaleString('de-DE', { maximumFractionDigits: 1 });
+/* „3×10 · 60 kg" – gleiche Sätze werden zusammengefasst, sonst einzeln */
+function satzText(e) {
+  if (!e) return '';
+  if (!satzZahl(e)) {
+    const t = [];
+    if (num(e.min)) t.push(kg(+e.min) + ' min');
+    if (num(e.km))  t.push(kg(+e.km) + ' km');
+    return t.join(' · ');
+  }
+  const g = [];
+  e.s.forEach(s => {
+    const letzte = g[g.length - 1];
+    const w = num(s.w) || 0, gew = num(s.g);
+    if (letzte && letzte.w === w && letzte.g === gew) letzte.n++;
+    else g.push({ n:1, w, g:gew });
+  });
+  return g.map(x => (x.n > 1 ? x.n + '×' : '') + x.w + (x.g ? ' @ ' + kg(x.g) + ' kg' : ' Wdh')).join(' · ');
+}
+/* Letzter Eintrag dieser Übung vor (oder an) einem Tag, ohne den Tag selbst */
+function gymLetzter(ueid, vorTag) {
+  const tage = Object.keys(state.tage || {}).filter(d => d < vorTag).sort();
+  for (let i = tage.length - 1; i >= 0; i--) {
+    const e = gymTag(tage[i]).find(x => x.ueid === ueid);
+    if (e) return { d: tage[i], e };
+  }
+  return null;
+}
+/* Bestes Einzelgewicht, wahlweise ohne einen bestimmten Tag */
+function gymBest(ueid, ohneTag) {
+  let best = 0;
+  const tage = state.tage || {};
+  for (const d in tage) {
+    if (d === ohneTag) continue;
+    gymTag(d).forEach(e => {
+      if (e.ueid !== ueid) return;
+      (e.s || []).forEach(s => { const g = num(s.g) || 0; if (g > best) best = g; });
+    });
+  }
+  return best;
+}
+function gymHaeufigkeit() {
+  const z = {};
+  const tage = state.tage || {};
+  for (const d in tage) gymTag(d).forEach(e => { z[e.ueid] = (z[e.ueid] || 0) + 1; });
+  return z;
+}
+
+/* ---------- Bildschirm ---------- */
+let gymBearbeiten = false;
+
+/* ---------- Trainingspläne ----------
+   Ein Plan ist nur eine Reihenfolge von Übungen: {id, name, ueids}.
+   „Starten" merkt den Plan am Tag (state.tage[d].plan) – daraus ergibt sich
+   sowohl das „zuletzt"-Datum auf der Kachel als auch der Filter im Raster.
+   Bewusst höchstens ein Plan je Tag; wer quer trainiert, schaltet auf
+   „Alle Übungen" und bucht frei. */
+let gymAlle = false;                         // Filter im Raster aufgehoben?
+
+const gymPlan = id => gymPlaene().find(p => p.id === id) || null;
+function gymPlanDesTages(d) {
+  const pid = ((state.tage || {})[d] || {}).plan;
+  return pid ? gymPlan(pid) : null;
+}
+/* Letzter Tag, an dem dieser Plan lief */
+function gymPlanZuletzt(id) {
+  const tage = Object.keys(state.tage || {}).filter(d => (state.tage[d] || {}).plan === id).sort();
+  return tage.length ? tage[tage.length - 1] : null;
+}
+function wannText(d) {
+  const n = isoDiff(d, today());
+  if (n <= 0) return 'Heute';
+  if (n === 1) return 'Gestern';
+  if (n < 21) return `vor ${n} Tagen`;
+  return dmy(d);
+}
+function gymPlanStarten(id) {
+  const p = gymPlan(id); if (!p) return;
+  const d = gymDatum();
+  if (gymPlanDesTages(d) && gymPlanDesTages(d).id === id) { gymAlle = !gymAlle; renderGym(); return; }
+  gymAlle = false;
+  setTagWert(d, 'plan', id);
+  renderGym();
+  toast(`Plan „${p.name}" läuft${d === today() ? '' : ' am ' + dmy(d)} · ${p.ueids.length} Übungen`);
+}
+
+function renderGymPlaene() {
+  const box = $('#gyPlans'); if (!box) return;
+  const plaene = gymPlaene(), d = gymDatum(), liste = gymTag(d);
+  const aktiv = gymPlanDesTages(d);
+  $('#gyPlanCount').textContent = plaene.length ? `${plaene.length}` : '';
+
+  box.innerHTML = plaene.map(p => {
+    const namen = p.ueids.map(id => (gymUe(id) || {}).name).filter(Boolean);
+    const zul = gymPlanZuletzt(p.id);
+    const an = aktiv && aktiv.id === p.id;
+    const fertig = p.ueids.filter(id => liste.some(e => e.ueid === id)).length;
+    return `<div class="gyplan ${an ? 'an' : ''}" data-plstart="${esc(p.id)}">
+      <div class="pk">
+        <span class="nm">${esc(p.name)}</span>
+        <button class="mehr" data-pledit="${esc(p.id)}" title="Plan ändern" aria-label="Plan ändern">•••</button>
+      </div>
+      <p class="ue">${namen.length ? esc(namen.join(', ')) : 'Noch keine Übung – über ••• ergänzen'}</p>
+      <div class="fuss">
+        <span>${namen.length} Übung${namen.length === 1 ? '' : 'en'}</span>
+        ${an ? `<span class="fort">${fertig} von ${p.ueids.length} erledigt</span>`
+             : zul ? `<span>🕐 ${esc(wannText(zul))}</span>` : `<span>noch nie</span>`}
+      </div>
+    </div>`;
+  }).join('') + `<div class="gyplan neu" data-plneu="1">+ Plan anlegen</div>` +
+    (plaene.length ? '' : `<p class="fdempty" style="grid-column:1/-1;padding:2px 2px 0;margin:0">
+       Fang mit einem Plan an: Name eintippen, dann die Übungen gleich im selben
+       Dialog anlegen – über „+ Neue Übung anlegen".</p>`);
+
+  $$('#gyPlans [data-plstart]').forEach(el => el.onclick = ev => {
+    if (ev.target.closest('[data-pledit]')) return;
+    gymPlanStarten(el.dataset.plstart);
+  });
+  $$('#gyPlans [data-pledit]').forEach(b => b.onclick = ev => {
+    ev.stopPropagation(); openGymPlan(b.dataset.pledit);
+  });
+  $$('#gyPlans [data-plneu]').forEach(el => el.onclick = () => openGymPlan());
+}
+
+/* ---- Plan anlegen und ändern ---- */
+let plEditId = null, plUeIds = [];
+function plPickFuellen() {
+  const lib = gymLib();
+  const gruppen = MUSKELN.concat(['']);
+  const teile = gruppen.map(m => {
+    const ue = lib.filter(u => (m ? u.muskel === m : MUSKELN.indexOf(u.muskel) === -1));
+    if (!ue.length) return '';
+    return `<optgroup label="${esc(m || 'Sonstige')}">` +
+      ue.map(u => `<option value="${esc(u.id)}">${esc(u.name)}</option>`).join('') + `</optgroup>`;
+  });
+  /* Solange es keine Übung gibt, wäre die Auswahlliste nur Ballast –
+     dann bleibt allein „+ Neue Übung anlegen" stehen. */
+  $('#plAddRow').hidden = !lib.length;
+  $('#plPick').innerHTML = teile.join('');
+}
+function plListeZeichnen() {
+  const box = $('#plListe');
+  box.innerHTML = !plUeIds.length
+    ? `<div class="fdempty" style="padding:12px 2px">Noch nichts drin – unten eine Übung wählen und hinzufügen.</div>`
+    : plUeIds.map((id, i) => {
+        const u = gymUe(id);
+        const aus = ' style="opacity:.22;cursor:default"';
+        return `<div class="plrow">
+          <span class="ico">${esc(u ? (u.ico || '🏋️') : '❔')}</span>
+          <span class="nm">${esc(u ? u.name : 'Gelöschte Übung')}</span>
+          <button data-plup="${i}" title="nach oben"${i === 0 ? aus : ''}>↑</button>
+          <button data-pldn="${i}" title="nach unten"${i === plUeIds.length - 1 ? aus : ''}>↓</button>
+          <button class="x" data-plx="${i}" title="aus dem Plan nehmen">×</button>
+        </div>`;
+      }).join('');
+  const tausch = (i, j) => {
+    if (j < 0 || j >= plUeIds.length) return;
+    const t = plUeIds[i]; plUeIds[i] = plUeIds[j]; plUeIds[j] = t;
+    plListeZeichnen();
+  };
+  $$('#plListe [data-plup]').forEach(b => b.onclick = () => tausch(+b.dataset.plup, +b.dataset.plup - 1));
+  $$('#plListe [data-pldn]').forEach(b => b.onclick = () => tausch(+b.dataset.pldn, +b.dataset.pldn + 1));
+  $$('#plListe [data-plx]').forEach(b => b.onclick = () => {
+    plUeIds.splice(+b.dataset.plx, 1); plListeZeichnen();
+  });
+}
+/* Übung anlegen, ohne den Plan zu verlassen – der Dialog kommt obendrauf und
+   die neue Übung landet gleich unten im Plan. */
+function plNeueUebung() {
+  const letzte = plUeIds.length ? gymUe(plUeIds[plUeIds.length - 1]) : null;
+  openUebung(null, neuId => {
+    plUeIds.push(neuId);
+    plPickFuellen(); plListeZeichnen();
+    toast('Angelegt und in den Plan gelegt.');
+  }, letzte ? letzte.muskel : null);
+}
+function openGymPlan(id) {
+  plEditId = id || null;
+  const p = id ? gymPlan(id) : null;
+  plUeIds = p ? p.ueids.slice() : [];
+  $('#plTitle').textContent = p ? 'Plan ändern' : 'Plan anlegen';
+  $('#plName').value = p?.name ?? '';
+  $('#plDelete').hidden = !p;
+  plPickFuellen(); plListeZeichnen();
+  $('#scrim13').classList.add('on');
+  if (!p) setTimeout(() => $('#plName').focus(), 60);
+}
+function saveGymPlan() {
+  const name = $('#plName').value.trim();
+  if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  const plaene = gymPlaene();
+  if (plEditId) {
+    const p = plaene.find(x => x.id === plEditId);
+    if (p) { p.name = name; p.ueids = plUeIds.slice(); }
+  } else {
+    plaene.push({ id: uid(), name, ueids: plUeIds.slice() });
+  }
+  $('#scrim13').classList.remove('on');
+  plEditId = null;
+  persist(); renderGym(); toast('Plan gespeichert.');
+}
+function delGymPlan() {
+  const p = gymPlan(plEditId); if (!p) return;
+  if (!confirm(`Plan „${p.name}" löschen?\n\nEingetragene Sätze bleiben erhalten.`)) return;
+  state.ziele.plaene = gymPlaene().filter(x => x.id !== plEditId);
+  plEditId = null;
+  $('#scrim13').classList.remove('on');
+  persist(); renderGym(); toast('Plan gelöscht.');
+}
+
+function renderGym() {
+  const d = gymDatum(), lib = gymLib(), liste = gymTag(d);
+  const saetze = liste.reduce((a, e) => a + satzZahl(e), 0);
+  const vol    = liste.reduce((a, e) => a + satzVol(e), 0);
+  const min    = liste.reduce((a, e) => a + (num(e.min) || 0), 0);
+
+  $('#gyDate').textContent = dayLabel(d) + (d === today() ? '' : ' · ' + dmy(d));
+  $('#gySaetze').textContent = saetze || (min ? kg(min) : '0');
+  $('#gySaetzeSub').textContent = saetze ? (saetze === 1 ? 'Satz' : 'Sätze') : (min ? 'Minuten' : 'Sätze');
+  $('#gyRest').textContent = !liste.length
+    ? 'Ruhetag – noch nichts eingetragen'
+    : `${liste.length} Übung${liste.length === 1 ? '' : 'en'}` +
+      (vol ? ` · ${Math.round(vol).toLocaleString('de-DE')} kg bewegt` : '') +
+      (min ? ` · ${kg(min)} min` : '');
+
+  /* Muskelgruppen der laufenden Woche – was grau bleibt, fehlt */
+  const w = gymWoche(d);
+  $('#gyGruppen').innerHTML = MUSKELN.map(m =>
+    `<span class="gymus ${w.gruppenListe.indexOf(m) > -1 ? 'an' : ''}">${esc(m)}</span>`).join('');
+
+  /* Tagesliste */
+  const logHead = $('#gyLogHead'), logBox = $('#gyLogBox');
+  logHead.hidden = logBox.hidden = !liste.length;
+  $('#gyLogCount').textContent = liste.length ? `${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}` : '';
+  $('#gyLog').innerHTML = liste.map((e, i) => {
+    const u = gymUe(e.ueid);
+    const v = satzVol(e);
+    return `<div class="gyrow">
+      <span class="ico">${esc(u ? (u.ico || '🏋️') : '❔')}</span>
+      <span class="nm">${esc(u ? u.name : 'Gelöschte Übung')}
+        <small>${esc(satzText(e)) || '—'}</small></span>
+      <span class="vol">${v ? Math.round(v).toLocaleString('de-DE') + ' kg' : ''}</span>
+      <button class="x" data-gyweg="${i}" title="Entfernen">×</button>
+    </div>`;
+  }).join('');
+  $$('#gyLog [data-gyweg]').forEach(b => b.onclick = () => gymEintragWeg(+b.dataset.gyweg));
+
+  /* Plan des Tages: ist einer gestartet, zeigt das Raster nur dessen Übungen
+     in Planreihenfolge – sonst alle, nach Häufigkeit sortiert. */
+  const plan = gymPlanDesTages(d);
+  const fBox = $('#gyFilterBox');
+  fBox.hidden = !plan;
+  if (plan) {
+    const fertig = plan.ueids.filter(id => liste.some(e => e.ueid === id)).length;
+    $('#gyFilterText').innerHTML = `Plan <b>${esc(plan.name)}</b> · ${fertig} von ${plan.ueids.length} erledigt`;
+    $('#gyAlleBtn').textContent = gymAlle ? '↩ Nur der Plan' : 'Alle Übungen';
+  }
+  const haeufig = gymHaeufigkeit();
+  const sortiert = (plan && !gymAlle)
+    ? plan.ueids.map(id => lib.find(u => u.id === id)).filter(Boolean)
+    : lib.slice().sort((a, b) => (haeufig[b.id] || 0) - (haeufig[a.id] || 0));
+  $('#gyCount').textContent = sortiert.length ? `${sortiert.length}` : '';
+  $('#gyGrid').innerHTML = !sortiert.length
+    ? `<div class="fdempty" style="grid-column:1/-1">${gymPlaene().length
+        ? 'Für diesen Plan ist noch keine Übung eingetragen – über das ••• auf der Plankachel ergänzen.'
+        : 'Noch keine Übung. Am einfachsten über einen Plan weiter oben: dort legst du sie gleich mit an. „+ Übung" geht auch einzeln.'}</div>`
+    : sortiert.map(u => {
+        const heute = liste.find(e => e.ueid === u.id);
+        const letzt = heute || (gymLetzter(u.id, d) || {}).e;
+        return `<button class="gytile" data-gy="${esc(u.id)}">
+          ${heute ? `<span class="heute">${satzZahl(heute) || '✓'}</span>` : ''}
+          <span class="kopf"><span class="ico">${esc(u.ico || '🏋️')}</span>
+            <span class="nm">${esc(u.name)}</span></span>
+          <span class="lz">${letzt ? esc(satzText(letzt)) : 'noch nie'}</span>
+          <span class="mg">${esc(u.muskel || '')}</span>
+        </button>`;
+      }).join('');
+  $$('#gyGrid [data-gy]').forEach(el => el.onclick = () => {
+    if (gymBearbeiten) openUebung(el.dataset.gy);
+    else openSatz(el.dataset.gy);
+  });
+
+  renderGymPlaene();
+  renderGymScore();
+  if (!$('#viewToday').hidden) renderToday();
+}
+
+function renderGymScore() {
+  const d = gymDatum(), b = gymBewertung(d);
+  const ring = $('#gyArc'), zahl = $('#gyVal'), note = $('#gyNote'), auf = $('#gyTeile');
+  const U = 2 * Math.PI * 34;
+
+  if (!b) {
+    const hatZiele = GYM_KENNZAHLEN.some(kz => num(gymZiele()[kz.key]));
+    zahl.textContent = '—';
+    zahl.className = 'fdscore-zahl';
+    note.textContent = !hatZiele ? 'Erst Wochenziele setzen, dann gibt es Punkte'
+                                 : 'Noch nichts eingetragen';
+    auf.innerHTML = ''; $('#gyZiel').textContent = '';
+    $('#gyTipps').hidden = true; $('#gyTipps').innerHTML = '';
+    ring.setAttribute('stroke-dashoffset', String(U));
+    $('#gyWeek').innerHTML = '';
+    return;
+  }
+
+  zahl.textContent = b.punkte;
+  zahl.className = 'fdscore-zahl ' + NOTE_KLASSE(b.punkte);
+  note.textContent = NOTE(b.punkte);
+  ring.setAttribute('stroke-dashoffset', String(U * (1 - b.punkte / 100)));
+  ring.setAttribute('stroke', b.punkte >= ZIEL_SCORE ? 'var(--good-ink)' : b.punkte >= 65 ? 'var(--acc)' : 'var(--bad-ink)');
+  $('#gyZiel').textContent = b.punkte >= ZIEL_SCORE
+    ? `Ziel von ${ZIEL_SCORE} geschafft`
+    : `noch ${ZIEL_SCORE - b.punkte} bis zum Ziel von ${ZIEL_SCORE}`;
+
+  auf.innerHTML = b.teile.map(t => {
+    const proz = Math.round(t.anteil * 100);
+    return `<div class="fdscore-zeile">
+      <span class="nm">${esc(t.name)}<small>${kg(t.ist)} von ${kg(t.ziel)}${t.einheit ? ' ' + t.einheit : ''}</small></span>
+      <span class="bar"><i style="width:${Math.min(100, proz)}%"></i></span>
+      <span class="pt tnum">${proz}<small> %</small></span>
+    </div>`;
+  }).join('');
+
+  /* Konkreter Weg zur 90 – ein Tipp öffnet gleich die Satzeingabe */
+  const vor = gymVorschlaege(d);
+  const vBox = $('#gyTipps');
+  if (!vor.length) { vBox.innerHTML = ''; vBox.hidden = true; }
+  else {
+    vBox.hidden = false;
+    vBox.innerHTML = `<div class="fdtipp-kopf">Das bringt dich weiter</div>` + vor.map((v, i) =>
+      `<button class="fdtipp" data-gytipp="${i}">
+         <span class="ic">${esc(v.u.ico || '🏋️')}</span>
+         <span class="nm">${esc(v.u.name)}${v.grund ? ` · ${esc(v.grund)}` : ''}</span>
+         <span class="dl">+${v.delta}</span>
+       </button>`).join('');
+    $$('#gyTipps [data-gytipp]').forEach(el => el.onclick = () => openSatz(vor[+el.dataset.gytipp].u.id));
+  }
+
+  /* Sieben Tage: Balkenhöhe sind die Sätze des Tages, gemessen am
+     Tagespensum (Wochenziel Sätze geteilt durch Trainingstage). */
+  const z = gymZiele();
+  const proTag = (num(z.saetze) && num(z.einheiten)) ? z.saetze / z.einheiten : 15;
+  $('#gyWeek').innerHTML = `<div class="fdweek">` + b.woche.tage.map(t => {
+    const q = Math.min(1, proTag ? t.saetze / proTag : 0);
+    const wd = new Date(t.d + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0,2);
+    const voll = t.saetze >= proTag;
+    return `<div class="fdday ${t.d === d ? 'aktiv' : ''}" title="${dmy(t.d)}: ${t.saetze} Sätze">
+      <div class="bar"><i style="height:${Math.round(q*100)}%;background:${
+        !t.n ? 'transparent' : voll ? 'var(--good-ink)' : 'var(--acc)'}"></i></div>
+      <span>${wd}</span></div>`;
+  }).join('') + `</div>` +
+    `<p class="hint" style="margin:9px 0 0">Letzte 7 Tage: <b>${b.woche.einheiten}</b> Trainingstage
+     · <b>${b.woche.saetze}</b> Sätze${b.woche.volumen ? ` · <b>${Math.round(b.woche.volumen).toLocaleString('de-DE')}</b> kg bewegt` : ''}</p>`;
+}
+
+function gymEintragWeg(idx) {
+  const d = gymDatum(), liste = gymTag(d).slice();
+  if (idx < 0 || idx >= liste.length) return;
+  const u = gymUe(liste[idx].ueid);
+  liste.splice(idx, 1);
+  setTagWert(d, 'training', liste.length ? liste : null);
+  renderGym();
+  toast(`${u ? u.name : 'Eintrag'} entfernt.`);
+}
+
+/* ---------- Sätze eintragen ---------- */
+let szUeId = null, szIdx = -1;
+function szZeile(w, g) {
+  const div = document.createElement('div');
+  div.className = 'gysatz';
+  div.innerHTML = `<span class="nr"></span>
+    <input class="w" type="text" inputmode="numeric" autocomplete="off" placeholder="10" value="${w ?? ''}" aria-label="Wiederholungen">
+    <span class="eh">Wdh</span>
+    <input class="g" type="text" inputmode="decimal" autocomplete="off" placeholder="kg" value="${g ?? ''}" aria-label="Gewicht in Kilogramm">
+    <span class="eh">kg</span>
+    <button class="x" title="Satz entfernen">×</button>`;
+  div.querySelector('.x').onclick = () => { div.remove(); szNummern(); };
+  return div;
+}
+function szNummern() {
+  $$('#szListe .gysatz').forEach((el, i) => el.querySelector('.nr').textContent = (i + 1) + '.');
+}
+function openSatz(ueid) {
+  const u = gymUe(ueid); if (!u) return;
+  szUeId = ueid;
+  const d = gymDatum(), liste = gymTag(d);
+  szIdx = liste.findIndex(e => e.ueid === ueid);
+  const vorhanden = szIdx > -1 ? liste[szIdx] : null;
+  const letzt = gymLetzter(ueid, d);
+
+  $('#szTitle').textContent = u.name;
+  $('#szSub').textContent = (u.muskel || '') + (d === today() ? '' : ' · ' + dmy(d));
+  const lz = $('#szLetzt');
+  if (letzt) { lz.hidden = false; lz.textContent = `Zuletzt am ${dmy(letzt.d)}: ${satzText(letzt.e)}`; }
+  else { lz.hidden = true; lz.textContent = ''; }
+
+  const ausdauer = u.typ === 'ausdauer';
+  $('#szAusdauer').hidden = !ausdauer;
+  $('#szListe').hidden = ausdauer;
+  $('#szPlus').hidden = ausdauer;
+  $('#szListe').innerHTML = '';
+
+  if (ausdauer) {
+    const q = vorhanden || (letzt && letzt.e) || {};
+    $('#szMin').value = deIn(num(q.min));
+    $('#szKm').value  = deIn(num(q.km));
+  } else {
+    /* Vorbelegen: heutiger Eintrag, sonst das letzte Mal, sonst eine leere Zeile.
+       So ist Wiederholen zwei Tipps – öffnen und speichern. */
+    const quelle = vorhanden ? vorhanden.s : (letzt ? letzt.e.s : null);
+    const saetze = (quelle && quelle.length) ? quelle : [{ w:10, g:null }];
+    saetze.forEach(s => $('#szListe').appendChild(szZeile(s.w ?? '', deIn(num(s.g)))));
+    szNummern();
+  }
+  $('#szDelete').hidden = szIdx === -1;
+  $('#scrim10').classList.add('on');
+}
+function szSpeichern() {
+  const u = gymUe(szUeId); if (!u) return;
+  const d = gymDatum(), liste = gymTag(d).slice();
+  const eintrag = { ueid: szUeId, s: [], t: Date.now() };
+
+  if (u.typ === 'ausdauer') {
+    const min = numDe($('#szMin').value), km = numDe($('#szKm').value);
+    if (min === null && km === null) { toast('Bitte Minuten oder Distanz eintragen.'); return; }
+    if (min !== null) eintrag.min = min;
+    if (km !== null)  eintrag.km = km;
+  } else {
+    $$('#szListe .gysatz').forEach(el => {
+      const w = numDe(el.querySelector('.w').value);
+      const g = numDe(el.querySelector('.g').value);
+      if (w === null || w <= 0) return;                 // leere Zeilen fallen weg
+      eintrag.s.push({ w, g: g === null ? null : g });
+    });
+    if (!eintrag.s.length) { toast('Bitte mindestens einen Satz eintragen.'); return; }
+  }
+
+  const altBest = gymBest(szUeId, d);
+  if (szIdx > -1) liste[szIdx] = eintrag; else liste.push(eintrag);
+  setTagWert(d, 'training', liste);
+  $('#scrim10').classList.remove('on');
+
+  const neuBest = eintrag.s.reduce((a, s) => Math.max(a, num(s.g) || 0), 0);
+  renderGym();
+  if (neuBest > 0 && neuBest > altBest) toast(`🏆 Bestleistung: ${u.name} mit ${kg(neuBest)} kg`);
+  else toast(`${u.ico || '🏋️'} ${u.name} · ${satzText(eintrag)}`);
+}
+function szLoeschen() {
+  if (szIdx === -1) return;
+  $('#scrim10').classList.remove('on');
+  gymEintragWeg(szIdx);
+}
+
+/* ---------- Übung anlegen und ändern ---------- */
+let ubEditId = null, ubDanach = null;
+/* `danach` wird nach dem Speichern mit der id aufgerufen – so kann der
+   Plan-Dialog die frische Übung direkt übernehmen. */
+function openUebung(id, danach, muskelVorgabe) {
+  ubEditId = id || null;
+  ubDanach = danach || null;
+  const u = id ? gymUe(id) : null;
+  $('#ubTitle').textContent = u ? 'Übung bearbeiten' : 'Übung anlegen';
+  $('#ubName').value  = u?.name ?? '';
+  $('#ubIco').value   = u?.ico ?? '';
+  $('#ubTyp').value   = u?.typ ?? 'kraft';
+  $('#ubMuskel').innerHTML = MUSKELN.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
+  $('#ubMuskel').value = u?.muskel ?? muskelVorgabe ?? 'Brust';
+  $('#ubDelete').hidden = !u;
+  $('#scrim11').classList.add('on');
+  setTimeout(() => $('#ubName').focus(), 60);
+}
+function saveUebung() {
+  const name = $('#ubName').value.trim();
+  if (!name) { toast('Bitte einen Namen eintragen.'); return; }
+  const daten = { name, ico: $('#ubIco').value.trim().slice(0,4) || '🏋️',
+                  typ: $('#ubTyp').value, muskel: $('#ubMuskel').value };
+  const lib = gymLib();
+  let id = ubEditId;
+  if (id) { const u = lib.find(x => x.id === id); if (u) Object.assign(u, daten); }
+  else { id = uid(); lib.push({ id, ...daten }); }
+  $('#scrim11').classList.remove('on');
+  const danach = ubDanach;
+  ubDanach = null; ubEditId = null;
+  persist(); renderGym();
+  if (danach) danach(id); else toast('Gespeichert.');
+}
+function delUebung() {
+  const u = gymUe(ubEditId); if (!u) return;
+  if (!confirm(`„${u.name}" löschen?\n\nBereits eingetragene Einheiten bleiben im Verlauf erhalten.`)) return;
+  state.ziele.uebungen = gymLib().filter(x => x.id !== ubEditId);
+  ubEditId = null;
+  $('#scrim11').classList.remove('on');
+  persist(); renderGym(); toast('Gelöscht.');
+}
+
+/* ---------- Wochenziele ---------- */
+function openGymZiele() {
+  const z = gymZiele();
+  $('#wzEinheiten').value = deIn(z.einheiten);
+  $('#wzSaetze').value    = deIn(z.saetze);
+  $('#wzGruppen').value   = deIn(z.gruppen);
+  $('#wzMinuten').value   = deIn(z.minuten);
+  $('#scrim12').classList.add('on');
+}
+function saveGymZiele() {
+  const z = gymZiele();
+  z.einheiten = numDe($('#wzEinheiten').value);
+  z.saetze    = numDe($('#wzSaetze').value);
+  z.gruppen   = numDe($('#wzGruppen').value);
+  z.minuten   = numDe($('#wzMinuten').value);
+  if (num(z.gruppen) !== null && z.gruppen > MUSKELN.length) z.gruppen = MUSKELN.length;
+  $('#scrim12').classList.remove('on');
+  persist(); renderGym(); toast('Wochenziele gespeichert.');
+}
+
+/* ---------- Verdrahtung ---------- */
+$('#gyPlanAdd').onclick = () => openGymPlan();
+$('#gyAlleBtn').onclick = () => { gymAlle = !gymAlle; renderGym(); };
+$('#plAdd').onclick = () => {
+  const id = $('#plPick').value;
+  if (!id) { toast('Es gibt noch keine Übung zum Hinzufügen.'); return; }
+  plUeIds.push(id);                       // Wiederholungen sind erlaubt (z.B. Aufwärmsatz + Hauptübung)
+  plListeZeichnen();
+};
+$('#plNeu').onclick    = plNeueUebung;
+$('#plSave').onclick   = saveGymPlan;
+$('#plDelete').onclick = delGymPlan;
+$('#plCancel').onclick = () => { $('#scrim13').classList.remove('on'); plEditId = null; };
+$('#scrim13').onclick = e => { if (e.target === $('#scrim13')) { $('#scrim13').classList.remove('on'); plEditId = null; } };
+$('#gyAdd').onclick   = () => openUebung();
+$('#gyGoals').onclick = openGymZiele;
+$('#gyEdit').onclick  = () => {
+  gymBearbeiten = !gymBearbeiten;
+  $('#gyEdit').textContent = gymBearbeiten ? '✓ Fertig' : '✎ Übungen bearbeiten';
+  $('#gySub').textContent = gymBearbeiten
+    ? 'Antippen öffnet die Übung zum Ändern'
+    : 'Antippen trägt Sätze ein';
+};
+$('#gyPrev').onclick = () => { gymTagAnzeige = isoAdd(gymDatum(), -1); renderGym(); };
+$('#gyNext').onclick = () => {
+  const n = isoAdd(gymDatum(), 1);
+  gymTagAnzeige = n >= today() ? null : n;
+  renderGym();
+};
+$('#szPlus').onclick = () => {
+  const letzte = $$('#szListe .gysatz').slice(-1)[0];
+  const w = letzte ? letzte.querySelector('.w').value : 10;
+  const g = letzte ? letzte.querySelector('.g').value : '';
+  $('#szListe').appendChild(szZeile(w, g));
+  szNummern();
+};
+$('#szSave').onclick   = szSpeichern;
+$('#szDelete').onclick = szLoeschen;
+$('#szCancel').onclick = () => { $('#scrim10').classList.remove('on'); szUeId = null; };
+$('#scrim10').onclick = e => { if (e.target === $('#scrim10')) { $('#scrim10').classList.remove('on'); szUeId = null; } };
+$('#ubSave').onclick   = saveUebung;
+$('#ubDelete').onclick = delUebung;
+$('#ubCancel').onclick = () => { $('#scrim11').classList.remove('on'); ubEditId = null; ubDanach = null; };
+$('#scrim11').onclick = e => { if (e.target === $('#scrim11')) { $('#scrim11').classList.remove('on'); ubEditId = null; ubDanach = null; } };
+$('#wzSave').onclick   = saveGymZiele;
+$('#wzCancel').onclick = () => $('#scrim12').classList.remove('on');
+$('#scrim12').onclick = e => { if (e.target === $('#scrim12')) $('#scrim12').classList.remove('on'); };
+
+/* ============================================================
    START
    ============================================================ */
 (async function boot() {
   loadCfg(); loadHistory(); loadIntra(); loadAlertState(); updateNotifyUi();
-  essVorlagenUebernehmen();
-  suppVorlagenUebernehmen();
   loadKi(); kiUiAktualisieren();
   const zul = +lsGet(LS_LASTUPD);
   if (zul) state.lastUpdate = new Date(zul);   // sonst behauptet die Zeile beim Öffnen, es gäbe nie Kurse
@@ -5138,6 +6231,14 @@ $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classL
     if (!lsGet(LS_SEEN)) { state.positions = demoPositions(); lsSet(LS_SEEN, '1'); }
   }
   tagesSicherung();          // erst jetzt – vorher steht in state noch nichts
+  /* Vorlagen und Aufräumen ERST HIER. Davor war state.positions noch leer,
+     und der persist(false) darin hat den lokalen Datensatz mit einem leeren
+     Depot überschrieben – siehe Kommentar in boot(). Reihenfolge nicht
+     zurückdrehen. */
+  essVorlagenUebernehmen();
+  suppVorlagenUebernehmen();
+  gymVorlagenUebernehmen();
+  gymStartdatenRaus();
   $('#curEUR').setAttribute('aria-pressed', state.base==='EUR');
   $('#curUSD').setAttribute('aria-pressed', state.base==='USD');
   render(); updateSyncUi(); setTab('home');
