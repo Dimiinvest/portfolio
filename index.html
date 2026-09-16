@@ -830,6 +830,23 @@ main{position:relative;z-index:1}
 .fdweek .fdday span{font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace}
 .fdweek .fdday.aktiv .bar{outline:1px solid var(--hair-strong);outline-offset:1px}
 
+/* Score-Verlauf (neu): Monatsraster + 6-Monats-Übersicht. Tag/Woche nutzen
+   bewusst .fdscore-zeile/.fdweek weiter, dafür keine neuen Regeln nötig. */
+.sblabel{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.sbgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
+.sbcell{aspect-ratio:1;border-radius:7px;background:rgba(255,238,210,.05);display:flex;
+  align-items:center;justify-content:center;font-size:10px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--muted)}
+.sbcell.leer{color:transparent}
+.sbcell.gut{background:rgba(110,231,183,.16);color:var(--good-ink)}
+.sbcell.mittel{background:rgba(125,211,252,.14);color:var(--acc)}
+.sbcell.schlecht{background:rgba(252,165,165,.14);color:var(--bad-ink)}
+.sbcell.heute{outline:1px solid var(--hair-strong);outline-offset:1px}
+.sbmonate{display:flex;justify-content:space-between;gap:4px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
+.sbmonat{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.sbmonat .pkt{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600}
+.sbmonat .nm{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
 .fdscore-ziel{color:var(--muted);font-size:12px;margin-top:3px;
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .fdtipp-kopf{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;
@@ -1450,6 +1467,21 @@ main{position:relative;z-index:1}
       <div id="fdScoreTeile"></div>
       <div id="fdScoreTipps" hidden></div>
       <div id="fdScoreWeek"></div>
+    </div>
+  </section>
+
+  <section class="card" id="sbCard">
+    <div class="in">
+      <div class="sec-head" style="margin:0 0 12px">
+        <h2>🏆 Score-Verlauf</h2>
+      </div>
+      <div class="seg" id="sbSeg" role="group" aria-label="Zeitraum">
+        <button id="sbTag" aria-pressed="true">Tag</button>
+        <button id="sbWoche" aria-pressed="false">Woche</button>
+        <button id="sbMonat" aria-pressed="false">Monat</button>
+        <button id="sb6m" aria-pressed="false">6 Monate</button>
+      </div>
+      <div id="sbBody"></div>
     </div>
   </section>
 
@@ -2117,7 +2149,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v62 · Aurora · 16.09.2026';
+const APP_VERSION = 'v63 · Aurora · 16.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -5685,6 +5717,173 @@ function renderSupps() {
   $('#suppWeek').innerHTML = defs.length ? `<div class="fdweek">${woche.join('')}</div>` : '';
 }
 
+/* ============================================================
+   SCORE-VERLAUF
+   Erfindet keine neuen Kennzahlen – nur eine andere Sicht mit Zeiträumen
+   auf das, was es schon gibt: essBewertung() für die Ernährung, die
+   Supplement-Tagesquote hier neu als suppQuote(). Tag/Woche/Monat lesen
+   direkt aus state.tage (schnell genug, keine zweite Datenhaltung nötig).
+   Nur der 6-Monats-Verlauf bekommt eine eigene, kompakte Ablage
+   (state.ziele.scoreVerlauf) statt jedes Mal Hunderte Tage neu zu rechnen –
+   automatisch auf sechs Monate begrenzt.
+   ============================================================ */
+
+/* Tagesquote der Supplemente, analog zu essBewertung: null = an dem Tag
+   nichts zu werten (keine Supplemente definiert), sonst {genommen,gesamt,quote}. */
+function suppQuote(d) {
+  const defs = suppDefs();
+  if (!defs.length) return null;
+  const g = suppGenommen(d);
+  const genommen = defs.filter(x => g.indexOf(x.id) > -1).length;
+  return { genommen, gesamt: defs.length, quote: Math.round(genommen / defs.length * 100) };
+}
+
+/* Monat als 'YYYY-MM', n Monate vor dem aktuellen. Reine Stringrechnung wie
+   bei isoAdd – keine Date-Arithmetik mit Zeitzonenfallen. */
+function monatVor(n) {
+  const [j, m] = today().split('-').map(Number);
+  let gm = m - 1 - n, gj = j + Math.floor(gm / 12);
+  gm = ((gm % 12) + 12) % 12;
+  return gj + '-' + String(gm + 1).padStart(2, '0');
+}
+function monatTage(m) {                              // Tage im Monat 'YYYY-MM'
+  const [j, mo] = m.split('-').map(Number);
+  return new Date(j, mo, 0).getDate();
+}
+
+/* Durchschnitt von essBewertung/suppQuote über einen Monat, nur bis heute,
+   falls es der laufende ist. null, wenn an keinem Tag etwas zu werten war. */
+function scoreMonatBerechnen(m) {
+  const bisTag = m === today().slice(0, 7) ? Number(today().slice(8, 10)) : monatTage(m);
+  let esum = 0, ecount = 0, ssum = 0, scount = 0;
+  for (let t = 1; t <= bisTag; t++) {
+    const d = m + '-' + String(t).padStart(2, '0');
+    const b = essBewertung(d);
+    if (b) { esum += b.punkte; ecount++; }
+    const sq = suppQuote(d);
+    if (sq) { ssum += sq.quote; scount++; }
+  }
+  if (!ecount && !scount) return null;
+  /* essenTage/suppTage getrennt halten statt zusammenzuwerfen: suppQuote()
+     liefert für so gut wie jeden Tag einen Wert (0 % zählt als „genommen: 0",
+     sobald Supplemente definiert sind – wie schon bei suppSerie()), während
+     essBewertung() nur Tage mit echter Buchung zählt. Ein gemeinsames
+     "Tage mit Einträgen" hätte sonst Ernährungs-Tage mit Supplement-Tagen
+     vermischt und mehr Aktivität vorgetäuscht als stattgefunden hat. */
+  return { essen: ecount ? Math.round(esum / ecount) : null, essenTage: ecount,
+           supp:  scount ? Math.round(ssum / scount) : null, suppTage: scount };
+}
+
+/* Kompakte Monatsablage für den 6-Monats-Verlauf – von der App selbst
+   berechnet, deshalb persist(false) (siehe essVorlagenUebernehmen: nie ohne
+   false, sonst hält sich ein frisches Gerät für den neueren Stand und
+   überschreibt die Cloud, genau der Fehler vom 08.09.2026). Vergangene
+   Monate werden nicht neu gerechnet, nur der laufende – günstig genug, um
+   bei jedem Öffnen der 6-Monats-Ansicht zu laufen. */
+function scoreVerlaufAktualisieren() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.scoreVerlauf)) state.ziele.scoreVerlauf = [];
+  let liste = state.ziele.scoreVerlauf;
+  const grenze = monatVor(6);                        // älter als das fliegt sowieso raus
+  const aktM = today().slice(0, 7);
+  const monate = new Set([aktM]);
+  Object.keys(state.tage || {}).forEach(d => { const m = d.slice(0, 7); if (m >= grenze) monate.add(m); });
+
+  monate.forEach(m => {
+    const vorhanden = liste.find(x => x.m === m);
+    if (vorhanden && m !== aktM) return;              // vergangene Monate sind fertig
+    const agg = scoreMonatBerechnen(m);
+    if (!agg) return;
+    if (vorhanden) Object.assign(vorhanden, agg);
+    else liste.push({ m, ...agg });
+  });
+
+  liste.sort((a, b) => a.m < b.m ? -1 : a.m > b.m ? 1 : 0);
+  while (liste.length > 6) liste.shift();             // nie mehr als sechs Monate
+  state.ziele.scoreVerlauf = liste;
+  persist(false);
+}
+
+const sbFarbe = p => p >= 75 ? 'var(--good-ink)' : p >= 50 ? 'var(--acc)' : 'var(--bad-ink)';
+let sbBereich = 'tag';
+function renderScoreboard() {
+  const box = $('#sbBody'); if (!box) return;
+
+  if (sbBereich === 'tag') {
+    const d = essDatum(), b = essBewertung(d), sq = suppQuote(d);
+    box.innerHTML =
+      `<div class="fdscore-zeile"><span class="nm">Ernährung</span>
+        <span class="bar"><i style="width:${b ? b.punkte : 0}%;background:${b ? sbFarbe(b.punkte) : 'transparent'}"></i></span>
+        <span class="pt tnum">${b ? b.punkte : '—'}</span></div>
+       <div class="fdscore-zeile"><span class="nm">Supplemente</span>
+        <span class="bar"><i style="width:${sq ? sq.quote : 0}%;background:${sq ? sbFarbe(sq.quote) : 'transparent'}"></i></span>
+        <span class="pt tnum">${sq ? sq.genommen + ' / ' + sq.gesamt : '—'}</span></div>`
+      + (!b && !sq ? `<p class="hint" style="margin:10px 0 0">Noch keine Ernährungsziele bzw. Supplemente eingerichtet.</p>` : '');
+    return;
+  }
+
+  if (sbBereich === 'woche') {
+    const d = essDatum(), eWoche = [], sWoche = [];
+    for (let i = 6; i >= 0; i--) {
+      const tag = isoAdd(today(), -i);
+      const b = essBewertung(tag), sq = suppQuote(tag);
+      const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0, 2);
+      eWoche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${b ? b.punkte + ' Punkte' : 'nichts gebucht'}">
+        <div class="bar"><i style="height:${b ? b.punkte : 0}%;background:${b ? sbFarbe(b.punkte) : 'transparent'}"></i></div><span>${wd}</span></div>`);
+      sWoche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${sq ? sq.genommen + ' von ' + sq.gesamt : 'keine Supplemente'}">
+        <div class="bar"><i style="height:${sq ? sq.quote : 0}%;background:${sq ? sbFarbe(sq.quote) : 'transparent'}"></i></div><span>${wd}</span></div>`);
+    }
+    const es = essSchnitt(7);
+    const supTage = [...Array(7)].map((_, i) => suppQuote(isoAdd(today(), -i))).filter(Boolean);
+    const ss = supTage.length ? Math.round(supTage.reduce((a, x) => a + x.quote, 0) / supTage.length) : null;
+    box.innerHTML =
+      `<div class="sblabel">Ernährung</div><div class="fdweek">${eWoche.join('')}</div>` +
+      (es ? `<p class="hint" style="margin:8px 0 0">Schnitt: <b>${es.schnitt}</b> Punkte · ${es.tage} Tag${es.tage===1?'':'e'} mit Einträgen</p>` : '') +
+      `<div class="sblabel" style="margin-top:16px">Supplemente</div><div class="fdweek">${sWoche.join('')}</div>` +
+      (ss !== null ? `<p class="hint" style="margin:8px 0 0">Schnitt: <b>${ss} %</b></p>` : '');
+    return;
+  }
+
+  if (sbBereich === 'monat') {
+    const m = today().slice(0, 7), tageM = monatTage(m), heuteT = Number(today().slice(8, 10));
+    const zellen = [];
+    for (let t = 1; t <= tageM; t++) {
+      if (t > heuteT) { zellen.push(`<div class="sbcell leer"></div>`); continue; }
+      const d = m + '-' + String(t).padStart(2, '0');
+      const b = essBewertung(d);
+      const klasse = !b ? 'leer' : b.punkte >= 75 ? 'gut' : b.punkte >= 50 ? 'mittel' : 'schlecht';
+      zellen.push(`<div class="sbcell ${klasse}${d===essDatum()?' heute':''}" title="${dmy(d)}: ${b ? b.punkte + ' Punkte' : 'nichts gebucht'}">${t}</div>`);
+    }
+    const agg = scoreMonatBerechnen(m);
+    box.innerHTML = `<div class="sbgrid">${zellen.join('')}</div>` +
+      (agg ? `<p class="hint" style="margin:10px 0 0">Ernährung Ø <b>${agg.essen ?? '—'}</b>` +
+             ` · ${agg.essenTage} Tag${agg.essenTage===1?'':'e'} mit Einträgen` +
+             (agg.supp !== null ? `<br>Supplemente Ø <b>${agg.supp} %</b>` : '') + `</p>`
+           : `<p class="hint" style="margin:10px 0 0">Diesen Monat noch nichts gebucht.</p>`);
+    return;
+  }
+
+  /* 6 Monate */
+  scoreVerlaufAktualisieren();
+  const reihe = state.ziele.scoreVerlauf || [];
+  if (!reihe.length) { box.innerHTML = `<p class="hint" style="margin:10px 0 0">Noch keine Monate mit Daten.</p>`; return; }
+  const monatsname = m => new Date(m + '-01T12:00:00').toLocaleDateString('de-DE', { month:'short' });
+  box.innerHTML = gymLinie(reihe, 'essen') +
+    `<div class="sbmonate">${reihe.map(x => `<div class="sbmonat">
+       <span class="pkt" style="color:${x.essen===null?'var(--muted)':sbFarbe(x.essen)}">${x.essen ?? '—'}</span>
+       <span class="nm">${esc(monatsname(x.m))}</span></div>`).join('')}</div>` +
+    (reihe.some(x => x.supp !== null) ? `<p class="hint" style="margin:10px 0 0">Supplemente je Monat: ` +
+      reihe.map(x => `${esc(monatsname(x.m))} ${x.supp !== null ? x.supp + ' %' : '—'}`).join(' · ') + `</p>` : '');
+}
+['tag','woche','monat','6m'].forEach(k => {
+  const map = { tag:'#sbTag', woche:'#sbWoche', monat:'#sbMonat', '6m':'#sb6m' };
+  $(map[k]).onclick = () => {
+    sbBereich = k;
+    Object.values(map).forEach(s => $(s).setAttribute('aria-pressed', String(map[k] === s)));
+    renderScoreboard();
+  };
+});
+
 /* ---- Anlegen und ändern ---- */
 let suppEditId = null;
 function openSuppForm(id) {
@@ -6180,6 +6379,7 @@ $('#kiOff').onclick = () => {
 function renderFood() {
   renderScore();
   renderSupps();
+  renderScoreboard();
   const lib = essLib(), z = essZiele(), d = essDatum(), s = essSumme(d);
   const istHeute = d === today();
 
