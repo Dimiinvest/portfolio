@@ -181,7 +181,14 @@ header.top{
 .panel{padding:18px;border-radius:var(--radius);border:1px solid var(--hair);
   background:linear-gradient(165deg,rgba(255,255,255,.035),transparent 55%),var(--surface-1)}
 .panel h2{font-size:14px;font-weight:640;margin:0;letter-spacing:-.01em}
-.panel .ph{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+/* flex-wrap + min-width:0: ohne das schob die Zeitraumleiste („1T 7T 30T
+   Alles" + Delta) den Bildschirm auf 384 px auf — unter 380 px Gerätebreite
+   ließ sich das Depot also waagerecht wegschieben und „Alles" stand halb
+   draußen. Der Textblock darf jetzt schrumpfen, die Leiste notfalls umbrechen. */
+.panel .ph{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;
+  gap:10px;margin-bottom:14px}
+.panel .ph > div:first-child{min-width:0;flex:1 1 auto}
+.panel .ph .ctrls{margin-left:auto}
 .panel .ph p{margin:0;color:var(--muted);font-size:12px}
 
 /* donut */
@@ -494,6 +501,27 @@ header.top{background:rgba(9,8,7,.88)}
 nav,.tabbar{background:rgba(9,8,7,.92)}
 
 /* Aktualisierungs-Hinweis */
+/* Wie #updBar, nur rot. Bis v55 wurde ein fehlgeschlagenes localStorage-Schreiben
+   still geschluckt (storageOk=false) und stand allein im Einstellungsdialog —
+   also genau dort, wo man nicht hinsieht. Bei der Vorgeschichte vom 08.09.2026
+   muss so etwas vorne dran. */
+#lsBar{
+  position:fixed;left:0;right:0;bottom:0;z-index:9998;
+  display:none;align-items:center;gap:12px;
+  padding:14px calc(16px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  background:rgba(38,10,10,.97);border-top:1px solid var(--bad-ink);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  font-size:13.5px;color:var(--text-primary);border-radius:18px 18px 0 0;
+}
+#lsBar.show{display:flex}
+#lsBar .txt{flex:1;line-height:1.35}
+#lsBar .txt small{display:block;color:rgba(255,235,235,.72);font-size:11px;margin-top:2px}
+#lsBar button{
+  border:1px solid var(--bad-ink);background:rgba(208,59,59,.18);color:#ffd9d9;
+  padding:9px 15px;border-radius:11px;cursor:pointer;font-family:var(--font);font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+#lsBar .later{border-color:var(--hair-strong);background:none;color:var(--muted)}
+
 #updBar{
   position:fixed;left:0;right:0;bottom:0;z-index:9999;
   display:none;align-items:center;gap:12px;
@@ -575,7 +603,67 @@ body.hidden-nums [data-money]{
 #btnEye{transition:color .25s var(--sharp)}
 #btnEye.on{color:var(--acc);border-color:var(--acc)}
 
-/* ═══════════ Heute ═══════════ */
+/* ═══════════ Heute ═══════════
+   Seit v57 ein Kachelraster statt untereinandergelegter Karten: alles
+   Wichtige ohne Scrollen, je Kachel genau eine Zahl, große Ziele für den
+   Daumen. Zwei Spalten, `.breit` nimmt beide. Auf ausdrücklichen Wunsch so —
+   nicht zurück auf die Zeilenliste (.tdlink) bauen, die Regeln dafür stehen
+   nur noch da, weil der Depot-Bildschirm sie nicht nutzt und sie niemandem
+   im Weg sind. */
+.tdvhead{margin-bottom:12px}
+.tdgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tdt{position:relative;display:flex;flex-direction:column;
+  background:var(--surface-1);border:1px solid var(--hair);
+  border-radius:var(--radius);padding:14px 14px 13px;overflow:hidden;
+  -webkit-tap-highlight-color:transparent}
+/* Der Balken sitzt immer unten: sonst steht er in der einen Kachel weiter
+   oben als in der daneben, sobald ein Text zweizeilig wird. */
+.tdt > .tdbar:last-child,.tdt > .tdpkt:last-child{margin-top:auto}
+.tdt.klick{cursor:pointer;transition:border-color .2s,background .2s}
+.tdt.klick:active{border-color:var(--hair-strong);background:var(--surface-2)}
+.tdt.breit{grid-column:1/-1}
+.tdt .k{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.tdt .v{font-family:var(--mono);font-size:25px;font-weight:500;letter-spacing:-.02em;
+  margin-top:9px;line-height:1;font-variant-numeric:tabular-nums}
+.tdt .v small{font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0}
+.tdt .d{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.35}
+.tdt .ecke{position:absolute;top:12px;right:13px;font-size:15px;color:var(--muted);opacity:.7}
+.tdt .v.up{color:var(--good-ink)} .tdt .v.down{color:var(--bad-ink)}
+
+/* Score-Kachel */
+/* flex-direction ausdrücklich: .tdt stellt seit v57 auf column um, sonst
+   rutscht der Ring über den Text statt daneben. */
+.tdscore{display:flex;flex-direction:row;align-items:center;gap:16px;
+  background:linear-gradient(135deg,var(--acc-dim),transparent 70%)}
+.tdscore .ringbox{position:relative;width:84px;height:84px;flex:0 0 84px}
+.tdscore .ringbox .zahl{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);font-size:27px;font-weight:600;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums}
+.tdscore .txt{flex:1 1 auto;min-width:0}
+.tdscore h2{font-size:18px;font-weight:600;letter-spacing:-.02em;margin:0}
+.tdscore p{margin:5px 0 0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.tdscore .teile{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tdscore .teile span{font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--muted);border:1px solid var(--hair);border-radius:999px;padding:3px 8px}
+
+/* Fortschrittsbalken in der Kachel */
+.tdbar{height:4px;border-radius:999px;background:rgba(255,238,210,.09);
+  margin-top:11px;overflow:hidden;flex:0 0 auto}
+.tdbar i{display:block;height:100%;border-radius:999px;background:var(--acc);
+  transition:width .5s cubic-bezier(.2,.7,.3,1)}
+.tdbar i.gut{background:var(--good-ink)} .tdbar i.warn{background:var(--acc-warm,#E6C484)}
+.tdbar i.schlecht{background:var(--bad-ink)}
+
+/* Minikurve in der Depot-Kachel */
+.tdspark{position:absolute;left:0;right:0;bottom:0;height:40px;opacity:.5;pointer-events:none}
+.tdspark svg{display:block;width:100%;height:100%}
+
+/* Punkte für die Supplemente */
+.tdpkt{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.tdpkt i{width:9px;height:9px;border-radius:999px;border:1px solid rgba(255,238,210,.24)}
+.tdpkt i.an{background:var(--good-ink);border-color:var(--good-ink)}
+
 .tdhead{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .tdbig{font-size:40px;font-weight:300;letter-spacing:-.03em;line-height:1.05;margin-top:4px;
   font-variant-numeric:tabular-nums}
@@ -685,6 +773,17 @@ main{position:relative;z-index:1}
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .fdtile.neu{border-style:dashed;color:var(--muted);background:transparent}
 .fdempty{color:var(--muted);font-size:13.5px;line-height:1.6;padding:18px 2px}
+/* Fehlende Nährwerte ziehen die Tagessumme nach unten, ohne dass man es sieht.
+   Deshalb eine antippbare Zeile direkt unter den Balken: ein Tipp öffnet das
+   erste Lebensmittel mit Lücke. */
+.fdluecke{display:block;width:100%;text-align:left;margin-top:12px;
+  appearance:none;font:inherit;font-size:12.5px;line-height:1.45;cursor:pointer;
+  padding:10px 12px;border-radius:11px;color:#E6C484;
+  border:1px solid rgba(230,196,132,.32);background:rgba(230,196,132,.08)}
+.fdluecke b{font-weight:640}
+.fdtile .luecke{position:absolute;top:6px;left:7px;width:17px;height:17px;border-radius:99px;
+  display:grid;place-items:center;font-size:11px;font-weight:800;
+  color:#E6C484;border:1px solid rgba(230,196,132,.45);background:rgba(230,196,132,.12)}
 
 .fdrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid var(--hair)}
 .fdrow:first-child{border-top:0}
@@ -785,14 +884,34 @@ main{position:relative;z-index:1}
 .kizeile .ico{font-size:19px;flex:0 0 auto}
 .kizeile .ktx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
 .kizeile .ktx b{font-size:14px;font-weight:600;line-height:1.25}
-.kizeile .ktx small{color:var(--muted);font-size:11.5px;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis}
-.kizeile input{flex:0 0 86px;text-align:right;padding:8px 10px;font-size:14px;
+/* Umbrechen statt abschneiden: „325 kcal · 7 E · 70 KH · 1 F" passte seit v58
+   nicht mehr in eine Zeile und endete als „70…" – gerade die Makros sind aber
+   der Grund, warum man hier hinsieht. */
+.kizeile .ktx small{color:var(--muted);font-size:11.5px;line-height:1.35;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.kizeile input{flex:0 0 74px;text-align:right;padding:8px 8px;font-size:14px;
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .kizeile .eh{flex:0 0 auto;color:var(--muted);font-size:12.5px;min-width:26px}
 .kizeile .x{background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer;padding:6px 2px}
-.kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10.5px;font-weight:700;
-  background:rgba(230,196,132,.14);color:#E6C484;margin-left:6px;vertical-align:middle}
+.kizeile{align-items:flex-start}
+.kizeile input,.kizeile .eh,.kizeile .x{margin-top:2px}
+.kizeile .kiq{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:5px}
+.kizeile .kiq em{font-style:normal;color:var(--muted);font-size:11px}
+.kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;
+  font-style:normal;letter-spacing:.02em;
+  background:rgba(230,196,132,.14);color:#E6C484;vertical-align:middle}
+/* Woher die Zahlen stammen. Grün = seine eigenen Werte, blau = Hersteller,
+   neutral = Nährwerttabelle, gold = geraten. */
+.kimarke.q-liste{background:rgba(110,231,183,.13);color:var(--good-ink)}
+.kimarke.q-produkt{background:var(--acc-dim);color:var(--acc)}
+.kimarke.q-standard{background:rgba(255,238,210,.08);color:var(--text-secondary)}
+.kimarke.q-schaetzung{background:rgba(230,196,132,.14);color:#E6C484}
+.kisumme{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--hair-strong)}
+.kisumme b{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:19px;font-weight:600}
+.kisumme span{color:var(--muted);font-size:12px}
+.kifrage{margin:0 0 12px;padding:10px 12px;border-radius:11px;font-size:13px;line-height:1.45;
+  color:var(--acc);border:1px solid rgba(125,211,252,.28);background:var(--acc-dim)}
 
 /* ============ Training ============ */
 .gygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:9px}
@@ -844,6 +963,29 @@ main{position:relative;z-index:1}
 .gysatz .x:hover{color:var(--bad-ink)}
 .gyletzt{color:var(--text-secondary);font-size:12.5px;margin:0 0 12px;
   font-family:'JetBrains Mono',ui-monospace,monospace}
+/* Verlauf im Satzdialog: wie sich diese Übung über die Einheiten entwickelt hat. */
+.gyverlauf{margin:0 0 14px;padding:11px 12px;border-radius:11px;
+  border:1px solid var(--hair);background:var(--surface-1)}
+.gyverlauf .kopf{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.gyverlauf .kopf .k{flex:0 0 auto;white-space:nowrap;color:var(--muted);font-size:10px;
+  font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.gyverlauf .kopf .sp{flex:1 1 auto;min-width:4px}
+.gyverlauf .kopf .best{flex:0 0 auto;white-space:nowrap;color:var(--acc);font-size:12.5px;
+  font-weight:640;font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyverlauf .gylinebox{position:relative}
+.gyverlauf .gyline{display:block;width:100%;height:52px}
+.gyverlauf .gypunkte{position:absolute;inset:0;pointer-events:none}
+.gyverlauf .gypunkte span{position:absolute;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;
+  border-radius:99px;background:var(--surface-1);border:1.5px solid var(--acc)}
+.gyverlauf .gypunkte span.max{background:var(--acc);width:7px;height:7px;margin:-3.5px 0 0 -3.5px}
+/* Umbrechen statt überlaufen: bei 320 px stand der Satz sonst halb außerhalb
+   des Kastens. Links der Zeitraum, rechts der Sprung zum letzten Mal. */
+.gyverlauf .fuss{display:flex;flex-wrap:wrap;justify-content:space-between;
+  gap:3px 10px;margin-top:7px;color:var(--muted);font-size:10px;line-height:1.4;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyverlauf .fuss .mitte{color:var(--text-secondary)}
+.gyverlauf .fuss .mitte.auf{color:var(--good-ink)}
+.gyverlauf .fuss .mitte.ab{color:var(--bad-ink)}
 .gymuskel{display:flex;flex-wrap:wrap;gap:6px}
 .gymus{padding:5px 11px;border-radius:99px;font-size:11.5px;border:1px solid var(--hair);
   color:var(--muted);font-weight:600;background:transparent;cursor:pointer;font-family:inherit}
@@ -855,6 +997,11 @@ main{position:relative;z-index:1}
 .tab svg{width:21px;height:21px}
 .tab span{font-size:10px;white-space:nowrap}
 @media (max-width:380px){.tab span{font-size:9px}.tab{padding:7px 2px 6px}}
+
+.gyhead{display:flex;align-items:flex-start;gap:12px}
+.gytagnav{flex:0 0 auto;display:flex;align-items:center;gap:4px;padding-top:5px}
+.gytagnav span{min-width:64px;text-align:center;font-size:12.5px;color:var(--text-secondary);
+  text-shadow:0 1px 10px rgba(0,0,0,.85)}
 
 /* Trainingspläne */
 .gyplans{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:9px}
@@ -1018,6 +1165,13 @@ main{position:relative;z-index:1}
 </style>
 </head>
 <body>
+<div id="lsBar">
+  <div class="txt">Speichern klappt nicht mehr
+    <small id="lsBarWhy">Der Browser lässt keine Daten mehr ablegen – bitte jetzt exportieren.</small></div>
+  <button id="lsBarExport">Exportieren</button>
+  <button class="later" id="lsBarHide">Später</button>
+</div>
+
 <div id="updBar">
   <div class="txt">Neue Version verfügbar<small id="updVer"></small></div>
   <button class="later" id="updLater">Später</button>
@@ -1177,77 +1331,83 @@ main{position:relative;z-index:1}
 
 <!-- ========== DETAIL ========== -->
 <main class="wrap" id="viewToday" hidden>
-  <section class="card tdcard">
-    <div class="in">
-      <div class="tdhead">
-        <div>
-          <div class="label" id="tdDate">—</div>
-          <div class="tdbig"><span id="tdDone">0</span><span class="tdsep">/</span><span id="tdTotal">0</span></div>
-          <div class="tdsub" id="tdHint">—</div>
-        </div>
+  <div class="vhead tdvhead">
+    <h2>Heute</h2>
+    <p id="tdDate">—</p>
+  </div>
+
+  <div class="tdgrid">
+
+    <!-- Tagesbewertung über alle Bereiche -->
+    <section class="tdt breit tdscore" id="tdScore">
+      <div class="ringbox">
         <svg class="tdring" viewBox="0 0 84 84" aria-hidden="true">
-          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,238,210,.10)" stroke-width="9"/>
-          <circle id="tdArc" cx="42" cy="42" r="34" fill="none" stroke="var(--acc)" stroke-width="9"
+          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,238,210,.10)" stroke-width="8"/>
+          <circle id="tdArc" cx="42" cy="42" r="34" fill="none" stroke="var(--acc)" stroke-width="8"
                   stroke-linecap="round" transform="rotate(-90 42 42)"
                   stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
         </svg>
+        <div class="zahl" id="tdScoreVal">—</div>
       </div>
-      <div class="tdstrip" id="tdStrip"></div>
-    </div>
-  </section>
+      <div class="txt">
+        <h2 id="tdScoreNote">—</h2>
+        <p id="tdHint">—</p>
+        <div class="teile" id="tdScoreTeile"></div>
+      </div>
+    </section>
 
-  <section class="card">
-    <div class="in">
-      <div class="cardhead">
-        <h2>Aufgaben</h2>
+    <!-- Hinweise: Alarme und offene Sparplanraten -->
+    <section class="tdt breit" id="tdNoticeBox" hidden>
+      <div class="k" style="margin-bottom:10px">Braucht deine Aufmerksamkeit</div>
+      <div id="tdNotices"></div>
+    </section>
+
+    <section class="tdt breit klick" id="tdDepot" style="padding-bottom:36px">
+      <span class="ecke">›</span>
+      <div class="k">Depot</div>
+      <div class="v" id="tdDepotVal">—</div>
+      <div class="d" id="tdDepotPl">—</div>
+      <div class="tdspark" id="tdSpark"></div>
+    </section>
+
+    <section class="tdt klick" id="tdFood">
+      <div class="k">Ernährung</div>
+      <div class="v" id="tdFoodVal">—</div>
+      <div class="d" id="tdFoodRest">—</div>
+      <div class="tdbar"><i id="tdFoodBar" style="width:0"></i></div>
+    </section>
+
+    <section class="tdt klick" id="tdGym">
+      <div class="k" id="tdGymK">Gym</div>
+      <div class="v" id="tdGymVal">—</div>
+      <div class="d" id="tdGymRest">—</div>
+      <div class="tdbar"><i id="tdGymBar" style="width:0"></i></div>
+    </section>
+
+    <section class="tdt klick" id="tdMakro" hidden>
+      <div class="k">Eiweiß</div>
+      <div class="v" id="tdMakroVal">—</div>
+      <div class="d" id="tdMakroRest">—</div>
+      <div class="tdbar"><i id="tdMakroBar" class="gut" style="width:0"></i></div>
+    </section>
+
+    <section class="tdt klick" id="tdSupp" hidden>
+      <div class="k">Supplemente</div>
+      <div class="v" id="tdSuppVal">—</div>
+      <div class="tdpkt" id="tdSuppPkt"></div>
+      <div class="d" id="tdSuppRest">—</div>
+    </section>
+
+    <section class="tdt breit" id="tdTasks">
+      <div class="cardhead" style="margin-bottom:8px">
+        <div class="k" id="tdTaskK">Aufgaben</div>
         <button class="btn" id="tdAdd">+ Aufgabe</button>
       </div>
       <div id="tdList"></div>
-    </div>
-  </section>
+      <div class="tdstrip" id="tdStrip"></div>
+    </section>
 
-  <section class="card" id="tdDepot" style="cursor:pointer">
-    <div class="in tdlink">
-      <span class="tdlk">Depot</span>
-      <span class="tdlv tnum" id="tdDepotVal">—</span>
-      <span class="tdlp tnum" id="tdDepotPl">—</span>
-      <span class="tdlc">›</span>
-    </div>
-  </section>
-
-  <section class="card" id="tdFood" style="cursor:pointer">
-    <div class="in tdlink">
-      <span class="tdlk">Ernährung</span>
-      <span class="tdlv tnum" id="tdFoodVal">—</span>
-      <span class="tdlp tnum" id="tdFoodRest">—</span>
-      <span class="tdlc">›</span>
-    </div>
-  </section>
-
-  <section class="card" id="tdSupp" style="cursor:pointer">
-    <div class="in tdlink">
-      <span class="tdlk">Supplemente</span>
-      <span class="tdlv tnum" id="tdSuppVal">—</span>
-      <span class="tdlp tnum" id="tdSuppRest">—</span>
-      <span class="tdlc">›</span>
-    </div>
-  </section>
-
-  <section class="card" id="tdGym" style="cursor:pointer">
-    <div class="in tdlink">
-      <span class="tdlk">Training</span>
-      <span class="tdlv tnum" id="tdGymVal">—</span>
-      <span class="tdlp tnum" id="tdGymRest">—</span>
-      <span class="tdlc">›</span>
-    </div>
-  </section>
-
-  <section class="card" id="tdNoticeBox" hidden>
-    <div class="in">
-      <div class="cardhead"><h2>Braucht deine Aufmerksamkeit</h2></div>
-      <div id="tdNotices"></div>
-    </div>
-  </section>
+  </div>
 </main>
 
 <main class="wrap" id="viewFood" hidden>
@@ -1263,7 +1423,7 @@ main{position:relative;z-index:1}
                placeholder="Was hast du gegessen?" aria-label="Gegessenes eintragen">
         <button class="btn primary" id="kiGo">Eintragen</button>
       </div>
-      <p class="hint" id="kiHint" style="margin:9px 0 0">z.B. „90 g Haferflocken, 1 Whey und 2 Wraps" – zum Diktieren das Mikrofon deiner Tastatur nutzen.</p>
+      <p class="hint" id="kiHint" style="margin:9px 0 0">Schreib einfach, was du gegessen hast — Mengen und Nährwerte musst du nicht wissen. z.B. „Big Mac und mittlere Pommes" oder „Reis mit Hähnchen und Gemüse". Zum Diktieren das Mikrofon deiner Tastatur nutzen.</p>
     </div>
   </section>
 
@@ -1311,6 +1471,7 @@ main{position:relative;z-index:1}
         <div class="fdm"><div class="k">Fett</div><div class="v tnum" id="fdF">—</div>
           <div class="fdbar"><i id="fdBarF"></i></div></div>
       </div>
+      <button class="fdluecke" id="fdLuecke" hidden></button>
     </div>
   </section>
 
@@ -1347,9 +1508,16 @@ main{position:relative;z-index:1}
 </main>
 
 <main class="wrap" id="viewGym" hidden>
-  <div class="vhead">
-    <h2>Training</h2>
-    <p id="gySub">Antippen trägt Sätze ein</p>
+  <div class="vhead gyhead">
+    <div style="flex:1 1 auto;min-width:0">
+      <h2>Training</h2>
+      <p id="gySub">Antippen trägt Sätze ein</p>
+    </div>
+    <div class="gytagnav">
+      <button class="btn icon ghost" id="gyPrev" title="Tag zurück">‹</button>
+      <span class="tnum" id="gyDate">Heute</span>
+      <button class="btn icon ghost" id="gyNext" title="Tag vor">›</button>
+    </div>
   </div>
 
   <button class="wklaeuft" id="gyWeiter" hidden>
@@ -1384,23 +1552,6 @@ main{position:relative;z-index:1}
       <div id="gyTeile"></div>
       <div id="gyTipps" hidden></div>
       <div id="gyWeek"></div>
-    </div>
-  </section>
-
-  <section class="card fdday">
-    <div class="in">
-      <div class="fdtop">
-        <div>
-          <div class="label" id="gyDate">—</div>
-          <div class="fdkcal"><span id="gySaetze">0</span><i id="gySaetzeSub">Sätze</i></div>
-          <div class="fdrest" id="gyRest">—</div>
-        </div>
-        <div class="fdnav">
-          <button class="btn icon ghost" id="gyPrev" title="Tag zurück">‹</button>
-          <button class="btn icon ghost" id="gyNext" title="Tag vor">›</button>
-        </div>
-      </div>
-      <div class="gymuskel" id="gyGruppen" style="margin-top:15px"></div>
     </div>
   </section>
 
@@ -1547,6 +1698,7 @@ main{position:relative;z-index:1}
     <h3 id="szTitle">Übung</h3>
     <p class="msub" id="szSub">—</p>
     <p class="gyletzt" id="szLetzt" hidden></p>
+    <div id="szVerlauf" hidden></div>
     <div id="szListe"></div>
     <div id="szAusdauer" hidden>
       <div class="form">
@@ -1618,7 +1770,9 @@ main{position:relative;z-index:1}
   <div class="modal" role="dialog" aria-modal="true" style="width:min(480px,100%)">
     <h3>Das habe ich verstanden</h3>
     <p class="msub" id="kiSub">—</p>
+    <p class="kifrage" id="kiFrage" hidden></p>
     <div id="kiListe"></div>
+    <div class="kisumme" id="kiSumme"></div>
     <div class="mrow"><button class="btn" id="kiCancel">Abbrechen</button>
       <button class="btn primary" id="kiSave">Alles buchen</button></div>
   </div>
@@ -1959,7 +2113,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v53 · Aurora · 15.09.2026';
+const APP_VERSION = 'v58 · Aurora · 16.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2010,10 +2164,19 @@ const numDe = v => {
   if (v === null || v === undefined) return null;
   let s = String(v).trim().replace(/[\s\u00A0€$]/g, '');
   if (!s) return null;
+  const neg = s.charAt(0) === '-';
+  if (neg || s.charAt(0) === '+') s = s.slice(1);
   const k = s.lastIndexOf(','), pt = s.lastIndexOf('.');
   if (k > -1 && pt > -1) s = k > pt ? s.replace(/\./g,'').replace(',','.') : s.replace(/,/g,'');
   else if (k > -1) s = s.replace(/\./g,'').replace(',','.');
-  return (s === '' || isNaN(+s)) ? null : +s;
+  /* Nur Punkte, und zwar in lauter Dreiergruppen: das ist der deutsche
+     Tausenderpunkt. „1.000" hieß hier vorher 1 und „1.234.567" gar nichts
+     (NaN → null) — ein still falscher Betrag im Depot bzw. eine stumm
+     verworfene Eingabe. „0.5" und „1.25" bleiben Dezimalzahlen, Tausender
+     tippt dort niemand. */
+  else if (pt > -1 && /^[1-9]\d{0,2}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+  if (s === '' || isNaN(+s)) return null;
+  return neg ? -(+s) : +s;
 };
 /* und zurück ins Feld, damit dort steht, was der Nutzer auch tippen würde */
 const deIn = v => (v === null || v === undefined || v === '') ? '' : String(v).replace('.', ',');
@@ -2131,12 +2294,6 @@ function colorOf(id) {
 }
 /* Fuers Ringdiagramm: gleiche Klassenfarbe, je Position abgestuft,
    damit die Segmente unterscheidbar bleiben. */
-function shade(hex, amt) {
-  const n = parseInt(hex.slice(1), 16);
-  let r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-  const f = v => Math.max(0, Math.min(255, Math.round(amt >= 0 ? v + (255 - v) * amt : v * (1 + amt))));
-  return '#' + [f(r), f(g), f(b)].map(v => v.toString(16).padStart(2, '0')).join('');
-}
 /* Ringdiagramm und Legende: eine warme Abstufung, nach Anteil sortiert.
    Der größte Posten ist der hellste. Klassenfarben taugen hier nicht —
    mehrere Kryptos nebeneinander ergaben nur weiße Flecken.               */
@@ -3228,10 +3385,6 @@ function deletePos() {
   state.positions = state.positions.filter(p => p.id !== state.editId);
   state.editId = null; closeForm(); render(); persist(); toast('Position gelöscht.');
 }
-function quickPrice(id) {
-  openForm(id);
-  setTimeout(() => { const el = $('#fPrice'); el.focus(); el.select(); }, 90);
-}
 
 /* ---------- Nachkauf / Teilverkauf ---------- */
 let trade = { id:null, mode:'buy' };
@@ -3370,7 +3523,30 @@ function mergeHistory(a, b) {
   return [...m.values()].sort((x,y) => x.d < y.d ? -1 : 1).slice(-500);
 }
 function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ storageOk=false; return null; } }
-function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ storageOk=false; return false; } }
+function lsSet(k,v){
+  try{ localStorage.setItem(k,v); return true; }
+  catch(e){
+    storageOk = false;
+    /* Einmal pro Sitzung deutlich melden. Der häufigste Grund ist ein voller
+       Speicher (QuotaExceededError); dann hilft nur Export oder Aufräumen.
+       Vorher fiel das nur im Einstellungsdialog auf. */
+    lsWarnen(e);
+    return false;
+  }
+}
+let lsGewarnt = false;
+function lsWarnen(e) {
+  if (lsGewarnt) return;
+  lsGewarnt = true;
+  const voll = e && /quota|exceed/i.test(String(e.name) + String(e.message));
+  const bar = $('#lsBar'), why = $('#lsBarWhy');
+  if (why) why.textContent = voll
+    ? 'Der Speicher dieses Browsers ist voll. Neue Eintragungen gehen beim Schließen verloren – bitte jetzt exportieren.'
+    : 'Dieser Browser lässt kein Speichern zu (privates Fenster oder Vorschau). Neue Eintragungen gehen beim Schließen verloren – bitte jetzt exportieren.';
+  if (bar) bar.classList.add('show');
+  try { toast('Achtung: Speichern klappt nicht mehr.'); } catch(err) {}
+  try { updateSyncUi(); } catch(err) {}
+}
 
 let pushT;
 function persist(toCloud = true) {
@@ -3957,10 +4133,27 @@ function demoPositions() {
     return { ...p, id: uid(), live:false, tx, since: tx[0]?.d || null };
   });
 }
+/* Ersetzt ALLE Positionen und pusht das anschließend in die Cloud. Lief bis
+   v53 ohne jede Rückfrage — ein Fehlgriff im Menü hätte dasselbe angerichtet
+   wie der Verlust vom 08.09.2026. Deshalb: Rückfrage mit Zahl, und vorher eine
+   Sicherung, die über ⋯ → „Letzte Sicherungen" zurückzuholen ist. */
 function loadDemo() {
+  const n = state.positions.length;
+  if (n) {
+    if (!confirm(`Achtung: Demo-Daten ERSETZEN deine ${n} Position${n===1?'':'en'}.\n\n`
+      + `Sie werden auch im Cloud-Speicher überschrieben. Essen, Training und Ziele bleiben.\n\n`
+      + `Wirklich ersetzen?\n\nAbbrechen ist fast immer richtig.`)) {
+      toast('Nichts geändert.');
+      return;
+    }
+    sicherungSchreiben(normalize(payload()));      // Netz vor dem Ersetzen
+  }
   state.positions = demoPositions();
   $('#scrim2').classList.remove('on');
-  render(); persist(); toast('Demo-Daten geladen – jederzeit löschbar.'); refreshPrices(true);
+  render(); persist();
+  toast(n ? 'Demo-Daten geladen – alter Stand liegt unter „Letzte Sicherungen".'
+          : 'Demo-Daten geladen – jederzeit löschbar.');
+  refreshPrices(true);
 }
 function setBase(c) {
   state.base = c;
@@ -4078,6 +4271,8 @@ $('#oCsv').onclick = exportCsv;
 $('#oDemo').onclick = loadDemo;
 $('#oImport').onclick = () => $('#fileIn').click();
 $('#fileIn').onchange = e => { if (e.target.files[0]) importJson(e.target.files[0]); e.target.value=''; };
+$('#lsBarExport').onclick = () => exportJson();
+$('#lsBarHide').onclick   = () => $('#lsBar').classList.remove('show');
 let clearArmed = false;
 $('#oClear').onclick = e => {
   const b = e.currentTarget;
@@ -4123,6 +4318,7 @@ $('#tdDepot').onclick = () => setTab('home');
 $('#tdFood').onclick  = () => setTab('food');
 $('#tdSupp').onclick  = () => setTab('food');
 $('#tdGym').onclick   = () => setTab('gym');
+$('#tdMakro').onclick = () => setTab('food');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -4139,8 +4335,29 @@ $('#fType').onchange = () => {
   const t = $('#fType').value;
   $('#fSym').placeholder = t==='crypto' ? 'bitcoin' : t==='stock' ? 'AAPL' : t==='etf' ? 'IWDA.AS' : '(kein Symbol)';
 };
+/* Escape schloss bis v55 nur scrim, scrim2, scrim3 und scrim4 — die elf
+   Dialoge aus dem Essen- und Trainingsbereich ließen sich am PC gar nicht
+   mit der Tastatur schließen. Jetzt generisch und immer nur der OBERSTE:
+   der Übungsdialog liegt über dem Plandialog, Escape soll sich also
+   zurückblättern, nicht alles auf einmal zuklappen. Geschlossen wird über
+   den eigenen Abbrechen-Knopf des Dialogs, damit dessen Aufräumarbeit
+   (kiVorschlag leeren, Felder zurücksetzen) mitläuft. */
+function obersterDialog() {
+  const offen = $$('.scrim.on');
+  if (!offen.length) return null;
+  return offen.sort((a, b) => (+getComputedStyle(a).zIndex || 0) - (+getComputedStyle(b).zIndex || 0)).pop();
+}
+function dialogSchliessen(el) {
+  if (!el) return false;
+  const knopf = [...el.querySelectorAll('button')]
+    .find(b => /(Cancel|Close)$/.test(b.id || ''));
+  if (knopf) knopf.click(); else el.classList.remove('on');
+  return true;
+}
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeForm(); $('#scrim2').classList.remove('on'); $('#scrim3').classList.remove('on'); $('#scrim4').classList.remove('on'); }
+  if (e.key === 'Escape') {
+    if (!dialogSchliessen(obersterDialog()) && !$('#wkView').hidden) wkSchliessen();
+  }
   if (e.key === 'Enter' && $('#scrim').classList.contains('on')) saveForm();
   if (e.key === 'Enter' && $('#scrim3').classList.contains('on')) saveTrade();
 });
@@ -4289,6 +4506,63 @@ function delAufgabe(id) {
 /* Was heute wirklich Aufmerksamkeit braucht: erreichte Zielzonen,
    gerissene Stop-Losses und fällige Sparplanraten. Bisher stand das nur
    auf der Startseite – der Heute-Bildschirm war fast leer. */
+/* Eine Zahl für den ganzen Tag. Essen und Training liefern über
+   punkteFuer() schon 0–100; Aufgaben und Supplemente kommen als
+   Erfüllungsquote dazu. Gewichtet wird nur, was an dem Tag überhaupt
+   existiert — wer keine Supplemente angelegt hat, verliert dafür keine
+   Punkte (dieselbe Normierung wie in bewerteSumme). Gibt null zurück,
+   solange nichts zu bewerten ist; dann zeigt die Kachel das statt einer 0. */
+const TD_GEWICHT = { essen:35, gym:35, aufgaben:20, supps:10 };
+function tagesScore(d) {
+  const teile = [];
+  const eb = essBewertung(d);
+  if (eb) teile.push({ key:'essen', name:'Essen', punkte: eb.punkte, gewicht: TD_GEWICHT.essen });
+  const gb = gymBewertung(d);
+  if (gb) teile.push({ key:'gym', name:'Gym', punkte: gb.punkte, gewicht: TD_GEWICHT.gym });
+
+  const defs = aufgabenDefs();
+  if (defs.length) {
+    const f = erledigt(d).filter(id => defs.some(x => x.id === id)).length;
+    teile.push({ key:'aufgaben', name:'Aufgaben', punkte: Math.round(f / defs.length * 100),
+                 gewicht: TD_GEWICHT.aufgaben, text: `${f}/${defs.length}` });
+  }
+  const sd = suppDefs();
+  if (sd.length) {
+    const g = suppGenommen(d), f = sd.filter(x => g.indexOf(x.id) > -1).length;
+    teile.push({ key:'supps', name:'Supps', punkte: Math.round(f / sd.length * 100),
+                 gewicht: TD_GEWICHT.supps, text: `${f}/${sd.length}` });
+  }
+  if (!teile.length) return null;
+  const gw = teile.reduce((a, t) => a + t.gewicht, 0);
+  return { punkte: Math.round(teile.reduce((a, t) => a + t.punkte * t.gewicht, 0) / gw), teile };
+}
+
+/* Minikurve für die Depot-Kachel — handgeschriebenes SVG wie alle
+   Diagramme hier. preserveAspectRatio="none" streckt sie in die Breite;
+   deshalb keine Kreise darin, die würden zu Eiern. */
+function tdSparkline(reihe) {
+  if (!reihe || reihe.length < 2) return '';
+  const w = 400, h = 42;
+  const werte = reihe.map(x => x.v);
+  const min = Math.min(...werte), max = Math.max(...werte);
+  const spanne = (max - min) || (max || 1);
+  const x = i => i * w / (werte.length - 1);
+  const y = v => h - 3 - ((v - min) / spanne) * (h - 8);
+  const pfad = werte.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  const auf = werte[werte.length - 1] >= werte[0];
+  const farbe = auf ? 'var(--good-ink)' : 'var(--bad-ink)';
+  const gid = 'tdsp' + (auf ? 'u' : 'd');
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${auf ? '#6EE7B7' : '#FCA5A5'}" stop-opacity=".30"/>
+      <stop offset="1" stop-color="${auf ? '#6EE7B7' : '#FCA5A5'}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${pfad} L${w} ${h} L0 ${h} Z" fill="url(#${gid})"/>
+    <path d="${pfad}" fill="none" stroke="${farbe}" stroke-width="1.6"
+          stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </svg>`;
+}
+
 function renderTodayNotices() {
   const box = $('#tdNotices'), sec = $('#tdNoticeBox');
   if (!box || !sec) return;
@@ -4322,26 +4596,156 @@ function renderTodayNotices() {
 }
 
 function renderToday() {
-  const defs = aufgabenDefs(), d = today(), fertig = erledigt(d);
+  const d = today(), defs = aufgabenDefs(), fertig = erledigt(d);
   const aktiv = fertig.filter(id => defs.some(x => x.id === id)).length;
 
   $('#tdDate').textContent = new Date(d + 'T12:00:00')
     .toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long' });
-  $('#tdDone').textContent  = aktiv;
-  $('#tdTotal').textContent = defs.length;
 
-  const quote = defs.length ? aktiv / defs.length : 0;
+  /* ---------- Tagesbewertung ---------- */
+  const ts = tagesScore(d);
   const U = 2 * Math.PI * 34;
-  $('#tdArc').setAttribute('stroke-dashoffset', String(U * (1 - quote)));
-  $('#tdHint').textContent = !defs.length
-    ? 'Noch keine Aufgaben angelegt.'
-    : aktiv === defs.length ? 'Alles erledigt für heute.'
-    : `Noch ${defs.length - aktiv} offen.`;
+  const zahl = $('#tdScoreVal'), arc = $('#tdArc');
+  if (!ts) {
+    zahl.textContent = '—'; zahl.className = 'zahl';
+    arc.setAttribute('stroke-dashoffset', String(U));
+    $('#tdScoreNote').textContent = 'Noch nichts eingetragen';
+    $('#tdHint').textContent = 'Sobald du Essen, Training oder Aufgaben führst, steht hier eine Zahl für den ganzen Tag.';
+    $('#tdScoreTeile').innerHTML = '';
+  } else {
+    /* Morgens ist alles zwangsläufig null – das ist kein schlechter Tag,
+       sondern ein junger. Muss vor der Ringfarbe stehen. */
+    const angefangen = ts.teile.some(x => x.punkte > 0);
+    zahl.textContent = ts.punkte;
+    zahl.className = 'zahl ' + (angefangen ? NOTE_KLASSE(ts.punkte) : '');
+    arc.setAttribute('stroke-dashoffset', String(U * (1 - Math.min(1, ts.punkte / 100))));
+    arc.setAttribute('stroke', !angefangen ? 'var(--acc)'
+                             : ts.punkte >= ZIEL_SCORE ? 'var(--good-ink)'
+                             : ts.punkte >= 65 ? 'var(--acc)' : 'var(--bad-ink)');
+    $('#tdScoreNote').textContent = angefangen ? NOTE(ts.punkte) : 'Der Tag fängt an';
+    $('#tdHint').textContent = !angefangen
+      ? `Noch nichts eingetragen. Ziel für heute sind ${ZIEL_SCORE} Punkte.`
+      : ts.punkte >= ZIEL_SCORE
+        ? `Ziel von ${ZIEL_SCORE} geschafft.`
+        : `Noch ${ZIEL_SCORE - ts.punkte} Punkte bis zum Ziel von ${ZIEL_SCORE}.`;
+    $('#tdScoreTeile').innerHTML = ts.teile
+      .map(t => `<span>${esc(t.name)} ${t.text || t.punkte}</span>`).join('');
+  }
 
-  /* Aufgabenliste */
+  renderTodayNotices();
+
+  /* ---------- Depot ---------- */
+  const t = totals('all'), hatKurse = t.known > 0;
+  const dv = $('#tdDepotVal'), dp = $('#tdDepotPl');
+  if (!state.positions.length) {
+    dv.textContent = '—'; dv.className = 'v';
+    dp.textContent = 'Noch keine Positionen angelegt';
+    $('#tdSpark').innerHTML = '';
+  } else {
+    dv.textContent = hatKurse ? fmt(t.val, 0) : fmt(t.inv, 0);
+    dv.className = 'v';
+    dp.innerHTML = hatKurse
+      ? `<span class="${sign(t.pl)}">${(t.pl >= 0 ? '+' : '') + fmt(t.pl, 0)} · ${pct(t.plPct)}</span>`
+        + ` · ${t.count} Position${t.count === 1 ? '' : 'en'}`
+      : `${t.count} Position${t.count === 1 ? '' : 'en'} · warte auf Kurse`;
+    $('#tdSpark').innerHTML = tdSparkline(histSeries('all', '30'));
+  }
+
+  /* ---------- Ernährung ---------- */
+  const ez = essZiele(), es = essSumme(d), eb = essBewertung(d);
+  const fv = $('#tdFoodVal'), fr = $('#tdFoodRest'), fb = $('#tdFoodBar');
+  fv.innerHTML = `${Math.round(es.kcal).toLocaleString('de-DE')} <small>kcal</small>`;
+  fv.className = 'v';
+  if (num(ez.kcal)) {
+    const rest = Math.round(ez.kcal - es.kcal);
+    fr.textContent = rest >= 0
+      ? `noch ${rest.toLocaleString('de-DE')} von ${(+ez.kcal).toLocaleString('de-DE')}`
+      : `${Math.abs(rest).toLocaleString('de-DE')} über dem Ziel`;
+    const q = Math.min(1, es.kcal / ez.kcal);
+    fb.style.width = Math.round(q * 100) + '%';
+    fb.className = rest >= 0 ? '' : 'schlecht';
+  } else {
+    fr.textContent = es.n ? `${es.n} Portion${es.n === 1 ? '' : 'en'} · kein Ziel gesetzt` : 'Noch nichts gebucht';
+    fb.style.width = '0';
+  }
+  if (eb) { fv.innerHTML = `${eb.punkte} <small>Punkte</small>`; fv.className = 'v ' + NOTE_KLASSE(eb.punkte);
+            fr.textContent = num(ez.kcal)
+              ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')} kcal`
+              : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`; }
+
+  /* ---------- Eiweiß: die Kennzahl, auf die es dem Nutzer ankommt ---------- */
+  const mk = $('#tdMakro');
+  if (!num(ez.p)) mk.hidden = true;
+  else {
+    mk.hidden = false;
+    const rest = Math.round(ez.p - es.p);
+    $('#tdMakroVal').innerHTML = `${Math.round(es.p)} <small>/ ${Math.round(ez.p)} g</small>`;
+    $('#tdMakroRest').textContent = rest > 0 ? `noch ${rest} g bis zum Ziel` : 'Ziel erreicht';
+    const b = $('#tdMakroBar');
+    b.style.width = Math.round(Math.min(1, es.p / ez.p) * 100) + '%';
+    b.className = rest > 0 ? '' : 'gut';
+  }
+
+  /* ---------- Gym: Wochenwert, siehe Kommentar im Trainingsteil ---------- */
+  const gLib = gymLib(), gBox = $('#tdGym');
+  gBox.hidden = !gLib.length;
+  if (gLib.length) {
+    const laeuft = typeof wkLaeuft === 'function' && wkLaeuft(d);
+    const gv = $('#tdGymVal'), gr = $('#tdGymRest'), gb2 = $('#tdGymBar');
+    if (laeuft) {
+      /* Läuft ein Workout, interessiert nicht die Woche, sondern wie weit
+         der heutige Plan ist. */
+      const plan = gymPlanDesTages(d), ue = plan ? planUe(plan) : [];
+      const liste = gymTag(d);
+      const fertigUe = ue.filter(x => {
+        const e = liste.find(y => y.ueid === x.id);
+        return e && satzZahl(e) >= x.n;
+      }).length;
+      $('#tdGymK').textContent = 'Gym · läuft';
+      gv.innerHTML = ue.length ? `${fertigUe} <small>/ ${ue.length} Übungen</small>`
+                               : `${liste.reduce((a, e) => a + satzZahl(e), 0)} <small>Sätze</small>`;
+      gv.className = 'v';
+      gr.textContent = (plan ? plan.name + ' · ' : 'Freies Training · ') + 'Workout läuft';
+      gb2.style.width = (ue.length ? Math.round(fertigUe / ue.length * 100) : 0) + '%';
+      gb2.className = 'gut';
+    } else {
+      const gbew = gymBewertung(d), gw = gymWoche(d), gz = gymZiele();
+      $('#tdGymK').textContent = 'Gym';
+      if (gbew) { gv.innerHTML = `${gbew.punkte} <small>Punkte</small>`; gv.className = 'v ' + NOTE_KLASSE(gbew.punkte); }
+      else      { gv.innerHTML = '<small>noch kein Ziel</small>'; gv.className = 'v'; }
+      /* kurz halten – „… in 7 Tagen" brach die Kachel zweizeilig um und die
+         Nachbarkachel sah dann anders aus als diese. */
+      gr.textContent = `${gw.einheiten} Tag${gw.einheiten === 1 ? '' : 'e'} · `
+        + `${gw.saetze} ${gw.saetze === 1 ? 'Satz' : 'Sätze'}`;
+      const zt = num(gz.einheiten);
+      gb2.style.width = (zt ? Math.round(Math.min(1, gw.einheiten / zt) * 100) : 0) + '%';
+      gb2.className = '';
+    }
+  }
+
+  /* ---------- Supplemente ---------- */
+  const sDefs = suppDefs(), sGen = suppGenommen(d), sBox = $('#tdSupp');
+  sBox.hidden = !sDefs.length;
+  if (sDefs.length) {
+    const sFertig = sDefs.filter(x => sGen.indexOf(x.id) > -1).length;
+    $('#tdSuppVal').innerHTML = `${sFertig} <small>/ ${sDefs.length}</small>`;
+    $('#tdSuppVal').className = 'v' + (sFertig === sDefs.length ? ' up' : '');
+    $('#tdSuppPkt').innerHTML = sDefs
+      .map(x => `<i class="${sGen.indexOf(x.id) > -1 ? 'an' : ''}" title="${esc(x.name)}"></i>`).join('');
+    const offen = sDefs.filter(x => sGen.indexOf(x.id) === -1);
+    const serie = suppSerie();
+    $('#tdSuppRest').textContent = offen.length
+      ? (offen.length <= 2 ? 'offen: ' + offen.map(x => x.name).join(', ') : `${offen.length} offen`)
+      : (serie ? `${serie} Tag${serie === 1 ? '' : 'e'} am Stück` : 'alles genommen');
+  }
+
+  /* ---------- Aufgaben ---------- */
+  $('#tdTaskK').textContent = defs.length
+    ? `Aufgaben · ${defs.length - aktiv === 0 ? 'alle erledigt' : (defs.length - aktiv) + ' offen'}`
+    : 'Aufgaben';
   $('#tdList').innerHTML = !defs.length
     ? `<div class="tdempty">Leg dir ein paar Dinge an, die du täglich schaffen willst — trinken, lesen, spazieren. Ein Tipp hakt sie ab.</div>`
-    : defs.map(a => `<div class="task ${fertig.indexOf(a.id)>-1?'on':''}" data-t="${a.id}">
+    : defs.map(a => `<div class="task ${fertig.indexOf(a.id) > -1 ? 'on' : ''}" data-t="${a.id}">
          <span class="box">✓</span><span class="nm">${esc(a.name)}</span>
          <button class="del" data-del="${a.id}" title="Entfernen">×</button></div>`).join('');
   $$('#tdList .task').forEach(el => el.onclick = ev => {
@@ -4350,85 +4754,21 @@ function renderToday() {
   });
   $$('#tdList [data-del]').forEach(b => b.onclick = ev => { ev.stopPropagation(); delAufgabe(b.dataset.del); });
 
-  /* Sieben-Tage-Streifen */
+  /* Sieben-Tage-Streifen – bleibt, er zeigt die Serie auf einen Blick */
   const strip = [];
-  for (let i = 6; i >= 0; i--) {
-    const dd = isoAdd(d, -i);
-    const f = erledigt(dd).filter(id => defs.some(x => x.id === id)).length;
-    const q = defs.length ? Math.min(1, f / defs.length) : 0;
-    const wd = new Date(dd + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
-    strip.push(`<div class="tdday ${i===0?'heute':''}" title="${dmy(dd)}: ${f} von ${defs.length}">
-      <div class="bar"><i style="height:${Math.round(q*100)}%"></i></div><span>${wd}</span></div>`);
-  }
-  $('#tdStrip').innerHTML = strip.join('');
-
-  /* Depot-Zeile */
-  renderTodayNotices();
-
-  /* Ernährung: derselbe Blick wie beim Depot – Stand und was noch geht */
-  const ez = essZiele(), es = essSumme(today());
-  const fv = $('#tdFoodVal'), fr = $('#tdFoodRest');
-  if (fv && fr) {
-    fv.textContent = num(ez.kcal)
-      ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')}`
-      : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`;
-    if (num(ez.kcal)) {
-      const rest = Math.round(ez.kcal - es.kcal);
-      fr.textContent = rest >= 0 ? `${rest.toLocaleString('de-DE')} übrig` : `${Math.abs(rest).toLocaleString('de-DE')} drüber`;
-      fr.className = 'tdlp tnum ' + (rest >= 0 ? '' : 'down');
-    } else { fr.textContent = es.n ? `${es.n} Portion${es.n===1?'':'en'}` : '—'; fr.className = 'tdlp tnum'; }
-    /* Punktzahl gleich mitnehmen – dafür ist der Heute-Bildschirm da */
-    const bew = essBewertung(today());
-    if (bew) {
-      fv.textContent = `${bew.punkte} Punkte`;
-      fv.className = 'tdlv tnum ' + NOTE_KLASSE(bew.punkte);
-      fr.textContent = num(ez.kcal)
-        ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')} kcal`
-        : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`;
-      fr.className = 'tdlp tnum';
+  const zeigStrip = defs.length > 0;
+  $('#tdStrip').hidden = !zeigStrip;
+  if (zeigStrip) {
+    for (let i = 6; i >= 0; i--) {
+      const dd = isoAdd(d, -i);
+      const f = erledigt(dd).filter(id => defs.some(x => x.id === id)).length;
+      const q = defs.length ? Math.min(1, f / defs.length) : 0;
+      const wd = new Date(dd + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0,2);
+      strip.push(`<div class="tdday ${i === 0 ? 'heute' : ''}" title="${dmy(dd)}: ${f} von ${defs.length}">
+        <div class="bar"><i style="height:${Math.round(q*100)}%"></i></div><span>${wd}</span></div>`);
     }
-  }
-
-  /* Supplemente – gleicher Blick wie Depot und Ernährung */
-  const sDefs = suppDefs(), sGen = suppGenommen(today());
-  const sFertig = sDefs.filter(x => sGen.indexOf(x.id) > -1).length;
-  const sv = $('#tdSuppVal'), sr = $('#tdSuppRest'), sBox = $('#tdSupp');
-  if (sBox) {
-    sBox.hidden = !sDefs.length;
-    if (sDefs.length) {
-      sv.textContent = `${sFertig} / ${sDefs.length}`;
-      sv.className = 'tdlv tnum ' + (sFertig === sDefs.length ? 'up' : '');
-      const offen = sDefs.filter(x => sGen.indexOf(x.id) === -1);
-      sr.textContent = offen.length
-        ? (offen.length <= 2 ? 'offen: ' + offen.map(x => x.name).join(', ') : `${offen.length} offen`)
-        : 'alles genommen';
-      sr.className = 'tdlp tnum';
-    }
-  }
-
-  /* Training – anders als Essen ein Wochenwert, siehe Kommentar dort */
-  const gLib = gymLib(), gBox = $('#tdGym');
-  if (gBox) {
-    gBox.hidden = !gLib.length;
-    if (gLib.length) {
-      const gb = gymBewertung(today()), gw = gymWoche(today());
-      const gv = $('#tdGymVal'), gr = $('#tdGymRest');
-      if (gb) { gv.textContent = `${gb.punkte} Punkte`; gv.className = 'tdlv tnum ' + NOTE_KLASSE(gb.punkte); }
-      else    { gv.textContent = '—'; gv.className = 'tdlv tnum'; }
-      gr.textContent = `${gw.einheiten} Tag${gw.einheiten === 1 ? '' : 'e'} · ${gw.saetze} ${gw.saetze === 1 ? 'Satz' : 'Sätze'} in 7 Tagen`;
-      gr.className = 'tdlp tnum';
-    }
-  }
-
-  const t = totals('all');
-  const hatKurse = t.known > 0;
-  $('#tdDepotVal').textContent = hatKurse ? fmt(t.val, 0) : '—';
-  const pl = $('#tdDepotPl');
-  if (!hatKurse) { pl.textContent = '—'; pl.className = 'tdlp tnum'; }
-  else {
-    pl.textContent = (t.pl >= 0 ? '+' : '') + fmt(t.pl, 0);
-    pl.className = 'tdlp tnum ' + sign(t.pl);
-  }
+    $('#tdStrip').innerHTML = strip.join('');
+  } else $('#tdStrip').innerHTML = '';
 }
 
 /* ---------- SUCHEN ---------- */
@@ -4952,6 +5292,30 @@ function essTag(d) {
   const t = (state.tage || {})[d];
   return Array.isArray(t && t.essen) ? t.essen : [];
 }
+/* Welche Nährwerte fehlen bei einem Lebensmittel? Reis und große Wraps haben
+   keinen Fettwert, Käse und Kefir weder Kohlenhydrate noch Fett — solange das
+   so ist, sind die Makros dieser Tage ZU NIEDRIG gerechnet, und zwar still.
+   Leer (null/undefined) heißt „nicht eingetragen", eine ausdrückliche 0 heißt
+   „enthält nichts" und gilt als vollständig. */
+const NW_NAMEN = { p:'Eiweiß', k:'Kohlenhydrate', f:'Fett' };
+function lmFehlend(l) {
+  if (!l) return [];
+  return ['p','k','f'].filter(key => num(l[key]) === null);
+}
+/* Alles, was an einem Tag gebucht ist und Lücken hat – je Lebensmittel einmal. */
+function essLuecken(d) {
+  const lib = essLib(), raus = [];
+  const gesehen = {};
+  essTag(d).forEach(e => {
+    if (gesehen[e.lid]) return;
+    gesehen[e.lid] = 1;
+    const l = lib.find(x => x.id === e.lid); if (!l) return;
+    const f = lmFehlend(l);
+    if (f.length) raus.push({ l, fehlt: f });
+  });
+  return raus;
+}
+
 function essSumme(d) {
   const lib = essLib(), s = { kcal:0, p:0, k:0, f:0, n:0 };
   essTag(d).forEach(e => {
@@ -5385,9 +5749,13 @@ const normal = s => String(s || '').toLowerCase()
   .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 
 /* Zerlegt „90g Haferflocken, 1 Whey und 2 Wraps" in einzelne Angaben. */
+/* Auch an „mit" trennen: „Reis mit Hähnchen" sind zwei Lebensmittel, und
+   findeLm liefert je Stück nur EINEN Treffer — vorher fiel das Hähnchen
+   damit still unter den Tisch, es landete nicht einmal bei der KI.
+   \bmit\b greift nicht in „Pommes mittel" hinein, die Wortgrenze schützt. */
 function textTeile(text) {
   return String(text || '')
-    .split(/[,;\n]|\bund\b|\bsowie\b|\bdazu\b|\bplus\b/i)
+    .split(/[,;\n+&]|\bund\b|\bsowie\b|\bdazu\b|\bplus\b|\bmit\b|\bnebenbei\b/i)
     .map(t => t.trim()).filter(t => t.length > 1);
 }
 /* Zahl + Einheit aus einem Stück lesen – egal ob davor oder dahinter. */
@@ -5404,10 +5772,21 @@ function mengeAusText(t) {
 }
 /* Bestes Lebensmittel zu einem Suchbegriff. Bewertet: ganze Wörter zählen
    mehr als Teiltreffer, kürzere Namen gewinnen bei gleichem Treffer. */
+/* Füllwörter. „Mittags hatte ich Reis mit Hähnchen" traf sonst „Pommes
+   mittel", weil das Wörtchen „mit" als Teilstring in „mittel" steckt und
+   allein schon die Trefferschwelle riss. Beim Teilstring gilt deshalb
+   zusätzlich eine Mindestlänge — drei Buchstaben stecken in zu vielem drin. */
+const FUELLWORT = new Set(['und','mit','ohne','ich','war','bei','beim','vom','von','aus','auf',
+  'der','die','das','den','dem','des','ein','eine','einen','einem','einer','eines',
+  'hab','habe','hatte','hatten','heute','gestern','dann','noch','nur','etwas','bisschen',
+  'zum','zur','fuer','als','wie','sehr','ganz','halb','paar','auch','schon','wieder',
+  'morgens','mittags','abends','nachmittags','vormittags','nachts','fruehstueck',
+  'mittagessen','abendessen','snack','zwischendurch','gegessen','getrunken','essen']);
+
 function findeLm(suche) {
   const s = normal(suche);
   if (!s) return null;
-  const woerter = s.split(' ').filter(w => w.length > 2);
+  const woerter = s.split(' ').filter(w => w.length > 2 && !FUELLWORT.has(w));
   let best = null, bestWert = 0;
   essLib().forEach(l => {
     const n = normal(l.name);
@@ -5417,10 +5796,10 @@ function findeLm(suche) {
     else {
       woerter.forEach(w => {
         if (nw.includes(w)) wert += 10;
-        else if (n.includes(w)) wert += 6;
+        else if (w.length >= 4 && n.includes(w)) wert += 6;
         else if (w.length >= 5 && nw.some(x => x.startsWith(w.slice(0,5)))) wert += 4;
       });
-      nw.forEach(w => { if (w.length > 2 && s.includes(w)) wert += 3; });
+      nw.forEach(w => { if (w.length >= 4 && !FUELLWORT.has(w) && s.includes(w)) wert += 3; });
     }
     if (wert > bestWert || (wert === bestWert && wert > 0 && best && n.length < normal(best.name).length)) {
       best = l; bestWert = wert;
@@ -5446,7 +5825,7 @@ function erkenneText(text) {
       faktor = n; menge = bz.menge * n;
     }
     treffer.push({ lid: gef.l.id, name: gef.l.name, ico: gef.l.ico, faktor,
-                   menge: Math.round(menge * 100) / 100, einheit: bz.einheit, quelle: 'eigen' });
+                   menge: Math.round(menge * 100) / 100, einheit: bz.einheit, quelle: 'liste' });
   });
   return { treffer, offen };
 }
@@ -5478,19 +5857,61 @@ function waehleModell(liste) {
 async function kiFragen(text, offeneTeile) {
   if (!ki.an || !ki.key || !ki.modell) return [];
   const lib = essLib().map(l => ({ id:l.id, name:l.name, menge:bezug(l).menge, einheit:bezug(l).einheit }));
+  /* Der Auftrag ist bewusst ausführlich. Der Nutzer soll Nährwerte, Zutaten und
+     Mengen NICHT kennen müssen – er schreibt „war bei McDonald's, Big Mac und
+     mittlere Pommes" und bekommt richtige Zahlen. Alles, was hier nicht
+     dransteht, macht das Modell nach Gutdünken; jeder Satz hat einen Grund. */
   const anweisung =
-`Du hilfst beim Ernährungstagebuch. Der Nutzer schreibt auf Deutsch, was er gegessen hat.
-Ordne jede Angabe einem Lebensmittel aus SEINER Liste zu, wenn es passt – dann nur "id" und die Menge.
-Nur wenn nichts passt, schätze die Nährwerte selbst und setz "geschaetzt" auf true.
-Mengen ohne Einheit sind Portionen/Stück. Antworte ausschließlich mit JSON.
+`Du führst das Ernährungstagebuch eines deutschsprachigen Nutzers. Er beschreibt in normaler
+Sprache, was er gegessen hat. Er kennt weder Nährwerte noch Zutaten noch Grammangaben –
+das ist DEINE Aufgabe. Liefere immer ein Ergebnis, verweigere nie wegen fehlender Angaben.
 
-Seine Liste:
+SO GEHST DU VOR
+1. Zerlege den Text in einzelne Lebensmittel und Getränke. Zusammengesetzte Gerichte
+   trennst du in ihre Bestandteile: „Reis mit Hähnchen und Gemüse" wird zu drei Einträgen.
+   Ein Markenprodukt bleibt EIN Eintrag: ein Big Mac wird nicht in Brötchen und Fleisch zerlegt.
+2. Passt etwas zu einem Lebensmittel aus SEINER Liste, nimm das – dann nur "id" und die Menge,
+   keine Nährwerte. Seine eigenen Werte sind genauer als deine.
+3. Sonst bestimmst du die Nährwerte selbst, in dieser Reihenfolge:
+   a) Marken- und Restaurantprodukte (Big Mac, Döner, Snickers, Whey einer bestimmten Marke,
+      Produkte von Lidl/Aldi/Rewe): nimm die offiziellen Herstellerangaben, soweit du sie
+      kennst. quelle = "produkt".
+   b) Allgemeine Lebensmittel (Banane, Hähnchenbrust, Vollkornbrot): Standardnährwerte aus
+      den üblichen Nährwerttabellen. quelle = "standard".
+   c) Nur wenn du beides nicht sicher weißt: realistisch schätzen. quelle = "schaetzung".
+   Rate nie einfach drauflos, wenn du den Wert eigentlich kennst.
+
+MENGEN
+- Steht eine Menge da, nimm sie.
+- Steht keine da, nimm eine realistische übliche Portion und trag sie ein. Der Nutzer sieht
+  und ändert sie hinterher, also lieber eine vernünftige Annahme als eine Rückfrage.
+- Umgangssprachliche Mengen rechnest du in Gramm oder Milliliter um, zum Beispiel:
+  1 Banane ≈ 120 g essbar, 1 Ei ≈ 60 g, 1 Scheibe Brot ≈ 45 g, 1 Scheibe Käse ≈ 25 g,
+  1 Handvoll Nüsse ≈ 30 g, 1 Teller Nudeln ≈ 250 g gekocht, 1 Schüssel Müsli ≈ 60 g,
+  1 Glas ≈ 250 ml, 1 Tasse ≈ 200 ml, 1 EL Öl ≈ 10 g, 1 TL Zucker ≈ 5 g, 1 Portion Fleisch ≈ 150 g.
+- Achte auf roh oder gekocht. Sagt der Nutzer „Reis" ohne Zusatz, ist gekochter Reis gemeint
+  (etwa ein Drittel der Nährwerte von rohem). Bei „80 g Haferflocken" ist die Rohmenge gemeint.
+- Einheit: "g", "ml" oder "Stk". Bei Stückware wie Eiern oder einem Big Mac nimm "Stk" und gib
+  die Nährwerte pro Stück an.
+
+WEITERE REGELN
+- Die Nährwerte gelten immer für GENAU die Menge, die du einträgst – nicht pro 100 g.
+- "hinweis" ist eine sehr kurze deutsche Notiz zu deiner Annahme, wenn du eine getroffen hast
+  ("mittlere Portion angenommen", "gekocht"). Sonst leer lassen.
+- Frag nur zurück, wenn die fehlende Angabe das Ergebnis WIRKLICH stark ändert und keine
+  vernünftige Standardannahme möglich ist. Dann füllst du "rueckfrage" mit einer kurzen
+  deutschen Frage und trägst trotzdem deine beste Annahme ein.
+- Alle Namen auf Deutsch, kurz und erkennbar ("Big Mac", "Pommes mittel", "Hähnchenbrust").
+- Wähle zu jedem neuen Eintrag ein passendes Emoji als "ico".
+- Antworte ausschließlich mit JSON nach dem vorgegebenen Schema.
+
+SEINE LEBENSMITTEL-LISTE
 ${JSON.stringify(lib)}
 
-Sein Text:
+SEIN TEXT
 ${text}
 
-Diese Teile konnte die App nicht zuordnen, kümmere dich vor allem darum:
+DIESE TEILE KONNTE DIE APP NICHT ZUORDNEN – kümmere dich vor allem darum:
 ${JSON.stringify(offeneTeile)}`;
 
   const body = {
@@ -5502,12 +5923,15 @@ ${JSON.stringify(offeneTeile)}`;
         type:'OBJECT',
         properties: {
           eintraege: { type:'ARRAY', items: { type:'OBJECT', properties: {
-            id:{type:'STRING'}, name:{type:'STRING'},
+            id:{type:'STRING'}, name:{type:'STRING'}, ico:{type:'STRING'},
             menge:{type:'NUMBER'}, einheit:{type:'STRING'},
             kcal:{type:'NUMBER'}, eiweiss:{type:'NUMBER'},
             kohlenhydrate:{type:'NUMBER'}, fett:{type:'NUMBER'},
-            geschaetzt:{type:'BOOLEAN'}
-          }}}
+            /* produkt = Herstellerangabe, standard = Nährwerttabelle,
+               schaetzung = geraten. Steht in der Liste als Marke. */
+            quelle:{type:'STRING'}, hinweis:{type:'STRING'}
+          }}},
+          rueckfrage:{type:'STRING'}
         }
       }
     }
@@ -5518,6 +5942,7 @@ ${JSON.stringify(offeneTeile)}`;
   const j = await r.json();
   const roh = j?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
   let daten; try { daten = JSON.parse(roh); } catch(e) { throw new Error('Antwort nicht lesbar'); }
+  kiRueckfrage = String(daten.rueckfrage || '').trim();
   return (daten.eintraege || []).map(e => {
     const l = e.id ? essLib().find(x => x.id === e.id) : null;
     if (l) {
@@ -5526,17 +5951,32 @@ ${JSON.stringify(offeneTeile)}`;
       const faktor = (e.einheit && e.einheit !== 'Stk') ? menge / bz.menge : menge;
       return { lid:l.id, name:l.name, ico:l.ico, faktor,
                menge: Math.round((e.einheit && e.einheit !== 'Stk' ? menge : bz.menge*menge) * 100)/100,
-               einheit: bz.einheit, quelle:'ki' };
+               einheit: bz.einheit, quelle:'liste', hinweis: String(e.hinweis || '').trim() };
     }
-    return { neu:true, name: e.name || 'Unbekannt', ico:'✨',
-             menge: num(e.menge) ?? 1, einheit: e.einheit || 'g',
+    /* bezugMenge ist die Menge, für die kcal/p/k/f gelten. Ohne sie ging beim
+       Ändern der Menge in der Liste die Umrechnung verloren – der neue Eintrag
+       bekam die Nährwerte der alten Menge zugeschrieben. */
+    const menge = num(e.menge) ?? 1;
+    const art = ['produkt','standard','schaetzung'].indexOf(String(e.quelle||'').toLowerCase()) > -1
+      ? String(e.quelle).toLowerCase() : 'schaetzung';
+    return { neu:true, name: e.name || 'Unbekannt', ico: (e.ico || '✨').slice(0,4),
+             menge, bezugMenge: menge || 1, einheit: e.einheit || 'g',
              kcal: num(e.kcal), p: num(e.eiweiss), k: num(e.kohlenhydrate), f: num(e.fett),
-             faktor: 1, quelle:'ki', geschaetzt: true };
+             faktor: 1, quelle: art, hinweis: String(e.hinweis || '').trim(),
+             geschaetzt: art === 'schaetzung' };
   });
 }
 
 /* ---- Ablauf: erkennen, zeigen, buchen ---- */
-let kiVorschlag = [];
+let kiVorschlag = [], kiRueckfrage = '';
+/* Woher die Werte stammen – der Nutzer soll sehen können, worauf er sich
+   verlässt, ohne mit Unsicherheit zugetextet zu werden. */
+const KI_QUELLE = {
+  liste:      { text:'aus deiner Liste', klasse:'q-liste' },
+  produkt:    { text:'Herstellerangabe', klasse:'q-produkt' },
+  standard:   { text:'Nährwerttabelle',  klasse:'q-standard' },
+  schaetzung: { text:'geschätzt',        klasse:'q-schaetzung' }
+};
 async function kiEintragen() {
   const text = $('#kiText').value.trim();
   if (!text) { toast('Schreib kurz, was du gegessen hast.'); return; }
@@ -5544,6 +5984,7 @@ async function kiEintragen() {
   btn.disabled = true; btn.textContent = '…';
   try {
     const { treffer, offen } = erkenneText(text);
+    kiRueckfrage = '';
     let ergaenzung = [];
     if (offen.length && ki.an && ki.key && ki.modell) {
       try { ergaenzung = await kiFragen(text, offen); }
@@ -5568,27 +6009,56 @@ async function kiEintragen() {
     btn.disabled = false; btn.textContent = 'Eintragen';
   }
 }
+/* Nährwerte eines Vorschlags in der gerade eingestellten Menge */
+function kiWerte(v) {
+  if (v.neu) {
+    const f = v.faktor || 1;
+    const kcal = (num(v.kcal) !== null) ? v.kcal * f
+               : ((num(v.p)||0)*4 + (num(v.k)||0)*4 + (num(v.f)||0)*9) * f;
+    return { kcal, p:(num(v.p)||0)*f, k:(num(v.k)||0)*f, f:(num(v.f)||0)*f };
+  }
+  const l = essLib().find(x => x.id === v.lid) || {};
+  const f = v.faktor || 1;
+  return { kcal: kcalOf(l) * f, p:(num(l.p)||0)*f, k:(num(l.k)||0)*f, f:(num(l.f)||0)*f };
+}
+
 function kiListeZeichnen() {
-  $('#kiListe').innerHTML = kiVorschlag.map((v, i) => `
+  $('#kiListe').innerHTML = kiVorschlag.map((v, i) => {
+    const w = kiWerte(v);
+    const q = KI_QUELLE[v.quelle] || KI_QUELLE.schaetzung;
+    return `
     <div class="kizeile">
       <span class="ico">${esc(v.ico || '🍽')}</span>
-      <span class="ktx"><b>${esc(v.name)}${v.geschaetzt ? ' <span class="kimarke">geschätzt</span>' : ''}</b>
-        <small>${v.geschaetzt
-          ? `${Math.round(v.kcal||0)} kcal · ${Math.round(v.p||0)} E · ${Math.round(v.k||0)} KH · ${Math.round(v.f||0)} F`
-          : `${Math.round(kcalOf(essLib().find(x=>x.id===v.lid) || {}) * v.faktor)} kcal`}</small></span>
-      <input type="text" inputmode="decimal" data-mg="${i}" value="${esc(deIn(v.menge))}">
+      <span class="ktx"><b>${esc(v.name)}</b>
+        <small>${Math.round(w.kcal)} kcal · ${Math.round(w.p)} E · ${Math.round(w.k)} KH · ${Math.round(w.f)} F</small>
+        <span class="kiq"><i class="kimarke ${q.klasse}">${q.text}</i>${
+          v.hinweis ? `<em>${esc(v.hinweis)}</em>` : ''}</span></span>
+      <input type="text" inputmode="decimal" data-mg="${i}" value="${esc(deIn(v.menge))}"
+             aria-label="Menge für ${esc(v.name)}">
       <span class="eh">${esc(v.einheit || '')}</span>
       <button class="x" data-weg="${i}" title="Entfernen">×</button>
-    </div>`).join('');
+    </div>`; }).join('');
+
+  /* Summe – der Blick, der zählt: was macht das mit dem Tag? */
+  const s = kiVorschlag.reduce((a, v) => { const w = kiWerte(v);
+    return { kcal:a.kcal+w.kcal, p:a.p+w.p, k:a.k+w.k, f:a.f+w.f }; }, {kcal:0,p:0,k:0,f:0});
+  $('#kiSumme').innerHTML = `<b>${Math.round(s.kcal).toLocaleString('de-DE')} kcal</b>`
+    + `<span>${Math.round(s.p)} g Eiweiß · ${Math.round(s.k)} g KH · ${Math.round(s.f)} g Fett</span>`;
+  const rf = $('#kiFrage');
+  rf.hidden = !kiRueckfrage;
+  rf.textContent = kiRueckfrage;
   $$('#kiListe [data-mg]').forEach(el => el.oninput = () => {
     const v = kiVorschlag[+el.dataset.mg], m = numDe(el.value);
     if (m === null || m <= 0) return;
-    if (v.neu) { v.faktor = m / (v.menge || 1); }
+    /* Immer gegen die BEZUGSMENGE rechnen, nicht gegen die zuletzt gezeigte –
+       sonst multipliziert sich jede weitere Änderung auf. */
+    if (v.neu) v.faktor = m / (v.bezugMenge || 1);
     else {
       const l = essLib().find(x => x.id === v.lid); if (!l) return;
       v.faktor = m / bezug(l).menge;
     }
     v.menge = m;
+    kiSummeNeu();
   });
   $$('#kiListe [data-weg]').forEach(el => el.onclick = () => {
     kiVorschlag.splice(+el.dataset.weg, 1);
@@ -5596,17 +6066,31 @@ function kiListeZeichnen() {
     kiListeZeichnen();
   });
 }
+/* Nur die Summe nachziehen – ein kompletter Neuaufbau risse den Fokus
+   aus dem Mengenfeld, wie im Workout-Bildschirm. */
+function kiSummeNeu() {
+  const s = kiVorschlag.reduce((a, v) => { const w = kiWerte(v);
+    return { kcal:a.kcal+w.kcal, p:a.p+w.p, k:a.k+w.k, f:a.f+w.f }; }, {kcal:0,p:0,k:0,f:0});
+  $('#kiSumme').innerHTML = `<b>${Math.round(s.kcal).toLocaleString('de-DE')} kcal</b>`
+    + `<span>${Math.round(s.p)} g Eiweiß · ${Math.round(s.k)} g KH · ${Math.round(s.f)} g Fett</span>`;
+}
 function kiBuchen() {
   let n = 0;
   kiVorschlag.forEach(v => {
     if (v.neu) {
-      /* Geschätztes wird als eigenes Lebensmittel angelegt – beim nächsten Mal
-         steht es in der Liste und muss nicht wieder geraten werden. */
+      /* Neues Lebensmittel anlegen – beim nächsten Mal steht es in der Liste
+         und muss nicht wieder nachgeschlagen werden.
+         WICHTIG: Das Lebensmittel bekommt die BEZUGSMENGE der KI, nicht die
+         vom Nutzer geänderte. Gebucht wird dann mit dem Faktor. Vorher stand
+         in der Bibliothek „200 g = 350 kcal", wenn die KI 100 g gemeint und
+         der Nutzer auf 200 g korrigiert hatte. */
+      const bm = v.bezugMenge || v.menge || 1;
       const l = { id: uid(), name: v.name, ico: v.ico || '✨',
-                  menge: v.menge || 1, einheit: v.einheit || 'g',
-                  kcal: v.kcal, p: v.p, k: v.k, f: v.f, geschaetzt: true };
+                  menge: bm, einheit: v.einheit || 'g',
+                  kcal: v.kcal, p: v.p, k: v.k, f: v.f,
+                  quelle: v.quelle, geschaetzt: v.quelle === 'schaetzung' };
       essLib().push(l);
-      essBuchen(l.id, 1, l.menge); n++;
+      essBuchen(l.id, v.faktor || 1, v.menge); n++;
     } else {
       essBuchen(v.lid, v.faktor, v.menge); n++;
     }
@@ -5685,6 +6169,21 @@ function renderFood() {
   zeig('#fdK', '#fdBarK', s.k, z.k, false);
   zeig('#fdF', '#fdBarF', s.f, z.f, false);
 
+  /* Lücken in den Nährwerten ausweisen – sonst wirken die Balken genauer,
+     als sie sind. */
+  const luecken = essLuecken(d), lk = $('#fdLuecke');
+  if (!luecken.length) { lk.hidden = true; lk.textContent = ''; }
+  else {
+    const arten = [...new Set(luecken.flatMap(x => x.fehlt))].map(k => NW_NAMEN[k]);
+    const namen = luecken.slice(0, 3).map(x => x.l.name).join(', ')
+                + (luecken.length > 3 ? ` und ${luecken.length - 3} weitere` : '');
+    lk.hidden = false;
+    lk.innerHTML = `<b>Werte fehlen:</b> bei ${esc(namen)} ${luecken.length === 1 ? 'ist' : 'sind'} `
+      + `${arten.join(' bzw. ')} nicht eingetragen. Die Makros dieses Tages sind deshalb `
+      + `zu niedrig gerechnet. Antippen zum Nachtragen.`;
+    lk.onclick = () => openFoodForm(luecken[0].l.id);
+  }
+
   /* Kachelraster – häufig Gebuchtes zuerst, damit der Daumen kurze Wege hat */
   const zaehler = {};
   Object.keys(state.tage || {}).forEach(tag => {
@@ -5702,6 +6201,8 @@ function renderFood() {
     ? sortiert.map(l => `
       <div class="fdtile" data-lm="${esc(l.id)}" title="${esc(l.name)} – antippen bucht eine Portion">
         ${heute[l.id] ? `<span class="heute">${heute[l.id]}×</span>` : ''}
+        ${lmFehlend(l).length ? `<span class="luecke" title="Nährwerte unvollständig: ${
+            esc(lmFehlend(l).map(k => NW_NAMEN[k]).join(', '))}">!</span>` : ''}
         <span class="ico">${esc(l.ico || '🍽')}</span>
         <span class="nm">${esc(l.name)}</span>
         <span class="kc">${kcalOf(l)} kcal</span>
@@ -6178,6 +6679,55 @@ function gymBest(ueid, ohneTag) {
   }
   return best;
 }
+/* Verlauf einer Übung: je Trainingstag das schwerste Gewicht, die Satzzahl
+   und das bewegte Volumen — aufsteigend nach Datum, höchstens die letzten n
+   Einheiten. Grundlage für die Linie im Satzdialog; offener Punkt aus der
+   Projektnotiz („ein Verlauf je Übung wäre der nächste sinnvolle Schritt").
+   Gezählt werden nur abgehakte Sätze, Altdaten ohne ok gelten als gemacht. */
+function gymVerlauf(ueid, n) {
+  const tage = Object.keys(state.tage || {}).sort();
+  const raus = [];
+  tage.forEach(d => {
+    const e = gymTag(d).find(x => x.ueid === ueid); if (!e) return;
+    const s = satzFertig(e);
+    if (!s.length && !num(e.min) && !num(e.km)) return;
+    let best = 0, wdh = 0;
+    s.forEach(x => { const g = num(x.g) || 0; if (g > best) best = g;
+                     const w = num(x.w) || 0; if (g === best && w > wdh) wdh = w; });
+    raus.push({ d, best, wdh, saetze: s.length, vol: satzVol(e),
+                min: num(e.min), km: num(e.km) });
+  });
+  return n ? raus.slice(-n) : raus;
+}
+
+/* Eine kleine Linie, handgeschrieben wie alle Diagramme hier — keine Bibliothek.
+   Zeigt das schwerste Gewicht je Einheit; bei Ausdauerübungen die Minuten. */
+function gymLinie(reihe, feld) {
+  const w = 300, h = 52, pad = 5, padX = 9;   // padX, damit der erste und letzte Punkt drin bleiben
+  const werte = reihe.map(x => num(x[feld]) || 0);
+  if (werte.length < 2 || !werte.some(v => v > 0)) return '';
+  const min = Math.min(...werte), max = Math.max(...werte);
+  const spanne = (max - min) || (max || 1);
+  const x = i => padX + i * (w - 2 * padX) / (werte.length - 1);
+  const y = v => h - pad - ((v - min) / spanne) * (h - 2 * pad);
+  const pfad = werte.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  const flaeche = `${pfad} L${x(werte.length - 1).toFixed(1)} ${h} L${x(0).toFixed(1)} ${h} Z`;
+  const iMax = werte.indexOf(max);
+  /* preserveAspectRatio="none" zieht den Kasten in die Breite – ein <circle> würde
+     dabei zum Ei. Deshalb sitzen die Punkte in einer zweiten, unverzerrten Ebene
+     darüber, positioniert in Prozent. */
+  const punkte = werte.map((v, i) => `<span style="left:${(x(i) / w * 100).toFixed(2)}%;
+      top:${(y(v) / h * 100).toFixed(2)}%" class="${i === iMax ? 'max' : ''}"></span>`).join('');
+  return `<div class="gylinebox">
+    <svg class="gyline" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+      <path d="${flaeche}" fill="var(--acc-dim)"/>
+      <path d="${pfad}" fill="none" stroke="var(--acc)" stroke-width="1.6"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="gypunkte">${punkte}</div>
+  </div>`;
+}
+
 function gymHaeufigkeit() {
   const z = {};
   const tage = state.tage || {};
@@ -6419,22 +6969,18 @@ function delGymPlan() {
 function renderGym() {
   const d = gymDatum(), lib = gymLib(), liste = gymTag(d);
   const saetze = liste.reduce((a, e) => a + satzZahl(e), 0);
-  const vol    = liste.reduce((a, e) => a + satzVol(e), 0);
-  const min    = liste.reduce((a, e) => a + (num(e.min) || 0), 0);
 
-  $('#gyDate').textContent = dayLabel(d) + (d === today() ? '' : ' · ' + dmy(d));
-  $('#gySaetze').textContent = saetze || (min ? kg(min) : '0');
-  $('#gySaetzeSub').textContent = saetze ? (saetze === 1 ? 'Satz' : 'Sätze') : (min ? 'Minuten' : 'Sätze');
-  $('#gyRest').textContent = !liste.length
-    ? 'Ruhetag – noch nichts eingetragen'
-    : `${liste.length} Übung${liste.length === 1 ? '' : 'en'}` +
-      (vol ? ` · ${Math.round(vol).toLocaleString('de-DE')} kg bewegt` : '') +
-      (min ? ` · ${kg(min)} min` : '');
-
-  /* Muskelgruppen der laufenden Woche – was grau bleibt, fehlt */
-  const w = gymWoche(d);
-  $('#gyGruppen').innerHTML = MUSKELN.map(m =>
-    `<span class="gymus ${w.gruppenListe.indexOf(m) > -1 ? 'an' : ''}">${esc(m)}</span>`).join('');
+  /* Die Tageskarte („1 Satz · 1 Übung · 100 kg bewegt" samt Muskelgruppen-Marken)
+     ist auf Wunsch entfernt (v55). Nicht wieder einbauen. Die Zahlen standen
+     ohnehin mehrfach: Satzzahl in der Überschrift „Erledigt", die Werte in der
+     Liste darunter, die Woche im Score-Block. Nur die Tagesnavigation war nötig —
+     die sitzt jetzt in der Kopfzeile neben „Training". */
+  $('#gyDate').textContent = d === today() ? 'Heute' : dayLabel(d);
+  /* wie im Essen-Bildschirm: am heutigen Tag gibt es kein „vor" mehr.
+     Vorher blieb der Knopf hier klickbar und tat nichts. */
+  const istHeute = d >= today();
+  $('#gyNext').disabled = istHeute;
+  $('#gyNext').style.opacity = istHeute ? .35 : 1;
 
   /* Tagesliste */
   const logHead = $('#gyLogHead'), logBox = $('#gyLogBox');
@@ -6618,6 +7164,7 @@ function openSatz(ueid) {
   const lz = $('#szLetzt');
   if (letzt) { lz.hidden = false; lz.textContent = `Zuletzt am ${dmy(letzt.d)}: ${satzText(letzt.e)}`; }
   else { lz.hidden = true; lz.textContent = ''; }
+  szVerlaufZeichnen(ueid, u);
 
   const ausdauer = u.typ === 'ausdauer';
   $('#szAusdauer').hidden = !ausdauer;
@@ -6645,6 +7192,42 @@ function openSatz(ueid) {
   $('#szDelete').hidden = szIdx === -1;
   $('#scrim10').classList.add('on');
 }
+/* Linie über die letzten Einheiten plus Bestleistung mit Datum. Erst ab zwei
+   Einheiten, vorher gibt es nichts zu vergleichen. */
+function szVerlaufZeichnen(ueid, u) {
+  const box = $('#szVerlauf');
+  const reihe = gymVerlauf(ueid, 14);
+  const ausdauer = u && u.typ === 'ausdauer';
+  const feld = ausdauer ? 'min' : 'best';
+  const linie = gymLinie(reihe, feld);
+  if (!linie) { box.hidden = true; box.innerHTML = ''; return; }
+
+  let bestW = 0, bestD = '', bestWdh = 0;
+  reihe.forEach(x => { const v = num(x[feld]) || 0; if (v > bestW) { bestW = v; bestD = x.d; bestWdh = x.wdh; } });
+  const einheit = ausdauer ? 'min' : 'kg';
+  const ist = num(reihe[reihe.length - 1][feld]) || 0;
+  const vor = num(reihe[reihe.length - 2][feld]) || 0;
+  const diff = ist - vor;
+
+  const kurz = d => d.slice(8, 10) + '.' + d.slice(5, 7) + '.';
+  box.hidden = false;
+  box.className = 'gyverlauf';
+  box.innerHTML = `
+    <div class="kopf">
+      <span class="k">${reihe.length} Einheiten</span>
+      <span class="sp"></span>
+      <span class="best" title="Bestleistung am ${dmy(bestD)}">🏆 ${kg(bestW)} ${einheit}${
+        !ausdauer && bestWdh ? ` × ${bestWdh}` : ''}</span>
+    </div>
+    ${linie}
+    <div class="fuss">
+      <span>${kurz(reihe[0].d)} → ${kurz(reihe[reihe.length - 1].d)}</span>
+      <span class="mitte ${diff > 0 ? 'auf' : diff < 0 ? 'ab' : ''}">${
+        diff === 0 ? 'gleich wie beim letzten Mal'
+                   : (diff > 0 ? '+' : '−') + kg(Math.abs(diff)) + ' ' + einheit + ' zum letzten Mal'}</span>
+    </div>`;
+}
+
 function szSpeichern() {
   const u = gymUe(szUeId); if (!u) return;
   const d = gymDatum(), liste = gymTag(d).slice();
@@ -6839,6 +7422,7 @@ const wkLaeuft = d => !!((state.tage || {})[d || today()] || {}).wstart;
 
 function wkOeffnen(d) {
   wkDatum = d || today();
+  wkExtra = {};                       // Merkposten gelten nur fürs laufende Workout
   $('#wkView').hidden = false;
   document.body.style.overflow = 'hidden';
   wkZeichnen();
@@ -6849,8 +7433,8 @@ function wkOeffnen(d) {
   $('#wkView').scrollTop = 0;
 }
 function wkSchliessen() {
-  /* Die Pause läuft absichtlich weiter: „Zurück" ist kein Abbruch, und der
-     Gong ist der eigentliche Zweck. Die Leiste steckt in #wkView und ist
+  /* Die Pause läuft absichtlich weiter: „Zurück" ist kein Abbruch. Die
+     Leiste steckt in #wkView und ist
      damit ohnehin mit ausgeblendet; beim Zurückkommen stimmt sie wieder,
      weil pauseTick gegen Date.now() rechnet. Nur wkBeenden stoppt wirklich. */
   $('#wkView').hidden = true;
@@ -6875,6 +7459,14 @@ function wkVorher(ueid, i) {
   const fertig = (l.e.s || []).filter(s => s.ok !== false);
   return fertig[i] || null;
 }
+/* Von Hand dazugeholte Satzzeilen je Übung. wkSpeichern legt eine leere,
+   noch nicht abgehakte Zeile absichtlich NICHT im Tag ab (sonst stünde
+   Müll in den Daten) — dadurch war eine gerade über „+ Satz" geholte,
+   noch leere Zeile nach dem nächsten Neuzeichnen wieder weg, etwa nachdem
+   man die Pausenlänge geändert hat. Die Absicht des Nutzers wird deshalb
+   hier für die Dauer des Workouts festgehalten. */
+let wkExtra = {};
+
 /* Wie viele Zeilen zeigt eine Übung? Gespeichertes gewinnt, sonst die
    Planvorgabe, mindestens aber so viele wie beim letzten Mal. */
 function wkZeilen(ueid, sollN) {
@@ -6886,7 +7478,7 @@ function wkZeilen(ueid, sollN) {
      Vorher endete die Liste beim letzten gespeicherten Satz – nach jedem
      Neuzeichnen waren die noch leeren Zeilen weg und man konnte den Rest
      des Satzes nicht mehr eintragen. */
-  const n = Math.max(da.length, sollN || 1, vorher.length || 0);
+  const n = Math.max(da.length, sollN || 1, vorher.length || 0, wkExtra[ueid] || 0);
   const out = [];
   for (let i = 0; i < n; i++) {
     out.push(da[i] ? da[i]
@@ -6972,6 +7564,7 @@ function wkSatzDazu(ueid) {
     ? { w: numDe(letzte.querySelector('.wd').value), g: numDe(letzte.querySelector('.kg').value), ok:false }
     : { w:null, g:null, ok:false };
   box.insertAdjacentHTML('beforeend', wkZeilenHtml(ueid, s, box.children.length));
+  wkExtra[ueid] = box.children.length;
   wkNummern(ueid); wkVerdrahten(); wkSpeichern(ueid);
 }
 
