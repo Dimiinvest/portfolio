@@ -1989,13 +1989,6 @@ main{position:relative;z-index:1}
         <button class="btn" id="kiOff" style="color:var(--bad-ink)">Trennen</button>
       </div>
       <p class="hint" id="kiStatus" style="margin:10px 0 0">Nicht eingerichtet.</p>
-      <div class="f full" style="margin-top:10px">
-        <label class="swrow" for="kiImmer">
-          <input id="kiImmer" type="checkbox">
-          <span><b>Immer die KI fragen</b>
-            <small>Überspringt den Abgleich mit deiner eigenen Liste – jeder Text geht komplett an Google, auch Dinge, die du schon oft gegessen hast. Etwas langsamer und mehr Anfragen, dafür keine Verwechslungen durch den Wortabgleich.</small></span>
-        </label>
-      </div>
       <p class="hint" style="margin:8px 0 0;opacity:.75">Der Schlüssel bleibt auf diesem Gerät und wird nicht mit der Cloud abgeglichen. Beim Nachfragen gehen dein Text und die Namen deiner Lebensmittel an Google.</p>
     </div>
 
@@ -2124,7 +2117,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v61 · Aurora · 16.09.2026';
+const APP_VERSION = 'v62 · Aurora · 16.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -5739,28 +5732,22 @@ $('#scrim7').onclick = e => { if (e.target === $('#scrim7')) { $('#scrim7').clas
 
 /* ============================================================
    EINTRAGEN PER TEXT
-   Zwei Stufen, bewusst in dieser Reihenfolge:
-   1. Gegen die eigene Bibliothek abgleichen – kostenlos, offline und
-      mit exakten Nährwerten. Deckt den Alltag ab, weil hier immer
-      dieselben Sachen gegessen werden.
-   2. Nur was übrig bleibt, geht an Gemini. Dessen Nährwerte sind
-      Schätzungen und werden entsprechend gekennzeichnet.
-   „Immer die KI fragen" (ki.immer, v61): Der Wortabgleich aus Stufe 1 kann
-   sich bei Größen-/Füllwörtern vertun (v56/v60 waren real aufgetretene
-   Fälle). Wer das nicht riskieren will, schaltet Stufe 1 hier komplett ab –
-   dann läuft ALLES über kiFragen(). Gemini bekommt die eigene Liste im
-   Prompt trotzdem mitgeschickt und liefert für Bekanntes weiterhin "id" +
-   Menge statt eigener Nährwerte (siehe SO GEHST DU VOR Punkt 2 im Prompt) –
-   die exakten gespeicherten Werte gehen also nicht verloren, nur der lokale
-   Vorab-Abgleich entfällt. */
+   Ist ein Schlüssel eingerichtet, geht jeder Text komplett an Gemini –
+   kein lokaler Wortabgleich mehr (der konnte sich bei Größen-/Füllwörtern
+   vertun, v56/v60 waren real aufgetretene Fälle). Gemini bekommt die eigene
+   Liste im Prompt trotzdem mitgeschickt und liefert für Bekanntes „id" +
+   Menge statt eigener Nährwerte (SO GEHST DU VOR Punkt 2 im Prompt) – die
+   exakten gespeicherten Werte gehen also nicht verloren.
+   Ohne Schlüssel bleibt der lokale Abgleich (erkenneText/findeLm) die
+   einzige Möglichkeit – die App muss auch offline nutzbar bleiben. */
 const LS_KI = 'pt.ki.v1';                 // Zugang bleibt auf dem Gerät, nie in der Cloud
-const ki = { key:'', modell:'', an:false, immer:false };
+const ki = { key:'', modell:'', an:false };
 
 function loadKi() {
   try { Object.assign(ki, JSON.parse(lsGet(LS_KI) || '{}')); } catch(e) {}
 }
 function saveKi() {
-  lsSet(LS_KI, JSON.stringify({ key:ki.key, modell:ki.modell, an:ki.an, immer:ki.immer }));
+  lsSet(LS_KI, JSON.stringify({ key:ki.key, modell:ki.modell, an:ki.an }));
 }
 
 /* ---- Stufe 1: eigener Bestand ---- */
@@ -6033,8 +6020,8 @@ async function kiEintragen() {
   const btn = $('#kiGo');
   btn.disabled = true; btn.textContent = 'prüfe …';
   try {
-    const immerKi = ki.an && ki.key && ki.modell && ki.immer;
-    const { treffer, offen } = immerKi ? { treffer: [], offen: textTeile(text) } : erkenneText(text);
+    const kiBereit = ki.an && ki.key && ki.modell;
+    const { treffer, offen } = kiBereit ? { treffer: [], offen: textTeile(text) } : erkenneText(text);
     kiRueckfrage = '';
     let ergaenzung = [];
     if (offen.length && ki.an && ki.key && ki.modell) {
@@ -6160,7 +6147,6 @@ function kiUiAktualisieren() {
     ? `Verbunden · Modell ${ki.modell}`
     : 'Nicht eingerichtet – die App erkennt nur Sachen aus deiner Liste.';
   const f = $('#kiKey'); if (f && ki.key && !f.value) f.value = ki.key;
-  const im = $('#kiImmer'); if (im) im.checked = !!ki.immer;
 }
 async function kiVerbinden() {
   const key = $('#kiKey').value.trim();
@@ -6180,7 +6166,6 @@ async function kiVerbinden() {
   }
   btn.disabled = false; btn.textContent = 'Verbinden';
 }
-$('#kiImmer').onchange = e => { ki.immer = e.target.checked; saveKi(); };
 $('#kiGo').onclick = kiEintragen;
 $('#kiText').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); kiEintragen(); } };
 $('#kiCancel').onclick = () => { $('#scrim9').classList.remove('on'); kiVorschlag = []; };
