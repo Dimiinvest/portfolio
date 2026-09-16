@@ -2113,7 +2113,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v58 · Aurora · 16.09.2026';
+const APP_VERSION = 'v59 · Aurora · 16.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -5977,17 +5977,32 @@ const KI_QUELLE = {
   standard:   { text:'Nährwerttabelle',  klasse:'q-standard' },
   schaetzung: { text:'geschätzt',        klasse:'q-schaetzung' }
 };
+/* Fragt Gemini, und falls für offene Teile trotzdem nichts zurückkommt
+   (leere Antwort oder Netzwerkfehler), einmal still erneut – behebt den Fall,
+   dass z. B. bei „Reis und ein Steak" nur der Reis (aus der Liste) ankam und
+   das Steak kommentarlos unter den Tisch fiel, ohne dass etwas schiefging. */
+async function kiFragenSicher(text, offen) {
+  for (let versuch = 1; versuch <= 2; versuch++) {
+    try {
+      const r = await kiFragen(text, offen);
+      if (r.length || versuch === 2) return r;
+    } catch(e) {
+      if (versuch === 2) throw e;
+    }
+  }
+  return [];
+}
 async function kiEintragen() {
   const text = $('#kiText').value.trim();
   if (!text) { toast('Schreib kurz, was du gegessen hast.'); return; }
   const btn = $('#kiGo');
-  btn.disabled = true; btn.textContent = '…';
+  btn.disabled = true; btn.textContent = 'prüfe …';
   try {
     const { treffer, offen } = erkenneText(text);
     kiRueckfrage = '';
     let ergaenzung = [];
     if (offen.length && ki.an && ki.key && ki.modell) {
-      try { ergaenzung = await kiFragen(text, offen); }
+      try { ergaenzung = await kiFragenSicher(text, offen); }
       catch(e) { toast('Nachfrage fehlgeschlagen: ' + e.message); }
     }
     /* Doppelte vermeiden: was die KI nochmal für dasselbe Lebensmittel liefert, fliegt raus */
