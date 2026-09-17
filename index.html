@@ -1047,17 +1047,6 @@ main{position:relative;z-index:1}
 .gyplan.neu{border-style:dashed;color:var(--muted);align-items:center;justify-content:center;
   text-align:center;background:transparent;font-size:13.5px}
 
-.plrow{display:flex;align-items:center;gap:8px;padding:9px 2px;border-top:1px solid var(--hair)}
-.plrow:first-child{border-top:0}
-.plrow .ico{font-size:17px;flex:0 0 22px;text-align:center}
-.plrow .nm{flex:1 1 auto;min-width:0;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.plrow button{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:15px;
-  padding:5px 3px;min-width:28px;font-family:inherit}
-.plrow button:hover{color:#fff}
-.plrow .x:hover{color:var(--bad-ink)}
-.pladd{display:flex;gap:8px;margin-top:12px}
-.pladd select{flex:1 1 auto;min-width:0}
-.pladd button{flex:0 0 auto}
 .plkopf{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;margin:14px 0 4px}
 .gyfilter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 11px;
@@ -1083,12 +1072,57 @@ main{position:relative;z-index:1}
 .gyvorrow .nm small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:3px}
 .gyvorrow .hk{flex:0 0 auto;color:var(--good-ink);font-size:12.5px;font-weight:700;
   font-family:'JetBrains Mono',ui-monospace,monospace}
-/* Satzvorgabe im Plandialog */
-.plrow .n{flex:0 0 46px;text-align:center;padding:7px 4px;font-size:13.5px;font-weight:600;
+
+/* ============ Fortschritt (Übung und Muskelgruppe) ============
+   Zwölf Monate als Balkenreihe statt als Linie: eine Linie würde Monate
+   ohne Training still überspringen, die Lücke gehört aber zur Wahrheit. */
+.gypsel{width:100%;margin:0 0 13px}
+.gypkpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:9px}
+.gypkpi > div{padding:10px 11px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-1)}
+.gypkpi .k{display:block;color:var(--muted);font-size:9.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.gypkpi .v{display:block;margin-top:5px;font-size:16px;font-weight:640;letter-spacing:-.01em;
   font-family:'JetBrains Mono',ui-monospace,monospace}
-.plkopf2{display:flex;justify-content:flex-end;padding-right:96px;margin-bottom:2px}
-.plkopf2 i{font-style:normal;color:var(--muted);font-size:10px;font-weight:600;
-  letter-spacing:.08em;text-transform:uppercase}
+.gypkpi .v small{font-size:10.5px;font-weight:600;color:var(--muted);margin-left:2px}
+.gypkpi .v.auf{color:var(--good-ink)}
+.gypkpi .v.ab{color:var(--bad-ink)}
+.gypmon{display:flex;gap:3px;align-items:flex-end;height:64px;margin-top:7px}
+.gypmon > span{flex:1 1 0;display:block;min-height:3px;border-radius:4px 4px 0 0;background:var(--acc)}
+.gypmon > span.leer{background:rgba(255,238,210,.07);height:3px}
+.gypmon > span.top{background:var(--good-ink)}
+.gypmonl{display:flex;gap:3px;margin-top:5px}
+.gypmonl > span{flex:1 1 0;min-width:0;text-align:center;font-size:8.5px;color:var(--muted);
+  font-family:'JetBrains Mono',ui-monospace,monospace;overflow:hidden}
+.gypcmp{display:grid;grid-template-columns:20px 1fr 1fr 16px;gap:5px 8px;align-items:center;
+  margin-top:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.gypcmp .h{color:var(--muted);font-size:9.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;font-family:inherit}
+.gypcmp .nr{color:var(--muted);font-size:11px}
+.gypcmp .alt{color:var(--muted)}
+.gypcmp .dl{text-align:right;font-size:12px}
+.gypcmp .dl.auf{color:var(--good-ink)}
+.gypcmp .dl.ab{color:var(--bad-ink)}
+.gyphist{display:flex;align-items:baseline;gap:9px;padding:9px 2px;border-top:1px solid var(--hair)}
+.gyphist:first-child{border-top:0}
+.gyphist .d{flex:0 0 62px;color:var(--muted);font-size:11px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyphist .s{flex:1 1 auto;min-width:0;color:var(--text-secondary);font-size:12px;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gyphist .k{flex:0 0 auto;color:var(--acc);font-size:12px;white-space:nowrap;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+.gypmg{display:flex;align-items:center;gap:10px;padding:11px 2px;border-top:1px solid var(--hair)}
+.gypmg:first-child{border-top:0}
+.gypmg .nm{flex:1 1 auto;min-width:0;font-size:13.5px;font-weight:600}
+.gypmg .nm small{display:block;color:var(--muted);font-size:10.5px;font-weight:400;margin-top:2px}
+.gypbar{flex:0 0 72px;position:relative;height:7px;border-radius:99px;background:rgba(255,238,210,.06)}
+.gypbar::before{content:'';position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
+  background:var(--hair-strong)}
+.gypbar i{position:absolute;top:0;height:100%;border-radius:99px}
+.gypmg .pz{flex:0 0 auto;min-width:62px;text-align:right;font-size:13px;font-weight:640;
+  color:var(--text-secondary);font-family:'JetBrains Mono',ui-monospace,monospace}
+.gypmg .pz.auf{color:var(--good-ink)}
+.gypmg .pz.ab{color:var(--bad-ink)}
+.gypmg .pz.keine{font-size:10.5px;font-weight:600;color:var(--muted);font-family:inherit}
 
 /* ============ Workout-Bildschirm ============
    Eigene Ebene über allem (auch über der Tableiste, die bei z-index 70 liegt).
@@ -1174,6 +1208,79 @@ main{position:relative;z-index:1}
 .tmquick button{min-height:44px;justify-content:center;
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .tmquick button.an{background:var(--acc-dim);border-color:var(--acc);color:var(--acc)}
+
+/* ============ Plan-Editor ============
+   Eigene Ebene wie der Workout-Bildschirm, aber UNTER den Dialogen
+   (.scrim liegt bei 80): der Übungs- und der Pausendialog werden aus dem
+   Editor heraus geöffnet und müssen darüber liegen. Über der Tableiste (70)
+   liegt er trotzdem. Die Satztabelle benutzt bewusst dieselben Klassen wie
+   im Workout (.wkue/.wkkopfzeile/.wkzeile) – beides ist dieselbe Tabelle,
+   einmal mit Ziel- und einmal mit Istwerten. */
+#plView{position:fixed;inset:0;z-index:75;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,238,210,.045),transparent 380px);
+  padding:0 0 calc(40px + env(safe-area-inset-bottom))}
+.pltop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
+  background:linear-gradient(to bottom,rgba(12,11,10,.98) 70%,rgba(12,11,10,0));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pltop .tt{flex:1 1 auto;min-width:0;text-align:center;font-size:15px;font-weight:640;
+  letter-spacing:-.01em;color:var(--text-primary);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Auf 320 px stand „Vorherige" sonst als „112,5 …" da – die Zahlenfelder
+   geben ein paar Pixel ab. Gilt auch für den Workout-Bildschirm, gleiche
+   Tabelle, gleiches Problem. */
+@media (max-width:365px){
+  .wkzeile,.wkkopfzeile{grid-template-columns:24px 1fr 56px 48px 32px;gap:5px}
+  .wkzeile input{font-size:15px;padding:10px 2px}
+  .wkzeile .hk,.wkzeile .weg{width:32px}
+  .wkkopfzeile{font-size:9.5px;letter-spacing:.03em}
+}
+.plnamerow{display:flex;align-items:center;gap:10px;margin:6px 0 24px}
+/* Der Name sieht aus wie die Überschrift, ist aber das Eingabefeld */
+#plName{flex:1 1 auto;min-width:0;background:transparent;border:0;border-radius:0;padding:2px 0;
+  font:inherit;font-size:26px;font-weight:680;letter-spacing:-.03em;color:var(--text-primary)}
+#plName:focus{outline:0;box-shadow:0 1px 0 var(--acc)}
+#plName::placeholder{color:var(--muted);font-weight:600}
+.plmehr{flex:0 0 auto;width:38px;height:30px;border-radius:9px;border:0;cursor:pointer;
+  background:var(--surface-3);color:var(--acc);font-size:13px;line-height:1;letter-spacing:1.5px;
+  display:grid;place-items:center;font-family:inherit;-webkit-tap-highlight-color:transparent}
+.plmehr:hover{background:var(--acc-dim)}
+.plue{margin-bottom:26px}
+.plue .kopf{display:flex;align-items:flex-start;gap:7px;margin:0 0 10px}
+.plue .nmbtn{flex:1 1 auto;min-width:0;text-align:left;border:0;background:transparent;padding:0;
+  cursor:pointer;font:inherit;-webkit-tap-highlight-color:transparent}
+.plue .nmbtn b{display:block;color:var(--acc);font-size:16.5px;font-weight:640;
+  letter-spacing:-.015em;line-height:1.25}
+.plue .nmbtn small{display:block;color:var(--muted);font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+/* Minus in der letzten Spalte, wo im Workout das Häkchen sitzt */
+.wkzeile .weg{width:40px;height:40px;justify-self:center;padding:0;border:0;line-height:1;
+  background:transparent;color:var(--muted);font-size:21px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+.wkzeile .weg:hover{color:var(--bad-ink)}
+/* Pausenlänge als Trennlinie zwischen zwei Sätzen – antippen stellt sie ein */
+.pltrenn{display:flex;align-items:center;gap:9px;padding:2px 0}
+.pltrenn i{flex:1 1 0;height:1px;background:var(--hair)}
+.pltrenn button{flex:0 0 auto;border:0;background:transparent;cursor:pointer;padding:3px 7px;
+  color:var(--acc);font:inherit;font-size:12.5px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;-webkit-tap-highlight-color:transparent}
+.pltrenn button:hover{color:#fff}
+.pladdbox{display:flex;gap:8px;margin-top:10px}
+.pladdbox select{flex:1 1 auto;min-width:0}
+.pladdbox button{flex:0 0 auto}
+/* Kleines Menü an einem Knopf – für die ••• am Plan und an jeder Übung */
+#plPop{position:fixed;inset:0;z-index:130;display:none}
+#plPop.on{display:block}
+#plPop .hg{position:absolute;inset:0;background:rgba(5,5,6,.55)}
+#plPopListe{position:absolute;min-width:208px;max-width:min(300px,92vw);padding:5px;
+  border-radius:12px;border:1px solid var(--hair-strong);background:var(--surface-2);
+  box-shadow:0 22px 60px -14px #000}
+#plPopListe button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;
+  border-radius:8px;background:transparent;color:var(--text-primary);font:inherit;font-size:14px;
+  padding:11px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#plPopListe button:hover{background:var(--surface-3)}
+#plPopListe button.weg{color:var(--bad-ink)}
+#plPopListe button span{flex:0 0 20px;text-align:center;font-size:15px}
 
 /* Hinweis auf dem Gym-Bildschirm, dass ein Workout läuft */
 .wklaeuft{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
@@ -1444,7 +1551,6 @@ main{position:relative;z-index:1}
                placeholder="Was hast du gegessen?" aria-label="Gegessenes eintragen">
         <button class="btn primary" id="kiGo">Eintragen</button>
       </div>
-      <p class="hint" id="kiHint" style="margin:9px 0 0">Schreib einfach, was du gegessen hast — Mengen und Nährwerte musst du nicht wissen. z.B. „Big Mac und mittlere Pommes" oder „Reis mit Hähnchen und Gemüse". Zum Diktieren das Mikrofon deiner Tastatur nutzen.</p>
     </div>
   </section>
 
@@ -1568,6 +1674,17 @@ main{position:relative;z-index:1}
     <button class="btn" id="gyPlanAdd">+ Plan</button>
   </div>
   <div class="gyplans" id="gyPlans"></div>
+
+  <div class="sec-head"><h2>Fortschritt</h2><span class="count" id="gyProgCount"></span></div>
+  <section class="card" id="gyProg">
+    <div class="in">
+      <div class="seg" id="gyProgSeg" role="group" aria-label="Fortschritt">
+        <button id="gyProgUeBtn" aria-pressed="true">Übungen</button>
+        <button id="gyProgMgBtn" aria-pressed="false">Muskelgruppen</button>
+      </div>
+      <div id="gyProgBody"></div>
+    </div>
+  </section>
 
   <section class="card" id="gyScore">
     <div class="in">
@@ -1704,28 +1821,44 @@ main{position:relative;z-index:1}
   </div>
 </div>
 
-<div class="scrim" id="scrim13">
-  <div class="modal" role="dialog" aria-modal="true" style="width:min(460px,100%)">
-    <h3 id="plTitle">Plan anlegen</h3>
-    <p class="msub">Die Reihenfolge ist die, in der du trainierst – sie lässt sich jederzeit ändern.</p>
-    <div class="form">
-      <div class="f full"><label for="plName">Name</label>
-        <input id="plName" type="text" placeholder="z.B. Brust & Rücken" autocomplete="off"></div>
+<div id="plView" hidden>
+  <div class="pltop">
+    <button class="btn icon ghost" id="plClose" title="Schließen">✕</button>
+    <span class="tt" id="plTitle">Plan bearbeiten</span>
+    <button class="btn primary" id="plSave">Speichern</button>
+  </div>
+  <div class="wkwrap">
+    <div class="plnamerow">
+      <input id="plName" type="text" placeholder="Name des Plans"
+             autocomplete="off" aria-label="Name des Plans">
+      <button class="plmehr" id="plMenu" title="Mehr" aria-label="Mehr">•••</button>
     </div>
-    <div class="plkopf">Übungen im Plan</div>
-    <div id="plListe"></div>
-    <div class="pladd" id="plAddRow">
-      <select id="plPick" aria-label="Übung auswählen"></select>
-      <button class="btn" id="plAdd">+ Hinzufügen</button>
+    <div id="plBody"></div>
+    <button class="btn" id="plAddBtn"
+            style="width:100%;justify-content:center;margin-top:4px">+ Übung hinzufügen</button>
+    <div id="plAddBox" hidden>
+      <div class="pladdbox">
+        <select id="plPick" aria-label="Übung auswählen"></select>
+        <button class="btn" id="plAdd">+ Dazu</button>
+      </div>
+      <button class="btn primary" id="plNeu"
+              style="width:100%;justify-content:center;margin-top:8px">+ Neue Übung anlegen</button>
     </div>
-    <button class="btn primary" id="plNeu"
-            style="width:100%;justify-content:center;margin-top:8px">+ Neue Übung anlegen</button>
-    <div class="mrow">
-      <button class="btn" id="plDelete" style="color:var(--bad-ink)">Löschen</button>
-      <div class="sp" style="margin-left:auto"></div>
-      <button class="btn" id="plCancel">Abbrechen</button>
-      <button class="btn primary" id="plSave">Speichern</button>
-    </div>
+  </div>
+</div>
+
+<div id="plPop">
+  <div class="hg" id="plPopHg"></div>
+  <div id="plPopListe" role="menu"></div>
+</div>
+
+<div class="scrim" id="scrim16">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3 id="pvTitle">Fortschritt</h3>
+    <p class="msub" id="pvSub">—</p>
+    <div id="pvBody"></div>
+    <div class="mrow"><div class="sp" style="margin-left:auto"></div>
+      <button class="btn primary" id="pvClose">Schließen</button></div>
   </div>
 </div>
 
@@ -2149,7 +2282,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v63 · Aurora · 16.09.2026';
+const APP_VERSION = 'v66 · Aurora · 17.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -4392,7 +4525,12 @@ function dialogSchliessen(el) {
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    if (!dialogSchliessen(obersterDialog()) && !$('#wkView').hidden) wkSchliessen();
+    /* Reihenfolge von oben nach unten: erst das kleine Menü, dann der
+       oberste Dialog, dann die eigenen Ebenen (Plan-Editor, Workout). */
+    if ($('#plPop').classList.contains('on')) { $('#plPop').classList.remove('on'); return; }
+    if (dialogSchliessen(obersterDialog())) return;
+    if (!$('#plView').hidden) plSchliessen();
+    else if (!$('#wkView').hidden) wkSchliessen();
   }
   if (e.key === 'Enter' && $('#scrim').classList.contains('on')) saveForm();
   if (e.key === 'Enter' && $('#scrim3').classList.contains('on')) saveTrade();
@@ -6670,7 +6808,16 @@ $('#scrim6').onclick = e => { if (e.target === $('#scrim6')) $('#scrim6').classL
    Eintrag — ein zweiter Tipp auf dieselbe Kachel ergänzt Sätze,
    statt eine Dublette anzulegen.
    ============================================================ */
-const MUSKELN = ['Brust','Rücken','Beine','Schultern','Arme','Rumpf','Cardio'];
+/* Die sieben primären Muskelgruppen. Jede Übung trägt genau eine – sie ist
+   die Grundlage für den Fortschritt je Gruppe weiter unten.
+   Bis v64 standen hier 'Arme', 'Rumpf' und 'Cardio'. Die bleiben gültig,
+   solange eine Übung sie trägt (MUSKEL_ALT), werden aber nicht mehr neu
+   angeboten. Automatisch umhängen wäre geraten, nicht gewusst: 'Arme' kann
+   Bizeps oder Trizeps sein, das entscheidet der Nutzer selbst – die
+   Muskelgruppen-Ansicht listet die betroffenen Übungen zum Antippen auf. */
+const MUSKEL_PRIMAER = ['Brust','Rücken','Schultern','Bizeps','Trizeps','Bauch','Beine'];
+const MUSKEL_ALT = ['Arme','Rumpf','Cardio'];
+const MUSKELN = MUSKEL_PRIMAER.concat(MUSKEL_ALT);
 
 /* Vorlagen wie bei den Lebensmitteln: feste Kennung, einmal übernommen
    taucht eine gelöschte Übung nie wieder von selbst auf. */
@@ -6996,8 +7143,18 @@ function planUe(p) {
     p.ue = Array.isArray(p.ueids) ? p.ueids.map(id => ({ id, n: 3 })) : [];
     delete p.ueids;
   }
-  p.ue = p.ue.filter(x => x && x.id)
-             .map(x => ({ id: x.id, n: Math.max(1, Math.min(30, Math.round(+x.n) || 3)) }));
+  /* `s` sind die Satzvorgaben: je Satz kg und Wiederholungen, so wie sie im
+     Plan-Editor eingetragen werden. Ältere Pläne haben nur die Satzzahl `n` —
+     dann bleibt `s` leer und der Workout-Bildschirm füllt wie bisher aus dem
+     letzten Mal vor. Sobald Vorgaben da sind, gewinnen sie. */
+  p.ue = p.ue.filter(x => x && x.id).map(x => {
+    const n = Math.max(1, Math.min(30, Math.round(+x.n) || 3));
+    let s = Array.isArray(x.s)
+      ? x.s.slice(0, n).map(y => ({ g: num(y && y.g), w: num(y && y.w) }))
+      : [];
+    while (s.length && s.length < n) s.push({ g:null, w:null });
+    return { id: x.id, n, s };
+  });
   return p.ue;
 }
 function gymPlanDesTages(d) {
@@ -7087,10 +7244,13 @@ function openPlanVorschau(id) {
         const u = gymUe(x.id);
         if (!u) return '';
         const hat = gymSaetzeAm(d, x.id);
+        /* Vorgaben aus dem Plan mitzeigen, wenn es welche gibt – „82,5 kg × 8" */
+        const z = (x.s || []).find(y => y.g !== null || y.w !== null);
+        const ziel = z ? `${z.g !== null ? kg(z.g) + ' kg × ' : ''}${z.w !== null ? z.w : '?'}` : '';
         return `<button class="gyvorrow" data-vorue="${esc(x.id)}">
           <span class="ico">${esc(u.ico || '🏋️')}</span>
           <span class="nm"><b>${x.n} ×</b> ${esc(u.name)}
-            <small>${esc(u.muskel || '')}</small></span>
+            <small>${esc([u.muskel || '', ziel].filter(Boolean).join(' · '))}</small></span>
           <span class="hk">${hat ? `${hat}/${x.n} ✓` : ''}</span>
         </button>`;
       }).join('');
@@ -7104,8 +7264,18 @@ function openPlanVorschau(id) {
   $('#scrim14').classList.add('on');
 }
 
-/* ---- Plan anlegen und ändern ---- */
-let plEditId = null, plEintraege = [];
+/* ---- Plan anlegen und ändern ----------------------------------------
+   Eigener Bildschirm statt Dialog, aufgebaut wie die Routine-Ansicht, die
+   sich der Nutzer gewünscht hat: je Übung eine Tabelle
+   Set · Vorherige · kg · Wiederh. · −, zwischen den Sätzen die Pausenlänge
+   zum Antippen, darunter „+ Satz". Dieselben Klassen wie im Workout
+   (.wkue/.wkkopfzeile/.wkzeile) – es ist dieselbe Tabelle, einmal mit
+   Zielwerten, einmal mit dem, was wirklich lag.
+
+   Gearbeitet wird auf plEintraege (Kopie). Erst „Speichern" schreibt in den
+   Plan – ✕ verwirft, wie man es von so einem Bildschirm erwartet. */
+let plEditId = null, plEintraege = [], plOffen = false;
+
 function plPickFuellen() {
   const lib = gymLib();
   const gruppen = MUSKELN.concat(['']);
@@ -7117,90 +7287,225 @@ function plPickFuellen() {
   });
   /* Solange es keine Übung gibt, wäre die Auswahlliste nur Ballast –
      dann bleibt allein „+ Neue Übung anlegen" stehen. */
-  $('#plAddRow').hidden = !lib.length;
+  $$('#plAddBox .pladdbox').forEach(el => el.hidden = !lib.length);
   $('#plPick').innerHTML = teile.join('');
 }
-function plListeZeichnen() {
-  const box = $('#plListe');
+
+/* Die Zeilen einer Übung im Editor: so viele wie `n`. Ein Wert kommt aus der
+   Vorgabe, sonst aus dem letzten Training – genau das zeigt die Vorlage auch,
+   dort stehen in „Vorherige" und in den Feldern dieselben Zahlen. */
+function plZeilen(e) {
+  const l = gymLetzter(e.id, today());
+  const vorher = l ? (l.e.s || []).filter(s => s.ok !== false) : [];
+  const out = [];
+  for (let i = 0; i < e.n; i++) {
+    const z = e.s && e.s[i];
+    out.push({
+      g: (z && z.g !== null && z.g !== undefined) ? z.g : (vorher[i] ? num(vorher[i].g) : null),
+      w: (z && z.w !== null && z.w !== undefined) ? z.w : (vorher[i] ? num(vorher[i].w) : null),
+      vor: vorher[i] || null
+    });
+  }
+  return out;
+}
+function plZeileHtml(e, z, i) {
+  return `<div class="wkzeile" data-i="${i}">
+    <span class="nr">${i + 1}</span>
+    <span class="vor">${z.vor ? `${z.vor.g ? kg(num(z.vor.g)) + ' kg × ' : ''}${num(z.vor.w) || 0}` : '—'}</span>
+    <input class="kg" type="text" inputmode="decimal" autocomplete="off"
+           value="${z.g === null ? '' : deIn(z.g)}" aria-label="Gewicht">
+    <input class="wd" type="text" inputmode="numeric" autocomplete="off"
+           value="${z.w === null ? '' : z.w}" aria-label="Wiederholungen">
+    <button class="weg" title="Satz entfernen" aria-label="Satz entfernen">−</button>
+  </div>`;
+}
+
+function plZeichnen() {
+  const box = $('#plBody');
   box.innerHTML = !plEintraege.length
-    ? `<div class="fdempty" style="padding:12px 2px">Noch nichts drin – unten eine Übung wählen und hinzufügen.</div>`
-    : `<div class="plkopf2"><i>Sätze</i></div>` + plEintraege.map((x, i) => {
-        const u = gymUe(x.id);
-        const aus = ' style="opacity:.22;cursor:default"';
-        return `<div class="plrow">
-          <span class="ico">${esc(u ? (u.ico || '🏋️') : '❔')}</span>
-          <span class="nm">${esc(u ? u.name : 'Gelöschte Übung')}</span>
-          <input class="n" type="text" inputmode="numeric" data-pln="${i}"
-                 value="${x.n}" aria-label="Sätze für ${esc(u ? u.name : '')}">
-          <button data-plup="${i}" title="nach oben"${i === 0 ? aus : ''}>↑</button>
-          <button data-pldn="${i}" title="nach unten"${i === plEintraege.length - 1 ? aus : ''}>↓</button>
-          <button class="x" data-plx="${i}" title="aus dem Plan nehmen">×</button>
+    ? `<div class="fdempty" style="padding:14px 2px">Noch keine Übung drin –
+        unten über „+ Übung hinzufügen" anfangen.</div>`
+    : plEintraege.map((e, idx) => {
+        const u = gymUe(e.id);
+        const ps = pauseFuer(e.id);
+        const pause = ps ? mmss(ps) : 'keine Pause';
+        const zeilen = plZeilen(e);
+        const tabelle = zeilen.map((z, i) =>
+          (i ? `<div class="pltrenn"><i></i><button data-plpause="${idx}"
+                  title="Pause einstellen">${esc(pause)}</button><i></i></div>` : '')
+          + plZeileHtml(e, z, i)).join('');
+        const mg = u ? (MUSKEL_PRIMAER.indexOf(u.muskel) > -1 ? u.muskel
+                        : (u.muskel ? u.muskel + ' · nicht primär' : 'keine Muskelgruppe')) : '';
+        return `<div class="plue" data-plue="${esc(e.id)}" data-plidx="${idx}">
+          <div class="kopf">
+            <button class="nmbtn" data-plname="${idx}" title="Übung bearbeiten">
+              <b>${esc(u ? u.name : 'Gelöschte Übung')}</b><small>${esc(mg)}</small></button>
+            <button class="plmehr" data-plverlauf="${idx}" title="Fortschritt"
+                    aria-label="Fortschritt"><svg viewBox="0 0 24 24" aria-hidden="true"
+                fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"
+                stroke-linejoin="round" style="width:16px;height:16px;display:block">
+                <path d="M4 16.5l5.5-5.5 3 3L19 7"/><circle cx="4" cy="16.5" r="1.7"/>
+                <circle cx="19" cy="7" r="1.7"/></svg></button>
+            <button class="plmehr" data-plmenu="${idx}" title="Mehr" aria-label="Mehr">•••</button>
+          </div>
+          <div class="wkkopfzeile">
+            <span class="nr">Set</span><span class="vor">Vorherige</span>
+            <span>kg</span><span>Wiederh.</span><span></span>
+          </div>
+          <div class="wkzeilen">${tabelle}</div>
+          <button class="btn wkplus" data-plsatz="${idx}">+ Satz${ps ? ` (${mmss(ps)})` : ''}</button>
         </div>`;
       }).join('');
-  const tausch = (i, j) => {
-    if (j < 0 || j >= plEintraege.length) return;
-    plZahlenLesen();
-    const t = plEintraege[i]; plEintraege[i] = plEintraege[j]; plEintraege[j] = t;
-    plListeZeichnen();
-  };
-  $$('#plListe [data-plup]').forEach(b => b.onclick = () => tausch(+b.dataset.plup, +b.dataset.plup - 1));
-  $$('#plListe [data-pldn]').forEach(b => b.onclick = () => tausch(+b.dataset.pldn, +b.dataset.pldn + 1));
-  $$('#plListe [data-plx]').forEach(b => b.onclick = () => {
-    plZahlenLesen();
-    plEintraege.splice(+b.dataset.plx, 1); plListeZeichnen();
+  plVerdrahten();
+}
+
+/* Wie im Workout bewusst kein Neuzeichnen beim Tippen – sonst springt der
+   Fokus aus dem Feld. Handler werden nach jedem Umbau neu gesetzt. */
+function plVerdrahten() {
+  $$('#plBody .wkzeile .weg').forEach(b => b.onclick = () => {
+    const box = b.closest('.plue');
+    if (box.querySelectorAll('.wkzeile').length <= 1) {
+      toast('Mindestens ein Satz muss bleiben.'); return;
+    }
+    plLesen();
+    plEintraege[+box.dataset.plidx].s.splice(+b.closest('.wkzeile').dataset.i, 1);
+    plEintraege[+box.dataset.plidx].n = plEintraege[+box.dataset.plidx].s.length;
+    plZeichnen();
+  });
+  $$('#plBody [data-plsatz]').forEach(b => b.onclick = () => {
+    plLesen();
+    const e = plEintraege[+b.dataset.plsatz];
+    const letzte = e.s[e.s.length - 1];
+    e.s.push(letzte ? { ...letzte } : { g:null, w:null });
+    e.n = e.s.length;
+    plZeichnen();
+  });
+  $$('#plBody [data-plpause]').forEach(b => b.onclick = () => {
+    plLesen(); openPause(plEintraege[+b.dataset.plpause].id);
+  });
+  $$('#plBody [data-plname]').forEach(b => b.onclick = () => {
+    plLesen();
+    const e = plEintraege[+b.dataset.plname];
+    openUebung(e.id, () => plZeichnen());
+  });
+  $$('#plBody [data-plverlauf]').forEach(b => b.onclick = () => {
+    plLesen(); openUeVerlauf(plEintraege[+b.dataset.plverlauf].id);
+  });
+  $$('#plBody [data-plmenu]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.plmenu;
+    plLesen();
+    plPopOeffnen(b, [
+      { ico:'✎', text:'Übung bearbeiten', tun: () => openUebung(plEintraege[i].id, () => plZeichnen()) },
+      { ico:'↗', text:'Fortschritt ansehen', tun: () => openUeVerlauf(plEintraege[i].id) },
+      { ico:'⏱', text:'Pause einstellen',  tun: () => openPause(plEintraege[i].id) },
+      { ico:'↑', text:'Nach oben',   tun: () => plTausch(i, i - 1) },
+      { ico:'↓', text:'Nach unten',  tun: () => plTausch(i, i + 1) },
+      { ico:'✕', text:'Aus dem Plan nehmen', weg:true, tun: () => {
+          plEintraege.splice(i, 1); plZeichnen(); } }
+    ]);
   });
 }
-/* Die Satzfelder stehen im DOM – vor jedem Umbauen zurück ins Array holen,
-   sonst geht eine gerade getippte Zahl beim Sortieren verloren. */
-function plZahlenLesen() {
-  $$('#plListe [data-pln]').forEach(el => {
-    const i = +el.dataset.pln, n = numDe(el.value);
-    if (plEintraege[i]) plEintraege[i].n = Math.max(1, Math.min(30, Math.round(n) || 1));
+function plTausch(i, j) {
+  if (j < 0 || j >= plEintraege.length) return;
+  const t = plEintraege[i]; plEintraege[i] = plEintraege[j]; plEintraege[j] = t;
+  plZeichnen();
+}
+/* Die Felder stehen im DOM – vor jedem Umbauen zurück ins Array holen, sonst
+   geht eine gerade getippte Zahl beim Sortieren oder Ergänzen verloren. */
+function plLesen() {
+  $$('#plBody .plue').forEach(box => {
+    const e = plEintraege[+box.dataset.plidx]; if (!e) return;
+    const s = [];
+    box.querySelectorAll('.wkzeile').forEach(z => s.push({
+      g: numDe(z.querySelector('.kg').value),
+      w: numDe(z.querySelector('.wd').value)
+    }));
+    e.s = s; e.n = Math.max(1, s.length);
   });
 }
+
+/* ---- kleines Menü an einem Knopf ---- */
+function plPopOeffnen(anker, punkte) {
+  const pop = $('#plPop'), liste = $('#plPopListe');
+  liste.innerHTML = punkte.map((p, i) =>
+    `<button data-pop="${i}" class="${p.weg ? 'weg' : ''}" role="menuitem">
+       <span>${esc(p.ico || '')}</span>${esc(p.text)}</button>`).join('');
+  $$('#plPopListe [data-pop]').forEach(b => b.onclick = () => {
+    pop.classList.remove('on');
+    punkte[+b.dataset.pop].tun();
+  });
+  liste.style.visibility = 'hidden';
+  pop.classList.add('on');
+  const r = anker.getBoundingClientRect();
+  requestAnimationFrame(() => {
+    const bb = liste.getBoundingClientRect();
+    const links = Math.max(10, Math.min(r.right - bb.width, innerWidth - bb.width - 10));
+    let oben = r.bottom + 6;
+    if (oben + bb.height > innerHeight - 10) oben = Math.max(10, r.top - bb.height - 6);
+    liste.style.left = links + 'px';
+    liste.style.top  = oben + 'px';
+    liste.style.visibility = '';
+  });
+}
+
 /* Übung anlegen, ohne den Plan zu verlassen – der Dialog kommt obendrauf und
    die neue Übung landet gleich unten im Plan. */
 function plNeueUebung() {
-  plZahlenLesen();
+  plLesen();
   const letzte = plEintraege.length ? gymUe(plEintraege[plEintraege.length - 1].id) : null;
   openUebung(null, neuId => {
-    plEintraege.push({ id: neuId, n: 3 });
-    plPickFuellen(); plListeZeichnen();
+    plEintraege.push({ id: neuId, n: 3, s: [] });
+    plPickFuellen(); plZeichnen();
     toast('Angelegt und in den Plan gelegt.');
   }, letzte ? letzte.muskel : null);
 }
+
 function openGymPlan(id) {
   plEditId = id || null;
   const p = id ? gymPlan(id) : null;
-  plEintraege = p ? planUe(p).map(x => ({ ...x })) : [];
-  $('#plTitle').textContent = p ? 'Plan ändern' : 'Plan anlegen';
+  plEintraege = p ? planUe(p).map(x => ({ ...x, s: (x.s || []).map(y => ({ ...y })) })) : [];
+  $('#plTitle').textContent = p ? 'Plan bearbeiten' : 'Plan anlegen';
   $('#plName').value = p?.name ?? '';
-  $('#plDelete').hidden = !p;
-  plPickFuellen(); plListeZeichnen();
-  $('#scrim13').classList.add('on');
-  if (!p) setTimeout(() => $('#plName').focus(), 60);
+  $('#plAddBox').hidden = !!plEintraege.length;      // leerer Plan: Auswahl gleich offen
+  plPickFuellen(); plZeichnen();
+  plOffen = true;
+  $('#plView').hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('#plView').scrollTop = 0;
+  if (!p) setTimeout(() => $('#plName').focus(), 80);
+}
+function plSchliessen() {
+  $('#plView').hidden = true;
+  document.body.style.overflow = '';
+  plOffen = false; plEditId = null;
+  renderGym();
 }
 function saveGymPlan() {
   const name = $('#plName').value.trim();
-  if (!name) { toast('Bitte einen Namen eintragen.'); return; }
-  plZahlenLesen();
+  if (!name) { toast('Bitte einen Namen eintragen.'); $('#plName').focus(); return; }
+  plLesen();
+  /* Leere Vorgaben nicht als Nullen ablegen – eine Übung ohne getippte Zahlen
+     soll sich weiter wie bisher aus dem letzten Mal vorfüllen. */
+  const sauber = plEintraege.filter(e => gymUe(e.id)).map(e => {
+    const s = (e.s || []).map(x => ({ g: num(x.g), w: num(x.w) }));
+    const leer = s.every(x => x.g === null && x.w === null);
+    return { id: e.id, n: Math.max(1, s.length || e.n), s: leer ? [] : s };
+  });
   const plaene = gymPlaene();
   if (plEditId) {
     const p = plaene.find(x => x.id === plEditId);
-    if (p) { p.name = name; p.ue = plEintraege.map(x => ({ ...x })); delete p.ueids; }
+    if (p) { p.name = name; p.ue = sauber; delete p.ueids; }
   } else {
-    plaene.push({ id: uid(), name, ue: plEintraege.map(x => ({ ...x })) });
+    plaene.push({ id: uid(), name, ue: sauber });
   }
-  $('#scrim13').classList.remove('on');
-  plEditId = null;
+  plSchliessen();
   persist(); renderGym(); toast('Plan gespeichert.');
 }
 function delGymPlan() {
   const p = gymPlan(plEditId); if (!p) return;
   if (!confirm(`Plan „${p.name}" löschen?\n\nEingetragene Sätze bleiben erhalten.`)) return;
   state.ziele.plaene = gymPlaene().filter(x => x.id !== plEditId);
-  plEditId = null;
-  $('#scrim13').classList.remove('on');
+  plSchliessen();
   persist(); renderGym(); toast('Plan gelöscht.');
 }
 
@@ -7290,6 +7595,7 @@ function renderGym() {
   }
 
   renderGymPlaene();
+  renderGymFortschritt();
   renderGymScore();
   if (!$('#viewToday').hidden) renderToday();
 }
@@ -7372,6 +7678,382 @@ function gymEintragWeg(idx) {
   toast(`${u ? u.name : 'Eintrag'} entfernt.`);
 }
 
+/* ============================================================
+   LANGZEIT-FORTSCHRITT je Übung und je Muskelgruppe
+
+   Woher die Daten kommen: ausschließlich aus state.tage[d].training – dem
+   Verlauf, der ohnehin geführt wird. Es wird NICHTS doppelt gespeichert.
+   Nur eine kompakte Monatsablage (state.ziele.gymVerlauf12) läuft mit:
+   je Monat und Übung der beste Wert und die Zahl der Einheiten. Sie hält
+   zwölf Monate, schiebt beim dreizehnten den ältesten hinaus und dient als
+   Rückfall, falls sehr alte Tagesdaten einmal wegfallen. Tagesdaten werden
+   dabei nie angetastet.
+
+   Welche Kennzahl? Nacktes Gewicht taugt nicht: 90 kg × 5 ist weniger als
+   85 kg × 10. Deshalb je Satz das geschätzte Einmalmaximum nach Epley
+   (1RM = kg × (1 + Wdh/30)) und je Einheit der beste Satz. Übungen, die
+   nie mit Gewicht eingetragen sind (Klimmzüge, Crunches), zählen
+   Wiederholungen; Ausdauer zählt Minuten.
+
+   Fortschritt in Prozent: bester Wert im ältesten Monat mit Daten gegen den
+   besten Wert im jüngsten Monat mit Daten – genau der Vergleich aus dem
+   Beispiel „Januar 80 kg × 8 gegen September 90 kg × 8".
+
+   Je Muskelgruppe wird der MEDIAN der Prozentwerte ihrer Übungen genommen,
+   nicht der Mittelwert: eine einzelne Übung mit einem Ausreißer (erste
+   Einheit mit halbem Gewicht zum Ausprobieren) würde die ganze Gruppe
+   sonst verzerren.
+   ============================================================ */
+const GY_MONATE = 12;
+
+/* Epley – nur mit Gewicht UND Wiederholungen sinnvoll */
+const e1rmSatz = s => {
+  const g = num(s && s.g) || 0, w = num(s && s.w) || 0;
+  return (g > 0 && w > 0) ? g * (1 + w / 30) : 0;
+};
+
+/* Welche Kennzahl trägt diese Übung? Einmal am Verlauf entschieden, damit
+   eine Übung nicht zwischen kg und Wdh hin und her springt. */
+function gymMetrik(ueid) {
+  const u = gymUe(ueid);
+  if (u && u.typ === 'ausdauer') return { feld:'min', name:'Minuten', einheit:'min' };
+  const tage = state.tage || {};
+  for (const d in tage) {
+    const e = gymTag(d).find(x => x.ueid === ueid);
+    if (e && satzFertig(e).some(s => (num(s.g) || 0) > 0))
+      return { feld:'e1rm', name:'Geschätztes 1RM', einheit:'kg' };
+  }
+  return { feld:'wdh', name:'Beste Wiederholungen', einheit:'Wdh' };
+}
+/* Wert eines einzelnen Satzes in der Kennzahl der Übung */
+const satzWert = (s, feld) => feld === 'e1rm' ? e1rmSatz(s) : (num(s && s.w) || 0);
+
+/* Alle Einheiten einer Übung, aufsteigend nach Datum. `abMonat` begrenzt auf
+   das Zwölf-Monats-Fenster ('YYYY-MM'). */
+function gymSitzungen(ueid, abMonat, met) {
+  const m = met || gymMetrik(ueid);
+  const tage = Object.keys(state.tage || {}).sort();
+  const raus = [];
+  tage.forEach(d => {
+    if (abMonat && d.slice(0, 7) < abMonat) return;
+    const e = gymTag(d).find(x => x.ueid === ueid); if (!e) return;
+    const sets = satzFertig(e);
+    let wert = 0;
+    if (m.feld === 'min') wert = num(e.min) || 0;
+    else sets.forEach(s => { const v = satzWert(s, m.feld); if (v > wert) wert = v; });
+    if (!wert) return;                       // leere oder unbrauchbare Einheit
+    raus.push({ d, wert, sets, saetze: sets.length, vol: satzVol(e), e });
+  });
+  return raus;
+}
+
+/* ---- kompakte Monatsablage, rollend über zwölf Monate ---- */
+function gymVerlaufCache() {
+  if (!state.ziele) state.ziele = {};
+  if (!Array.isArray(state.ziele.gymVerlauf12)) state.ziele.gymVerlauf12 = [];
+  return state.ziele.gymVerlauf12;
+}
+function gymVerlaufAktualisieren() {
+  const grenze = monatVor(GY_MONATE - 1);
+  const liste = gymVerlaufCache();
+  const vorher = JSON.stringify(liste);
+
+  /* einmal über jede Übung, dann nach Monat sortieren – nicht je Monat
+     erneut über alle Tage laufen */
+  const proMonat = {};
+  gymLib().forEach(u => {
+    gymSitzungen(u.id, grenze).forEach(s => {
+      const m = s.d.slice(0, 7);
+      const monat = proMonat[m] || (proMonat[m] = {});
+      const v = monat[u.id] || (monat[u.id] = { k:0, n:0 });
+      const k = Math.round(s.wert * 10) / 10;
+      if (k > v.k) v.k = k;
+      v.n++;
+    });
+  });
+  Object.keys(proMonat).forEach(m => {
+    const eintrag = { m, ue: proMonat[m] };
+    const i = liste.findIndex(x => x && x.m === m);
+    if (i > -1) liste[i] = eintrag; else liste.push(eintrag);
+  });
+
+  /* Rollendes Fenster: was älter als zwölf Monate ist, fällt weg – sobald
+     ein dreizehnter Monat dazukommt, rutscht der älteste heraus. Das
+     betrifft nur diese abgeleitete Ablage, nie den Trainingsverlauf. */
+  const neu = liste.filter(x => x && x.m >= grenze)
+                   .sort((a, b) => a.m < b.m ? -1 : a.m > b.m ? 1 : 0);
+  while (neu.length > GY_MONATE) neu.shift();
+  state.ziele.gymVerlauf12 = neu;
+  /* persist(false): von der App selbst gerechnet, kein Nutzereingriff –
+     sonst hielte sich ein frisch installiertes Gerät für den neueren Stand
+     (siehe Datenverlust vom 08.09.2026). Nur schreiben, wenn sich wirklich
+     etwas geändert hat. */
+  if (JSON.stringify(neu) !== vorher) persist(false);
+}
+
+/* Zwölf Monate, ältester zuerst. Monate ohne Daten bleiben null – Lücken
+   sollen sichtbar sein. Fehlt ein Monat in den Tagesdaten, greift die
+   Monatsablage. */
+function gymMonatsreihe(ueid, met) {
+  const grenze = monatVor(GY_MONATE - 1);
+  const proM = {};
+  gymSitzungen(ueid, grenze, met).forEach(s => {
+    const m = s.d.slice(0, 7);
+    const v = proM[m] || (proM[m] = { wert:0, n:0 });
+    if (s.wert > v.wert) v.wert = s.wert;
+    v.n++;
+  });
+  gymVerlaufCache().forEach(c => {
+    if (!c || c.m < grenze || proM[c.m]) return;
+    const v = c.ue && c.ue[ueid];
+    if (v && v.k > 0) proM[c.m] = { wert: v.k, n: v.n || 0, alt: true };
+  });
+  const reihe = [];
+  for (let i = GY_MONATE - 1; i >= 0; i--) {
+    const m = monatVor(i), v = proM[m];
+    reihe.push({ m, wert: v ? v.wert : null, n: v ? v.n : 0 });
+  }
+  return reihe;
+}
+
+/* Alles, was die Übungsansicht braucht */
+function gymUeFortschritt(ueid) {
+  const met = gymMetrik(ueid);
+  const reihe = gymMonatsreihe(ueid, met);
+  const mit = reihe.filter(x => x.wert !== null);
+  const sit = gymSitzungen(ueid, monatVor(GY_MONATE - 1), met);
+  const basis = mit.length ? mit[0] : null;
+  const jetzt = mit.length ? mit[mit.length - 1] : null;
+  const proz = (mit.length > 1 && basis.wert > 0) ? (jetzt.wert / basis.wert - 1) * 100 : null;
+  let best = 0, bestD = '';
+  sit.forEach(s => { if (s.wert > best) { best = s.wert; bestD = s.d; } });
+  return { met, reihe, mit, basis, jetzt, proz, sit, best, bestD,
+           letzte: sit[sit.length - 1] || null,
+           davor:  sit[sit.length - 2] || null };
+}
+
+const gymMedian = a => {
+  const s = a.slice().sort((x, y) => x - y), n = s.length;
+  if (!n) return null;
+  return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2;
+};
+
+/* Je primäre Muskelgruppe der Median der Prozentwerte ihrer Übungen */
+function gymMuskelFortschritt() {
+  return MUSKEL_PRIMAER.map(m => {
+    const ue = gymLib().filter(u => u.muskel === m);
+    const werte = [], teile = [];
+    ue.forEach(u => {
+      const f = gymUeFortschritt(u.id);
+      if (f.proz !== null) werte.push(f.proz);
+      teile.push({ u, f });
+    });
+    return { m, proz: gymMedian(werte), n: werte.length, ue: ue.length, teile };
+  });
+}
+
+/* ---------- Anzeige ---------- */
+let gyProgTeil = 'ue';            // 'ue' = je Übung, 'mg' = je Muskelgruppe
+let gyProgUeId = null;
+let gyProgVoll = false;           // ganze Historie oder nur die letzten fünf?
+
+const gyProz = p => (p >= 0 ? '+' : '−') + kg(Math.abs(p)) + ' %';
+const gyKl   = p => p === null ? '' : p > 0.5 ? 'auf' : p < -0.5 ? 'ab' : '';
+const gyMonKurz = m => new Date(m + '-01T12:00:00')
+  .toLocaleDateString('de-DE', { month:'short' }).slice(0, 3).replace('.', '');
+
+/* Häufigste Übung als Vorauswahl – die interessiert am ehesten */
+function gymProgStandardUe() {
+  const lib = gymLib(); if (!lib.length) return null;
+  const h = gymHaeufigkeit();
+  const sortiert = lib.slice().sort((a, b) => (h[b.id] || 0) - (h[a.id] || 0));
+  return sortiert[0].id;
+}
+
+/* Ein Satz als Text: „82,5 kg × 8" bzw. „8 Wdh" ohne Gewicht */
+function gySatzText(s) {
+  if (!s) return '—';
+  const g = num(s.g), w = num(s.w) || 0;
+  return g ? `${kg(g)} × ${w}` : `${w} Wdh`;
+}
+
+/* Die Balkenreihe über zwölf Monate. Der Nullpunkt liegt bewusst NICHT bei
+   null: von 80 auf 90 kg wären die Balken sonst kaum zu unterscheiden. */
+function gyMonatsBalken(reihe) {
+  const werte = reihe.filter(x => x.wert !== null).map(x => x.wert);
+  if (!werte.length) return '';
+  const max = Math.max(...werte), min = Math.min(...werte);
+  const fuss = min === max ? max * .82 : min - (max - min) * .35;
+  const hoehe = v => Math.max(8, Math.round((v - fuss) / ((max - fuss) || 1) * 100));
+  const balken = reihe.map(x => x.wert === null
+    ? `<span class="leer" title="${esc(x.m)}: kein Training"></span>`
+    : `<span class="${x.wert === max ? 'top' : ''}" style="height:${hoehe(x.wert)}%"
+         title="${esc(x.m)}: ${kg(x.wert)}${x.n ? ' · ' + x.n + ' Einheit' + (x.n === 1 ? '' : 'en') : ''}"></span>`
+  ).join('');
+  /* Beschriftung nur jeden zweiten Monat – zwölf Kürzel nebeneinander sind
+     auf einem 320-px-Display nicht mehr lesbar. */
+  const labels = reihe.map((x, i) => `<span>${i % 2 === 0 ? esc(gyMonKurz(x.m)) : ''}</span>`).join('');
+  return `<div class="gypmon">${balken}</div><div class="gypmonl">${labels}</div>`;
+}
+
+/* Satz für Satz: letzte Einheit gegen die davor */
+function gyVergleichHtml(f) {
+  if (!f.letzte) return '';
+  if (!f.davor) return `<p class="hint" style="margin:12px 0 0">Erst eine Einheit
+    eingetragen – ab der zweiten steht hier der Vergleich Satz für Satz.</p>`;
+  const a = f.davor, b = f.letzte;
+  /* Kurzdatum: in zwei schmalen Spalten neben einander sind „10.08." und
+     „10.09." klarer als einmal ein Datum und einmal „vor 7 Tagen". */
+  const kurzD = d => d.slice(8, 10) + '.' + d.slice(5, 7) + '.';
+  if (f.met.feld === 'min') {
+    const dv = b.wert - a.wert;
+    return `<div class="gypcmp" style="grid-template-columns:1fr 1fr">
+        <span class="h">${esc(kurzD(a.d))}</span><span class="h">${esc(kurzD(b.d))}</span>
+        <span class="alt">${kg(a.wert)} min</span>
+        <span>${kg(b.wert)} min <i class="dl ${gyKl(dv)}" style="font-style:normal">${
+          dv ? (dv > 0 ? '↑' : '↓') : ''}</i></span>
+      </div>`;
+  }
+  const n = Math.max(a.sets.length, b.sets.length);
+  const zeilen = [];
+  for (let i = 0; i < n; i++) {
+    const x = a.sets[i], y = b.sets[i];
+    const dv = (x && y) ? satzWert(y, f.met.feld) - satzWert(x, f.met.feld) : 0;
+    const pfeil = !x || !y ? (y ? '＋' : '') : dv > .05 ? '↑' : dv < -.05 ? '↓' : '=';
+    zeilen.push(`<span class="nr">${i + 1}.</span>
+      <span class="alt">${esc(gySatzText(x))}</span>
+      <span>${esc(gySatzText(y))}</span>
+      <span class="dl ${dv > .05 ? 'auf' : dv < -.05 ? 'ab' : ''}">${pfeil}</span>`);
+  }
+  return `<div class="gypcmp">
+      <span></span><span class="h">${esc(kurzD(a.d))}</span>
+      <span class="h">${esc(kurzD(b.d))}</span><span></span>
+      ${zeilen.join('')}
+    </div>`;
+}
+
+function renderGymFortschritt() {
+  const box = $('#gyProgBody'); if (!box) return;
+  gymVerlaufAktualisieren();
+  const lib = gymLib();
+  $('#gyProgUeBtn').setAttribute('aria-pressed', String(gyProgTeil === 'ue'));
+  $('#gyProgMgBtn').setAttribute('aria-pressed', String(gyProgTeil === 'mg'));
+
+  if (!lib.length) {
+    $('#gyProgCount').textContent = '';
+    box.innerHTML = `<p class="hint" style="margin:0">Noch keine Übung – sobald du
+      Sätze einträgst, steht hier, wie viel stärker du geworden bist.</p>`;
+    return;
+  }
+
+  /* ---------- je Muskelgruppe ---------- */
+  if (gyProgTeil === 'mg') {
+    const reihe = gymMuskelFortschritt();
+    const ohne = lib.filter(u => MUSKEL_PRIMAER.indexOf(u.muskel) === -1);
+    $('#gyProgCount').textContent = `${reihe.filter(g => g.proz !== null).length}/7`;
+    box.innerHTML = reihe.map(g => {
+      const p = g.proz;
+      const q = p === null ? 0 : Math.min(1, Math.abs(p) / 25);
+      const bar = p === null ? '' :
+        `<i style="${p >= 0 ? 'left:50%' : 'right:50%'};width:${(q * 50).toFixed(1)}%;
+           background:${p >= 0 ? 'var(--good-ink)' : 'var(--bad-ink)'}"></i>`;
+      const unter = !g.ue ? 'keine Übung zugeordnet'
+        : g.n ? `${g.n} von ${g.ue} Übung${g.ue === 1 ? '' : 'en'} vergleichbar`
+              : `${g.ue} Übung${g.ue === 1 ? '' : 'en'} · ab dem 2. Monat`;
+      return `<div class="gypmg">
+        <span class="nm">${esc(g.m)}<small>${esc(unter)}</small></span>
+        <span class="gypbar">${bar}</span>
+        <span class="pz ${p === null ? 'keine' : gyKl(p)}">${p === null ? '—' : gyProz(p)}</span>
+      </div>`;
+    }).join('') +
+    `<p class="hint" style="margin:13px 0 0">Je Gruppe der Median über ihre Übungen –
+      so zieht eine einzelne Übung mit Ausreißer die Gruppe nicht mit. Verglichen wird
+      der beste Wert im ältesten Monat mit Daten gegen den jüngsten, innerhalb der
+      letzten zwölf Monate.</p>` +
+    (ohne.length ? `<div class="plkopf">Noch ohne primäre Muskelgruppe</div>
+      <div class="gymuskel">${ohne.map(u =>
+        `<button class="gymus" data-gymzu="${esc(u.id)}">${esc(u.ico || '🏋️')} ${esc(u.name)}${
+          u.muskel ? ` · ${esc(u.muskel)}` : ''}</button>`).join('')}</div>
+      <p class="hint" style="margin:9px 0 0">Antippen und eine der sieben Gruppen wählen –
+        dann zählt die Übung mit.</p>` : '');
+    $$('#gyProgBody [data-gymzu]').forEach(b => b.onclick = () => openUebung(b.dataset.gymzu));
+    return;
+  }
+
+  /* ---------- je Übung ---------- */
+  if (!gyProgUeId || !gymUe(gyProgUeId)) { gyProgUeId = gymProgStandardUe(); gyProgVoll = false; }
+  const f = gymUeFortschritt(gyProgUeId);
+  $('#gyProgCount').textContent = f.sit.length ? `${f.sit.length} Einheiten` : '';
+
+  /* Auswahl, gruppiert wie im Plan-Editor */
+  const gruppen = MUSKELN.concat(['']);
+  const opts = gruppen.map(m => {
+    const liste = lib.filter(x => m ? x.muskel === m : MUSKELN.indexOf(x.muskel) === -1);
+    if (!liste.length) return '';
+    return `<optgroup label="${esc(m || 'Ohne Gruppe')}">` + liste.map(x =>
+      `<option value="${esc(x.id)}"${x.id === gyProgUeId ? ' selected' : ''}>${esc(x.name)}</option>`
+    ).join('') + `</optgroup>`;
+  }).join('');
+
+  box.innerHTML = `<select class="gypsel" id="gyProgPick" aria-label="Übung wählen">${opts}</select>`
+    + gymUeProgHtml(gyProgUeId, gyProgVoll, true);
+  $('#gyProgPick').onchange = e => { gyProgUeId = e.target.value; gyProgVoll = false; renderGymFortschritt(); };
+  const mehr = $('#gyProgMehr');
+  if (mehr) mehr.onclick = () => { gyProgVoll = !gyProgVoll; renderGymFortschritt(); };
+}
+
+/* Der Fortschritt einer Übung als Baustein – die Karte im Gym-Bildschirm und
+   der Dialog hinter dem 📈 im Plan-Editor zeigen genau dasselbe. */
+function gymUeProgHtml(ueid, voll, mitMehr) {
+  const u = gymUe(ueid); if (!u) return '';
+  const f = gymUeFortschritt(ueid);
+  if (!f.sit.length) {
+    return `<p class="hint" style="margin:0">Für ${esc(u.name)} ist noch nichts
+      eingetragen. Nach der ersten Einheit steht hier der Verlauf.</p>`;
+  }
+  let inhalt = `<div class="gypkpi">
+      <div><span class="k">Aktuell</span><span class="v">${kg(f.letzte.wert)}<small>${
+        esc(f.met.einheit)}</small></span></div>
+      <div><span class="k">Bestwert</span><span class="v">${kg(f.best)}<small>${
+        esc(f.met.einheit)}</small></span></div>
+      <div><span class="k">12 Monate</span><span class="v ${gyKl(f.proz)}">${
+        f.proz === null ? '—' : gyProz(f.proz)}</span></div>
+    </div>`;
+
+  inhalt += f.proz !== null
+    ? `<p class="hint" style="margin:11px 0 0">${esc(gyMonKurz(f.basis.m))} ${
+        f.basis.m.slice(0, 4)}: <b>${kg(f.basis.wert)} ${esc(f.met.einheit)}</b> → ${
+        esc(gyMonKurz(f.jetzt.m))} ${f.jetzt.m.slice(0, 4)}: <b>${kg(f.jetzt.wert)} ${
+        esc(f.met.einheit)}</b> · ${esc(f.met.name)}</p>`
+    : `<p class="hint" style="margin:11px 0 0">${esc(f.met.name)} – für einen
+        Prozentwert braucht es einen zweiten Monat mit Einträgen.</p>`;
+
+  inhalt += `<div class="plkopf">Letzte 12 Monate</div>` + gyMonatsBalken(f.reihe);
+  inhalt += `<div class="plkopf">Vorher – nachher</div>` + gyVergleichHtml(f);
+
+  const hist = f.sit.slice().reverse();
+  const zeigen = voll ? hist : hist.slice(0, 5);
+  inhalt += `<div class="plkopf">Verlauf</div>` + zeigen.map(s => `<div class="gyphist">
+      <span class="d">${esc(dmy(s.d))}</span>
+      <span class="s">${esc(satzText(s.e)) || '—'}</span>
+      <span class="k">${kg(s.wert)} ${esc(f.met.einheit)}</span>
+    </div>`).join('') +
+    (mitMehr && hist.length > 5 ? `<button class="btn" id="gyProgMehr" style="width:100%;
+      justify-content:center;margin-top:10px">${voll
+        ? '↑ Weniger zeigen' : `Alle ${hist.length} Einheiten zeigen`}</button>` : '');
+  return inhalt;
+}
+
+/* Fortschritt einer Übung als Dialog – hinter dem 📈 im Plan-Editor */
+function openUeVerlauf(ueid) {
+  const u = gymUe(ueid); if (!u) return;
+  $('#pvTitle').textContent = u.name;
+  $('#pvSub').textContent = (MUSKEL_PRIMAER.indexOf(u.muskel) > -1 ? u.muskel : (u.muskel || '—'))
+    + ' · letzte 12 Monate';
+  $('#pvBody').innerHTML = gymUeProgHtml(ueid, false, false);
+  $('#scrim16').classList.add('on');
+}
+
 /* ---------- Sätze eintragen ---------- */
 let szUeId = null, szIdx = -1;
 function szZeile(w, g) {
@@ -7417,11 +8099,16 @@ function openSatz(ueid) {
   } else {
     /* Vorbelegen: heutiger Eintrag, sonst das letzte Mal, sonst eine leere Zeile.
        So ist Wiederholen zwei Tipps – öffnen und speichern. */
-    const quelle = vorhanden ? vorhanden.s : (letzt ? letzt.e.s : null);
+    /* Reihenfolge: was heute schon steht, dann die Vorgaben aus dem Plan,
+       dann das letzte Mal. Ohne alles eine Zeile je Satz aus der Planvorgabe. */
+    const plan = gymPlanDesTages(d);
+    const pe = plan ? planUe(plan).find(x => x.id === ueid) : null;
+    const soll = pe ? pe.n : null;
+    const vorgabe = (pe && pe.s && pe.s.length && pe.s.some(x => x.g !== null || x.w !== null))
+      ? pe.s : null;
+    const quelle = vorhanden ? vorhanden.s : (vorgabe || (letzt ? letzt.e.s : null));
     /* Kein Vorbild da? Dann so viele leere Zeilen, wie der laufende Plan
        vorsieht – „2 × Chest Fly" öffnet mit zwei Zeilen. */
-    const plan = gymPlanDesTages(d);
-    const soll = plan ? (planUe(plan).find(x => x.id === ueid) || {}).n : null;
     const saetze = (quelle && quelle.length) ? quelle
                  : Array.from({ length: soll || 1 }, () => ({ w:10, g:null }));
     saetze.forEach(s => $('#szListe').appendChild(szZeile(s.w ?? '', deIn(num(s.g)))));
@@ -7504,6 +8191,20 @@ function szLoeschen() {
 
 /* ---------- Übung anlegen und ändern ---------- */
 let ubEditId = null, ubDanach = null;
+/* Angeboten werden die sieben primären Gruppen. Eine ältere Angabe ('Arme',
+   'Rumpf', 'Cardio') steht nur dann noch in der Liste, wenn die bearbeitete
+   Übung sie gerade trägt – so verliert niemand seine Zuordnung, neu wählen
+   kann man sie aber nicht mehr. */
+function ubMuskelFuellen(wert) {
+  const sel = $('#ubMuskel');
+  const prim = MUSKEL_PRIMAER.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
+  const alt = (wert && MUSKEL_PRIMAER.indexOf(wert) === -1)
+    ? `<optgroup label="Bisherige Angabe"><option value="${esc(wert)}">${esc(wert)}</option></optgroup>`
+    : '';
+  sel.innerHTML = `<optgroup label="Primäre Muskelgruppe">${prim}</optgroup>` + alt;
+  sel.value = wert || 'Brust';
+  if (!sel.value) sel.value = 'Brust';
+}
 /* `danach` wird nach dem Speichern mit der id aufgerufen – so kann der
    Plan-Dialog die frische Übung direkt übernehmen. */
 function openUebung(id, danach, muskelVorgabe) {
@@ -7514,8 +8215,7 @@ function openUebung(id, danach, muskelVorgabe) {
   $('#ubName').value  = u?.name ?? '';
   $('#ubIco').value   = u?.ico ?? '';
   $('#ubTyp').value   = u?.typ ?? 'kraft';
-  $('#ubMuskel').innerHTML = MUSKELN.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
-  $('#ubMuskel').value = u?.muskel ?? muskelVorgabe ?? 'Brust';
+  ubMuskelFuellen(u?.muskel ?? muskelVorgabe ?? 'Brust');
   $('#ubPause').value = deIn(num(u?.pause));
   $('#ubDelete').hidden = !u;
   $('#scrim11').classList.add('on');
@@ -7545,7 +8245,14 @@ function delUebung() {
   state.ziele.uebungen = gymLib().filter(x => x.id !== ubEditId);
   ubEditId = null;
   $('#scrim11').classList.remove('on');
-  persist(); renderGym(); toast('Gelöscht.');
+  persist(); renderGym();
+  /* Im offenen Plan-Editor die gelöschte Übung gleich mit rausnehmen –
+     sonst stünde dort „Gelöschte Übung" bis zum Speichern. */
+  if (!$('#plView').hidden) {
+    plEintraege = plEintraege.filter(e => gymUe(e.id));
+    plPickFuellen(); plZeichnen();
+  }
+  toast('Gelöscht.');
 }
 
 /* ---------- Wochenziele ---------- */
@@ -7563,7 +8270,7 @@ function saveGymZiele() {
   z.saetze    = numDe($('#wzSaetze').value);
   z.gruppen   = numDe($('#wzGruppen').value);
   z.minuten   = numDe($('#wzMinuten').value);
-  if (num(z.gruppen) !== null && z.gruppen > MUSKELN.length) z.gruppen = MUSKELN.length;
+  if (num(z.gruppen) !== null && z.gruppen > MUSKEL_PRIMAER.length) z.gruppen = MUSKEL_PRIMAER.length;
   $('#scrim12').classList.remove('on');
   persist(); renderGym(); toast('Wochenziele gespeichert.');
 }
@@ -7571,22 +8278,37 @@ function saveGymZiele() {
 /* ---------- Verdrahtung ---------- */
 $('#gyPlanAdd').onclick = () => openGymPlan();
 $('#gyAlleBtn').onclick = () => { gymAlle = !gymAlle; renderGym(); };
+$('#gyProgUeBtn').onclick = () => { gyProgTeil = 'ue'; renderGymFortschritt(); };
+$('#gyProgMgBtn').onclick = () => { gyProgTeil = 'mg'; renderGymFortschritt(); };
 $('#plAdd').onclick = () => {
   const id = $('#plPick').value;
   if (!id) { toast('Es gibt noch keine Übung zum Hinzufügen.'); return; }
-  plZahlenLesen();
-  plEintraege.push({ id, n: 3 });          // Wiederholungen sind erlaubt (z.B. Aufwärmsatz + Hauptübung)
-  plListeZeichnen();
+  plLesen();
+  plEintraege.push({ id, n: 3, s: [] });   // Wiederholungen sind erlaubt (z.B. Aufwärmsatz + Hauptübung)
+  plZeichnen();
+  $('#plView').scrollTo({ top: $('#plView').scrollHeight, behavior: 'smooth' });
 };
+$('#plAddBtn').onclick = () => {
+  const box = $('#plAddBox');
+  box.hidden = !box.hidden;
+  if (!box.hidden) $('#plView').scrollTo({ top: $('#plView').scrollHeight, behavior: 'smooth' });
+};
+$('#plMenu').onclick = () => {
+  plLesen();
+  const punkte = [{ ico:'⌨', text:'Namen ändern', tun: () => $('#plName').focus() }];
+  if (plEditId) punkte.push({ ico:'🗑', text:'Plan löschen', weg:true, tun: delGymPlan });
+  plPopOeffnen($('#plMenu'), punkte);
+};
+$('#plClose').onclick = plSchliessen;
+$('#plPopHg').onclick = () => $('#plPop').classList.remove('on');
+$('#pvClose').onclick = () => $('#scrim16').classList.remove('on');
+$('#scrim16').onclick = e => { if (e.target === $('#scrim16')) $('#scrim16').classList.remove('on'); };
 $('#vorClose').onclick = () => $('#scrim14').classList.remove('on');
 $('#vorEdit').onclick  = () => { $('#scrim14').classList.remove('on'); openGymPlan(vorPlanId); };
 $('#vorStart').onclick = () => { $('#scrim14').classList.remove('on'); gymPlanStarten(vorPlanId); };
 $('#scrim14').onclick = e => { if (e.target === $('#scrim14')) $('#scrim14').classList.remove('on'); };
 $('#plNeu').onclick    = plNeueUebung;
 $('#plSave').onclick   = saveGymPlan;
-$('#plDelete').onclick = delGymPlan;
-$('#plCancel').onclick = () => { $('#scrim13').classList.remove('on'); plEditId = null; };
-$('#scrim13').onclick = e => { if (e.target === $('#scrim13')) { $('#scrim13').classList.remove('on'); plEditId = null; } };
 $('#gyAdd').onclick   = () => openUebung();
 $('#gyGoals').onclick = openGymZiele;
 $('#gyEdit').onclick  = () => {
@@ -7707,11 +8429,15 @@ let wkExtra = {};
 
 /* Wie viele Zeilen zeigt eine Übung? Gespeichertes gewinnt, sonst die
    Planvorgabe, mindestens aber so viele wie beim letzten Mal. */
-function wkZeilen(ueid, sollN) {
+function wkZeilen(ueid, sollN, ziel) {
   const e = gymTag(wkDatum).find(x => x.ueid === ueid);
   const da = (e && Array.isArray(e.s)) ? e.s.map(s => ({ ...s })) : [];
   const l = gymLetzter(ueid, wkDatum);
   const vorher = l ? (l.e.s || []).filter(s => s.ok !== false) : [];
+  /* Hat der Plan Vorgaben (kg/Wdh je Satz), gewinnen sie – das ist eine
+     ausdrückliche Ansage des Nutzers. Ohne Vorgaben bleibt es wie bisher
+     beim letzten Mal. */
+  const z = Array.isArray(ziel) ? ziel : [];
   /* Gespeichertes bleibt stehen und wird auf die Planvorgabe AUFGEFÜLLT.
      Vorher endete die Liste beim letzten gespeicherten Satz – nach jedem
      Neuzeichnen waren die noch leeren Zeilen weg und man konnte den Rest
@@ -7719,9 +8445,12 @@ function wkZeilen(ueid, sollN) {
   const n = Math.max(da.length, sollN || 1, vorher.length || 0, wkExtra[ueid] || 0);
   const out = [];
   for (let i = 0; i < n; i++) {
-    out.push(da[i] ? da[i]
-                   : { w: vorher[i] ? vorher[i].w : null,
-                       g: vorher[i] ? vorher[i].g : null, ok: false });
+    if (da[i]) { out.push(da[i]); continue; }
+    const zv = z[i];
+    out.push({
+      w: (zv && zv.w !== null && zv.w !== undefined) ? zv.w : (vorher[i] ? vorher[i].w : null),
+      g: (zv && zv.g !== null && zv.g !== undefined) ? zv.g : (vorher[i] ? vorher[i].g : null),
+      ok: false });
   }
   return out;
 }
@@ -7754,7 +8483,7 @@ function wkZeichnen() {
     ? `<div class="fdempty">Keine Übung im Plan. Über „+ Übung ergänzen" holst du dir welche dazu.</div>`
     : liste.map(x => {
         const u = gymUe(x.id); if (!u) return '';
-        const zeilen = wkZeilen(x.id, x.n);
+        const zeilen = wkZeilen(x.id, x.n, x.s);
         const ps = pauseFuer(x.id);
         return `<div class="wkue" data-wkue="${esc(x.id)}">
           <div class="wkuekopf">
@@ -7981,6 +8710,7 @@ function pauseDialogZu(sek, zurueck) {
   tmUeId = null;
   persist();
   if (!$('#wkView').hidden) wkZeichnen();
+  if (!$('#plView').hidden) plZeichnen();       // die Pausenzeile im Editor mitziehen
   toast(!sek ? 'Pausenuhr aus.'
        : zurueck ? `${name}: wieder ${mmss(sek)} min wie überall`
        : name ? `${name}: ${mmss(sek)} min Pause`
