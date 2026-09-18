@@ -18,32 +18,43 @@
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Portfolio%20Tracker%22%2C%22short_name%22%3A%22Portfolio%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0b0c%22%2C%22theme_color%22%3A%22%230b0b0c%22%2C%22orientation%22%3A%22any%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAABOXUlEQVR4nO2d/5Ikt43nWQ69g%2B31rcPn3Y17hnsry5asmR5pZiTbNWppJPnpLP%2B42/Ctw173S0zfHzVdzewiKr8gABLIxCcmFKVqJjILmQRBfFmsw/9%2B8/dy5v7x5aG0Xxfi/WzTa/MAtNE6l682Pq6t8v891Wbk9fg6r32bdqv01Zg2HxTioY8C9YFntfFM%2BqqB4Pnfna8EpK9wRvrqA6ANm7zZOOkrnBzAcNJXOHv21WIAiPgBuOz5ZnNJX%2BmSvsJJX%2BFI/GAyA%2BCSNxsnfYWTAxhO%2BgpnS74iB4AoH8AaGz%2BsC19bxcVzdR/D0y58ZYL%2BFW3XV7a4mAFwyZuNs6VsxZr0FU76SpdZvoIGgLzZOOkrXdJXOOkrnOynJz7wfHFa7OFGapEdAyd9hZO%2B0iWXgTLaeCZ9pUv6Cid9hbPVfrq7ZaAII4Xf6ITpGA6E3zC%2BMiGFXy/cV99%2BdCEC77tj6JO%2Bwklf4WQ/xYniq1wGqkCUm%2B2B9BVO%2BkqX9NUlLmYAXLJj6JK%2Bwklf4WQ/xXG9DBQhbyROdgyc9BVO%2BkqXrfpqoQFE/AAWpPCLE6Zj7Ez49QfvqnMAw%2BFe/z2x7e20ElDebJz0FU76Spf0FU5EX5ksA82brdsmOukrnBzAcNJXcsKIwHmzcdJXOOkrXdJXOLN8BX0PIDuGLukrnPQVTvZTnL35qg707jQAa%2BbdbA%2B3nsemOkYKv5PxK/xGx%2BIzDh0A8mbjpK9wNjWAGZO%2BwtmDr9SWgebN1m3jmfSVLukrnPSVBs72AqLIm42TvsLJAQwnfYXj2VdLPeCRactA82brtvFM%2BkqX9BXO3nyFCL81rmcAXObd7CiPxyOb6hjGwm8OYGscGq%2BQ1vZtomP9GUUDQN5snPSVLukrnPQVzi76aXVi0fcAohP%2BRg5kFx1DifQVTvpqDFRpaLPLQKPf7PSVLukrnPQVjud%2BCmkAebNx0lc4njuGN9JXOOmrS7jCb41rEdj3zY7yeDyyqY6xIeE3JnOE3%2Bh48wN7AMibjeN7APNF%2BgonfaXLLnx1ADQA1x8AIDuGLukrnPQVTvZTHMn1U1/%2BqjEvAeWNxMmOgZO%2Bwklf6eLPVwYawB5udnYMXdJXOOkrnOynlyDZPYI7Edj3jfT1eOyuYwiE3935yoQUfnvw5weDH4X39yHnkL7CSV/hZD/FSV%2B9hxB%2Byc3gIpI3Gyd9hZO%2B0iV9hWMt/Na4XgaaN1u3TXTSVzjZT3Ei%2Bkry5a%2BaTS0DRYh4s2eRvsJJX%2BmSvrpEEuifWnrARQnI98329Qj59pUBQYTf6NCfMYXfp0T0A1sDiPghLcjMDid9pUv6Cid99R5C%2BKVwMQPgkjcbJ32FkwMYTvoKx/ozSr4TAA0AebNx0lc46Std0lc4EX2lJfyyvwcQHf6NbB%2BRvtJtY3X0KLY7gOmfbbu%2B0udQfYJ35Z2S1YHfA8ibjZO%2BaiBIbnbnKwHpK5yRvmJn9wuj61/%2BqmEvA82brdsmOjmA4aSvcNJXOGwNoPrALkTgvNk46Std0lc46SscGz9oaQCP5DJQBdJXODmA4aSvcLbqK61dP6nBw8UMgIvNjUzhd0QbEuOfeNTCha9MiC38bgmLb/ya/yBM3mycrWYrFqSvcNJXurj2lUD4rVHbDtoz2TF0SV/hpK9wsp/iSITfmmkloLyRONkxcNJXOOkrXaIIv%2BRmcHmzT2TH0CV9hZO%2BwtlqP7UWfkP%2BIMxI4Tc6YTqGA%2BE3jK9MSOHXC1rZvdoPwuy7Y%2BiTvsJJX%2BFkP8UJ7ytA%2BOUSZgbAJfzNHkj6Cid9pUv6CkdL%2BDX5QZjsGLqkr3DSVzjZT3Fm%2BcFi109yM7g93EiE7Bg46Suc9JUuW/WV9Ze/zL8IZkEKvzhhOsbOhF9/8K46BzAcSabPp//LXzXTloHu4Wanr06kr3RJX%2BGE9xUp/EoIvhcQRfibPZD0FU4OYDjpKw0E2T0g/Kp9DyBvNk76Cid9pUv6CseH8CtB8IMwNXmzddtEJ32FkwMYzt58pbfCZ2n18hXG0BLQvJvt4dbz2FTHSOF3Mn6F3%2BiM/Yw6wm%2BN2jLQvNm6baKzqQHMmPQVzi58VZ3YojQURgTexc1WIn2lS/oKJ32lgaA0xBR%2BRSJw3myc9BVODmA46Sscz76aJfzWF8r%2BHoBnPN9sb6SvdElf4ezNV96E3xrzEtC8mx3l8XhkUx3DWPjNAWyNQ%2BMV0tq%2BTXSiC7%2BQBrCHm50dQ5f0FU76CmcX/XSg8Ov6B2HC38iB7KJjKJG%2BwklfjUFUGlo4bj3Qk18Ey5uNk77SJX2Fk77C8dxPZ%2B36SV2ouxkAl%2BwYOJ47hjfSVzjpq0ss9vQfqgFQ%2BL7ZUR6PRzbVMTYk/MZkjvAbHX9%2BmKQB5M0e38Yz6Suc9JUuu/DVwTa7d/GDMNkxdElf4aSvcLKf4kiuXxTomcIvwq6XgSJkx8BJX%2BGkr3Tx56txX/7iCr%2Bu9wLKjqFL%2BgonfYWT/fSSaVs7MG3WQAOA7xvp6/HYXccQCL%2B785UJKfz24M8P44TfhQicN1u3TXTSVzg5gOGkr97jQPitMSkB5c3GSV/hpK90SV/heBN%2BSZvMC2UvA82brdsmOukrnBzAcCL6yvOun65/ECbizZ5F%2BgonfaVL%2BuoSm0A/rjRkvgw0hV/dNi4IIvxGh/6MKfw%2BJaIfRu76SeFiBsAlMzuc9JUu6Suc9NV7COGXbk/9oX/XTwq1ASBvNk76CicHMJz0FY71Zxy6wge6UEIDyJs9vo1n0le6pK9wIvrKYtdPG%2BG3erdy0LQSEP9Gto/IjqHbxuroUWx3ANM/23Z9pc%2Bh%2BgTvyjslqzplHNEPwtT/kzf7RHaMBoJUZHe%2BEpC%2BwhnpK61f7PLw5a%2BaMCJwdgycHMBw0lc46SscdqAXCL98Bv4o/B5udvpKl/QVTvoKx8YPk3b9FAi/rn8UXovsGDg5gOGkr3C26quIu35SX91xvgw0hd8RbUiMf%2BJRCxe%2BMiG28LslomztwN4MLm/2ia1mKxakr3DSV7q49lUQ4dfFXkDZMXRJX%2BGkr3Cyn%2BJEEX5rchloJ9kxcNJXOOkrXVL4vW4zjAicHUOX9BVO%2Bgpnq/10S8JvjWgAGCn8RidMx3Ag/IbxlQkp/HrhSXb/y5sfUy3fHv8O2vEg/Kp9DyA62TFw0lc4%2Bx7AeDj31Yc3P0KafXTzk/Prr9/8rQwuDTHt1AwtATm/2a5IX%2BGkr3RJX5VSfnHzw74DP37%2Br6WU2zf/1f4zIPzKZgzrw8RCA8ibjZO%2Bwklf4eQAhjPAD92hv%2BaT5z8t7WGAucKHLfyunWnJDxDzszhU/zy08Uz6Cid9pcuWfKUS/c%2BchoFS7s//7uv/qf5htI9e/M/h8R8CuwSUwi9OmKxtZ8KvP3hXnTMGHPz6dUP/mdMY8ObNX3sNrGf3fDuPrxczAA8jsITM7HDSV7qkr3Ac%2Bsoo%2Bp95/vxna02A7F40Y2i/a14Ccniz3ZK%2BwskBDCd9dR3r6H/i%2BfOfXTjFtjREtaghB4Ct3uya7Bg46Std0lc4pr4aE/1PPH/2s/tyX/0jAj10U9cDPTKQuBOBs2PgpK9wcgDD2Y%2BvRkb/Ey%2Be/Zx5hL7wWx86dBno4cr/RWCerwxI4XcyvKvet694xP%2BMFl/%2Bql5XDnI3A%2BCyjUxkDPvJ7OSkr3CC%2Bmp8%2Bn%2BimgSsZ/d8eKUh9gAQ9GZPIX2lS/oKJ311nVnR/8SLZz83En65NtnbQUcnp9I4I30V3Z/pK5z0VWkKv/yDrr2L2dnUMtDo2Ur6Spf0Fc6ufDU3/T/x6bN/o/%2BoJfyuzwdEu4Hy77Hnp6LNpjIRY%2BE3M7s1Do1XSGv7NtGJ/xkthN%2BKQ7uFOxE4s2Bd0lc46SucuP3UQ/p/4rNn/y4Qfnlf/qLsQ3sBZSaCk5kdTvoKJ321SZgJ/roGgBl8bAV9D8Az2TF0SV/hpK9wsp%2B2aV9rO6RblIZMfhBmjzeyl%2BwYOOkrnPTVJXq/0mUBsMIHcvT6MEFqADb1uHgVUZ%2B1y0743xNnsSlfmfD4ydJXOEZ%2BAH/icRgvP/mPvvX7SwgNoOr6Ig3AmsxWcNJXOOkrXdJXFnBmJbzsHsF8Gegebnb6Cid9hZMDGE7066fRF34XInDHFU0nOwZO%2BgonfaWLP19F0QCMvxNQ4W4ZaHYM3TbRSV/hZD%2B95J4Ipp54el0i4ffAmzEYLQP19XjsrmMI9N7d%2BcqEQ%2BMV0lrWJjr79MN99V/%2BcdfeRWxOKwFlx8BJX%2BHkAIaTvoqAbWmIvRvoHm52dgyc9JUu6Suc7X5G/V0/h34RzILsGDjpK5wcwHAi%2BmqpAfhUAZ4WgeoKrmSFD9LC/Efhtdp4Jn2Fk77SJX11Sf3D60/%2B9M3xH1MuieLV7R8VvvxF3DzEpuIMwNeT4y0TMSeI8Bsd%2BjOm8PuU9IMG/dk9yYHQACREnB7OIn2lS/oKJ30VAdsvf9VAy0D3cLOzY%2BDkAIaTvsKx/owuNYD7ixftP/MNQi12sQw0O4Zum%2Bikr3Ai%2BuqK8PvRzU8GXsgKr26/P78eKfzWCJeBto/IjqHbxuroUWx3ANM/23Z9pc%2Bh%2BgTvyrvV9q6ifxFm98TNY/8gDPsaJpEdo4FgRrs7XwlIX%2BGM9JXLkg7Kq9s/0n%2B0FX5rRANAdgycHMBw0lc46SuQX938y%2BxLuM444RfSAELf7JIdQ5v0FU76CsfGD081AG/Fn4fq/7hdPyENwJrsGDg5gOGkr3C26qsIu36%2B56z98r%2B6o18a6lgGmsLviDYkNr/sqI4LX5kQW/jdEqAG4C39Z45PbeF3Fz8Is9VsxYL0FU76ShfPvvIW/V9WSz%2BX6P/cIyX81kzbDTQ7hm6b6KSvcLKfBuVi5c8c4dfFF8EsyI6Bk77CSV/pMkb4Lc7Sfz/Cb02YZaDZMXTbRCd9hbPVfnpd%2BHUZ/ScKv0wNABF%2BoxOmYzgQfsP4yoQUfr0Q7stfr27/iF0zEcbVhN827kpA2TFw0lc4%2Bx7AeIT31aF89NxF%2Bn/1677FRAMAhN%2BFBhD%2BZg8kfYWTvtIlfYXjIfovQ7/BCh%2BmBuDii2AWZMfASV/h5ACGM8sPPn/u8fXtn0opHlb4IDbZA0B2DJz0FU76Spet%2Bmo10E/Rfj%2B//VOhRWmZ8Nvb4uIqmi2ufA/A263XIUzH2Jnw6w/eVecAhiPJ9F3xxe2fZVtQzBF%2Bh34PIDsGTvpKl/QVTnhfHUoZW/3//PbPRa92P1L4rRHtBpodQ7dNdHIAw0lfabDQAD5%2B/j8mXsoFfoVfkx%2BF1yI7Bk76Spf0FY4P4Xcap/T/ghjCbw00AGTHwElf4eQAhrM3X3FX%2BIxM/z9/v87nhK3wazF41Dz5HoCHW89jUx0jhd/J%2BBV%2Bo2P6GQev/NHbw2dd%2BOXbZJ3VpgSUHQNnUwOYMekrnF34asaJieLPdcYJv9x9gUy2g/bMLjrGQNJXOOkrDZ6WhsYWf65H/3b49bDrp8mPwmuRHQMnBzCc9BWOZ19dEX4drPyxWOGjv%2Bsnhfky0OwYum2ik77C2ZuvfG7tcKbSfiXC77gVPkjrD%2BI8Ho9sqmMYC785gK1xaLxCWtu3iY71ZxyZ/r%2BuVv6olXHYwi9vaFDbDC47hi7pK5z0Fc4u%2BunDiT1s%2BXmBcXZPOF1SGoK2g47OLjqGEukrnPTVGKaXhq5qv46//MX9UXgtsmPokr7CSV/heO6n1wP9jJU/jlf4CEpDu1sGiuC5Y3gjfYWTvrqkI7sfvvLn6VUt/t%2Bx8KumAXhgUx1jQ8JvTOYIv9HZoR/O2q/arp9c4ffQn90jrVwsA43%2B0KSvcNJXuuzCV1UQdLDw/wnOdv08QK3OhJkBcNlFx1AifYWTAxiO5PqbX/4aHP1fLzZ9q3Es/DKHG7UBIDsGTvoKJ32liz9fOf3y1%2Be3f96q8LsQgbNjnPDXMfySvsLJAeySvj3952q/IuFXtHEbeRUCm4AGYM3uOoZA%2BN2dr0xI4beHffrh9fsfeedisX5fMmNgagDZMXDSVzg5gOGkr95zqGcJ979%2B/q/DzkyX/s/MLw1hwu86YUTg7Bg46Std0lc46sJvKWVk9KexWOEjmTEINIDqJokGgOwYOOkrnD0PYC9ufnj55u%2BOd1T7iL6avrXDFV7f/rH6v%2Bo6uev3HazwEWkA3joGl4gdYxbpK106/PBpK%2B6fOY8KR3okcE53oB/8Y79qZRziIRi5wgc589AS0O6CSBDhNzr0Z4wh/F6P/jU3Nz8spbwRDAOe/XDJ4JU/cMSfs3GbRWlIbRlo9ECTWbAu6SsEPPTXPCeGgfC%2BOswsDa1pv%2BO%2B/LV%2B1iISfuvWP2AdOZhD9c%2B6TXRG%2Biq6P534qi/6n3kuOxzE%2Bnm4L/fVv3L%2BV8Zqv68Xv/bV/Fdfc%2Bvda6wfsX5WvFWz9eHxX820ZaBBY8eZ9JUue/OVMPqfOI0BX7YqQt58xRV%2Bh6/8aVzSVoVfF18Es8BHEIkRgrY7gOmfzbkfntHDwHgO1ad8V95NvBKcV9XKnz0IvzVhloHGCKul5wk6sztfCYjrK5Xc/5LTMHBrORtA2rBr961a9se%2BvvZ1YjvCL6QBRK/zIjipBYcgfYVjV/df5ZMhwoAilxrAyOi/xroGgOkBPF2BtLl4sHhKBNV6s8tAg8YOFukrnP346jQGfOVgqeiSmSt8KB7S/3YGza/X1whW%2BJCtmDMG8iZVGsB%2BOoacHMBw0leXWKf/Nb8mhoF5wi/E2JU/f7x8k//VnTnCr1ZpKLwI7CKIGP/EoxYufGXC7oRfkNMw8PVAfViS3Q9e%2BXN/8YJ/6OIGywK9xYxhHfb3ALIWjJO%2Bwtm8r0am/0/4mDj1NF8JatlavGql/xfwavcQh/vHf91nxVuttWZ/DyA628jsxpC%2Bwrn%2BGSdG/xMfD58KXKFZGvKx5WexKeMIbDJ/G4CyT/3FvASUtWCc9BVO%2BqqD0zDwdtwXx1Dhd3D0f337pzjCL6/1shot0AB21TGukEEEJ33VZHr6/4SP6GFATt/PPY7kUvudJ/wKVvhArdZxtxdQmFowtbnGQML4ygT9K7Lwlbfof%2BYjvQur1/J3HD5e%2B4Wq5u2296Xc1zeYV4l/apN11q5Wa/ahElBmdjjpK5ws48zlVzc/LKV8M2apKFGaGPydAED7NdAAmN/4lbZqtb4n/gJ9D8AzGURw0le6rH5Gt%2Bl/zWkY%2BNZYH6ZKQ588/6npeWteEb/2hQR9DKUyjuBH4bmlIZMS0HbLDvqkr3D2XfKy5ZeCpaI1y60dVkpDM7b8bJRKZGUcC5vMT7K4Sbwzm2wH7ZnMgnHSVxJCpP81v%2BydCvjZ2uEKr2//uMiU2Q%2BcRRlnjvCr9qPwWoQJIg6%2B8RvGVybwrnriABYu%2Bp85DQPfrQ0DsqB/X0r59bTiz3WIkHtYbQHaZJ21qxXnCsyXgcYMNI9kFqxL%2BioEH2LDwAqk8Du09A%2BwL%2BG3fu1uGShC1nlxsm6Oo/UZ46b/T/iw54M81p2v/NzjSKr0n1e7x1g/AqrKL7aIULLJ1QAoMgvGSV/pkr6ayy9uflhK%2Bf3VqQD3y19jV/5833xfVsYxmDFwWxOzK67N8MtAETKI4OQAhtO8/s2k/zW/eF8R%2Buf5nW4NYNaWn0VP%2BLUYPPit%2B4Xf%2BkgTEXhTQSSF38n4FX4v2WT0P/PhzY/KchjgMGGlEKz98oRfvk3WWbtarbcGNIA91HkRsm6Ok77aG6dhgKS6SZcagKeVP%2BsaAKYHVK2IrZ759XqeEmGuAVizqRmDA9JXOIq%2BerHp9L/mNAZ8e/zvhzdqDYCMNZNW/rQz3/6qOXYEZBNYKUTZRLJ7hFwGqkAOYDhb9dV%2Bov%2BZX978uJTyzfEfE4o7azS1X1mgl%2BgBSmUcUvglIDpAfWQuA82yQ/qKwR4%2BI4tf3fwL0mxk%2Bv/y9vvH2ge0ae96%2BUVUGgKwLg0tj3z8P7USUMSsjcRY%2BN1qFqzHofEKaW3fpsm2td9VPrr5SSnl7fHvF395H6dGlv5hiBjKFn61RFqqleQK1s8GLQONGUR4TA8igUhfJZechoGv3vzt/M6U0tCF9qtVxiGOAMosWqUh6kj0Ly2micAhMjsnpK9wxvtqh9X/K5yW%2BdfDwAzt1yDQa9nkCr/kjERn8DBZBrqHOmn6CmfDvsro3%2BT8ba/B0f/V7fdlue0Er2peCnIEXwPg2cT0AIKqkwzVAKzJLBgnfYUT5TN%2BfbwrD7/qHoLhe/2Xl%2BeVP9ANMy4NdZ%2B178w8m4%2BIBoBNBZENCb8xmSP8ShiW/n91vDt9lnDDgDOIQM8VfgW/2CVt1WotKQ2Ry0AdTrdZjCw7pK902yRPeOKrt8Y/3xiRl4uF/%2BsFFevS0KL14qGfVBoiGFoCipLZeSB9hTOl5DUs/f%2B6Fe5PY8BHORUopbxf%2BeNY%2BOVm9%2BSDqFMaqr%2BtrbYMNHqgybo5TvpqvPbb9MPb493h4Vfd9819f2jEjtAaPPitgTMTJSy6NPSIaxF420FEl/QVTiA/NNP/J3xzvCs7HgbeF3%2B4wi%2BxHDO%2B8AvYqXw1bRmoi1ow9j3xJrvzlQmPnyyQr%2BYWfwrxGb/ZpTDwkvi9l4p1DQCqoAt%2BsYv%2BC692Tx8ZRAOwJrNgnCzj4NTX73nh/7fHu/Lwq%2B77o535jiwNLVofqFa8s7Kze6bNMMtAtxREPLSJzuZ9hRR/muxnGHh5%2B4fm%2B7JALykNCTQASPjlgQwem10GihCo7DCdLHmV4cUfia%2B%2B23pF6NXt93UFFyuCrJdf%2BAWa/jIO99oWVDdeUhra7DJQb7GDS/pKlx364TQGfLjRqQCcGNfCr8SUILuHWkmugCf81uxvGajgG7%2B785UA%2BjMegDaIHV4bOXO1324/fHe8Ozz8qvtmaGm/WmWcCmDjNovSEHUk%2BheOTdcicGbBuqSvcJ58Rs/aL8Lvj3dlK8NAFf2VAr0gu18QRPiFNACKzdd5Fcm6OU766gSi/XZ/xt9vRBhYqd0zjZBHYFV5Xu1%2B0Yhchc7/NO0j169tMQNw2B9Y5IxBl/TViZHFH2tfRZ8KfPbVH87Pk1Z2L5sxSFozz1w9HNiMYR3zEpCPIBIjBG13ANM/2zA/RC/%2BlFIO1ad8V96VUr47/rOU8uHNj6ZdUxcvb7/HHqUUfkspUAcgBwB/QURAv14SNODOIX0l4bL4o%2BWre6IDfHv871LKL29%2BDNjwyXaEX4vBg7Yv0ACsyVowTvoKp%2B8zbiD9X%2BU0DPjnQftt17J5lXjsCMjm4qHh1e61dAXsSEID2G7ZYQ7pK5z01ZlV7dfGD%2B9jwbfHf7wr96dfdXfMfemp1z%2B1IG3xtBUzuydv0sDSUIXrZaAIOYDhpK9wDqXcjEr/39prv2fq6f%2BT8PD2%2BPdSis9hoNZ%2BAeYIvxalIUr4lQ6FD5iUgFyUHQQ7fY7Eha9M0L%2Bikb4aFv0HcF/uz/9WG5%2BGAVd89lV7z58lVYmjusEWpSGqNWaT9UmgMs4C4uFemnp8HtjLQN3El04yC8ZJXw3gydLPab6qjH795m%2BllI%2BH/6o7Bi%2B7h3An/Opk97TNR1yUgDKI4KSvcLr9MH3H//Fcloa%2BevO3UsqvZw8DL2%2B/t/nxFoFN5o/CU/bRv3Bs3jO9Yr4MNHqgySwYJ32li6nwW54Giza3b/6rlPLJ85%2Byz6PBacNnf8Ivr/WyCK0zeCDZPYK7ZaAI262b65O%2Bwjl9umHp/0n7HeDPuubLq0Y/cBoGxsOR8NZr91h1v18DwGwCEBoG99qQa4ZKQGEyOwd6bxhfmaB/RYN9tRntF8nuWXa%2BfPP/7sv98%2Bc/UzGLQGi/RB58WG1xhTkaAHYkYId4uJHSEPQ9gOhsN%2BDqs%2B8BbBxvq%2Bq/B%2BEXLA29efPXUsqAYWAZ/Q00AKbwK23Vaq0l/LIHj%2Bq%2Bm4jAGURw0le6SPwwLP0fsOkbwpXvBLR5uOg3X/71vtzfPPufFlf1wHrQl9ihWmgJv/wZAw%2BtwWOhAWQt%2BETWzXFG%2BsrUnyN3fRjsh6UGwPhOQMNS9e/45X/yLUC8vP0Dv9qtpQFQR6yzaL24Sf21e/rIgRqANZkF46SvdBn/Gd8OWfqppQEsS0NP3/3dl/9ZSnnx7OdK5yqF96VfizLOnOy%2Bli%2B1snv6aioNgDogTBDZmfDrD95V%2BxzARu76gDfmPg%2ByoN/WABCLv/3y/5ZSPn32b4Kzv2e3wi/6lzMC4bfGxQyAi88gEpf01Xim%2BYoUfiXcl1J%2B%2B%2BX/KaV8%2Buzfu62k8Ktts4J44NQGgAwiODmA4Qzwg8/0X5X%2B7J52XNvOF1/%2B5eWz/%2BBcWykPX/hCvvGLoZTdb1T4rVHbDtozGXB12ZKvPCz8t/AVO9BfscSyeShf3P6llPLyE3QYeB/9pWUcgxkDtzUxu5Jl9/oaQG1zWgloS0HEmhzAcNx%2BRqP0/54I0FKrl6%2BYfHH7l/vy7vT61Sf/67LB6Qde7g/3zPthEeg9C788RBpAmCCSwu9k/Aq/LBwWf8Y%2BD4LSEGTzPa9v/8QfqHjCL/famGftarXemjlsAcIv5SuKMCJwZsE46SufeBB%2BLQK9rpiMngm0I9pJdNIKH%2BBIrdKQi2Wgewgi6SucMb5ymP6rIigNMYVfWSZuYbO3RYFWClE2p63wYeJCA7AmBzCcHfpquva7MeGXZXP9XdTOuOyebE0KvwTcMo7JjOGRkMtAnQQRU9JXOJ79YJH%2BuxV%2BL44msnv2gOFghY/wzOtHEnYAX0lKQ3GWgRoLvzmArXFovEJa27fh4q34s0nht8vmehAMs8KHPFI/u%2BcKvzWuS0Ceg4g30lcgg4s/KfzidngtrhwBbZMA2Nmo8FsfOW0ZaPRAk77C2aevxmu/otIQ8CUmi%2BxeVsZRsskVfqH1%2B36F39qm6xkAl%2B0FETv26au5xR9r4VcGM9ADK4XcrfCZVRoiBoxZwm%2BNaADYZ2bXR/oKJ/1wiZ7wa6sBkO86Fn7dlYaMhd8a0fcAzNmQ8BuTOcKvEcPS/2%2BAH/yaJ/zq2DEvDXGFX8HGbdJWrdZDS0OCh2loCSizYJz0lS7TF/6P4FAHZc8rfIAZA9sm86yA5sG2SbbiYVMaqu5j9ZyoLQPdQxBJX%2BHsdgB7y/%2B9X8n1iwI9U/jl41j45WbiTM2DewXWu35SuBaBdxtEOkhfXWGi9qvnKy0NgLLZevcJKfziZ2YLv/2YaAAUuw0iHaSvcNJXl0zb2oFpk3yXK/yKNm4jr0JgU0v4BeyIhN9%2B2N8DMEcg/GYWrMGmhN/iSftN4ff6EWybasKvsUjLBCoNCR6moZvBbSOIjCEHMBzwMz7fvPYbUPgdWRrChF/eWYeu8BFACb815ttBeyYDri579tU3zO/9ehN%2BSZvsC7VY4SOZMQg0AEjz4GGzwqd%2BbawBWLPnIMIlB7DrDEv/n6z80fJVyF0/uev31QI9dYSkNfPMxsIvVBpiMnQZaMQgUpO%2B0sXUV0EX/tsEeselIeIGu17hA9nUF34tSkM%2BZgBBhN/o0J9xa8LvSK5rvyP9sItdP4GN28au8MH%2BwrGpJfwipSHXy0D3EETSVzi4H4YVf7ilfx0I4ZduT/3B8QofQXa/YMfCLzJY%2BlsGakwOYDjpKxzrzzi0jMNdv28i/PaeFW/VbL0D4bdmU8tAowcRhPTVKqHTf4tdP22E3%2BrdFH5XjvQl/NZMXAYaIwRtdwDTP5sHX0VZ%2BH%2BoPsG78k7JqkUZJ4Vf3GYM4deHCCz4XDED7hzSV0ZcSf8RX2n9YpfrFT7BhV%2BLwYO2ryX88maQ0ADgIbOLQvoKR90PoYs/12EHeoHwy2ec8AvZVBJ%2BO87MPNJg8GAGBeh7ANHZdsD98uZHl28%2BP/6zz9q2faWLjR%2B0NADKZuvdIhJ%2B9WYMvS34V2Eh/IpKQ5D9gRqAhMyCcbo/420r7p95U/315mEw2Lav4qb/IXf9FG0RMU74tSgNUcKvXqCvXw/UAMwDrvFPPGrhf3C6Hv2fcLz5UXk/DMQWfq8QRfs9E2ZrB6IF2ya0WgawYzJjkFwBb8Cgbepn92F%2BECZnDDis0F9zGgZePGSve/CVBVT6b%2BKrjQq/EO6EX/3snrRjLPzWmC8D3UMQGear7uh/5nc3PyzVMDAeC1/FLf5cJ4Vfhk3mbwNQ9tG/cGya/9yjIMi6mAFw2eeMQR79z5yGgU%2B1ZwNTfDW4%2BJPC74pNCAdlHHKl0PwVPksrBqWh%2BkfhVSyW4EFkMB1%2BUIz%2BZ367HAZ84ud50E3/U/hFW%2BCt%2Bm0CbEj4rVHbDpq%2BivldOPqMwSL6nzkNA59xopsfX8Uq/th0bJml1mu1Mo6a8Ms6a1cr3pG%2BhF/J4DGtBOQniDjHNPqf%2Bc3DMLB5fyoyS/iVYVvGEQV6pvArbdVqrZXdswcPgfArGTxMloFGDyJ%2BZgxjov%2BZ0zDwUrsoZOSrWOk/iIXwK5sx8Mo4fJu9Zy1s4dekNEQe6Vf49bEXEJMdDk6Do/%2BZLx6GAc/%2BHKn9Wvhh2q6fbOF37UyoHQubzNaOhV%2BL0tDC/qwfhfccRLSw8MOs6H/mNAy8miERu3oerv/gFwvfZRzCpkj47W1xcRVKrZmBfqDwqxbomYmFzQxgZ8KvLtNDf83nD8OAK39OLP5IMn0%2BWmWcts31d1E72xR%2B0b%2BcGSr86swgQy4DnT%2B8mOEq%2Bp85DQOvfSwYDbfrwzqk8CsByO5FNtfOBNpJ4Re3D/gKtHR%2BZb8MNAgeBjCf0f/M64dhwIOvBmCs/Qqye0j4bb2LksIvik1pSEkfWszG2s/GLpaBhhjAvvId/c%2BchoHPJ80GXGm/MuFXAnPwSOG3%2B8ztI/U1ABt9iKkB7CrgCtH1lfPc/5JXnGEg4nP1rWCE01vhs7R6%2BUpmx1r4tRg8%2BK0thF8eFoPH0n7/s6E3A0jht5dw0f/MaRj4YtRs4NlA7bd%2BBsY%2BD7bCr0lpiAyaXJuss3a1Wm/N9BAg/FK%2B4mKRWIgGgCzj4ASt%2ByO81B4Gmr7amvYL1Gf5rGf3MptrZwLtEGKmRaCnjkT/wrFpUhoyEH6hL4JFD7gI0wenKHV/hNMw8Ju1YcD/c2Wp/QoyuEnCr57N3hYFWilE2dQSaTGb/aiVhpiJxVAROGcMNVuK/mc%2Bw4YBLsPS/2/X1jjtTfjF0BJ%2Blco4pPBLwC3jOBN%2BRT8Is5%2BAK0fRVxuo/FzhNAz8VmM2EOW52ofwqxXoqSMkrQdm94CvRgq/EmQzAGPhd6szhm1H/zOfYsPAKsO033rlTwq/K0ewhV8tkZZqJbkC/ezes/Ar2gwuYsCdRfMzbrLycwVwGKCeh2HRfwSuhV/j7B7aJgGwYzJj4BFd%2BK1hfw/AM/5nDHuL/mdOw8DvfGwm0URx07caUQYHfInJIruXlXGUbHKFX4ON27Yq/NaYi8A5Yziz2%2Bh/5gVzGHCi/Y7dAG5p6fJVj/A7bvDgteBfhVppCNq0bpvCb/3ZzbeD9szIwSmj/5nTMHCkh4GTP/0Xfyz29B%2B666dj4dddaWiS8Gu9uIA/A9iQ8DuMjP6X3KwNA8M4a7/zhF8dO%2BalIa7wK9i4Tdqq1XpoaUhJ%2BJWxnlgMXQbqKih30PEZM/Rf5zQMvLkYBqas/DHhsN4J%2BVgEemDGwLbJPKtg4za10hB0pEF2ryT8utMArPE8OGX0B3lODAMTkTwPokDPFH75OBZ%2BuZk4U/PgXoHrXT%2BJxIKL62WgoWcMGf25nIeBOOm/bX02hV9Oawvhtx9vu35SicWmloEijBmcMvp343zTt2lbOzBtku9yhV/Rxm3kVQhsagm/gB2R8NvPyG%2BVYzMAgfC7wxlDRv8QnNL/FH6vH8G2qSb8Gou0TKDSUBDht2bXy0ARuH6YHv0/q5a0f%2BE7m56IrfYbUPgdWRrChF/eWbVE2pGloVnCb407ETj0jMFD9K//9%2BXx7vDwk%2B7JKt6EX9Im%2B0KB0hDbjmTGINAAIM2Dh9bgQVtRCvRKwm8NNAC4Dbiu8Bb9z7w63pUcBip293OPBhu3WWgAWGvmmY2FX6g0JEDrR%2BGpxAL6HoBnnMwY3Eb/MzkMdDOrPsu32XqXbwfbHx%2BwIykNdZx53aa%2B8GtSGjKx2YaeAQQRfj3gIfqD/nx9vCulvN7xMLD6ky%2B67GLXT6CWbVEaoo5E/8KxqSX8WpSGqMQCgb0MNEpQlsDyg4fozz1kt8OAofbLrc86WL8vK%2BPwgv6CHQu/3F1OEZsSiy5EYCdlnA58Rn/QD58f70opr/Y3DNRME36fWGrZ4Qu/vOweY052n8Lveztqwm/7M5ovA93wjMFn9Oeyn2GgO/232PXTRvit3k3hd%2BXIvQm/rXcvBoAY4drDjCFK9Ac/4xfHu1LKy%2B0OA0j0P1TeelfeKZ3ZooyTwi9ucw/Cb9sOYnE5AGgNPMZtpvO1j%2Biv7qsNDwOIr7R%2Bscv1Ch%2Bt7H6S8GsxeND2tYRfrUBP2exHbTtozygOTtMT/6JU%2BaE4lPKb410p5bMNDQNGK3/YnVAg/PIZJ/xCNpWE344zM480GDxED5/%2B4AFpANZEnDF4jv7qvtreMHCG/8zYdkIL4VdvxtDbgn8VFsKvqDQE2TfQAA7t%2B9hhqXrVtmmyDHSTM4bpZZ9inPs32cAw0Kf9htz1U7RFxDjh16I0RAm/eoG%2Bfu1MAwCEX4oPrH/iUYu5g1Os6K/uq98e70opnwYcBljRP8zWDkQLtk1otQxgx2TGILkC3oBB2zTI7k2esf5SpItloM6HIFfRf6KvIg4D%2Bu7aqPAL4U741c/uSTsbEn5daADWaA08rqK/ESxf/e54V0p5EWEY%2BM7Abyn8MmwyfxuAso/%2BhWPT/OceHQu/pAYgYZMzhunR/3ron%2BirQMPAiRR%2BOTZ7W/DPTAu/OoMHuzQE2Y8t/NbsYhkowuVndB79J3L21fF4V0q5cTkMdCz9TOEXbYG36rcJkMLv2dLlq2vtH9nFMtCOASxc9J/oK4fDAK79eq7PyrJ74gg14Zd11q5WvCN9Cb8Wg4dFYpHLQBtMj/6fLrPXEP48Hu8Obn7SXdljgPArw7aMIwr0TOFX2qrVWiu7Zw8eAuHXotxkMSsNIwIPG5w8RP8BZzHy55vjXZk9DKhrvxbCr6xj88o4fJu9Zy1s4dekNEQe6Vf4nbXhoGgA2N6MYXr0X/1plxD%2BfHO8O5TybMYwUEd/mQYwrhPyhd%2B1M6F2LGwyWzsWfi1KQwv73N8GgBKL1rs0ou8BeKYjUHqI/nMv4Aod/vzyeFcmDQM4vss4hE2R8Nvb4uIqlFozA/1A4demjKOTWEAzSOA5GVoC8jxjmB79O%2Br%2Bnv155svj3aGUT4YMA2DxZ9bWu4jN9XdRO9sUftG/nBkq/I7ThyR26tdqy0BDzxg8RP%2B5F6DOk%2Bfh9nhXRg0DOgj2V6EBsnuRzbUzgXZS%2BMXtK/3Eo3ViQfnBtQg8YHCaHvqLUvQPMWO4Pd4dSvm1zTCgof0KOqFBfZayYzNj6D1r2Ynwq5TdL2Zj4xILimnLQD3MGDxE/1XVt/jwlSJfHe%2BK9jDwXe9eSdO%2B/JXCb/eZ20fqawDW6/chjBML1zMALqyBx0P0/9Tmh0oQpg/2Xx3vDqV8rDEMILl/xPrs4l0l4ddi8OC3ZgZ6SPjlYTF4LO3HSCzMBwCfMwYn0f/JOz59ZcrXx7siGwYsdny7YE59lmtnWcfXssk6a1er9dZMDwHCL%2BUrLlF2/aSeN/PtoB3iM/o7x3Rw%2Bvp4dyjlI%2BYwoB/6ndVnMZtrZwLtEGKmRaCnjkT/wrFpUhoyFn71bLbeXeKuBGSdBW8p%2Bm9sxvD2eFfgYUAv%2Bvutz0KlIZHN3hYFWilE2dQSaTGb/aiVhowTC4nNoctApweat7Oj/yn0h/CVkO7P%2BPZBF/lVayT4tiX27k34xVgPXkPLOKTwS8At45jMGPoRlYaYiQWfgRqANXigmZ77Ty/7xBrIv4EHS4p9CL9agZ46QtJ6YHYP%2BMqiNLS0b1sa0kosIA1Aci6HgcZt9HfoK7eM/Yw6U2zaZutdvp0FbOFXS6SlWkmuQD%2B7X2oe3SZNEouhmlP12dnfA4iI2%2BjvnKCDPQ/Xwq9xdg9tkwDYMZkx8LDI7pezMdvsXmJHklhsahlou6YcJ/pP99VO0KvP6nTCJRZlHCWbXOHXYOM2dmmISRzht/Uu387Gl4H6if7%2BfSXH8wA2bddPQNAzLw2xbU4qDUGb1hlk9yZlHJ3EwnrDQXcisGKA2Hzlx3PAncW0rXeZNsl3HQu/7kpDk4RfF4sLlBILaACIGEQ8R39vvpqFPz%2BM0wDUSkNc4VewcZu0Vav10NKQkvArwzaxIP1AfHboewCeiV7390bEwZ7NYVInZNqBZgxsm8yzCjZuUysNQUcaZPdKwq%2B/xQWPmJSA5gaRWNE/yzg4et8JkJxYvxPalHHGlYYWrZmlCe4VuN71k0gsZNgmFibbQc9ieugvy%2Bjv2Vda%2BBucHHTCFH7xM7OF337c7fo5SfhlawDWqAQID9H/hf32zjljuMTb/iqUTfJdrvAr2riNvAqBTZ3sHrIjEn772ZLwW2O%2BDHRMEPEQ/a9v7u/HV3Px54dx9Vmt7J5tU0341SrjYGfj2STOkMLvVVzMALg8%2BVxOov/sS2iTM4b3BBR%2BR5aG6MBhEejnDx5LK5XPdyD8khoAhecgEjH67yLgKuFN%2BCVtsi8UKA2x7UhmDAINACpN8NAaPGgrSoE%2BoPC70ABCB5Hp0f/FxY6Vof1ZfA/2FC7qs4CdhU2DjdssNACsNfPMxsIvVBoSoPWj8NNKQxWBl4E6if4D8BZwPRC%2BPsu0g2zcBtmRlIY6zrxuEzgbU/g1KQ2Z2AQQCL8IUZeBTo/%2ByO%2B5B/JnNxEHJ3/1WYPsHqhlW5SGqCPRv3Bsagm/FqUhKrHQs9l6t7BXlP1AeEXDOFT/SikfHf858WKG5f59PPGVaRvXHO7P/%2B7L4z%2B6PfWB75v/2u%2BiF9c%2Bgm%2BTdwTZYvHZeZ%2BGvoJ%2BD2E2%2B1k8D9VzomVTdpX1Myaxue5/cgAYGUT6As2sMeAy%2Bvv3lR%2BsP6NNJyS6EXSh651Qa/DgnRVv1Wx9ePzHvTbsU/UPHuQ1I0kAYvNw//hPZLP9GbWe2/UzBZoBNBk/BjjP/fuIODjdP02OInTCKmhi9nmDB99m7yfpOHP1cNBHWgR62Z18tC94xojZlWyIW39uEZtqA8CsLPjjgWOAVvTPGQPOoRzO/7QyOG%2BdkLRJ3DytwYPfun/woAM9YRN4cLUGj6VN/cSCPSuFSpFr72LX9oMNBJExY8Bpm4fovlJh5ODE7oRktjWwNMS0g3RsLHCs17L5gX7O4EHbJ7J7ZsfTC/SUTZ1nDHre2KXIR6aVgHSDyK%2BNx4C5lZ%2BcMeDYZFvtTthzdSqBXmvwIAbL/k/S92nWjzQYPEQPev08BJyVVqXIxQAQOojYjQHN6B/aV4Ox8cOkTsjOtiw6dm8L%2Btqg1krCLxboJUHfQANYCL8Si%2B3nVsvm%2BrtLwojASL/7xGAMiKj6bnXG4G%2BZXdvm4l0yaCJ21js2P%2Bj3nrXjzNXDYRPo638WZRxb4bfn6lr/JN4UDQAOg4juGKAY/R36KgTW2b3EjlYnXBxBBE1%2BoOcFfcwm65NcCfoExMNNB3rZnXy0b/GM6Zci1Z6x6p/oewA%2B0RoDzvv8ZFAuzgcwMtuKLfxCuBN%2BZR5q2SftMB%2Bm6MLvAm4pkkgshm4HjdwmrTZCpld%2BRvoq%2BrhV92Go75Ef%2BL75WpYWto9unwm1I7DJ/G0Ayj76F47N%2Bw6vsGyKHvT6eZA9EW2brXf5drg21ZaBusqChZMAKvpv0ldG2Pihnd3LrhTI7rnZFmKTeW39LfBWzU%2By0DD6Pw19pCxvfrSfwi/9Lo1rEVgSRJ71jgEvpu4y1M3IwWnkAJbCL9oCb9VvE4AoNUgGD/qagwu/QxOL9hEmu4E6KTs8O/7zS86moQ%2BJv9qlBfKVK7Sm2OzS0BVLrdftd/l26hsss8k6a1cr3pGAHeLhXtrsvzbMpoT6edB/3hbXzA4E7auo33U9A%2BByOaDi84C67OMtC7Yg/IyBzLY8fzGn/S47g2MKv9xrQ1prZfeYzQrmw2S9akhmsf3cyp6x%2BjmhZmOPhFkG2h1EkDHgxkfZZ7qvAmGzzM6gExIt%2BDZ7z1rKcsBQsikIplqDB33NVdAXdAa9VUPtz6g1eKyfibaywWWglzy/Gt9fHP/peQBzwiw/TOuE7Prs2pn416Znc51Fa2J2JbFJB30eZKAX2FzYr4Rf6AAosZAMcevPrcTm0BLQxBkDNQYElXxPbHVw8l3GIWyKhN/eFvS1yVozAz25zbXM6%2B2rUQr0BokFNINUSiy410Ydvc1loE0ux4AXxzvWVYcoeTlBkunzz8bshEyb6%2B%2Bidqp/lYP4YdIi0DODvmTwIB6O5UXoZPd6gb59pXrPWNumVmJB3enwIjArmNa1/id1/%2BgBFyH84ESUJsw7oSjor50JtJPCL/zAscs4wJXaCL9az1j9nLQTCwr2ABA9Cz7F/TGqb3Rf%2BUDQCUmnGHdCogXfZu9ZS9mH8Ku/ft9mBtl%2B3mQ2186E2WF/DyA6hzXVt2B%2B2ImvhrWpsVlPDdiELrR99P1qC/4RMpvM1gfqL/02I67fhyCfk/Yzxr/i9tF6Nh8x3wtoZBCJHpT35qt7SSe8YvXylcwO2QnZThw3ePBbMwN99dmXR1oEep1nI0piYTF4UC3IASBKEOHDu%2BotBVxrxn5GZidk22y9y7ezeE0GTa5N1lm7Wq23ZnqIeDhIm4KHySKxGPmtcv5n708shu4GirC3LFjCLny1CJoDO6HI5tqZQDuEhmkR6Kkj0b9wbJqUhqR6b8Oq9axUrTQkSCygASB8EBlI%2BkqDrM/yWxRywEBsirJ7ts1%2B1EpDxomFTbKy9i5op3pOPogeaHaRBSvh2VdR6rPr76J2xmX3ZGtS%2BCXglnFMZgz9iEpDzMSCj1ZioaQBSMiAi7M3X%2B1D%2BNUK9NQRktYDs3vAVxaloaV929KQVmIxawZpsh20Pw6NV0hr%2BzbRSeF35Qh2fVYpuydbSa5AP7tflia6TZokFv6EX/3EwoUInAEXZxcDmGvh1zi7B8os1tk9%2BheOzX0Iv1plHMpm9a5SYmG%2BDDR6UN5FwHWAXn12YCdk2zQYPLjCL7R%2B37g0xCSO8Nt6l28HeTbYNong4mIGwCUDLo7nAWzaMjtA0PNQn6VbDSwNEQOGdWnIn/BrW36k3rVOLNwtA40elNNXl%2BjVZ%2Bd0wln1WZtAb1wamiT8ulhc4CCxYGsAUYIInznCb3T8%2BWGcBjCtPnvgXYXW4EG1HloaUhJ%2BZdgmFqQfDBILDEADkJBZsC678NVhUidk2jGpz3LPCmgebJtkKx42paHqPioJv/4WF1A2q3cNVpTtZBkojxzAcCTXL%2BqETOGXz/z6LGYTaM0sTXCvwPWun0RiIcM2sVCzCawocyECZ8DVxZ%2BvHHRCB/VZXgv%2BVahl92zhtx93u346EH75dvoTi1wGqkAOYJeE31%2BFW58VbdxGXoXApk52D9kRCb/9pPDba9NYA5hHCr89%2BPPDuPrstE6oJvxqlXGws/FsEmdI4Re2YzNjeERtAMgsGCd99Z6Awu/I0hAdOCwC/fzBY2ml8nkKvwz7vMEDWgbqOogosYuAq4Q34Ze0yb5QX/VZkQYAlSZ4aA0etBWlQJ/CL2xzWgkos2CciL5yUZ8F7CxsGmdbfJuS1swzGwu/UGlIgOgZGyj8WgweVAvEjsky0OgBFyF9dUn4%2BizTDrLMDrIjKQ11nHndJnA2pvBrUhoysQkgEH7RK2q/5rS4dsQjYURg%2BnlL4fcpEf3grz5r0AmBWrZFaYg6Ev0Lx6aW8GtRGqISCz2brXdLh/DbftcisRANABEDzSzSV%2B/h1meDL7PjZvcLdiz8cnc5RWzqzSCNEwsl7Qo5q%2Bh7AJ6JWDefhfVn3PMyO95Z8VbN1in8KtjUmkFSNtfOhNppz664NoeWgDLg4kT0lcWun%2BadMIXflSONS0MCbITf1rso42alvBZPWnF/FN5boLE4W84YcA7VJ3hX3ilZDdIJU/iF7VsE%2BmnbiTNnVyalIbb99VauReAMuDgjfeX5hzUsBg9eiydMEn4tBg/a/nppArOpFegpmzJLrdd6pci1M6F2eM/GtGWg0YNy%2BgrH3zI7yubamVA7AptKwm/HmZlHGgweogddf/AYOivlfnalxML1DIBLBlwcGz9M6oQC4dddfZab3SsJv6LSEGRfx87C5qF9HzssVa/GJRZ8O/qJRZhloNGD8lZ95W%2BZXdvm4l3RMrtx9VmL0hAl/OoF%2Bvq1RRlHYBMQfvmMSywsZqWBloHGFn63RJitHYgWbJuCZXaS7F7aav0KeAMGbdMguzd5xvRLkRalIaoF3%2BZ6i80uA91DUHbtq40KvxDuhF/97J60szPhdwG3FGmcWCA2gy4DnUMOYDgp/DJsMn8bgLKP/oVj0/znHvcs/HJNMhMLpJVrETgDri4p/K7YhHBQxiFXCg0sDUH2DUpDKfyCLQqUWLAHgAy4OFsdwFL4RVvgrfptAqTwe7Z0%2BepaewqtxELrGaOOWIf9PYCxpPDrhYj1WVEnVKvPss7a1Yp3JGBnoPBrMXhYJxb0bIxnh3pXa/BAWpuXgLaaBVsQ3leA8CvDtowj6oQG9Vlua63snj14CIRfi3KTj1kpL7Hg22SdlWwlWgYaPeAiuA64zrBZZmfQCVffRW32nrWwhV%2BT0hB5pHF2L%2BgMITccXG1x5QgisdCalboTgcNnwQOZ5YdpndDZ/irW9dlFa8fCr0VpaGGf%2B9sAk9bvW8xKeS0KO7EYugw0esBF2KqvfJdxbOuzvBYXV6HUmhnoBwq/NmUcncQCmkEqJRYYcxILyqa7GQA39OUAhiPJ9PlolXHaNtffRe2s12etO2FPK94VAHaGCr9agX5p9fKVzI51YmExK10/6xKTASADLk54X%2B15f5UUfnH7Sj/xaJ1YWMxKvQm/9WuT7aA9kzMGDQSdcAf7q9ClhvmlIfpIZ9n9ImiOSyxkNtfOBNoxFn5rXJSAMuDi%2BBB%2BJcypz2pNsS06IdnaRPjVCvSUTQmCwSOF3y6b5stAowflvc0Ysj577UyonTnZPSb88rAYPJb2YyQWI2elWokFabP67C5mAJ6F3%2BiM/YxZnwXP2tVqvTXTQ4DwS/mKS/hdPx0nFpJnDBoA9pYFS9iFr7I%2B22lTp4yD/oVj06Q0ZCz86tlsvcu3s7A5MLGQtIK%2BBxCd8AHXBVmf5bco0EohyqYou2fb7EetNGScWLhejjwwsahbhF8GGj0oe/ZVlPrs%2BruonTmdkC41GJRxTGYM/YhKQ8zEgo9WYqH1jFUIEoua3S0DRdjb4LQP4degE5qUcYyze8BXFqWhpX3b0pBWYuFiBmmcWEwUgQ%2BNV0hr%2BzbRSeF35Qh2fVapE5KtJFegn90vSxPdJk0SC3/C75zEQmtWmstAFdjFAOZa%2BDXuhNA2CYAdkxkDD4vsfjkbs83uJXasEwu%2B8NufWEhbPeBkGSiPXQRcB%2BjVZwd2QrZNB/VZg43b2KUhJnGE39a7fDvIs8G2OTCxoFqrDQAZcHE8D2DTltkBgt5m67PcM0Ob1hlk9yZlHJ3EYuQKH8%2BJBfcZU9sO2jOeA%2B4spm29y7RJvruD%2Biz/Coi/TBJ%2BXSwucJBYWAwe62ct0IqywSWgOcJvdPz5wSLQO6vPCvZXkbZqtR5aGlISfmXYJhakHwwSC4w5iYXJMtAMyrptpnGY1AmZdlx0QsHGbWqlIehIg%2BxeSfj1t7iAslm9ayD8WsxKqdZhROAs4%2BBIrl/UCZnCLx/H9VluJ2SWJrhX4HrXTyKxkGGbWKjZhL64B9hRSixcLAONHnAR/PnKQSd0UJ/lteBfhVp2zxZ%2B%2B3G366cD4ZdvRymxMBB%2B69dhZgBccgC7JPz%2BKtz67MAf1rCoz9JXANgRCb/9pPDba7M/sVjA3EpkwACQwm8P/vwwrj47rROqCb9aZRzsbDybxBlS%2BIXt2MwYes%2BKt2q1UFsGGj0o54zhPQGF35GlITpwWAT6%2BYPH0krl8xR%2BGfa1SkNaM8hHXJeAdhFwlfAm/JI22RfqrT7bn21hwi8PrcGDtqIU6FP47bRpm1hMWwYaPShH9JWL%2BixgZ2Ez%2BDI70ZmNhV%2BoNCRA60fhp5WGmHZkyUo9YFiUhtq4ngFw8RZwPRC%2BPsu0422Z3dDSEFP4NSkNmdgEEAi/6BW1X3NaXDui96yFrV3VvhINAPTzlsLvUyL6wV991qATGi%2BzQ9AaPKgjtYRfi9IQlVjo2Wy9WzqE3/a71omFtNXaFYi%2BBxCdiEHZBG59NpfZsc68fgU6g4d1ds/d5RSxqTeDNE4slLQr3lnxVr02h5aAItbNZ2H9GXOZHXpWvFWzdQq/Cja1ZpCUzbUzoXbasyuL0hDWev3MuQyUQURfWez6ad4JU/hdOdK4NCTARvhtvYsyblbKa/GkFbcUqZRYKM4A9MNazhhwDtUneFfeKVkN0glT%2BIXtWwT6aduJM4OgSWmIbX/OrJRKLNgDQAZcnJG%2B8vzDGhaDB6/FEyYJvxaDB21/vTSB2dQK9JRNmaXWa9LPKfxe/B/7ewCeyRkDjr9ldpTNtTOhdgQ2lYTfjjMzjzQYPEQPuv7gMXRWyv3sARMLcxE4Ay6OjR8mdUKB8KvXsXtb8K8CCxwDS0OQfR07C5uH9n3ssFS9GpdY8O2MSywsBg/z7aA9s9UZg79ldm2bi3dFy%2BwsZgy9Z%2B04Myl6awX6%2BrVFGUdgExB%2B%2BYxLLIaWhgwSC%2BEMILbwuyXCbO1AtGDbVFtm57c%2BSwKI3u5W%2BDyx1LIJWQeCoEVpiGrBt9l7VrzVuQWQWAxdBrqHoOzaVxsVfiHc1Wf1s3vSzs6E3wXcUqRxYmEyg2TbfCT8XkA5gOGk8Muwyd1fBWptUcYxsLln4ZdrkplYSFu1WksSC9fLQKMHXIQUfldsQjjohKSgN7A0BNk3KA2l8Au2KOzEgj9j4LGpZaAIWx3AUvhFW%2BCt%2Bm0CpPB7tnT56lp7Cq3EQusZo45gtjZOLDpKQCn8eiFifVbUCY33V7EYPLAjATsDhV%2BLwcM6saBnYzw71Ltagwe/NfMZYyYW5stAowfl8DMGQPiVYVvGEXXC4PVZvs0KgfBrUW7yMSvlJRZ8m6yzdrXqt9kmpAjsOuA6w2aZnUEnXH0Xtdl71uKuPju0NCToDCE3HFxtceUIIrEYWhoSnvkBaAAInwUPZJYfpnVCZ/urDO2EjoVfi9LQwj73twEmrd%2B3mJXyWhQXiQVlE/oeQHS2Ojj5LuMQNpXqs7wWF1eh1JrZCQcKvzZlHJ3EAppBKiUWGHMSC9KmQWJB/QUsAfF6bc4YcCSZPh%2BtMk7b5vq7qJ12aWJoJ%2BxoxbsCwM5Q4Vcr0C%2BtXr6S2bFOLCxmpetn7Wt1bi1ILNjLQKMHXITwg9Oe91dJ4Re3r/QTj9aJhcWsdM/Cb/3ZXYjAOWPQQNAJ97y/ioP6LH2ks%2Bx%2BETTHJRYym2tnAu1sSPitW%2BcyUAV8CL8SmINHCr/dZ24fqRXoKZsSBINHCr9dNrUSC2QG6WIGwGVvM4asz147E2pnUieE6rM8LAaPpf0YicXIWalWYkHaFCQWSKCn7FwZAPwKv9EZ%2BxkFpSHIZutdvp3ldFvLJuusXa3WWzM9BAi/lK%2B4hN/103FiYfGMLY6ENmpcR207aM/sYsaQ9dlOmzplHPQvHJsmpSFj4VfPZutdvp2FzYGJhbRVq7VWYlG3nlYCCh9wXSDohFmf7TqrqBOybfajVhoyTixcL0cemFjwbfKgnjGTZaDRg7LnGUOU%2Buz6u6gdB52QrM8ScMs4JjOGfkSlIWZiwUcrsdB6xioEiYXwzMCRbTthROC9DU77EH4NOqFJGcc4uwd8ZVEaWtq3LQ1pJRYuZpCzEgvoCnjX9mQAODRe0ewtKEtI4XflCHZ9dv4U26I0RF9NXZroNmmSWPgTfuckFhaz0sWRSsJvTZgZAJddDGCuhV/jTghtkwDYMZkx8LDI7pezMdvsXmLHOrHgC7/9iYW01foVMD0EbKOiNgDsIuA6QK8%2BO7ATsm0aDB7c%2BqzBxm3s0hCTOMJv612%2BHeTZYNscmFhYzErpI9tn28UyUATPA9i0ZXbQlNO4NMS2OakTQpvWGWT3JmUcncRi5Aofz4nFyFkpN7HYxTLQKAPYtK13mTbJd/dcn%2BX%2BZZLw62JxgYPEwmLwWD9rcSH81nwwS/iNjj8/WAR6407Irc8K9leRtmq1HloaUhJ%2BZdgmFqQfDBILjDmJxaK1gfBbH7kpEXgXA9hhUidk2nHRCU32V6Fa8bApDVX3UUn49be4gLJZvWsg/FrMSrHWzDMzS5GiASDLODiS6xd1Qqbwy2fcFNu8EzJLE9wrcL3rJ5FYyLBNLNRsQl/cA%2BxMSiwks1LRdtDR8Tc4OeiEDuqzvBb8q1DrhGzhtx93u346EH75dpQSC2fCr8TO0BJQzhguCb%2B/Crc%2BO/CHNdx1QpHw208Kv702%2BxOLBebCL4/6SLVloFECrgR/frAI9M46oZrwq1XGwc7Gs0mcIYVf2I7NjKH3rHirZmuBdoXYr//PtQicM4b3BBR%2BR5aG6MBhEejnDx5LK5XPU/hl2NcqDWnNILG/NCFLkeuJBXsA2EXAVcKb8EvaZF%2BoRbY1rhPS2RbViofW4EFbUQr0Kfx22txOYsHeDtozEWcMLuqzgJ2FzVxmt3KkcWlIgNaPwk8rDTHtyJKVesCwKA2xrsAksTAvAXkLuB4IX59l2tnzMjuu8GtSGjKxCSAQftErar/mtLh2RO9ZC1u7wnbD1U8sRMtAowfliIOTv/qsQSd0t8wO%2BwvHppbwa1EaohILPZutd0uH8Nt%2B1zqxkLZav4L%2BxII7K3UnAkcMyiZw67O5zI515vUr0Bk8rLN77i6niE29GaRxYqGkXfHOirfqt8kDem4JXw1dBho9KFt/xlxmh54Vb9VsncKvgk2tGSRlc%2B1MqJ12ELQoDWGtfSUW7mYAXCIOTha7fpp3whR%2BV440Lg0JsBF%2BW%2B%2BijJuV8lo8acUtRSolFhazUsqK62Wg8WcMj5/gXXmnZDVIJ0zhF7ZvEeinbSfODIImpSG2/Tmz0lnCb/2XTS0DRRg5OHn%2BYQ2LwYPX4gmThF%2BLwYO2v16awGxqBXrKpsxS6zXp5xR%2BV/9yRkn4rdnUMtDoA5i/ZXaUzbUzoXYENpWE344zM480GDxED7r%2B4DF0Vsr97BtKLNiDB%2BCrXS8DRbDxw6ROKBB%2B9Tp2bwv%2BVWCBY2AGB9nXsbOweWjfxw5L1atxiQXfzrjEwqQ0RLbWesYecScCb3XG4G%2BZXdvm4l3RMjuLGUPvWTvOTNZn9Tuhu10/AeGXz7jEYmhpaGhiwYN%2Bxh5fQwNAxIDrgTBbOxAt2DbVltlZzBgkV8AbMGibBtm9yTPGfN6AIGhRGqJa8G32nhVvdW4xMLFA7EDfA4iO6wFso8IvhLv67MBOuDPhdwH7NyTWzgTaEc0YtMo42F/OGCcWJiWgrZZxLEjhl2GTu78K1Np2iq1mc8/CL9ckM7GQtmq11kos2LNS5nPCXgYaPeAipPC7YhPCQSckBb2BpSHIvkFpKIVfsEVhJxb8GQMP61kptBncSLY6Y0jhF22Bt%2Bq3CZDC79nS5atr7Sm0EgutZ4w6gtnacWLBnZWaLwPdw4yhJmJ9VtQJjfdXsRg8sCMBOwOFX4vBwzqxoGdjPDvUu1qDB7818xlzJvzWuJgBcAk/YwCEXxm2ZRxRJ8z6LMO%2BQWnI3ayUl1jwbbLO2tWq3ybBwMRCbQBwHXCdYbPMzqATrr6L2uw9a9l1fVbSGUJuOLja4soRRGIxtDQkPPP6kf2JBfWMqW0H7ZlZg9O0Tuhsf5WhnXBD9Vm2fe5vA0xav28xK%2BW1KC4SC4tZKX017cRiWgloqzMG32UcwqZSfZbX4uIqlFozO6Hj%2BixtUz%2BxgGaQSokFxpzEgrRpkFigf%2BHY5CYWJstAvQVlLpJMn49WGadtc/1d1E47gxjaCTta8a4AsDNU%2BNUK9Eurl69kdqwTC4tZ6fpZ%2B1qdWxskFhaz0jAicPjBac/7q6Twi9tX%2BolH68TCYlaawu/akfqJhYtloNFnDDSCTrjn/VUc1GfpI51l94ugOS6xkNlcOxNoZ7PCL2BHIPzWhJkBcPEh/EpgDh4p/HafuX2kVqCnbEoQDB4p/HbZ1EosLMo4Syvrs6uakMtAPcwYsj577UyonUmdEKrP8rAYPJb2YyQWI2elWokFaVOQWGCBfn5isYtloAhjP6OgNATZbL3Lt0NlENNKQ7M6Ibc%2B62L9PmVTZqn1mg6aXJtrZ0LtSGwKZpBKvw1AHWkxK93FMlAPwm/WZzk2dco46F84Nk1KQ8bCr57N1rt8OwubAxMLaatWa63EYlZpKJeBqiPohFmf7Tqr1hR7VidkY5xYuF6OPDCx4NvkwX5ulYTfmjAisOcZQ5T67Pq7qB0HnZCszxIMXWZXv7Yo49gmFny0EgutZ6xCkFgIzwwcaTwrBeKDaADY24xhH8KvQScUdBjpmdePtMi2LGYMMkstm1qJhYsZ5KzEAroC/cRC6xkTfQ8gOin8rhzBrs/On2JP64Qp/HbZ4bW4dkTvWfvOfG4dUPid9oMwnss4argWfo07IbRNAmDHZMbAw7wTuhN%2Btco4lM3q3YGJhbTV%2BhUwPeRA%2BK1RWwa6hxkDhV59dmAnZNs0GDy49dkg%2B6ssrSiVhsyF39a7fDvIs8G2OTCxsJiV0kcCZzMQfmv%2BP6dsFpqX7L5rAAAAAElFTkSuQmCC%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
-  --plane:#080707;
-  --surface-1:rgba(18,16,14,.82);
-  --surface-2:rgba(26,23,20,.86);
-  --surface-3:rgba(38,34,29,.78);
-  --text-primary:#FBFBFC;
-  --text-secondary:#8E8E9A;
-  --muted:#5B5B67;
-  --grid:rgba(255,238,210,.10);
-  --axis:rgba(255,238,210,.20);
-  --hair:rgba(255,238,210,.10);
-  --hair-strong:rgba(255,238,210,.20);
-  --acc:#7DD3FC;
-  --acc-dim:rgba(125,211,252,.10);
-  --good:#6EE7B7;
-  --good-ink:#6EE7B7;
-  --bad:#FCA5A5;
-  --bad-ink:#FCA5A5;
+  /* ── Farbwelt: kühles Schwarz, Mint als Akzent ──
+     Vorher warmes Champagner-Gold („Aurum"). Umgestellt auf die Vorlage:
+     kühler, fast schwarzer Grund, ein Mint als einziger Akzent, Blau und
+     Violett nur noch als Stopps im Ring. Alles hängt an diesen Variablen –
+     wer zurück will, tauscht nur diesen Block. */
+  --plane:#0E1114;
+  --surface-1:rgba(23,27,32,.86);
+  --surface-2:rgba(29,33,40,.90);
+  --surface-3:rgba(44,50,59,.85);
+  --text-primary:#F4F6F7;
+  --text-secondary:#9BA3AC;
+  --muted:#6B7280;
+  --grid:rgba(255,255,255,.06);
+  --axis:rgba(255,255,255,.12);
+  --hair:rgba(255,255,255,.07);
+  --hair-strong:rgba(255,255,255,.13);
+  --acc:#3DDC97;
+  --acc-dim:rgba(61,220,151,.10);
+  --good:#3DDC97;
+  --good-ink:#3DDC97;
+  --bad:#FF6B6B;
+  --bad-ink:#FF6B6B;
   --warn:#FCD34D;
-  --s1:#7DD3FC; --s2:#FCA5A5; --s3:#6EE7B7; --s4:#FCD34D;
-  --s5:#C4B5FD; --s6:#5EEAD4; --s7:#A5B4FC; --s8:#FDBA74;
-  --radius:16px;
-  --shadow:0 0 0 1px rgba(255,255,255,.03) inset;
-  --font:Archivo,-apple-system,"Segoe UI",system-ui,sans-serif;
+  /* Serienfarben für Donut, Legende und Balken je Position. Feste
+     Reihenfolge, wird nie durchgetauscht – Farbe hängt an der Position,
+     nicht an ihrem Rang. Die Töne wechseln sich absichtlich ab (grün, blau,
+     orange, violett …), damit auch benachbarte Segmente auseinandergehen,
+     auch bei Rot-Grün-Schwäche geprüft. Mint und Rot bleiben für „im Plus /
+     im Minus" reserviert und stehen deshalb nicht in dieser Reihe. */
+  --s1:#2BC98A; --s2:#3B82F6; --s3:#F97316; --s4:#A855F7;
+  --s5:#0E9F9F; --s6:#EAB308; --s7:#EC4899; --s8:#8B93F0;
+  --radius:18px;
+  --shadow:0 0 0 1px rgba(255,255,255,.04) inset;
+  --font:Inter,-apple-system,"Segoe UI",system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sharp:cubic-bezier(.4,0,.15,1);
   --snap:cubic-bezier(.2,0,0,1);
@@ -54,7 +65,7 @@
 html,body{margin:0;padding:0;touch-action:pan-x pan-y;-webkit-text-size-adjust:100%}
 button,.tab,.seg button,.res,.tx,label{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 body{
-  padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  padding-bottom:calc(112px + env(safe-area-inset-bottom));
   background:
     var(--plane);
   color:var(--text-primary);
@@ -63,7 +74,9 @@ body{
   line-height:1.45;
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
-  padding:0 0 96px;
+  /* mehr Luft als früher: die Tableiste schwebt jetzt und deckt nichts
+     mehr mit einer eigenen Fläche ab */
+  padding:0 0 112px;
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
 .tnum{font-variant-numeric:tabular-nums}
@@ -73,14 +86,11 @@ header.top{
   position:sticky;top:0;z-index:40;
   backdrop-filter:blur(18px) saturate(160%);
   -webkit-backdrop-filter:blur(18px) saturate(160%);
-  background:linear-gradient(to bottom, rgba(11,11,12,.92), rgba(11,11,12,.72));
+  background:linear-gradient(to bottom, rgba(14,17,20,.92), rgba(14,17,20,.72));
   border-bottom:1px solid var(--hair);
 }
 .top-inner{max-width:1180px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 12px calc(16px + env(safe-area-inset-left));display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
-.logo{width:32px;height:32px;border-radius:0px;flex:0 0 auto;
-  background:linear-gradient(135deg,#7DD3FC,#3E6E8C);
-  box-shadow:0 6px 18px -6px rgba(125,211,252,.8)}
 .brand h1{font-size:15px;font-weight:650;margin:0;letter-spacing:-.01em;white-space:nowrap}
 .brand small{display:block;color:var(--muted);font-size:11.5px;font-weight:500;letter-spacing:.02em}
 .btn{
@@ -103,26 +113,38 @@ header.top{
 .seg button[aria-pressed="true"]{background:var(--surface-3);color:#fff}
 
 /* ---------- hero ---------- */
+/* Glaskarte wie in der Vorlage: hebt sich klar vom Grund ab, Mint links,
+   nach rechts ins Kühle. Der Verlauf muss die Helligkeit selbst tragen –
+   hinter dem backdrop-filter liegt ja nichts Helles. */
 .hero{
   margin:22px 0 16px;padding:26px 26px 24px;border-radius:0px;
-  border:1px solid var(--hair);
+  border:1px solid rgba(255,255,255,.17);
   background:
-    radial-gradient(700px 300px at 88% -30%, rgba(144,133,233,.18), transparent 65%),
-    linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012) 42%, transparent),
-    var(--surface-1);
-  box-shadow:var(--shadow);position:relative;overflow:hidden
+    linear-gradient(134deg, rgba(80,235,170,.26), rgba(255,255,255,.15) 44%, rgba(170,190,215,.17));
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 20px 44px -22px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.2) inset;
+  position:relative;overflow:hidden
 }
 .hero:after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
   transform:translateX(-100%);animation:sheen 9s ease-in-out infinite}
 @keyframes sheen{0%,72%{transform:translateX(-100%)}88%,100%{transform:translateX(120%)}}
-.hero .label{color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+/* Auf der hellen Glaskarte sind die gedämpften Textfarben zu dunkel –
+   hier eigene, hellere Stufen. Betrifft auch die Statuszeile darunter,
+   die sonst als graue Schrift auf hellem Glas steht. */
+.hero .label,.hero .note{color:rgba(255,255,255,.74)}
+.hero .statusline,.hero .statusline span{color:rgba(255,255,255,.68)}
+.hero .pill.flat{color:rgba(255,255,255,.82);background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.2)}
+.hero .pill.up{color:#BFF7DC;background:rgba(10,60,40,.3);border-color:rgba(191,247,220,.35)}
+.hero .pill.down{color:#FFC9C9;background:rgba(80,20,20,.3);border-color:rgba(255,201,201,.35)}
+.hero .label{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
 .hero .value{font-size:clamp(34px,8vw,56px);font-weight:680;letter-spacing:-.035em;margin:6px 0 2px;line-height:1}
 .hero .sub{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:650;
   padding:5px 11px;border-radius:999px;border:1px solid transparent}
-.pill.up{color:var(--good-ink);background:rgba(12,163,12,.13);border-color:rgba(12,163,12,.32)}
-.pill.down{color:var(--bad-ink);background:rgba(208,59,59,.13);border-color:rgba(208,59,59,.32)}
+.pill.up{color:var(--good-ink);background:rgba(61,220,151,.13);border-color:rgba(61,220,151,.32)}
+.pill.down{color:var(--bad-ink);background:rgba(255,107,107,.13);border-color:rgba(255,107,107,.32)}
 .pill.flat{color:var(--text-secondary);background:rgba(255,255,255,.06);border-color:var(--hair)}
 .hero .note{color:var(--muted);font-size:12.5px}
 
@@ -140,24 +162,24 @@ header.top{
 .alert{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-radius:0px;
   border:1px solid;font-size:13.5px;line-height:1.4;animation:slideIn .3s ease}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.alert.hit{background:rgba(110,231,183,.07);border-color:rgba(110,231,183,.34)}
-.alert.stop{background:rgba(252,165,165,.07);border-color:rgba(252,165,165,.34)}
-.alert.plan{background:rgba(125,211,252,.11);border-color:rgba(125,211,252,.42);flex-wrap:wrap}
+.alert.hit{background:rgba(61,220,151,.07);border-color:rgba(61,220,151,.34)}
+.alert.stop{background:rgba(255,107,107,.07);border-color:rgba(255,107,107,.34)}
+.alert.plan{background:rgba(61,220,151,.11);border-color:rgba(61,220,151,.42);flex-wrap:wrap}
 .alert.plan .body{flex:1 1 220px;min-width:0}
 .splines{margin:8px 0 0;display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--text-secondary);
   font-variant-numeric:tabular-nums}
 .splines .more{color:var(--muted)}
 .alert.plan .acts{display:flex;gap:8px;flex:1 1 100%;margin-top:11px}
 .alert.plan .acts .btn{font-size:12.5px;padding:7px 12px}
-.sptag{color:#7fb4f5;border-color:rgba(125,211,252,.4);background:rgba(125,211,252,.13)}
+.sptag{color:#7fb4f5;border-color:rgba(61,220,151,.4);background:rgba(61,220,151,.13)}
 .vtag{color:#c9c2f2;border-color:rgba(144,133,233,.4);background:rgba(144,133,233,.13);text-transform:none;letter-spacing:.02em}
 .alert .ico{font-size:16px;line-height:1.1;flex:0 0 auto}
 .alert b{font-weight:670}
 .alert .x{margin-left:auto;background:transparent;border:0;color:var(--muted);font:inherit;font-size:17px;
   cursor:pointer;padding:0 2px;line-height:1}
 .alert .x:hover{color:#fff}
-.card.hit{border-color:rgba(12,163,12,.5);box-shadow:0 0 0 1px rgba(12,163,12,.25),0 22px 46px -30px rgba(12,163,12,.5)}
-.card.stop{border-color:rgba(208,59,59,.5);box-shadow:0 0 0 1px rgba(208,59,59,.25)}
+.card.hit{border-color:rgba(61,220,151,.5);box-shadow:0 0 0 1px rgba(61,220,151,.25),0 22px 46px -30px rgba(61,220,151,.5)}
+.card.stop{border-color:rgba(255,107,107,.5);box-shadow:0 0 0 1px rgba(255,107,107,.25)}
 
 /* ---------- verlauf ---------- */
 .hist{position:relative;height:170px;margin:2px -4px 0}
@@ -255,8 +277,8 @@ header.top{
 .tgt .tl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:7px}
 .track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:visible}
 .track .zone{position:absolute;top:0;bottom:0;z-index:1;border-radius:0px;
-  background:repeating-linear-gradient(45deg,rgba(12,163,12,.42) 0 4px,rgba(12,163,12,.20) 4px 8px);
-  box-shadow:inset 0 0 0 1px rgba(12,163,12,.55)}
+  background:repeating-linear-gradient(45deg,rgba(61,220,151,.42) 0 4px,rgba(61,220,151,.20) 4px 8px);
+  box-shadow:inset 0 0 0 1px rgba(61,220,151,.55)}
 .track .prog{position:absolute;top:3px;bottom:3px;left:0;z-index:2;border-radius:999px;
   background:var(--acc)}
 .track .now{position:absolute;top:-4px;z-index:3;width:4px;height:18px;border-radius:0px;background:#fff;
@@ -299,7 +321,7 @@ tfoot td{font-weight:400;background:var(--surface-2)}
 label{font-size:11.5px;color:var(--muted);font-weight:640;letter-spacing:.05em;text-transform:uppercase}
 input,select{appearance:none;background:var(--surface-3);border:1px solid var(--hair);color:#fff;font:inherit;
   font-size:14px;padding:10px 12px;border-radius:0px;width:100%;transition:.15s}
-input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var(--acc);background:#26262b}
+input:focus,select:focus{outline:0;border-color:#3DDC97;box-shadow:0 0 0 1px var(--acc);background:#232a31}
 .hint{font-size:11.5px;color:var(--muted);line-height:1.4}
 .mrow{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
 .mrow .sp{margin-right:auto}
@@ -316,37 +338,46 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 
 /* tooltip */
 #tip{position:fixed;z-index:130;pointer-events:none;opacity:0;transition:opacity .12s;
-  background:rgba(26,26,29,.97);border:1px solid var(--hair-strong);border-radius:0px;padding:9px 12px;
+  background:rgba(23,27,32,.97);border:1px solid var(--hair-strong);border-radius:0px;padding:9px 12px;
   font-size:12.5px;box-shadow:0 18px 40px -18px #000;white-space:nowrap}
 #tip .t1{font-weight:650;margin-bottom:3px}
 #tip .t2{color:var(--text-secondary)}
 
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.dot.live{background:var(--good);box-shadow:0 0 0 3px rgba(12,163,12,.18);animation:pulse 2.4s infinite}
+.dot.live{background:var(--good);box-shadow:0 0 0 3px rgba(61,220,151,.18);animation:pulse 2.4s infinite}
 .dot.man{background:var(--warn);box-shadow:0 0 0 3px rgba(250,178,25,.16)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .statusline{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;margin:6px 0 0}
 
 /* ============ untere Navigation ============ */
+/* Freistehende Glas-Pille wie in der Vorlage, statt der Leiste über die
+   ganze Breite. Der Rahmen ist durchsichtig, damit sie zu schweben scheint;
+   der Inhalt braucht dafür unten mehr Luft (siehe body padding). */
 .tabbar{
-  position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;
-  padding:6px 8px calc(6px + env(safe-area-inset-bottom));
-  background:linear-gradient(to top, rgba(11,11,12,.97) 55%, rgba(11,11,12,.80));
-  backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
-  border-top:1px solid var(--hair)
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;
+  padding:0 14px calc(13px + env(safe-area-inset-bottom));
+  background:transparent;border-top:0;pointer-events:none
+}
+.tabbar .tab{pointer-events:auto}
+.tabbar-in{
+  pointer-events:auto;display:flex;align-items:stretch;width:100%;max-width:520px;
+  padding:6px;border-radius:99px;
+  background:rgba(23,27,32,.86);border:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:0 18px 40px -16px rgba(0,0,0,.85)
 }
 .tab{
   flex:1 1 0;appearance:none;border:0;background:transparent;cursor:pointer;font:inherit;
-  display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 4px 6px;border-radius:0px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px 6px;
   color:var(--muted);transition:color .16s, background .16s;position:relative
 }
-.tab svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.tab span{font-size:10.5px;font-weight:600;letter-spacing:.01em}
+.tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.tab span{font-size:9.5px;font-weight:600;letter-spacing:.01em}
 .tab:hover{color:var(--text-secondary)}
-.tab[aria-selected="true"]{color:#fff;background:rgba(125,211,252,.13)}
+/* Aktiv ist mint eingefärbt – der Balken oben fällt weg, in einer runden
+   Pille hätte er keine Kante mehr, an der er sitzen könnte. */
+.tab[aria-selected="true"]{color:var(--acc);background:rgba(61,220,151,.12);border-radius:99px}
 .tab[aria-selected="true"] svg{stroke-width:2}
-.tab[aria-selected="true"]:before{content:"";position:absolute;top:0;width:20px;height:2.5px;border-radius:0 0 3px 3px;
-  background:var(--acc)}
 
 /* ============ Kopf der neuen Bereiche ============ */
 .vhead{margin:22px 0 14px}
@@ -356,11 +387,15 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 .vhead h2{font-size:24px;font-weight:680;letter-spacing:-.03em;margin:0}
 .vhead p{margin:4px 0 0;color:var(--text-secondary);font-size:13.5px}
 
+/* ============ Icon-Set ============ */
+.icoSvg{width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex:0 0 auto;stroke:currentColor}
+.tdn-ic .icoSvg,.alert .ico .icoSvg{width:20px;height:20px;vertical-align:-4px}
+
 /* ============ Suchfeld ============ */
 .searchbar{position:relative;display:flex;align-items:center;margin-bottom:12px}
 .searchbar svg{position:absolute;left:14px;width:18px;height:18px;fill:none;stroke:var(--muted);
   stroke-width:1.9;stroke-linecap:round;pointer-events:none}
-.searchbar input{padding:13px 40px 13px 42px;border-radius:0px;font-size:15px;background:var(--surface-2)}
+.searchbar input{padding:13px 40px 13px 42px;border-radius:11px;font-size:15px;background:var(--surface-2)}
 .searchbar input::-webkit-search-cancel-button{display:none}
 .sclear{position:absolute;right:8px;width:28px;height:28px;border-radius:50%;border:0;background:var(--surface-3);
   color:var(--text-secondary);font-size:17px;line-height:1;cursor:pointer}
@@ -415,8 +450,8 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 .tx.static:hover{border-color:var(--hair);background:var(--surface-1)}
 .tx .ic{width:34px;height:34px;border-radius:0px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
   font-size:15px;font-weight:700}
-.tx .ic.buy{background:rgba(12,163,12,.14);color:var(--good-ink);border:1px solid rgba(12,163,12,.3)}
-.tx .ic.sell{background:rgba(208,59,59,.14);color:var(--bad-ink);border:1px solid rgba(208,59,59,.3)}
+.tx .ic.buy{background:rgba(61,220,151,.14);color:var(--good-ink);border:1px solid rgba(61,220,151,.3)}
+.tx .ic.sell{background:rgba(255,107,107,.14);color:var(--bad-ink);border:1px solid rgba(255,107,107,.3)}
 .tx .mid{flex:1 1 auto;min-width:0}
 .tx .t1{display:block;font-size:14px;font-weight:630}
 .tx .t2{display:block;font-size:12px;color:var(--muted);margin-top:2px;font-weight:550}
@@ -449,20 +484,22 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 
 #obSpace{
   position:fixed;inset:0;z-index:0;pointer-events:none;
+  /* Kühler Schimmer statt des goldenen Nebels: Mint oben links,
+     Blau oben rechts, sonst fast schwarz – wie in der Vorlage. */
   background:
-    radial-gradient(ellipse 85% 50% at 58% 8%,  rgba(255,206,128,.24), transparent 62%),
-    radial-gradient(ellipse 120% 65% at 24% 2%, rgba(180,132,66,.13), transparent 64%),
-    radial-gradient(ellipse 95% 55% at 8% 94%,  rgba(72,66,104,.16), transparent 62%),
-    radial-gradient(ellipse 150% 100% at 52% 34%, transparent 30%, rgba(3,3,4,.86) 100%),
-    #070606;
+    radial-gradient(ellipse 90% 52% at 18% 0%,  rgba(61,220,151,.13), transparent 62%),
+    radial-gradient(ellipse 80% 48% at 92% 4%,  rgba(94,168,250,.11), transparent 62%),
+    radial-gradient(ellipse 95% 55% at 12% 96%, rgba(94,110,170,.10), transparent 62%),
+    radial-gradient(ellipse 150% 100% at 52% 34%, transparent 34%, rgba(6,8,10,.88) 100%),
+    #0B0E11;
   opacity:0;animation:obGridIn 2.2s var(--sharp) .2s forwards;
 }
 /* Dunkler Körper */
 #obOrb{
   position:fixed;top:-13vh;left:50%;width:56vw;height:56vw;max-width:430px;max-height:430px;
   z-index:0;pointer-events:none;border-radius:50%;transform:translateX(-26%);
-  background:radial-gradient(circle at 38% 36%, #15120E 0 56%, #0A0908 76%, #050505 100%);
-  box-shadow:0 0 130px 46px rgba(5,5,5,.92);
+  background:radial-gradient(circle at 38% 36%, #141A1F 0 56%, #0B0F12 76%, #070A0C 100%);
+  box-shadow:0 0 130px 46px rgba(6,9,11,.92);
   opacity:0;animation:obGridIn 2.4s var(--sharp) .6s forwards;
 }
 /* Zwei gekippte Lichtkränze, die sich kreuzen */
@@ -471,20 +508,24 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
   max-width:960px;max-height:960px;z-index:0;pointer-events:none;border-radius:50%;
   opacity:0;filter:blur(1.4px);
 }
+/* Deutlich zurückgenommen: die Vorlage hat keine helle Lichtsichel, nur
+   weichen Schimmer. Die Kränze bleiben als Stimmung stehen, aber so leise,
+   dass Überschriften darauf lesbar bleiben – vorher brauchten sie dafür
+   extra Schlagschatten. Mint statt Champagner. */
 #obRing1{
   transform:translateX(-32%) rotate(-13deg) scaleY(.24);
   background:radial-gradient(circle at center,
-      transparent 0 45.5%, rgba(255,232,186,.26) 46.4%,
-      rgba(255,249,235,.80) 47.9%, rgba(255,222,160,.30) 49.6%,
-      rgba(196,146,78,.09) 53%, transparent 59%);
+      transparent 0 45.5%, rgba(61,220,151,.07) 46.4%,
+      rgba(178,240,214,.17) 47.9%, rgba(61,220,151,.05) 49.6%,
+      rgba(61,220,151,.02) 53%, transparent 59%);
   animation:obGridIn 2.8s var(--sharp) .9s forwards, obDrift2 44s ease-in-out 3.4s infinite;
 }
 #obRing2{
   transform:translateX(-30%) rotate(72deg) scaleY(.30);
   background:radial-gradient(circle at center,
-      transparent 0 45.5%, rgba(255,228,180,.18) 46.5%,
-      rgba(255,246,228,.56) 48%, rgba(255,216,150,.22) 49.8%,
-      rgba(180,134,72,.07) 53%, transparent 59%);
+      transparent 0 45.5%, rgba(94,168,250,.05) 46.5%,
+      rgba(176,210,250,.13) 48%, rgba(94,168,250,.04) 49.8%,
+      rgba(94,168,250,.02) 53%, transparent 59%);
   animation:obGridIn 3.2s var(--sharp) 1.3s forwards, obDrift3 50s ease-in-out 4s infinite;
 }
 @keyframes obDrift2{0%,100%{filter:blur(1.4px) brightness(1)}50%{filter:blur(1.9px) brightness(1.14)}}
@@ -493,12 +534,12 @@ input:focus,select:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 1px var
 #obStars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;
   animation:obGridIn 3s var(--sharp) 1.3s forwards, obStarDrift 120s linear 2s infinite}
 @keyframes obStarDrift{to{transform:translateY(-30px)}}
-#obStars i{position:absolute;background:#FFF3DC;border-radius:50%}
+#obStars i{position:absolute;background:#DFF7EC;border-radius:50%}
 
 /* Panels leicht durchscheinend, damit der Nebel trägt */
 .card,.panel,.kpi,.pos,.res,.tx,.box{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
-header.top{background:rgba(9,8,7,.88)}
-nav,.tabbar{background:rgba(9,8,7,.92)}
+header.top{background:rgba(14,17,20,.88)}
+nav,.tabbar{background:rgba(14,17,20,.92)}
 
 /* Aktualisierungs-Hinweis */
 /* Wie #updBar, nur rot. Bis v55 wurde ein fehlgeschlagenes localStorage-Schreiben
@@ -517,7 +558,7 @@ nav,.tabbar{background:rgba(9,8,7,.92)}
 #lsBar .txt{flex:1;line-height:1.35}
 #lsBar .txt small{display:block;color:rgba(255,235,235,.72);font-size:11px;margin-top:2px}
 #lsBar button{
-  border:1px solid var(--bad-ink);background:rgba(208,59,59,.18);color:#ffd9d9;
+  border:1px solid var(--bad-ink);background:rgba(255,107,107,.18);color:#ffd9d9;
   padding:9px 15px;border-radius:11px;cursor:pointer;font-family:var(--font);font-size:12.5px;
   letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 #lsBar .later{border-color:var(--hair-strong);background:none;color:var(--muted)}
@@ -526,7 +567,7 @@ nav,.tabbar{background:rgba(9,8,7,.92)}
   position:fixed;left:0;right:0;bottom:0;z-index:9999;
   display:none;align-items:center;gap:12px;
   padding:14px calc(16px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
-  background:rgba(8,26,24,.97);border-top:1px solid var(--acc);
+  background:rgba(12,32,26,.97);border-top:1px solid var(--acc);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   font-size:13.5px;color:var(--text-primary);
   transform:translateY(100%);transition:transform .4s var(--snap);
@@ -550,7 +591,7 @@ nav,.tabbar{background:rgba(9,8,7,.92)}
 .swrow input{margin-top:2px;width:17px;height:17px;accent-color:var(--acc);flex:0 0 auto}
 .swrow b{display:block;font-weight:500;font-size:13.5px}
 .swrow small{display:block;color:var(--muted);font-size:11.5px;line-height:1.45;margin-top:3px}
-.alert.auto{border-color:rgba(110,231,183,.34)}
+.alert.auto{border-color:rgba(61,220,151,.34)}
 .alert.auto .ico{color:var(--good-ink)}
 
 /* ═══════════ Runde Kanten ═══════════ */
@@ -566,16 +607,21 @@ nav,.tabbar{background:rgba(9,8,7,.92)}
 #updBar{border-radius:18px 18px 0 0}
 header.top,nav,.tabbar{border-radius:0}
 
-/* ═══════════ Aurora · warmer Rand auf runden Flächen ═══════════ */
+/* ═══════════ Kühler Rand auf runden Flächen ═══════════
+   War vorher ein warmer Goldrand („Aurum"). Jetzt neutrales Weiß mit
+   geringer Deckkraft – Weiß liest heller als Gold, deshalb rund halbe
+   Werte, sonst schneiden die Kanten. */
 .card,.panel,.kpi,.pos,.box,.secbox,.alert,.res,.tx,.modal,.swrow{
-  border-color:rgba(230,196,132,.16);
-  box-shadow:inset 0 1px 0 rgba(255,232,190,.055);
+  border-color:rgba(255,255,255,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
 }
-.card:hover,.kpi:hover,.res:hover{border-color:rgba(230,196,132,.30)}
-.btn,select,input,textarea,.seg,.tab{border-color:rgba(230,196,132,.20)}
-.btn:hover{border-color:rgba(230,196,132,.42)}
-.tag,.chip,.badge{border-color:rgba(230,196,132,.20)}
-.seg,.clsbar{border-color:rgba(230,196,132,.16)}
+/* Die Hero-Karte ist Glas und behält ihren eigenen, helleren Rand */
+.hero{border-color:rgba(255,255,255,.17)}
+.card:hover,.kpi:hover,.res:hover{border-color:rgba(255,255,255,.14)}
+.btn,select,input,textarea,.seg,.tab{border-color:rgba(255,255,255,.10)}
+.btn:hover{border-color:rgba(255,255,255,.20)}
+.tag,.chip,.badge{border-color:rgba(255,255,255,.10)}
+.seg,.clsbar{border-color:rgba(255,255,255,.08)}
 .stripe{display:none}
 
 /* ═══════════ Zahlen verbergen ═══════════ */
@@ -652,11 +698,11 @@ body.hidden-nums [data-money]{
   color:var(--muted);border:1px solid var(--hair);border-radius:999px;padding:3px 8px}
 
 /* Fortschrittsbalken in der Kachel */
-.tdbar{height:4px;border-radius:999px;background:rgba(255,238,210,.09);
+.tdbar{height:4px;border-radius:999px;background:rgba(255,255,255,.09);
   margin-top:11px;overflow:hidden;flex:0 0 auto}
 .tdbar i{display:block;height:100%;border-radius:999px;background:var(--acc);
   transition:width .5s cubic-bezier(.2,.7,.3,1)}
-.tdbar i.gut{background:var(--good-ink)} .tdbar i.warn{background:var(--acc-warm,#E6C484)}
+.tdbar i.gut{background:var(--good-ink)} .tdbar i.warn{background:var(--acc-warm,#FCD34D)}
 .tdbar i.schlecht{background:var(--bad-ink)}
 
 /* Minikurve in der Depot-Kachel */
@@ -665,7 +711,7 @@ body.hidden-nums [data-money]{
 
 /* Punkte für die Supplemente */
 .tdpkt{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.tdpkt i{width:9px;height:9px;border-radius:999px;border:1px solid rgba(255,238,210,.24)}
+.tdpkt i{width:9px;height:9px;border-radius:999px;border:1px solid rgba(255,255,255,.12)}
 .tdpkt i.an{background:var(--good-ink);border-color:var(--good-ink)}
 
 .tdhead{display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -678,10 +724,10 @@ body.hidden-nums [data-money]{
 
 .tdstrip{display:flex;gap:6px;margin-top:18px}
 .tdday{flex:1;text-align:center}
-.tdday .bar{height:34px;border-radius:999px;background:rgba(255,238,210,.07);position:relative;overflow:hidden}
+.tdday .bar{height:34px;border-radius:999px;background:rgba(255,255,255,.04);position:relative;overflow:hidden}
 .tdday .bar i{position:absolute;left:0;right:0;bottom:0;background:var(--acc);display:block;
   border-radius:999px;transition:height .6s cubic-bezier(.2,.7,.3,1)}
-.tdday.heute .bar{box-shadow:inset 0 0 0 1px rgba(230,196,132,.45)}
+.tdday.heute .bar{box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
 .tdday span{display:block;font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:6px;
   letter-spacing:.06em}
 
@@ -692,11 +738,11 @@ body.hidden-nums [data-money]{
   border-bottom:1px solid var(--hair);cursor:pointer;transition:opacity .25s}
 .task:last-child{border-bottom:0}
 .task .box{width:22px;height:22px;border-radius:999px;flex:0 0 auto;
-  border:1.5px solid rgba(230,196,132,.34);display:grid;place-items:center;
+  border:1.5px solid rgba(255,255,255,.16);display:grid;place-items:center;
   transition:all .28s cubic-bezier(.2,.7,.3,1);color:transparent;font-size:12px}
 .task.on .box{background:var(--acc);border-color:var(--acc);color:#06131a;transform:scale(1.06)}
 .task .nm{flex:1;font-size:14.5px;transition:color .25s}
-.task.on .nm{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,238,210,.28)}
+.task.on .nm{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.28)}
 .task .del{opacity:0;border:0;background:none;color:var(--muted);cursor:pointer;font-size:17px;
   padding:2px 6px;transition:opacity .2s}
 .task:hover .del{opacity:.8}
@@ -737,8 +783,8 @@ main{position:relative;z-index:1}
 .tdn-tx b{font-size:14px;font-weight:600;line-height:1.25}
 .tdn-tx i{font-style:normal;color:var(--muted);font-size:12.5px}
 .tdn-go{color:var(--muted);font-size:17px;flex:0 0 auto}
-.tdn.gut .tdn-ic{border-color:rgba(110,231,183,.4)}
-.tdn.schlecht .tdn-ic{border-color:rgba(252,165,165,.4)}
+.tdn.gut .tdn-ic{border-color:rgba(61,220,151,.4)}
+.tdn.schlecht .tdn-ic{border-color:rgba(255,107,107,.4)}
 
 /* ============================================================
    ERNÄHRUNG
@@ -752,7 +798,7 @@ main{position:relative;z-index:1}
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .fdkcal i{font-style:normal;font-size:15px;font-weight:400;color:var(--muted);margin-left:7px;letter-spacing:0}
 .fdrest{color:var(--muted);font-size:12.5px}
-.fdbar{height:6px;border-radius:99px;background:rgba(255,238,210,.09);overflow:hidden;margin-top:7px}
+.fdbar{height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:7px}
 .fdbar.big{height:9px;margin-top:12px}
 .fdbar i{display:block;height:100%;width:0;border-radius:99px;background:var(--acc);transition:width .35s ease}
 .fdbar i.voll{background:var(--good-ink)}
@@ -782,12 +828,12 @@ main{position:relative;z-index:1}
    erste Lebensmittel mit Lücke. */
 .fdluecke{display:block;width:100%;text-align:left;margin-top:12px;
   appearance:none;font:inherit;font-size:12.5px;line-height:1.45;cursor:pointer;
-  padding:10px 12px;border-radius:11px;color:#E6C484;
-  border:1px solid rgba(230,196,132,.32);background:rgba(230,196,132,.08)}
+  padding:10px 12px;border-radius:11px;color:#FCD34D;
+  border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.08)}
 .fdluecke b{font-weight:640}
 .fdtile .luecke{position:absolute;top:6px;left:7px;width:17px;height:17px;border-radius:99px;
   display:grid;place-items:center;font-size:11px;font-weight:800;
-  color:#E6C484;border:1px solid rgba(230,196,132,.45);background:rgba(230,196,132,.12)}
+  color:#FCD34D;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
 
 .fdrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid var(--hair)}
 .fdrow:first-child{border-top:0}
@@ -818,13 +864,13 @@ main{position:relative;z-index:1}
 .fdscore-zeile{display:flex;align-items:center;gap:11px;padding:7px 0;border-top:1px solid var(--hair)}
 .fdscore-zeile:first-child{border-top:0;margin-top:10px}
 .fdscore-zeile .nm{flex:0 0 108px;font-size:13px;color:var(--text-secondary)}
-.fdscore-zeile .bar{flex:1 1 auto;height:5px;border-radius:99px;background:rgba(255,238,210,.09);overflow:hidden}
+.fdscore-zeile .bar{flex:1 1 auto;height:5px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
 .fdscore-zeile .bar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .35s ease}
 .fdscore-zeile .pt{flex:0 0 auto;font-size:13px;font-weight:600;min-width:52px;text-align:right}
 .fdscore-zeile .pt small{color:var(--muted);font-weight:400}
 .fdweek{display:flex;gap:6px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
 .fdweek .fdday{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:5px}
-.fdweek .fdday .bar{width:100%;height:46px;border-radius:8px;background:rgba(255,238,210,.06);
+.fdweek .fdday .bar{width:100%;height:46px;border-radius:8px;background:rgba(255,255,255,.06);
   display:flex;align-items:flex-end;overflow:hidden}
 .fdweek .fdday .bar i{display:block;width:100%;border-radius:8px}
 .fdweek .fdday span{font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace}
@@ -834,14 +880,26 @@ main{position:relative;z-index:1}
    bewusst .fdscore-zeile/.fdweek weiter, dafür keine neuen Regeln nötig. */
 .sblabel{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
 .sbgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
-.sbcell{aspect-ratio:1;border-radius:7px;background:rgba(255,238,210,.05);display:flex;
+.sbcell{aspect-ratio:1;border-radius:7px;background:rgba(255,255,255,.03);display:flex;
   align-items:center;justify-content:center;font-size:10px;
   font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--muted)}
 .sbcell.leer{color:transparent}
-.sbcell.gut{background:rgba(110,231,183,.16);color:var(--good-ink)}
-.sbcell.mittel{background:rgba(125,211,252,.14);color:var(--acc)}
-.sbcell.schlecht{background:rgba(252,165,165,.14);color:var(--bad-ink)}
+.sbcell.gut{background:rgba(61,220,151,.16);color:var(--good-ink)}
+.sbcell.mittel{background:rgba(61,220,151,.14);color:var(--acc)}
+.sbcell.schlecht{background:rgba(255,107,107,.14);color:var(--bad-ink)}
 .sbcell.heute{outline:1px solid var(--hair-strong);outline-offset:1px}
+/* Fünf Zeiträume passen auf schmalen Geräten nicht mehr in eine Zeile –
+   der Umschalter darf deshalb seitlich wischen, statt die Seite zu sprengen. */
+.tsbseg,#sbSeg{display:flex;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;margin-bottom:4px}
+#sbSeg::-webkit-scrollbar{display:none}
+#sbSeg button{flex:0 0 auto;padding:9px 11px}
+.tsbseg::-webkit-scrollbar{display:none}
+.tsbseg button{flex:0 0 auto;padding:9px 11px}
+/* Zwölf Monatsspalten sind eng: kleinere Schrift, damit „100" und der
+   Monatsname nicht umbrechen. */
+.sbmonate.eng .sbmonat .pkt{font-size:11px}
+.sbmonate.eng .sbmonat .nm{font-size:9px;letter-spacing:0}
 .sbmonate{display:flex;justify-content:space-between;gap:4px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
 .sbmonat{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:4px}
 .sbmonat .pkt{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600}
@@ -920,19 +978,19 @@ main{position:relative;z-index:1}
 .kizeile .kiq em{font-style:normal;color:var(--muted);font-size:11px}
 .kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;
   font-style:normal;letter-spacing:.02em;
-  background:rgba(230,196,132,.14);color:#E6C484;vertical-align:middle}
+  background:rgba(255,255,255,.07);color:#FCD34D;vertical-align:middle}
 /* Woher die Zahlen stammen. Grün = seine eigenen Werte, blau = Hersteller,
    neutral = Nährwerttabelle, gold = geraten. */
-.kimarke.q-liste{background:rgba(110,231,183,.13);color:var(--good-ink)}
+.kimarke.q-liste{background:rgba(61,220,151,.13);color:var(--good-ink)}
 .kimarke.q-produkt{background:var(--acc-dim);color:var(--acc)}
-.kimarke.q-standard{background:rgba(255,238,210,.08);color:var(--text-secondary)}
-.kimarke.q-schaetzung{background:rgba(230,196,132,.14);color:#E6C484}
+.kimarke.q-standard{background:rgba(255,255,255,.08);color:var(--text-secondary)}
+.kimarke.q-schaetzung{background:rgba(255,255,255,.07);color:#FCD34D}
 .kisumme{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
   margin-top:14px;padding-top:12px;border-top:1px solid var(--hair-strong)}
 .kisumme b{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:19px;font-weight:600}
 .kisumme span{color:var(--muted);font-size:12px}
 .kifrage{margin:0 0 12px;padding:10px 12px;border-radius:11px;font-size:13px;line-height:1.45;
-  color:var(--acc);border:1px solid rgba(125,211,252,.28);background:var(--acc-dim)}
+  color:var(--acc);border:1px solid rgba(61,220,151,.28);background:var(--acc-dim)}
 
 /* ============ Training ============ */
 .gygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:9px}
@@ -970,7 +1028,7 @@ main{position:relative;z-index:1}
   padding:4px;min-width:32px}
 .gyrow .x:hover{color:var(--bad-ink)}
 .gypr{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;
-  background:rgba(110,231,183,.15);color:var(--good-ink);margin-left:6px;vertical-align:middle}
+  background:rgba(61,220,151,.15);color:var(--good-ink);margin-left:6px;vertical-align:middle}
 
 /* Sätze eintragen */
 .gysatz{display:flex;align-items:center;gap:7px;margin-bottom:8px}
@@ -1010,7 +1068,7 @@ main{position:relative;z-index:1}
 .gymuskel{display:flex;flex-wrap:wrap;gap:6px}
 .gymus{padding:5px 11px;border-radius:99px;font-size:11.5px;border:1px solid var(--hair);
   color:var(--muted);font-weight:600;background:transparent;cursor:pointer;font-family:inherit}
-.gymus.an{border-color:var(--good-ink);color:var(--good-ink);background:rgba(110,231,183,.10)}
+.gymus.an{border-color:var(--good-ink);color:var(--good-ink);background:rgba(61,220,151,.10)}
 .gykpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:12px;margin-top:4px}
 
 .fdtop .label{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
@@ -1032,7 +1090,7 @@ main{position:relative;z-index:1}
   -webkit-tap-highlight-color:transparent}
 .gyplan:hover{border-color:var(--hair-strong);background:var(--surface-2)}
 .gyplan:active{transform:scale(.985)}
-.gyplan.an{border-color:var(--acc);background:linear-gradient(165deg,rgba(125,211,252,.10),transparent 60%),var(--surface-1)}
+.gyplan.an{border-color:var(--acc);background:linear-gradient(165deg,rgba(61,220,151,.10),transparent 60%),var(--surface-1)}
 .gyplan .pk{display:flex;align-items:flex-start;gap:8px}
 .gyplan .nm{flex:1 1 auto;min-width:0;font-size:15px;font-weight:640;letter-spacing:-.015em;line-height:1.25}
 .gyplan .mehr{flex:0 0 auto;width:32px;height:27px;border-radius:9px;border:0;cursor:pointer;
@@ -1063,7 +1121,7 @@ main{position:relative;z-index:1}
   border:0;border-top:1px solid var(--hair);background:transparent;color:var(--text-primary);
   font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .gyvorrow:first-child{border-top:0}
-.gyvorrow:hover{background:rgba(255,238,210,.035)}
+.gyvorrow:hover{background:rgba(255,255,255,.035)}
 .gyvorrow:active{transform:scale(.99)}
 .gyvorrow .ico{font-size:21px;flex:0 0 28px;text-align:center}
 .gyvorrow .nm{flex:1 1 auto;min-width:0;font-size:14.5px;font-weight:600;line-height:1.3}
@@ -1088,7 +1146,7 @@ main{position:relative;z-index:1}
 .gypkpi .v.ab{color:var(--bad-ink)}
 .gypmon{display:flex;gap:3px;align-items:flex-end;height:64px;margin-top:7px}
 .gypmon > span{flex:1 1 0;display:block;min-height:3px;border-radius:4px 4px 0 0;background:var(--acc)}
-.gypmon > span.leer{background:rgba(255,238,210,.07);height:3px}
+.gypmon > span.leer{background:rgba(255,255,255,.04);height:3px}
 .gypmon > span.top{background:var(--good-ink)}
 .gypmonl{display:flex;gap:3px;margin-top:5px}
 .gypmonl > span{flex:1 1 0;min-width:0;text-align:center;font-size:8.5px;color:var(--muted);
@@ -1114,7 +1172,7 @@ main{position:relative;z-index:1}
 .gypmg:first-child{border-top:0}
 .gypmg .nm{flex:1 1 auto;min-width:0;font-size:13.5px;font-weight:600}
 .gypmg .nm small{display:block;color:var(--muted);font-size:10.5px;font-weight:400;margin-top:2px}
-.gypbar{flex:0 0 72px;position:relative;height:7px;border-radius:99px;background:rgba(255,238,210,.06)}
+.gypbar{flex:0 0 72px;position:relative;height:7px;border-radius:99px;background:rgba(255,255,255,.06)}
 .gypbar::before{content:'';position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
   background:var(--hair-strong)}
 .gypbar i{position:absolute;top:0;height:100%;border-radius:99px}
@@ -1128,7 +1186,7 @@ main{position:relative;z-index:1}
    Eigene Ebene über allem (auch über der Tableiste, die bei z-index 70 liegt).
    Während des Trainings soll nichts ablenken. */
 #wkView{position:fixed;inset:0;z-index:90;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,238,210,.045),transparent 380px);
+  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
   padding:0 0 calc(96px + env(safe-area-inset-bottom))}
 .wktop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
   padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
@@ -1153,7 +1211,7 @@ main{position:relative;z-index:1}
   text-transform:uppercase;padding:0 0 7px;text-align:center}
 .wkkopfzeile .vor{text-align:left;padding-left:4px}
 .wkzeile{padding:5px 0;border-radius:11px;transition:background .18s}
-.wkzeile.ok{background:rgba(110,231,183,.09)}
+.wkzeile.ok{background:rgba(61,220,151,.09)}
 .wkzeile .nr{text-align:center;font-size:13px;font-weight:700;color:var(--text-secondary);
   font-family:'JetBrains Mono',ui-monospace,monospace}
 .wkzeile.ok .nr{color:var(--good-ink)}
@@ -1172,13 +1230,13 @@ main{position:relative;z-index:1}
 
 /* Pausenleiste */
 .wkbar{position:fixed;left:0;right:0;bottom:0;z-index:95;overflow:hidden;
-  border-top:1px solid var(--hair);background:rgba(16,15,14,.97);
+  border-top:1px solid var(--hair);background:rgba(20,24,28,.97);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   padding-bottom:env(safe-area-inset-bottom)}
 .wkbar .fuell{position:absolute;left:0;top:0;bottom:0;width:100%;
-  background:rgba(125,211,252,.16);transition:width .25s linear}
+  background:rgba(61,220,151,.16);transition:width .25s linear}
 .wkbar.fertig{border-top-color:var(--good-ink)}
-.wkbar.fertig .fuell{background:rgba(110,231,183,.26);width:100% !important;
+.wkbar.fertig .fuell{background:rgba(61,220,151,.26);width:100% !important;
   animation:wkblink 1s ease-in-out infinite}
 @keyframes wkblink{0%,100%{opacity:1}50%{opacity:.35}}
 @media (prefers-reduced-motion:reduce){.wkbar.fertig .fuell{animation:none}}
@@ -1192,8 +1250,10 @@ main{position:relative;z-index:1}
 .wkbar.fertig .zeit{color:var(--good-ink)}
 
 /* Der Pausen-Dialog wird aus der Workout-Ebene (z-index 90) heraus geöffnet
-   und muss deshalb über ihr und über der Pausenleiste (95) liegen. */
-#scrim15{z-index:110}
+   und muss deshalb über ihr und über der Pausenleiste (95) liegen. Der
+   Hinweis auf offene Sätze (scrim18) erscheint aus demselben Grund noch
+   VOR dem Schließen der Workout-Ebene über ihr. */
+#scrim15,#scrim18{z-index:110}
 .wkuekopf{display:flex;align-items:flex-start;gap:10px}
 .wkuekopf > div{flex:1 1 auto;min-width:0}
 .wkpz{flex:0 0 auto;appearance:none;border:1px solid var(--hair);border-radius:99px;
@@ -1217,7 +1277,7 @@ main{position:relative;z-index:1}
    im Workout (.wkue/.wkkopfzeile/.wkzeile) – beides ist dieselbe Tabelle,
    einmal mit Ziel- und einmal mit Istwerten. */
 #plView{position:fixed;inset:0;z-index:75;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,238,210,.045),transparent 380px);
+  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
   padding:0 0 calc(40px + env(safe-area-inset-bottom))}
 .pltop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
   padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
@@ -1314,9 +1374,8 @@ main{position:relative;z-index:1}
 <header class="top">
   <div class="top-inner">
     <div class="brand">
-      <div class="logo"></div>
       <div>
-        <h1>Portfolio Tracker</h1>
+        <h1>Tracker</h1>
         <small id="brandSub">Live-Übersicht deiner Investments</small>
       </div>
     </div>
@@ -1420,35 +1479,35 @@ main{position:relative;z-index:1}
     </div>
   </div>
 
+  <!-- Suche direkt über der Liste, die sie filtert – vorher ein eigener Reiter -->
+  <div class="searchbar" id="posSuche">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+    <input id="posQ" type="search" aria-label="Positionen durchsuchen"
+           placeholder="Position suchen – Name oder Symbol" autocomplete="off"
+           autocapitalize="off" spellcheck="false" enterkeyhint="search">
+    <button id="posQClear" class="sclear" hidden aria-label="Suche löschen">×</button>
+  </div>
+
   <section id="cards" class="cards"></section>
   <section id="tableview" class="tablewrap" hidden></section>
+
+  <!-- Letzte Buchungen; „Alle" öffnet die vollständige Liste als Unterseite -->
+  <div class="sec-head" id="txHead" hidden>
+    <h2>Letzte Transaktionen</h2><span class="count" id="txKurzCount"></span>
+    <div class="sp"></div>
+    <button class="btn" id="txAlle">Alle ›</button>
+  </div>
+  <section class="timeline" id="txKurz" hidden></section>
 
 </main>
 
 <!-- ========== SUCHEN ========== -->
-<main class="wrap" id="viewSearch" hidden>
-  <div class="vhead">
-    <h2>Suchen</h2>
-    <p>Positionen in deinem Depot – Krypto, Aktien und ETFs</p>
-  </div>
-  <div class="searchbar">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-    <input id="sQuery" aria-label="Positionen durchsuchen" type="search" placeholder="Name oder Symbol, z.B. Bitcoin oder NVDA"
-           autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-    <button id="sClear" class="sclear" hidden aria-label="Suche löschen">×</button>
-  </div>
-  <div class="seg clsbar" id="sClsbar" role="group" aria-label="Kategorie">
-    <button data-scls="all" aria-pressed="true">Alle</button>
-    <button data-scls="etf" aria-pressed="false">ETFs</button>
-    <button data-scls="stock" aria-pressed="false">Aktien</button>
-    <button data-scls="crypto" aria-pressed="false">Krypto</button>
-  </div>
-  <p class="rescount" id="sCount"></p>
-  <section id="sResults" class="reslist"></section>
-</main>
 
 <!-- ========== VERLAUF ========== -->
 <main class="wrap" id="viewHistory" hidden>
+  <!-- Kein eigener Reiter mehr: erreichbar über „Alle ›" im Depot,
+       deshalb braucht die Seite einen Weg zurück. -->
+  <button class="btn ghost backbtn" id="txBack" style="margin-top:16px">‹ Depot</button>
   <div class="vhead">
     <h2>Verlauf</h2>
     <p>Alle Käufe und Verkäufe, neueste zuerst</p>
@@ -1484,6 +1543,24 @@ main{position:relative;z-index:1}
       </div>
     </section>
 
+    <!-- Verlauf des Gesamtscores: Tag / Woche / Monat / 6 und 12 Monate.
+         Jeder Zeitraum wird live aus tagesScore() gerechnet, also aus den
+         Bereichsscores – gespeichert wird nichts, damit kein Wert veraltet. -->
+    <section class="tdt breit" id="tsbCard">
+      <div class="cardhead" style="margin-bottom:10px">
+        <div class="k">Score-Verlauf</div>
+        <span class="k" id="tsbSchnitt"></span>
+      </div>
+      <div class="seg tsbseg" id="tsbSeg" role="group" aria-label="Zeitraum">
+        <button id="tsbTag" aria-pressed="true">Tag</button>
+        <button id="tsbWoche" aria-pressed="false">Woche</button>
+        <button id="tsbMonat" aria-pressed="false">Monat</button>
+        <button id="tsb6m" aria-pressed="false">6 Mon.</button>
+        <button id="tsb12m" aria-pressed="false">12 Mon.</button>
+      </div>
+      <div id="tsbBody"></div>
+    </section>
+
     <!-- Hinweise: Alarme und offene Sparplanraten -->
     <section class="tdt breit" id="tdNoticeBox" hidden>
       <div class="k" style="margin-bottom:10px">Braucht deine Aufmerksamkeit</div>
@@ -1510,13 +1587,6 @@ main{position:relative;z-index:1}
       <div class="v" id="tdGymVal">—</div>
       <div class="d" id="tdGymRest">—</div>
       <div class="tdbar"><i id="tdGymBar" style="width:0"></i></div>
-    </section>
-
-    <section class="tdt klick" id="tdMakro" hidden>
-      <div class="k">Eiweiß</div>
-      <div class="v" id="tdMakroVal">—</div>
-      <div class="d" id="tdMakroRest">—</div>
-      <div class="tdbar"><i id="tdMakroBar" class="gut" style="width:0"></i></div>
     </section>
 
     <section class="tdt klick" id="tdSupp" hidden>
@@ -1585,7 +1655,8 @@ main{position:relative;z-index:1}
         <button id="sbTag" aria-pressed="true">Tag</button>
         <button id="sbWoche" aria-pressed="false">Woche</button>
         <button id="sbMonat" aria-pressed="false">Monat</button>
-        <button id="sb6m" aria-pressed="false">6 Monate</button>
+        <button id="sb6m" aria-pressed="false">6 Mon.</button>
+        <button id="sb12m" aria-pressed="false">12 Mon.</button>
       </div>
       <div id="sbBody"></div>
     </div>
@@ -1703,7 +1774,6 @@ main{position:relative;z-index:1}
         </div>
       </div>
       <div id="gyTeile"></div>
-      <div id="gyTipps" hidden></div>
       <div id="gyWeek"></div>
     </div>
   </section>
@@ -1735,6 +1805,7 @@ main{position:relative;z-index:1}
 </main>
 
 <nav class="tabbar" id="tabbar" role="tablist" aria-label="Bereiche">
+<div class="tabbar-in">
   <button class="tab" data-tab="today" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 12.5l2.2 2.2L15.5 10"/></svg>
     <span>Heute</span></button>
@@ -1747,12 +1818,7 @@ main{position:relative;z-index:1}
   <button class="tab" data-tab="gym" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5"/><path d="M7 6.5v11"/><path d="M17 6.5v11"/><path d="M20 9.5v5"/><path d="M7 12h10"/></svg>
     <span>Gym</span></button>
-  <button class="tab" data-tab="search" role="tab" aria-selected="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-    <span>Suchen</span></button>
-  <button class="tab" data-tab="history" role="tab" aria-selected="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>
-    <span>Verlauf</span></button>
+</div>
 </nav>
 
 <div id="wkView" hidden>
@@ -1862,6 +1928,36 @@ main{position:relative;z-index:1}
   </div>
 </div>
 
+<div class="scrim" id="scrim17">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(420px,100%)">
+    <h3>Plan aktualisieren</h3>
+    <p class="msub" id="wuText">—</p>
+    <div class="mrow" style="flex-direction:column;gap:9px;align-items:stretch">
+      <button class="btn primary" id="wuUebernehmen"
+              style="justify-content:center;padding:13px;flex-direction:column;gap:2px;white-space:normal">
+        <span>Werte übernehmen</span>
+        <small id="wuSub" style="font-weight:500;font-size:11.5px;opacity:.85"></small>
+      </button>
+      <button class="btn" id="wuClose" style="justify-content:center;padding:13px">Plan beibehalten</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim18">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(420px,100%)">
+    <h3>Workout beenden?</h3>
+    <p class="msub" id="weText">—</p>
+    <div class="mrow" style="flex-direction:column;gap:9px;align-items:stretch">
+      <button class="btn" id="weAbschliessen"
+              style="justify-content:center;padding:13px;border-color:var(--good-ink);color:var(--good-ink)">
+        Sätze abschließen</button>
+      <button class="btn" id="weVerwerfen"
+              style="justify-content:center;padding:13px;color:var(--bad-ink)">Sätze verwerfen</button>
+      <button class="btn ghost" id="weAbbrechen" style="justify-content:center;padding:13px">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim10">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
     <h3 id="szTitle">Übung</h3>
@@ -1922,13 +2018,7 @@ main{position:relative;z-index:1}
     <div class="form">
       <div class="f"><label for="wzEinheiten">Trainingstage</label>
         <input id="wzEinheiten" type="text" inputmode="decimal" placeholder="4" autocomplete="off"></div>
-      <div class="f"><label for="wzSaetze">Sätze</label>
-        <input id="wzSaetze" type="text" inputmode="decimal" placeholder="60" autocomplete="off"></div>
-      <div class="f"><label for="wzGruppen">Muskelgruppen</label>
-        <input id="wzGruppen" type="text" inputmode="decimal" placeholder="5" autocomplete="off"></div>
-      <div class="f"><label for="wzMinuten">Minuten (optional)</label>
-        <input id="wzMinuten" type="text" inputmode="decimal" placeholder="180" autocomplete="off"></div>
-      <div class="f full"><p class="hint">Gezählt werden immer die letzten sieben Tage, nicht die Kalenderwoche – so ist der Wert an jedem Wochentag vergleichbar. Ein Ruhetag zieht dich also nicht runter.<br>Leer lassen heißt: kein Ziel – der Wert fällt aus der Bewertung, die Punkte werden auf den Rest umgerechnet.</p></div>
+      <div class="f full"><p class="hint">Gezählt werden immer die letzten sieben Tage, nicht die Kalenderwoche – so ist der Wert an jedem Wochentag vergleichbar. Ein Ruhetag zieht dich also nicht runter.<br>Leer lassen heißt: kein Ziel – dann gibt es im Gym-Bereich keine Punktzahl, deine Einheiten werden aber weiter mitgezählt.</p></div>
     </div>
     <div class="mrow"><button class="btn" id="wzCancel">Abbrechen</button>
       <button class="btn primary" id="wzSave">Speichern</button></div>
@@ -2282,7 +2372,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v66 · Aurora · 17.09.2026';
+const APP_VERSION = 'v81 · Mint · 18.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2444,8 +2534,18 @@ function alertOf(p) {
 /* ============================================================
    RENDERING
    ============================================================ */
+/* Suchtext aus dem Feld über der Positionsliste. Liegt hier, weil beide
+   Ansichten (Karten und Tabelle) durch sorted() gehen – eine Suche filtert
+   damit automatisch beide. Bis v70 gab es dafür einen eigenen Reiter mit
+   einer zweiten Ergebnisliste, also zwei Anzeigen für dieselbe Sache. */
+const posTreffer = p => {
+  const q = (state.q || '').trim().toLowerCase();
+  if (!q) return true;
+  return (p.name || '').toLowerCase().includes(q)
+      || (p.symbol || '').toLowerCase().includes(q);
+};
 function sorted() {
-  const arr = clsPositions(state.cls);
+  const arr = clsPositions(state.cls).filter(posTreffer);
   if (state.sort === 'name') arr.sort((a,b) => a.name.localeCompare(b.name,'de'));
   else if (state.sort === 'pl') arr.sort((a,b) => (calc(b).pl ?? -1e18) - (calc(a).pl ?? -1e18));
   else arr.sort((a,b) => (calc(b).value ?? calc(b).invest) - (calc(a).value ?? calc(a).invest));
@@ -2463,10 +2563,14 @@ function colorOf(id) {
 }
 /* Fuers Ringdiagramm: gleiche Klassenfarbe, je Position abgestuft,
    damit die Segmente unterscheidbar bleiben. */
-/* Ringdiagramm und Legende: eine warme Abstufung, nach Anteil sortiert.
+/* Ringdiagramm und Legende: eine Abstufung, nach Anteil sortiert.
    Der größte Posten ist der hellste. Klassenfarben taugen hier nicht —
-   mehrere Kryptos nebeneinander ergaben nur weiße Flecken.               */
-const RAMP = ['#F7E3B4','#E8C98A','#D6AE68','#C09550','#A87E40','#8E6934','#75552A','#5E4422'];
+   mehrere Kryptos nebeneinander ergaben nur weiße Flecken.
+   Eine Rampe ist hier richtig, weil sie Größe zeigt (ein Farbton, hell nach
+   dunkel); die Namen stehen ohnehin in der Legende, die Farbe muss also
+   niemanden allein auseinanderhalten. Umgestellt von Champagner auf Mint,
+   damit sie zum übrigen Bild passt.                                      */
+const RAMP = ['#B9F5D8','#8DE9C0','#5FDCA6','#3DC98F','#2FAB79','#238C63','#1A6D4D','#125138'];
 function rampAt(i, n) {
   if (n <= 1) return RAMP[0];
   const k = Math.min(RAMP.length - 1, Math.round(i / (n - 1) * (RAMP.length - 1)));
@@ -2516,7 +2620,13 @@ function renderHero() {
     $('#kReal').className = 'v tnum ' + sign(t.real);
     $('#kRealD').textContent = 'bereits verkauft · gesamt ' + ((t.pl+t.real)>=0?'+':'') + fmt(t.pl + t.real, 0);
   } else rb.hidden = true;
-  $('#posCount').textContent = cls === 'all' ? n : `${n} · ${clsName}`;
+  /* Bei aktiver Suche zählt, was übrig bleibt – sonst stände über einer
+     Liste mit zwei Treffern weiter „12 Positionen". */
+  const gesucht = (state.q || '').trim();
+  const sichtbar = sorted().length;
+  $('#posCount').textContent = gesucht
+    ? `${sichtbar} von ${n}`
+    : (cls === 'all' ? n : `${n} · ${clsName}`);
 
   // Klassen-Chips: leere Klassen abschwächen, aktive markieren
   CLASSES.forEach(c => {
@@ -2536,9 +2646,9 @@ const LS_ALERT = 'pt.alerts.v1';
 let alertSeen = {};      // id -> zuletzt gemeldeter Zustand
 let alertsDismissed = {};
 const ALERT_TEXT = {
-  hit:  { ico:'🎯', cls:'hit',  t:'Zielzone erreicht' },
-  over: { ico:'🚀', cls:'hit',  t:'Ziel übertroffen' },
-  stop: { ico:'⚠️', cls:'stop', t:'Stop-Loss unterschritten' }
+  hit:  { ico:'target', cls:'hit',  t:'Zielzone erreicht' },
+  over: { ico:'rocket', cls:'hit',  t:'Ziel übertroffen' },
+  stop: { ico:'triangle_alert', cls:'stop', t:'Stop-Loss unterschritten' }
 };
 function loadAlertState(){ try{ alertSeen = JSON.parse(lsGet(LS_ALERT) || '{}'); }catch(e){ alertSeen = {}; } }
 function saveAlertState(){ lsSet(LS_ALERT, JSON.stringify(alertSeen)); }
@@ -2574,7 +2684,7 @@ function renderAlerts() {
       : a === 'over'
       ? `Kurs ${fmtC(c.price,p.cur)} liegt über der Zielzone (${fmtC(p.t2,p.cur,0)}). Gewinn ${(c.pl>=0?'+':'')+fmt(c.pl,0)}.`
       : `Kurs ${fmtC(c.price,p.cur)} ist in deiner Zielzone (ab ${fmtC(p.t1,p.cur,0)}). Gewinn ${(c.pl>=0?'+':'')+fmt(c.pl,0)}.`;
-    return `<div class="alert ${m.cls}"><span class="ico">${m.ico}</span>
+    return `<div class="alert ${m.cls}"><span class="ico">${icoHtml(m.ico)}</span>
       <span><b>${esc(p.name)} — ${m.t}.</b> ${det}</span>
       <button class="x" data-dismiss="${p.id}" title="Ausblenden">×</button></div>`;
   }).join('');
@@ -3079,6 +3189,15 @@ function renderBars() {
 /* ----- Karten ----- */
 function renderCards() {
   const box = $('#cards');
+  /* Suche läuft, findet aber nichts – eigener Hinweis, sonst stände hier
+     nur eine leere Fläche ohne Erklärung. */
+  if (state.positions.length && (state.q || '').trim() && !sorted().length) {
+    box.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <h3>Kein Treffer für „${esc(state.q.trim())}"</h3>
+      <p>Gesucht wird in Name und Symbol deiner Positionen.</p>
+      <button class="btn" onclick="posSucheLeeren()">Suche zurücksetzen</button></div>`;
+    return;
+  }
   if (state.positions.length && !clsPositions(state.cls).length) {
     const nm = CLASSES.find(c => c.key === state.cls).label;
     box.innerHTML = `<div class="empty" style="grid-column:1/-1">
@@ -3158,7 +3277,7 @@ function renderTable() {
   const rows = sorted().map(p => {
     const c = calc(p);
     return `<tr>
-      <td><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:0px;background:${colorOf(p.id)};margin-right:8px"></span>${esc(p.name)}</td>
+      <td><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:99px;background:${colorOf(p.id)};margin-right:8px"></span>${esc(p.name)}</td>
       <td>${esc(p.symbol||'—')}</td>
       <td class="tnum">${p.qty.toLocaleString('de-DE',{maximumFractionDigits:8})}</td>
       <td class="tnum">${fmtC(p.entry,p.cur)}</td>
@@ -3183,13 +3302,71 @@ function renderTable() {
   </table>`;
 }
 
-function render() {
-  renderHero(); renderAlerts(); sicherungAnbieten(); renderHistory(); renderDonut(); renderBars();
-  const vt = $('#viewToday'); if (vt && !vt.hidden) renderToday();   // Hinweise mitziehen
+/* Nur die Positionsliste neu zeichnen – beim Tippen in der Suche soll nicht
+   die ganze Seite samt Kurve und Ring neu gerechnet werden, das ruckelt. */
+function renderPosListe() {
   if (state.view === 'cards') { $('#cards').hidden = false; $('#tableview').hidden = true; renderCards(); }
   else { $('#cards').hidden = true; $('#tableview').hidden = false; renderTable(); }
 }
+function render() {
+  renderHero(); renderAlerts(); sicherungAnbieten(); renderHistory(); renderDonut(); renderBars();
+  const vt = $('#viewToday'); if (vt && !vt.hidden) renderToday();   // Hinweise mitziehen
+  renderPosListe();
+  renderTxKurz();                     // „Letzte Transaktionen" im Depot
+}
 const esc = s => String(s??'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ============ Icon-Set (Lucide, inline SVG) ============ */
+const ICONS = {
+  dumbbell: '<path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z" /><path d="m2.5 21.5 1.4-1.4" /><path d="m20.1 3.9 1.4-1.4" /><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z" /><path d="m9.6 14.4 4.8-4.8" />',
+  zap: '<path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" />',
+  shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />',
+  sun: '<circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />',
+  sandwich: '<path d="m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777" /><path d="M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25" /><path d="M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9" /><path d="m6.67 15 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2" /><rect width="20" height="4" x="2" y="11" rx="1" />',
+  soup: '<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" /><path d="M7 21h10" /><path d="M19.5 12 22 6" /><path d="M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62" /><path d="M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62" /><path d="M6.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62" />',
+  cup_soda: '<path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8" /><path d="M5 8h14" /><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0" /><path d="m12 8 1-6h2" />',
+  milk: '<path d="M8 2h8" /><path d="M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2" /><path d="M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0" />',
+  glass_water: '<path d="M5.116 4.104A1 1 0 0 1 6.11 3h11.78a1 1 0 0 1 .994 1.105L17.19 20.21A2 2 0 0 1 15.2 22H8.8a2 2 0 0 1-2-1.79z" /><path d="M6 12a5 5 0 0 1 6 0 5 5 0 0 0 6 0" />',
+  droplet: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />',
+  wheat: '<path d="M2 22 16 8" /><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" /><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" />',
+  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />',
+  utensils_crossed: '<path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8" /><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7" /><path d="m2.1 21.8 6.4-6.3" /><path d="m19 5-7 7" />',
+  pill: '<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" /><path d="m8.5 8.5 7 7" />',
+  sparkles: '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" />',
+  circle_help: '<circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17h.01" />',
+  medal: '<path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" /><path d="M11 12 5.12 2.2" /><path d="m13 12 5.88-9.8" /><path d="M8 7h8" /><circle cx="12" cy="17" r="5" /><path d="M12 18v-2h-.5" />',
+  footprints: '<path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" />',
+  mountain: '<path d="m8 3 4 8 5-5 5 15H2L8 3z" />',
+  bike: '<circle cx="18.5" cy="17.5" r="3.5" /><circle cx="5.5" cy="17.5" r="3.5" /><circle cx="15" cy="5" r="1" /><path d="M12 17.5V14l-3-3 4-3 2 3h2" />',
+  target: '<circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />',
+  rocket: '<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" />',
+  triangle_alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" />',
+  calendar: '<path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" />',
+  pencil: '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" />',
+  trending_up: '<path d="M16 7h6v6" /><path d="m22 7-8.5 8.5-5-5L2 17" />',
+  timer: '<line x1="10" x2="14" y1="2" y2="2" /><line x1="12" x2="15" y1="14" y2="11" /><circle cx="12" cy="14" r="8" />',
+  arrow_up: '<path d="m5 12 7-7 7 7" /><path d="M12 19V5" />',
+  arrow_down: '<path d="M12 5v14" /><path d="m19 12-7 7-7-7" />',
+  x: '<path d="M18 6 6 18" /><path d="m6 6 12 12" />',
+  keyboard: '<path d="M10 8h.01" /><path d="M12 12h.01" /><path d="M14 8h.01" /><path d="M16 12h.01" /><path d="M18 8h.01" /><path d="M6 8h.01" /><path d="M7 16h10" /><path d="M8 12h.01" /><rect width="20" height="16" x="2" y="4" rx="2" />',
+  trash_2: '<path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />',
+  mountain_snow: '<path d="m8 3 4 8 5-5 5 15H2L8 3z" /><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />',
+  sailboat: '<path d="M10 2v15" /><path d="M7 22a4 4 0 0 1-4-4 1 1 0 0 1 1-1h16a1 1 0 0 1 1 1 4 4 0 0 1-4 4z" /><path d="M9.159 2.46a1 1 0 0 1 1.521-.193l9.977 8.98A1 1 0 0 1 20 13H4a1 1 0 0 1-.824-1.567z" />',
+  cog: '<path d="M11 10.27 7 3.34" /><path d="m11 13.73-4 6.93" /><path d="M12 22v-2" /><path d="M12 2v2" /><path d="M14 12h8" /><path d="m17 20.66-1-1.73" /><path d="m17 3.34-1 1.73" /><path d="M2 12h2" /><path d="m20.66 17-1.73-1" /><path d="m20.66 7-1.73 1" /><path d="m3.34 17 1.73-1" /><path d="m3.34 7 1.73 1" /><circle cx="12" cy="12" r="2" /><circle cx="12" cy="12" r="8" />',
+  activity: '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />',
+  flower_2: '<path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1" /><circle cx="12" cy="8" r="2" /><path d="M12 10v12" /><path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z" /><path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z" />',
+  circle_dot: '<circle cx="12" cy="12" r="1" /><circle cx="12" cy="12" r="10" />',
+  flag: '<path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" />',
+  snowflake: '<path d="m10 20-1.25-2.5L6 18" /><path d="M10 4 8.75 6.5 6 6" /><path d="m14 20 1.25-2.5L18 18" /><path d="m14 4 1.25 2.5L18 6" /><path d="m17 21-3-6h-4" /><path d="m17 3-3 6 1.5 3" /><path d="M2 12h6.5L10 9" /><path d="m20 10-1.5 2 1.5 2" /><path d="M22 12h-6.5L14 15" /><path d="m4 10 1.5 2L4 14" /><path d="m7 21 3-6-1.5-3" /><path d="m7 3 3 6h4" />',
+  anchor: '<path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" />',
+  battery_charging: '<path d="m11 7-3 5h4l-3 5" /><path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935" /><path d="M22 14v-4" /><path d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936" />',
+  waves: '<path d="M2 12q2.5 2 5 0t5 0 5 0 5 0" /><path d="M2 19q2.5 2 5 0t5 0 5 0 5 0" /><path d="M2 5q2.5 2 5 0t5 0 5 0 5 0" />',
+};
+function icoHtml(key, cls) {
+  const k = String(key ?? '').replace(/-/g, '_');
+  if (ICONS[k]) return `<svg class="icoSvg${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>`;
+  return esc(key);
+}
 
 /* ---------- Tooltip / Toast ---------- */
 const tip = $('#tip');
@@ -3684,6 +3861,20 @@ function setTagWert(d, feld, wert) {
   else t[feld] = wert;
   if (!Object.keys(t).length) delete state.tage[d];
   persist();
+  scoreNachziehen();          // jede Tagesdaten-Änderung bewegt einen Bereichsscore
+}
+
+/* Der Gesamtscore wird nie zwischengespeichert: tagesScore() fragt die
+   Bereichsscores bei jedem Aufruf neu ab, ein veralteter Wert kann also nicht
+   entstehen — er kann nur ungezeichnet stehen bleiben. Genau das verhindert
+   diese Stelle. Sie hängt an setTagWert() (dort laufen alle Buchungen,
+   Trainings, Supplement- und Aufgaben-Änderungen zusammen) und an den
+   Speicherfunktionen für Ziele, Lebensmittel und Supplement-Definitionen.
+   Ist der Heute-Bildschirm ausgeblendet, ist Zeichnen unnötig: setTab() ruft
+   renderToday() beim Hinwechseln ohnehin auf. */
+function scoreNachziehen() {
+  const v = $('#viewToday');
+  if (v && !v.hidden && typeof renderToday === 'function') renderToday();
 }
 /* Verlauf zweier Geräte zusammenführen – pro Tag der jüngere Eintrag */
 function mergeHistory(a, b) {
@@ -4487,7 +4678,6 @@ $('#tdDepot').onclick = () => setTab('home');
 $('#tdFood').onclick  = () => setTab('food');
 $('#tdSupp').onclick  = () => setTab('food');
 $('#tdGym').onclick   = () => setTab('gym');
-$('#tdMakro').onclick = () => setTab('food');
 $('#cOff').onclick = cloudOff;
 $('#syncChip').onclick = () => { $('#scrim2').classList.add('on'); setTimeout(()=>$('#cKey').focus(), 80); };
 $('#curEUR').onclick = () => setBase('EUR');
@@ -4498,6 +4688,27 @@ $('#viewTable').onclick = () => { state.view='table'; $('#viewCards').setAttribu
   const map = { val:'#sortVal', pl:'#sortPl', name:'#sortName' };
   $(map[k]).onclick = () => { state.sort = k; Object.values(map).forEach(s => $(s).setAttribute('aria-pressed', map[k]===s)); render(); };
 });
+
+/* ---------- Suche über der Positionsliste ---------- */
+/* Beim Tippen wird nur die Liste neu gezeichnet (renderPosListe), nicht die
+   ganze Seite – Kurve und Ring bleiben stehen. Die Kopfzahl zieht mit. */
+function posSucheZeichnen() {
+  $('#posQClear').hidden = !(state.q || '').length;
+  renderPosListe();
+  const n = clsPositions(state.cls).length, gesucht = (state.q || '').trim();
+  $('#posCount').textContent = gesucht ? `${sorted().length} von ${n}`
+    : (state.cls === 'all' ? n : `${n} · ${(CLASSES.find(c=>c.key===state.cls)||{}).label || ''}`);
+}
+function posSucheLeeren() {
+  state.q = ''; $('#posQ').value = '';
+  posSucheZeichnen(); $('#posQ').focus();
+}
+$('#posQ').oninput = () => { state.q = $('#posQ').value; posSucheZeichnen(); };
+$('#posQClear').onclick = posSucheLeeren;
+
+/* ---------- Verlauf als Unterseite des Depots ---------- */
+$('#txAlle').onclick = () => { setTab('history'); window.scrollTo(0,0); };
+$('#txBack').onclick = () => { setTab('home'); window.scrollTo(0,0); };
 function syncVenueField(){ $('#fVenueOtherWrap').hidden = $('#fVenue').value !== '__other'; }
 $('#fVenue').onchange = syncVenueField;
 $('#fType').onchange = () => {
@@ -4621,15 +4832,19 @@ function setTab(tab, keepDetail) {
   const showDetail = !!state.detailId;
   $('#viewToday').hidden   = showDetail || tab !== 'today';
   $('#viewHome').hidden    = showDetail || tab !== 'home';
-  $('#viewSearch').hidden  = showDetail || tab !== 'search';
+  /* 'history' hat seit v71 keinen eigenen Reiter mehr – die Seite bleibt,
+     erreichbar über „Alle ›" unten im Depot, zurück über den Knopf oben. */
   $('#viewHistory').hidden = showDetail || tab !== 'history';
   $('#viewFood').hidden    = showDetail || tab !== 'food';
   $('#viewGym').hidden     = showDetail || tab !== 'gym';
   $('#viewDetail').hidden  = !showDetail;
-  $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  /* Der Verlauf ist eine Unterseite des Depots und hat keinen eigenen
+     Reiter – solange man dort ist, bleibt „Depot" markiert, sonst leuchtet
+     nichts und man weiß nicht mehr, wo man gerade steht. */
+  const reiter = tab === 'history' ? 'home' : tab;
+  $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === reiter));
   if (showDetail) renderDetail();
   else if (tab === 'today') renderToday();
-  else if (tab === 'search') renderSearch();
   else if (tab === 'history') renderTxList();
   else if (tab === 'food') renderFood();
   else if (tab === 'gym') renderGym();
@@ -4654,6 +4869,18 @@ function aufgabenDefs() {
 function erledigt(d) {
   const t = (state.tage || {})[d];
   return Array.isArray(t && t.aufgaben) ? t.aufgaben : [];
+}
+/* Bereichsscore „Aufgaben" — das Gegenstück zu essBewertung(), gymBewertung()
+   und suppQuote(). Vorher rechnete der Gesamtscore diese Quote direkt aus den
+   Rohdaten; damit gab es für den Bereich keine eine zuständige Stelle, und
+   dieselbe Formel stand an zwei Orten. null = keine Aufgaben angelegt, der
+   Bereich existiert dann nicht und darf auch nicht als 0 einfließen. */
+function aufgabenQuote(d) {
+  const defs = aufgabenDefs();
+  if (!defs.length) return null;
+  const fertig = erledigt(d).filter(id => defs.some(x => x.id === id)).length;
+  return { erledigt: fertig, gesamt: defs.length,
+           quote: Math.round(fertig / defs.length * 100) };
 }
 function toggleAufgabe(id) {
   const d = today(), liste = erledigt(d).slice();
@@ -4686,30 +4913,208 @@ function delAufgabe(id) {
    existiert — wer keine Supplemente angelegt hat, verliert dafür keine
    Punkte (dieselbe Normierung wie in bewerteSumme). Gibt null zurück,
    solange nichts zu bewerten ist; dann zeigt die Kachel das statt einer 0. */
-const TD_GEWICHT = { essen:35, gym:35, aufgaben:20, supps:10 };
+/* ------------------------------------------------------------------
+   Bereiche des Gesamtscores. Eine Liste ist die einzige Quelle für
+   Gewichte UND für die Frage, woher ein Bereichswert kommt: jeder Eintrag
+   holt seinen Wert ausschließlich über die Bewertungsfunktion seines
+   Bereichs (essBewertung, gymBewertung, aufgabenQuote, suppQuote). Der
+   Gesamtscore rechnet damit nie selbst aus Rohdaten — vorher taten das
+   „Aufgaben" und „Supps", obwohl suppQuote() die Quote schon lieferte.
+   Nebeneffekt: Bereichsscore und Gesamtscore können nicht mehr
+   auseinanderlaufen, und ein neuer Bereich ist eine Zeile.
+
+   `punkte` jedes Bereichs ist per Konstruktion 0–100 (nachgewiesen im
+   Bewertungs-Audit: bewerteSumme und bewerteWoche normieren über die
+   Gewichtssumme, Quoten sind erledigt/gesamt). normBereich() hält diese
+   Zusage als Vertrag fest, statt kaputte Rechnungen zu kaschieren.
+   ------------------------------------------------------------------ */
+const TD_BEREICHE = [
+  { key:'essen',    name:'Essen',    gewicht:35,
+    wert: d => { const b = essBewertung(d); return b ? { punkte: b.punkte } : null; } },
+  { key:'gym',      name:'Gym',      gewicht:35,
+    wert: d => { const b = gymBewertung(d); return b ? { punkte: b.punkte } : null; } },
+  { key:'aufgaben', name:'Aufgaben', gewicht:20,
+    wert: d => { const q = aufgabenQuote(d);
+                 return q ? { punkte: q.quote, text: `${q.erledigt}/${q.gesamt}` } : null; } },
+  { key:'supps',    name:'Supps',    gewicht:10,
+    wert: d => { const q = suppQuote(d);
+                 return q ? { punkte: q.quote, text: `${q.genommen}/${q.gesamt}` } : null; } }
+];
+/* Für Anzeige und Fremdzugriff: Gewichte aus derselben Liste ableiten,
+   damit es keine zweite, irgendwann veraltete Gewichtstabelle gibt. */
+const TD_GEWICHT = TD_BEREICHE.reduce((a, b) => (a[b.key] = b.gewicht, a), {});
+
+/* Vertrag für die Aggregation: ein Bereich liefert eine Zahl in 0–100 oder
+   nichts. Alles andere wäre ein Fehler im Bereich selbst, nicht hier. */
+function normBereich(p) {
+  const v = num(p);
+  if (v === null) return null;
+  return Math.min(100, Math.max(0, v));
+}
+
 function tagesScore(d) {
   const teile = [];
-  const eb = essBewertung(d);
-  if (eb) teile.push({ key:'essen', name:'Essen', punkte: eb.punkte, gewicht: TD_GEWICHT.essen });
-  const gb = gymBewertung(d);
-  if (gb) teile.push({ key:'gym', name:'Gym', punkte: gb.punkte, gewicht: TD_GEWICHT.gym });
-
-  const defs = aufgabenDefs();
-  if (defs.length) {
-    const f = erledigt(d).filter(id => defs.some(x => x.id === id)).length;
-    teile.push({ key:'aufgaben', name:'Aufgaben', punkte: Math.round(f / defs.length * 100),
-                 gewicht: TD_GEWICHT.aufgaben, text: `${f}/${defs.length}` });
-  }
-  const sd = suppDefs();
-  if (sd.length) {
-    const g = suppGenommen(d), f = sd.filter(x => g.indexOf(x.id) > -1).length;
-    teile.push({ key:'supps', name:'Supps', punkte: Math.round(f / sd.length * 100),
-                 gewicht: TD_GEWICHT.supps, text: `${f}/${sd.length}` });
-  }
-  if (!teile.length) return null;
+  TD_BEREICHE.forEach(b => {
+    const w = b.wert(d);                              // nur über den Bereichsscore
+    if (!w) return;                                   // Bereich heute nicht bewertbar
+    const punkte = normBereich(w.punkte);
+    if (punkte === null) return;                      // kein Wert = kein 0, sondern raus
+    teile.push({ key:b.key, name:b.name, punkte, gewicht:b.gewicht, text:w.text || null });
+  });
+  if (!teile.length) return null;                     // nichts zu bewerten
+  /* Normiert wird über die Gewichte der tatsächlich vorhandenen Bereiche.
+     Wer keine Supplemente führt, verliert dafür keine Punkte; die
+     verbleibenden Bereiche behalten ihr Verhältnis zueinander. */
   const gw = teile.reduce((a, t) => a + t.gewicht, 0);
-  return { punkte: Math.round(teile.reduce((a, t) => a + t.punkte * t.gewicht, 0) / gw), teile };
+  return { punkte: Math.round(teile.reduce((a, t) => a + t.punkte * t.gewicht, 0) / gw),
+           teile, gewichtSumme: gw };
 }
+
+/* ============================================================
+   VERLAUF DES GESAMTSCORES — Tag / Woche / Monat / 6 / 12 Monate
+
+   Alles wird bei jedem Zeichnen frisch aus tagesScore() gerechnet, also
+   aus den Bereichsscores. Nichts wird gespeichert: damit kann kein Wert
+   veralten, wenn ein Ziel geändert wird — genau wie beim Tageswert.
+   Gemessen: 365 Tage in 18 ms, das muss man nicht zwischenspeichern.
+
+   Rollendes Fenster: gezeigt werden die letzten VERLAUF_MONATE Monate
+   einschließlich des laufenden. Kommt ein dreizehnter dazu, fällt der
+   älteste heraus — er steht dann einfach außerhalb der Schleife, es muss
+   nichts aufgeräumt werden.
+   ============================================================ */
+const VERLAUF_MONATE = 12;
+
+/* Schnitt über die `tage` Tage, die auf `bis` enden. Gezählt werden nur
+   Tage mit Bewertung; ein Tag ohne Einträge ist keine Null, sondern keine
+   Angabe (dieselbe Regel wie im Tagesscore selbst). */
+function tsTagesSchnitt(tage, bis) {
+  let summe = 0, n = 0;
+  for (let i = 0; i < tage; i++) {
+    const ts = tagesScore(isoAdd(bis, -i));
+    if (ts) { summe += ts.punkte; n++; }
+  }
+  return n ? { punkte: Math.round(summe / n), tage: n, summe } : null;
+}
+
+/* Monatsschnitt. Im laufenden Monat nur bis heute, sonst wären die
+   kommenden Tage stille Nullen. `summe` bleibt ungerundet, damit der
+   Mehrmonatsschnitt exakt tagesgewichtet gebildet werden kann. */
+function tsMonatSchnitt(m) {
+  const heute = today();
+  const bisTag = m === heute.slice(0, 7) ? Number(heute.slice(8, 10)) : monatTage(m);
+  let summe = 0, n = 0;
+  for (let t = 1; t <= bisTag; t++) {
+    const ts = tagesScore(m + '-' + String(t).padStart(2, '0'));
+    if (ts) { summe += ts.punkte; n++; }
+  }
+  return n ? { punkte: Math.round(summe / n), tage: n, summe } : null;
+}
+
+function tsMonatsReihe(n) {
+  const reihe = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const m = monatVor(i), s = tsMonatSchnitt(m);
+    reihe.push({ m, punkte: s ? s.punkte : null, tage: s ? s.tage : 0, summe: s ? s.summe : 0 });
+  }
+  /* Führende Monate ohne Daten weglassen – sonst zieht die Linie eine
+     lange Nullstrecke vor dem ersten echten Wert. Lücken MITTEN in der
+     Reihe bleiben stehen, die sind echt. */
+  while (reihe.length && reihe[0].punkte === null) reihe.shift();
+  return reihe;
+}
+
+let tsbBereich = 'tag';
+function renderTsBoard() {
+  const box = $('#tsbBody'); if (!box) return;
+  const d = today(), kopf = $('#tsbSchnitt');
+  const leer = t => `<p class="hint" style="margin:8px 0 0">${t}</p>`;
+  if (kopf) kopf.textContent = '';
+
+  if (tsbBereich === 'tag') {
+    const ts = tagesScore(d);
+    if (!ts) { box.innerHTML = leer('Heute ist noch nichts eingetragen.'); return; }
+    /* Die Bereiche einzeln – die Zahl oben im Ring ist ihr gewichteter
+       Schnitt, hier steht, woraus sie entsteht. */
+    box.innerHTML = ts.teile.map(t => `
+      <div class="fdscore-zeile">
+        <span class="nm">${esc(t.name)}<small>${t.text ? esc(t.text) + ' · ' : ''}Gewicht ${t.gewicht} %</small></span>
+        <span class="bar"><i style="width:${t.punkte}%;background:${sbFarbe(t.punkte)}"></i></span>
+        <span class="pt tnum">${t.punkte}</span>
+      </div>`).join('');
+    if (kopf) kopf.textContent = ts.punkte + ' Punkte';
+    return;
+  }
+
+  if (tsbBereich === 'woche') {
+    const tage = [];
+    for (let i = 6; i >= 0; i--) {
+      const tag = isoAdd(d, -i), ts = tagesScore(tag);
+      const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0, 2);
+      tage.push(`<div class="fdday ${tag === d ? 'aktiv' : ''}" title="${dmy(tag)}: ${
+        ts ? ts.punkte + ' Punkte' : 'nichts eingetragen'}">
+        <div class="bar"><i style="height:${ts ? ts.punkte : 0}%;background:${
+          ts ? sbFarbe(ts.punkte) : 'transparent'}"></i></div><span>${wd}</span></div>`);
+    }
+    const s = tsTagesSchnitt(7, d);
+    box.innerHTML = `<div class="fdweek" style="border-top:0;margin-top:8px;padding-top:0">${tage.join('')}</div>`
+      + (s ? leer(`Schnitt: <b>${s.punkte}</b> Punkte · ${s.tage} Tag${s.tage === 1 ? '' : 'e'} mit Einträgen`)
+           : leer('In den letzten sieben Tagen ist nichts eingetragen.'));
+    if (kopf && s) kopf.textContent = 'Ø ' + s.punkte;
+    return;
+  }
+
+  if (tsbBereich === 'monat') {
+    const m = d.slice(0, 7), tageM = monatTage(m), heuteT = Number(d.slice(8, 10));
+    const zellen = [];
+    for (let t = 1; t <= tageM; t++) {
+      if (t > heuteT) { zellen.push('<div class="sbcell leer"></div>'); continue; }
+      const tag = m + '-' + String(t).padStart(2, '0'), ts = tagesScore(tag);
+      const klasse = !ts ? 'leer' : ts.punkte >= 75 ? 'gut' : ts.punkte >= 50 ? 'mittel' : 'schlecht';
+      zellen.push(`<div class="sbcell ${klasse}${tag === d ? ' heute' : ''}" title="${dmy(tag)}: ${
+        ts ? ts.punkte + ' Punkte' : 'nichts eingetragen'}">${t}</div>`);
+    }
+    const ms = tsMonatSchnitt(m);
+    box.innerHTML = `<div class="sbgrid">${zellen.join('')}</div>`
+      + (ms ? leer(`Schnitt: <b>${ms.punkte}</b> Punkte · ${ms.tage} Tag${ms.tage === 1 ? '' : 'e'} mit Einträgen`)
+            : leer('Diesen Monat ist noch nichts eingetragen.'));
+    if (kopf && ms) kopf.textContent = 'Ø ' + ms.punkte;
+    return;
+  }
+
+  /* 6 und 12 Monate: dieselbe Ansicht, nur ein anderes Fenster. */
+  const n = tsbBereich === '12m' ? VERLAUF_MONATE : 6;
+  const reihe = tsMonatsReihe(n);
+  if (!reihe.length) { box.innerHTML = leer('Noch keine Monate mit Daten.'); return; }
+  const kurz = mm => new Date(mm + '-01T12:00:00')
+    .toLocaleDateString('de-DE', { month:'short' }).replace('.', '').slice(0, 3);
+  const mit = reihe.filter(x => x.punkte !== null);
+  /* Tagesgewichtet, nicht Schnitt der Monatsschnitte: ein Monat mit drei
+     Einträgen soll nicht so schwer zählen wie einer mit dreißig. */
+  const tageGes = mit.reduce((a, x) => a + x.tage, 0);
+  const schnitt = tageGes ? Math.round(mit.reduce((a, x) => a + x.summe, 0) / tageGes) : null;
+  box.innerHTML = gymLinie(reihe, 'punkte')
+    + `<div class="sbmonate${n > 6 ? ' eng' : ''}">${reihe.map(x => `<div class="sbmonat">
+         <span class="pkt" style="color:${x.punkte === null ? 'var(--muted)' : sbFarbe(x.punkte)}">${
+           x.punkte === null ? '—' : x.punkte}</span>
+         <span class="nm">${esc(kurz(x.m))}</span></div>`).join('')}</div>`
+    + (schnitt !== null
+        ? leer(`Schnitt: <b>${schnitt}</b> Punkte · ${tageGes} Tag${tageGes === 1 ? '' : 'e'} in ${
+            mit.length} Monat${mit.length === 1 ? '' : 'en'}`)
+        : '');
+  if (kopf && schnitt !== null) kopf.textContent = 'Ø ' + schnitt;
+}
+
+/* Umschalter – gleiche Mechanik wie beim Essen-Scoreboard */
+['tag','woche','monat','6m','12m'].forEach(k => {
+  const map = { tag:'#tsbTag', woche:'#tsbWoche', monat:'#tsbMonat', '6m':'#tsb6m', '12m':'#tsb12m' };
+  const btn = $(map[k]); if (!btn) return;
+  btn.onclick = () => {
+    tsbBereich = k;
+    Object.values(map).forEach(s => { const b = $(s); if (b) b.setAttribute('aria-pressed', String(map[k] === s)); });
+    renderTsBoard();
+  };
+});
 
 /* Minikurve für die Depot-Kachel — handgeschriebenes SVG wie alle
    Diagramme hier. preserveAspectRatio="none" streckt sie in die Breite;
@@ -4754,7 +5159,7 @@ function renderTodayNotices() {
   (typeof pendingPlans !== 'undefined' ? pendingPlans : []).forEach(pl => {
     const p = state.positions.find(x => x.id === pl.id); if (!p) return;
     const n = pl.rates.length;
-    zeilen.push({ id: p.id, gut: true, ico: '📅', titel: `${p.name} — ${n} Sparplanrate${n===1?'':'n'} offen`,
+    zeilen.push({ id: p.id, gut: true, ico: 'calendar', titel: `${p.name} — ${n} Sparplanrate${n===1?'':'n'} offen`,
       unten: 'Im Depot buchen oder verwerfen' });
   });
 
@@ -4762,7 +5167,7 @@ function renderTodayNotices() {
   sec.hidden = false;
   box.innerHTML = zeilen.map(z => `
     <div class="tdn ${z.gut?'gut':'schlecht'}" data-go="${esc(z.id)}">
-      <span class="tdn-ic">${z.ico}</span>
+      <span class="tdn-ic">${icoHtml(z.ico)}</span>
       <span class="tdn-tx"><b>${esc(z.titel)}</b><i>${esc(z.unten)}</i></span>
       <span class="tdn-go">›</span>
     </div>`).join('');
@@ -4771,7 +5176,10 @@ function renderTodayNotices() {
 
 function renderToday() {
   const d = today(), defs = aufgabenDefs(), fertig = erledigt(d);
-  const aktiv = fertig.filter(id => defs.some(x => x.id === id)).length;
+  /* Erledigt-Zahl aus aufgabenQuote() – derselben Funktion, die in den
+     Gesamtscore eingeht, damit Karte und Score nicht auseinanderlaufen. */
+  const aq = aufgabenQuote(d);
+  const aktiv = aq ? aq.erledigt : 0;
 
   $('#tdDate').textContent = new Date(d + 'T12:00:00')
     .toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long' });
@@ -4802,7 +5210,10 @@ function renderToday() {
       : ts.punkte >= ZIEL_SCORE
         ? `Ziel von ${ZIEL_SCORE} geschafft.`
         : `Noch ${ZIEL_SCORE - ts.punkte} Punkte bis zum Ziel von ${ZIEL_SCORE}.`;
-    $('#tdScoreTeile').innerHTML = ts.teile
+    /* Die Supps-Kachel hier ausgeblendet (auf Wunsch, 17.09.2026) – sie zählt
+       aber weiter mit zum Tagesscore, sonst würde sich die Punktzahl selbst
+       verschieben. Die Übersicht dazu bleibt im Essen-Bereich. */
+    $('#tdScoreTeile').innerHTML = ts.teile.filter(t => t.key !== 'supps')
       .map(t => `<span>${esc(t.name)} ${t.text || t.punkte}</span>`).join('');
   }
 
@@ -4847,19 +5258,6 @@ function renderToday() {
               ? `${Math.round(es.kcal).toLocaleString('de-DE')} / ${(+ez.kcal).toLocaleString('de-DE')} kcal`
               : `${Math.round(es.kcal).toLocaleString('de-DE')} kcal`; }
 
-  /* ---------- Eiweiß: die Kennzahl, auf die es dem Nutzer ankommt ---------- */
-  const mk = $('#tdMakro');
-  if (!num(ez.p)) mk.hidden = true;
-  else {
-    mk.hidden = false;
-    const rest = Math.round(ez.p - es.p);
-    $('#tdMakroVal').innerHTML = `${Math.round(es.p)} <small>/ ${Math.round(ez.p)} g</small>`;
-    $('#tdMakroRest').textContent = rest > 0 ? `noch ${rest} g bis zum Ziel` : 'Ziel erreicht';
-    const b = $('#tdMakroBar');
-    b.style.width = Math.round(Math.min(1, es.p / ez.p) * 100) + '%';
-    b.className = rest > 0 ? '' : 'gut';
-  }
-
   /* ---------- Gym: Wochenwert, siehe Kommentar im Trainingsteil ---------- */
   const gLib = gymLib(), gBox = $('#tdGym');
   gBox.hidden = !gLib.length;
@@ -4898,12 +5296,18 @@ function renderToday() {
   }
 
   /* ---------- Supplemente ---------- */
+  /* Zahlen kommen aus suppQuote() – derselben Funktion, die auch in den
+     Gesamtscore eingeht. Vorher zählte die Kachel selbst nach; damit hätten
+     Kachel und Score bei einer Formeländerung auseinanderlaufen können.
+     Die Punktreihe bleibt Rohdatenzugriff: sie zeigt, WELCHES Supplement
+     offen ist, das ist Darstellung und keine Kennzahl. */
   const sDefs = suppDefs(), sGen = suppGenommen(d), sBox = $('#tdSupp');
-  sBox.hidden = !sDefs.length;
-  if (sDefs.length) {
-    const sFertig = sDefs.filter(x => sGen.indexOf(x.id) > -1).length;
-    $('#tdSuppVal').innerHTML = `${sFertig} <small>/ ${sDefs.length}</small>`;
-    $('#tdSuppVal').className = 'v' + (sFertig === sDefs.length ? ' up' : '');
+  const sQ = suppQuote(d);
+  sBox.hidden = !sQ;
+  if (sQ) {
+    const sFertig = sQ.genommen;
+    $('#tdSuppVal').innerHTML = `${sFertig} <small>/ ${sQ.gesamt}</small>`;
+    $('#tdSuppVal').className = 'v' + (sQ.quote === 100 ? ' up' : '');
     $('#tdSuppPkt').innerHTML = sDefs
       .map(x => `<i class="${sGen.indexOf(x.id) > -1 ? 'an' : ''}" title="${esc(x.name)}"></i>`).join('');
     const offen = sDefs.filter(x => sGen.indexOf(x.id) === -1);
@@ -4935,63 +5339,21 @@ function renderToday() {
   if (zeigStrip) {
     for (let i = 6; i >= 0; i--) {
       const dd = isoAdd(d, -i);
-      const f = erledigt(dd).filter(id => defs.some(x => x.id === id)).length;
-      const q = defs.length ? Math.min(1, f / defs.length) : 0;
+      const tq = aufgabenQuote(dd);                 // Bereichsscore je Tag
+      const f = tq ? tq.erledigt : 0;
+      const q = tq ? tq.quote / 100 : 0;
       const wd = new Date(dd + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0,2);
       strip.push(`<div class="tdday ${i === 0 ? 'heute' : ''}" title="${dmy(dd)}: ${f} von ${defs.length}">
         <div class="bar"><i style="height:${Math.round(q*100)}%"></i></div><span>${wd}</span></div>`);
     }
     $('#tdStrip').innerHTML = strip.join('');
   } else $('#tdStrip').innerHTML = '';
+
+  /* Score-Verlauf mitzeichnen: er hängt an denselben Bereichsscores und
+     wird damit über scoreNachziehen() automatisch mit aktuell gehalten. */
+  renderTsBoard();
 }
 
-/* ---------- SUCHEN ---------- */
-function renderSearch() {
-  const q = ($('#sQuery').value || '').trim().toLowerCase();
-  const cls = state.sCls || 'all';
-  let list = clsPositions(cls);
-  if (q) list = list.filter(p =>
-    (p.name||'').toLowerCase().includes(q) ||
-    (p.symbol||'').toLowerCase().includes(q) ||
-    (TICKER[(p.symbol||'').toLowerCase()]||'').toLowerCase().includes(q) ||
-    (CLS_LABEL[p.type]||'').toLowerCase().includes(q) ||
-    (p.venue||'').toLowerCase().includes(q));
-  list = list.slice().sort((a,b) => (calc(b).value ?? calc(b).invest) - (calc(a).value ?? calc(a).invest));
-
-  $('#sClear').hidden = !q;
-  $$('#sClsbar button').forEach(b => b.setAttribute('aria-pressed', b.dataset.scls === cls));
-  $('#sCount').textContent = !state.positions.length ? ''
-    : `${list.length} ${list.length === 1 ? 'Treffer' : 'Treffer'}${q ? ` für „${q}“` : ''}`;
-
-  const box = $('#sResults');
-  if (!state.positions.length) {
-    box.innerHTML = `<div class="empty"><h3>Depot ist leer</h3>
-      <p>Sobald du Positionen angelegt hast, findest du sie hier.</p>
-      <button class="btn primary" onclick="setTab('home');openForm()">+ Position anlegen</button></div>`;
-    return;
-  }
-  if (!list.length) {
-    box.innerHTML = `<div class="empty"><h3>Kein Treffer</h3>
-      <p>Zu „${esc(q)}“ liegt keine Position in deinem Depot. Die Suche durchsucht nur deine eigenen Investments.</p></div>`;
-    return;
-  }
-  box.innerHTML = list.map(p => {
-    const c = calc(p), col = colorOf(p.id);
-    return `<button class="res" data-open="${p.id}">
-      <span class="av" style="background:linear-gradient(135deg,${col},${col}bb)">${esc(initials(p.name))}</span>
-      <span class="mid">
-        <span class="r1">${esc(p.name)} <span class="tag">${CLS_LABEL[p.type]||'—'}</span></span>
-        <span class="r2">${esc((p.symbol||'—').toUpperCase())} · ${qtyStr(p.qty,p)}${p.venue?' · '+esc(p.venue):''}</span>
-      </span>
-      <span class="rt">
-        <span class="rv">${c.value===null?fmt(c.invest,0):fmt(c.value,0)}</span>
-        <span class="rp ${sign(c.pl??0)}">${c.pl===null?'—':arrow(c.pl)+' '+pct(c.plPct)}</span>
-      </span>
-      <span class="chev">›</span>
-    </button>`;
-  }).join('');
-  $$('#sResults .res').forEach(b => b.onclick = () => openDetail(b.dataset.open));
-}
 
 /* ---------- DETAILANSICHT einer eigenen Position ---------- */
 function renderDetail() {
@@ -5069,6 +5431,46 @@ function renderDetail() {
 }
 
 /* ---------- VERLAUF ---------- */
+/* Eine Buchungszeile – von der Kurzliste im Depot und von der vollen
+   Verlaufsseite gemeinsam benutzt, damit beide gleich aussehen. */
+function txZeile(x) {
+  const isSell = x.t === 'sell', amount = x.qty * x.price, col = colorOf(x.p.id);
+  return `<button class="tx" data-open="${x.p.id}">
+    <span class="ic ${isSell?'sell':'buy'}">${isSell?'↓':'↑'}</span>
+    <span class="mid">
+      <span class="t1"><span style="display:inline-block;width:8px;height:8px;border-radius:99px;background:${col};margin-right:7px"></span>${esc(x.p.name)} ${isSell?'verkauft':'gekauft'}</span>
+      <span class="t2">${qtyStr(x.qty,x.p)} · Kurs ${fmtC(x.price,x.p.cur)}${x.derived?' · abgeleitet':''}${x.sp?' · Sparplan':''}</span>
+    </span>
+    <span class="rt">
+      <span class="amt ${isSell?'up':''}">${isSell?'+':''}${fmtC(amount,x.p.cur,0)}</span>
+      <span class="qt">${isSell?'erhalten':'investiert'}</span>
+    </span>
+    <span class="chev" style="color:var(--muted);font-size:19px">›</span>
+  </button>`;
+}
+
+/* Die letzten Buchungen unten im Depot. Ersetzt den früheren Reiter
+   „Verlauf": das Wichtige steht direkt da, alles Weitere hinter „Alle ›".
+   Ohne Transaktionen bleibt der ganze Block ausgeblendet, statt eine leere
+   Überschrift stehen zu lassen. */
+const TX_KURZ = 5;
+function renderTxKurz() {
+  const box = $('#txKurz'), head = $('#txHead');
+  if (!box || !head) return;
+  const list = allTx();
+  head.hidden = box.hidden = !list.length;
+  if (!list.length) { box.innerHTML = ''; return; }
+  $('#txKurzCount').textContent = list.length;
+  let html = '', lastDay = null;
+  list.slice(0, TX_KURZ).forEach(x => {
+    const lab = dayLabel(x.d);
+    if (lab !== lastDay) { html += `<div class="tlday">${esc(lab)}</div>`; lastDay = lab; }
+    html += txZeile(x);
+  });
+  box.innerHTML = html;
+  $$('#txKurz .tx').forEach(b => b.onclick = () => openDetail(b.dataset.open));
+}
+
 function renderTxList() {
   const box = $('#txList'), sum = $('#txSummary');
   const list = allTx();
@@ -5097,19 +5499,7 @@ function renderTxList() {
   list.forEach(x => {
     const lab = dayLabel(x.d);
     if (lab !== lastDay) { html += `<div class="tlday">${esc(lab)}</div>`; lastDay = lab; }
-    const isSell = x.t === 'sell', amount = x.qty * x.price, col = colorOf(x.p.id);
-    html += `<button class="tx" data-open="${x.p.id}">
-      <span class="ic ${isSell?'sell':'buy'}">${isSell?'↓':'↑'}</span>
-      <span class="mid">
-        <span class="t1"><span style="display:inline-block;width:8px;height:8px;border-radius:0px;background:${col};margin-right:7px"></span>${esc(x.p.name)} ${isSell?'verkauft':'gekauft'}</span>
-        <span class="t2">${qtyStr(x.qty,x.p)} · Kurs ${fmtC(x.price,x.p.cur)}${x.derived?' · abgeleitet':''}${x.sp?' · Sparplan':''}</span>
-      </span>
-      <span class="rt">
-        <span class="amt ${isSell?'up':''}">${isSell?'+':''}${fmtC(amount,x.p.cur,0)}</span>
-        <span class="qt">${isSell?'erhalten':'investiert'}</span>
-      </span>
-      <span class="chev" style="color:var(--muted);font-size:19px">›</span>
-    </button>`;
+    html += txZeile(x);
   });
   box.innerHTML = html;
   $$('#txList .tx').forEach(b => b.onclick = () => openDetail(b.dataset.open));
@@ -5118,16 +5508,12 @@ function renderTxList() {
 /* ---------- Ereignisse der neuen Bereiche ---------- */
 $$('#tabbar .tab').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('#dBack').onclick = closeDetail;
-$('#sQuery').oninput = renderSearch;
-$('#sClear').onclick = () => { $('#sQuery').value = ''; renderSearch(); $('#sQuery').focus(); };
-$$('#sClsbar button').forEach(b => b.onclick = () => { state.sCls = b.dataset.scls; renderSearch(); });
 
 /* Nach jeder Datenänderung die offenen Bereiche mitziehen */
 const _render = render;
 render = function() {
   _render();
   if (state.detailId) renderDetail();
-  else if (state.tab === 'search') renderSearch();
   else if (state.tab === 'history') renderTxList();
 };
 
@@ -5384,19 +5770,25 @@ const ESS_STD = { kcal: null, p: null, k: null, f: null };
    Kennung; einmal übernommen, taucht sie nie wieder von selbst auf –
    gelöschte Einträge bleiben also gelöscht. */
 const ESS_VORLAGEN = [
-  { id:'f01', name:'Wraps Weizen', ico:'🌯', menge:40,   einheit:'g',  kcal:128, p:2.4, k:15.6, f:3.5 },
-  { id:'f02', name:'Körniger Frischkäse', ico:'🥣', menge:100, einheit:'g',  kcal:80, p:12, k:3, f:2.2 },
-  { id:'f03', name:'Whey Coffee Caramel', ico:'🥤', menge:30,  einheit:'g',  kcal:112, p:21, k:2.8, f:1.7 },
-  { id:'f04', name:'Milch 1,5 %', ico:'🥛', menge:100, einheit:'ml', kcal:47, p:3.4, k:4.9, f:1.5 },
-  { id:'f05', name:'Rote-Bete-Saft', ico:'🧃', menge:100, einheit:'ml', kcal:36, p:1, k:8, f:0.5 },
-  { id:'f06', name:'Haferflocken', ico:'🌾', menge:100, einheit:'g',  kcal:372, p:13.5, k:58.7, f:7 },
-  { id:'f07', name:'Reis', ico:'🍚', menge:62.5, einheit:'g', kcal:219, p:4.6, k:48, f:null },
-  { id:'f08', name:'Wraps groß', ico:'🫓', menge:100, einheit:'g',  kcal:286, p:8, k:50, f:null },
-  { id:'f09', name:'Käse', ico:'🧀', menge:1,   einheit:'Stk', kcal:77, p:4.2, k:null, f:null },
-  { id:'f10', name:'Kefir', ico:'🍶', menge:100, einheit:'ml', kcal:43, p:3.4, k:null, f:null }
+  { id:'f01', name:'Wraps Weizen', ico:'sandwich', menge:40,   einheit:'g',  kcal:128, p:2.4, k:15.6, f:3.5 },
+  { id:'f02', name:'Körniger Frischkäse', ico:'soup', menge:100, einheit:'g',  kcal:80, p:12, k:3, f:2.2 },
+  { id:'f03', name:'Whey Coffee Caramel', ico:'cup_soda', menge:30,  einheit:'g',  kcal:112, p:21, k:2.8, f:1.7 },
+  { id:'f04', name:'Milch 1,5 %', ico:'milk', menge:100, einheit:'ml', kcal:47, p:3.4, k:4.9, f:1.5 },
+  { id:'f05', name:'Rote-Bete-Saft', ico:'glass_water', menge:100, einheit:'ml', kcal:36, p:1, k:8, f:0.5 },
+  { id:'f06', name:'Haferflocken', ico:'wheat', menge:100, einheit:'g',  kcal:372, p:13.5, k:58.7, f:7 },
+  { id:'f07', name:'Reis', ico:'utensils', menge:62.5, einheit:'g', kcal:219, p:4.6, k:48, f:null },
+  { id:'f08', name:'Wraps groß', ico:'sandwich', menge:100, einheit:'g',  kcal:286, p:8, k:50, f:null },
+  { id:'f09', name:'Käse', ico:'utensils_crossed', menge:1,   einheit:'Stk', kcal:77, p:4.2, k:null, f:null },
+  { id:'f10', name:'Kefir', ico:'droplet', menge:100, einheit:'ml', kcal:43, p:3.4, k:null, f:null }
 ];
 /* Einmalige Zielvorgabe – greift nur, solange gar kein Ziel gesetzt ist */
-const ESS_ZIEL_VORGABE = { kcal: 2000, p: 160, k: 225, f: 67 };
+/* Die vier Werte müssen zueinander passen: 160·4 + 225·4 + 67·9 = 2.143 kcal.
+   Stand hier vorher 2.000, widersprach die Vorgabe sich selbst — zielePruefen()
+   hätte die eigene Startvorgabe angemeckert, und ein Tag mit exakt getroffenen
+   Makros landete wegen des Kaloriendeckels bei 99 statt 100. Wer das
+   Kalorienziel ändert, sollte die Makros mitziehen (der Prüfhinweis im
+   Ziele-Dialog rechnet das vor und bietet die Korrektur an). */
+const ESS_ZIEL_VORGABE = { kcal: 2143, p: 160, k: 225, f: 67 };
 const LS_ESS_SEED = 'pt.food.seed.v1';
 
 function essZiele() {
@@ -5490,15 +5882,25 @@ function essLuecken(d) {
   return raus;
 }
 
+/* `fehlt` merkt sich, welches Makro an diesem Tag NICHT vollständig messbar
+   war: hat ein gebuchtes Lebensmittel bei p/k/f keinen Wert, ist die
+   Tagessumme dieses Makros nachweislich zu niedrig. Fehlende Angaben als 0
+   zu summieren und dann zu bewerten wäre falsch — ein unbekannter Wert ist
+   nicht „null Gramm". bewerteSumme() lässt ein so markiertes Makro deshalb
+   aus der Wertung heraus, statt es mit 0 g zu bestrafen.
+   Die Kalorien bleiben davon unberührt: kcalOf() liefert für jedes
+   Lebensmittel einen Wert (notfalls aus den Makros gerechnet), die
+   Kaloriensumme ist also vollständig und wirkt weiter als Deckel. */
 function essSumme(d) {
-  const lib = essLib(), s = { kcal:0, p:0, k:0, f:0, n:0 };
+  const lib = essLib(), s = { kcal:0, p:0, k:0, f:0, n:0, fehlt: { p:false, k:false, f:false } };
   essTag(d).forEach(e => {
     const l = lib.find(x => x.id === e.lid); if (!l) return;
     const n = e.n || 1;
     s.kcal += kcalOf(l) * n;
-    s.p += (num(l.p)||0) * n;
-    s.k += (num(l.k)||0) * n;
-    s.f += (num(l.f)||0) * n;
+    ['p','k','f'].forEach(key => {
+      const v = num(l[key]);
+      if (v === null) s.fehlt[key] = true; else s[key] += v * n;
+    });
     s.n += n;
   });
   return s;
@@ -5519,7 +5921,7 @@ function essBuchen(lid, faktor, menge) {
   const wieviel = menge != null
     ? `${menge.toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`
     : bezugText(l);
-  toastUndo(`${l.ico || '🍽'} ${l.name} · ${wieviel} · ${Math.round(kcalOf(l)*n)} kcal`, essBuchungZurueck);
+  toastUndo(`${l.name} · ${wieviel} · ${Math.round(kcalOf(l)*n)} kcal`, essBuchungZurueck);
 }
 function essBuchungZurueck() {
   if (!letzteBuchung) return;
@@ -5611,29 +6013,90 @@ function kcalAusMakros(z) {
    es keinen Deckel, das fangen die Makros selbst ab. */
 function bewerteSumme(s) {
   const z = essZiele(), teile = [];
-  const alleMakros = num(z.p) !== null && num(z.k) !== null && num(z.f) !== null;
+  const fehlt = s.fehlt || { p:false, k:false, f:false };
+
+  const makroKeys = ['p','k','f'];
+  const makroZiele = makroKeys.filter(key => num(z[key]) !== null);
+  const alleMakroZiele = makroZiele.length === makroKeys.length;
+
+  /* Ein Makro wird bewertet, wenn es ein Ziel hat und sein Tageswert das Ziel
+     entscheidbar macht. Ohne Lücke ist er exakt gemessen. Mit Lücke ist die
+     Summe nur eine UNTERGRENZE — dann ist bloß eine Untergrenzen-Kennzahl
+     ('minimum', also Eiweiß) entscheidbar, und nur wenn schon das Gemessene
+     das Ziel erfüllt: unbekanntes Zusatz-Eiweiß kann daran nichts mehr
+     verschlechtern. Ein Zielfenster (KH, Fett) ist mit Lücke dagegen offen —
+     die unbekannten Gramm könnten es genauso gut überschreiten. Solche
+     Kennzahlen bleiben unbewertet, statt mit 0 g bestraft zu werden. */
+  const bewertbar = kz => {
+    const ziel = num(z[kz.key]); if (ziel === null) return false;
+    if (!fehlt[kz.key]) return true;
+    return kz.art === 'minimum' && s[kz.key] >= ziel;
+  };
+  const makrosBewertet = ESS_KENNZAHLEN.filter(kz => kz.key !== 'kcal' && bewertbar(kz))
+                                       .map(kz => kz.key);
+
+  /* Die Kalorien sind 4·p + 4·k + 9·f, also keine unabhängige Größe. Gibt es
+     überhaupt Makroziele, steckt deren Information schon in der Wertung; die
+     Kalorien zusätzlich zu benoten würde dieselben Gramm zweimal zählen und
+     erlaubt Fehlerausgleich (zu wenig KH + zu viel Fett → Kalorien exakt am
+     Ziel, unverdiente Punkte). Punkte geben die Kalorien deshalb nur, wenn gar
+     keine Makroziele gesetzt sind — dann sind sie die einzige, unabhängige
+     Kennzahl. Andernfalls wirken sie ausschließlich als DECKEL (siehe unten).
+     Ausschlaggebend sind die ZIELE, nicht die Messbarkeit: sonst würde ein
+     einziges Lebensmittel ohne Nährwerte den ganzen Tag auf eine reine
+     Kalorienwertung umschalten. */
+  const kcalGibtPunkte = makroZiele.length === 0;
+
   let erreicht = 0, moeglich = 0;
   ESS_KENNZAHLEN.forEach(kz => {
-    const ist  = kz.key === 'kcal' ? s.kcal : s[kz.key];
+    const istKcal = kz.key === 'kcal';
+    const ist  = istKcal ? s.kcal : s[kz.key];
     const ziel = num(z[kz.key]);
     const anteil = punkteFuer(kz.art, ist, ziel);
     if (anteil === null) return;                     // für diese Kennzahl kein Ziel
-    const zaehlt = !(kz.key === 'kcal' && alleMakros);
+    const zaehlt = istKcal ? kcalGibtPunkte : bewertbar(kz);
+    const grund = zaehlt ? null
+      : istKcal ? 'deckel'                           // Kalorien begrenzen nur
+      : 'luecke';                                    // Makro an dem Tag unvollständig
     if (zaehlt) { erreicht += anteil * kz.gewicht; moeglich += kz.gewicht; }
-    teile.push({ ...kz, ist, ziel, anteil, zaehlt, punkte: anteil * kz.gewicht });
+    teile.push({ ...kz, ist, ziel, anteil, zaehlt, grund, punkte: anteil * kz.gewicht });
   });
-  if (!moeglich) return null;                        // gar keine Ziele gesetzt
+  if (!moeglich) return null;                        // nichts Bewertbares vorhanden
 
-  let roh = erreicht / moeglich;
-  let deckel = 1, kcalZiel = num(z.kcal);
-  if (alleMakros && kcalZiel && s.kcal > kcalZiel) {
-    const drueber = s.kcal / kcalZiel - 1;
+  const roh = erreicht / moeglich;                   // ∈ [0,1], da jeder anteil ∈ [0,1]
+
+  /* DECKEL. Eiweiß ist nach oben offen ('minimum'), ohne Bremse könnte man
+     beliebig viel essen und behielte 100. Liegen die Kalorien über dem
+     Tagesbudget, wird der Punktestand anteilig gekürzt.
+     Bezugsgröße: das Budget, das die eigenen Ziele implizieren. Sind alle drei
+     Makroziele gesetzt, definieren SIE den Tag vollständig (4/4/9 kcal je
+     Gramm) — dann darf der Deckel nicht schon beim Treffen dieser Ziele
+     greifen, sonst wäre die 100 rechnerisch unerreichbar (genau der Fehler bei
+     kcal-Ziel 2.000 und Makros, die 2.143 kcal ergeben). Deshalb
+     max(kcal-Ziel, Makro-Kalorien): bestraft wird nur, was über die eigenen
+     Ziele hinausgeht. Fehlt das kcal-Ziel, tragen die Makro-Kalorien allein
+     den Deckel — sonst gäbe es gar keine Bremse. Sind nur einzelne Makroziele
+     gesetzt, definieren sie kein Gesamtbudget; dann bleibt das kcal-Ziel die
+     einzige sinnvolle Grenze. */
+  const kcalZiel = num(z.kcal), kcalMakro = alleMakroZiele ? kcalAusMakros(z) : null;
+  const deckelBezug = kcalGibtPunkte ? null          // Kalorien sind schon benotet
+    : alleMakroZiele ? (Math.max(kcalZiel || 0, kcalMakro || 0) || null)
+    : (kcalZiel || null);
+  let deckel = 1;
+  if (deckelBezug && s.kcal > deckelBezug) {
+    const drueber = s.kcal / deckelBezug - 1;
     if (drueber > TOLERANZ_VOLL) {
       deckel = Math.max(0, 1 - (drueber - TOLERANZ_VOLL) / (TOLERANZ_NULL - TOLERANZ_VOLL));
     }
   }
+  /* Die Kalorienzeile soll im Score-Block zeigen, was sie wirklich tut:
+     im Deckelmodus ist das der Kürzungsfaktor, nicht ein Fenster-Treffer. */
+  const kcalZeile = teile.find(t => t.key === 'kcal');
+  if (kcalZeile && !kcalZeile.zaehlt) { kcalZeile.anteil = deckel; kcalZeile.punkte = 0; }
+
   return { punkte: Math.round(roh * deckel * 100), teile, summe: s,
-           deckel, ohneDeckel: Math.round(roh * 100) };
+           deckel, deckelBezug, ohneDeckel: Math.round(roh * 100),
+           bewertet: makrosBewertet, luecken: makroKeys.filter(k => fehlt[k] && num(z[k]) !== null) };
 }
 function essBewertung(d) {
   const s = essSumme(d);
@@ -5647,10 +6110,17 @@ function essVorschlaege(d, hoechstens = 3) {
   if (!jetzt || jetzt.punkte >= ZIEL_SCORE) return [];
   const s = jetzt.summe;
   const treffer = [];
+  const tagFehlt = s.fehlt || { p:false, k:false, f:false };
   essLib().forEach(l => {
     for (let n = 1; n <= 2; n++) {
+      /* Die Lücken des Tages UND die des Vorschlags übernehmen: sonst würde
+         ein Lebensmittel ohne Nährwerte unter anderen Regeln bewertet als der
+         Tag selbst und einen Gewinn vortäuschen, den es nicht gibt. */
       const probe = { kcal: s.kcal + kcalOf(l)*n, p: s.p + (num(l.p)||0)*n,
-                      k: s.k + (num(l.k)||0)*n,   f: s.f + (num(l.f)||0)*n, n: s.n + n };
+                      k: s.k + (num(l.k)||0)*n,   f: s.f + (num(l.f)||0)*n, n: s.n + n,
+                      fehlt: { p: tagFehlt.p || num(l.p) === null,
+                               k: tagFehlt.k || num(l.k) === null,
+                               f: tagFehlt.f || num(l.f) === null } };
       const b = bewerteSumme(probe);
       if (!b) return;
       const delta = b.punkte - jetzt.punkte;
@@ -5668,10 +6138,15 @@ const NOTE = p => p >= ZIEL_SCORE ? 'Ziel erreicht' : p >= 80 ? 'Knapp dran' : p
 const NOTE_KLASSE = p => p >= ZIEL_SCORE ? 'up' : p >= 65 ? 'flat' : 'down';
 
 /* Schnitt über die letzten n Tage, nur Tage mit Buchungen zählen */
-function essSchnitt(tage) {
-  const werte = [];
+/* `bis` = letzter Tag des Fensters, Vorgabe heute. Wird der Streifen für einen
+   zurückliegenden Tag gezeichnet, muss auch der Schnitt zu diesem Fenster
+   gehören – sonst stünde unter den Balken eines alten Tages der Schnitt von
+   heute. Dieselbe Fensterlogik wie gymWoche(): die sieben Tage, die auf `bis`
+   enden, nie ein Tag danach (sonst wären alte Werte nicht stabil). */
+function essSchnitt(tage, bis) {
+  const ende = bis || today(), werte = [];
   for (let i = 0; i < tage; i++) {
-    const b = essBewertung(isoAdd(today(), -i));
+    const b = essBewertung(isoAdd(ende, -i));
     if (b) werte.push(b.punkte);
   }
   return werte.length ? { schnitt: Math.round(werte.reduce((a,b)=>a+b,0) / werte.length), tage: werte.length } : null;
@@ -5708,13 +6183,21 @@ function renderScore() {
 
   auf.innerHTML = b.teile.map(t => {
     const proz = Math.round(t.anteil * 100);
+    /* Drei Zustände: normal gewertet, Kalorien als Deckel, oder wegen
+       fehlender Nährwerte gar nicht bewertbar. Der letzte Fall muss sichtbar
+       sein – sonst stünde eine Zahl da, die auf weniger Kennzahlen beruht,
+       ohne dass man es merkt. */
     const untertitel = t.zaehlt ? ''
-      : b.deckel < 1 ? `<small>Deckel greift: −${b.ohneDeckel - b.punkte} Punkte</small>`
+      : t.grund === 'luecke' ? '<small>Werte fehlen – heute nicht bewertet</small>'
+      : b.deckel < 1 ? `<small>Deckel greift: −${b.ohneDeckel - b.punkte} Punkte (Budget ${
+          (b.deckelBezug || 0).toLocaleString('de-DE')} kcal)</small>`
       : '<small>Deckel – gibt keine Punkte, begrenzt nur</small>';
-    return `<div class="fdscore-zeile${t.zaehlt ? '' : (b.deckel < 1 ? ' warnung' : ' passiv')}">
+    const klasse = t.zaehlt ? '' : t.grund === 'luecke' ? ' passiv'
+                 : b.deckel < 1 ? ' warnung' : ' passiv';
+    return `<div class="fdscore-zeile${klasse}">
       <span class="nm">${esc(t.name)}${untertitel}</span>
-      <span class="bar"><i style="width:${Math.min(100, proz)}%"></i></span>
-      <span class="pt tnum">${proz}<small> %</small></span>
+      <span class="bar"><i style="width:${t.grund === 'luecke' ? 0 : Math.min(100, proz)}%"></i></span>
+      <span class="pt tnum">${t.grund === 'luecke' ? '—' : proz + '<small> %</small>'}</span>
     </div>`;
   }).join('');
 
@@ -5726,7 +6209,7 @@ function renderScore() {
     vBox.hidden = false;
     vBox.innerHTML = `<div class="fdtipp-kopf">Das bringt dich weiter</div>` + vor.map((v, i) =>
       `<button class="fdtipp" data-tipp="${i}">
-         <span class="ic">${esc(v.l.ico || '🍽')}</span>
+         <span class="ic">${icoHtml(v.l.ico || 'utensils')}</span>
          <span class="nm">${esc(v.l.name)}${v.n > 1 ? ` · ${v.n}×` : ''}</span>
          <span class="dl">+${v.delta}</span>
        </button>`).join('');
@@ -5736,10 +6219,12 @@ function renderScore() {
     });
   }
 
-  /* Sieben Tage im Überblick – Balkenhöhe ist der Tageswert */
+  /* Sieben Tage im Überblick – Balkenhöhe ist der Tageswert. Das Fenster endet
+     am angezeigten Tag (nicht an heute), sonst zeigt der Streifen beim
+     Zurückblättern die falsche Woche. Genauso macht es der Gym-Streifen. */
   const woche = [];
   for (let i = 6; i >= 0; i--) {
-    const tag = isoAdd(today(), -i);
+    const tag = isoAdd(d, -i);
     const bb = essBewertung(tag);
     const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
     woche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${bb ? bb.punkte + ' Punkte' : 'nichts gebucht'}">
@@ -5747,9 +6232,9 @@ function renderScore() {
         !bb ? 'transparent' : bb.punkte >= 75 ? 'var(--good-ink)' : bb.punkte >= 50 ? 'var(--acc)' : 'var(--bad-ink)'
       }"></i></div><span>${wd}</span></div>`);
   }
-  const sch = essSchnitt(7);
+  const sch = essSchnitt(7, d);
   $('#fdScoreWeek').innerHTML = `<div class="fdweek">${woche.join('')}</div>` +
-    (sch ? `<p class="hint" style="margin:9px 0 0">Schnitt der letzten 7 Tage: <b>${sch.schnitt}</b> Punkte
+    (sch ? `<p class="hint" style="margin:9px 0 0">Schnitt dieser sieben Tage: <b>${sch.schnitt}</b> Punkte
             <span style="opacity:.7">· ${sch.tage} Tag${sch.tage===1?'':'e'} mit Einträgen</span></p>` : '');
 }
 
@@ -5760,10 +6245,10 @@ function renderScore() {
    drücken. Definitionen in state.ziele.supps, Haken in state.tage[d].supps.
    ============================================================ */
 const SUPP_VORLAGEN = [
-  { id:'s01', name:'Kreatin',    ico:'💪', dosis:'' },
-  { id:'s02', name:'Magnesium',  ico:'🧲', dosis:'' },
-  { id:'s03', name:'Zink',       ico:'🔩', dosis:'' },
-  { id:'s04', name:'Vitamin D3', ico:'☀️', dosis:'' }
+  { id:'s01', name:'Kreatin',    ico:'dumbbell', dosis:'' },
+  { id:'s02', name:'Magnesium',  ico:'zap', dosis:'' },
+  { id:'s03', name:'Zink',       ico:'shield', dosis:'' },
+  { id:'s04', name:'Vitamin D3', ico:'sun', dosis:'' }
 ];
 const LS_SUPP_SEED = 'pt.supp.seed.v1';
 
@@ -5828,7 +6313,7 @@ function renderSupps() {
         const an = g.indexOf(x.id) > -1;
         return `<div class="supp ${an?'an':''}" data-supp="${esc(x.id)}">
           <span class="hk">${an ? '✓' : ''}</span>
-          <span class="ic">${esc(x.ico || '💊')}</span>
+          <span class="ic">${icoHtml(x.ico || 'pill')}</span>
           <span class="nm">${esc(x.name)}${x.dosis ? `<small>${esc(x.dosis)}</small>` : ''}</span>
           ${suppBearbeiten ? '<span class="go">✎</span>' : ''}
         </div>`;
@@ -5918,26 +6403,56 @@ function scoreMonatBerechnen(m) {
    überschreibt die Cloud, genau der Fehler vom 08.09.2026). Vergangene
    Monate werden nicht neu gerechnet, nur der laufende – günstig genug, um
    bei jedem Öffnen der 6-Monats-Ansicht zu laufen. */
+/* Fingerabdruck der Maßstäbe, gegen die gemessen wird. Ändert der Nutzer ein
+   Ernährungsziel oder die Supplement-Liste, bedeuten alle gespeicherten
+   Monatswerte etwas anderes als die Zahlen, die Tag/Woche/Monat live rechnen —
+   im Verlauf stünden dann Werte zu Zielen, die es nicht mehr gibt. Deshalb
+   wird der gespeicherte Verlauf bei geänderten Maßstäben verworfen und aus den
+   Tagesdaten neu aufgebaut. Gespeichert wird also nie ein Ergebnis, das nicht
+   mehr zu den aktuellen Zielen passt. */
+function zielFingerprint() {
+  const z = essZiele();
+  return [num(z.kcal), num(z.p), num(z.k), num(z.f), suppDefs().length].join('|');
+}
+
 function scoreVerlaufAktualisieren() {
   if (!state.ziele) state.ziele = {};
   if (!Array.isArray(state.ziele.scoreVerlauf)) state.ziele.scoreVerlauf = [];
+  const fp = zielFingerprint();
+  if (state.ziele.scoreVerlaufZiele !== fp) {        // Ziele geändert → alles neu rechnen
+    state.ziele.scoreVerlauf = [];
+    state.ziele.scoreVerlaufZiele = fp;
+  }
   let liste = state.ziele.scoreVerlauf;
-  const grenze = monatVor(6);                        // älter als das fliegt sowieso raus
+  /* Rollendes Fenster über VERLAUF_MONATE Monate: was älter ist, fällt raus –
+     ab dem dreizehnten Monat rutscht der älteste heraus. Betroffen ist nur
+     diese abgeleitete Ablage, die Tagesdaten bleiben unangetastet. */
+  const grenze = monatVor(VERLAUF_MONATE - 1);
   const aktM = today().slice(0, 7);
   const monate = new Set([aktM]);
   Object.keys(state.tage || {}).forEach(d => { const m = d.slice(0, 7); if (m >= grenze) monate.add(m); });
 
   monate.forEach(m => {
     const vorhanden = liste.find(x => x.m === m);
-    if (vorhanden && m !== aktM) return;              // vergangene Monate sind fertig
+    const vergangen = m < aktM;
+    /* „Fertig" ist ein Monat erst, wenn er vorbei ist UND nach seinem Ende
+       gerechnet wurde. Vorher stand hier nur `m !== aktM`: ein Monat fror
+       damit mit dem Stand des Tages ein, an dem zuletzt die 6-Monats-Ansicht
+       offen war – wer am 10. Juni hinsah, behielt für Juni dauerhaft den
+       Schnitt der Tage 1–10, die restlichen 20 Tage fehlten für immer.
+       Einträge ohne `voll` stammen aus der alten Logik und werden einmal
+       korrekt nachgerechnet. */
+    if (vorhanden && vergangen && vorhanden.voll) return;
     const agg = scoreMonatBerechnen(m);
     if (!agg) return;
-    if (vorhanden) Object.assign(vorhanden, agg);
-    else liste.push({ m, ...agg });
+    const daten = { ...agg, voll: vergangen };
+    if (vorhanden) Object.assign(vorhanden, daten);
+    else liste.push({ m, ...daten });
   });
 
-  liste.sort((a, b) => a.m < b.m ? -1 : a.m > b.m ? 1 : 0);
-  while (liste.length > 6) liste.shift();             // nie mehr als sechs Monate
+  liste = liste.filter(x => x && x.m >= grenze)
+               .sort((a, b) => a.m < b.m ? -1 : a.m > b.m ? 1 : 0);
+  while (liste.length > VERLAUF_MONATE) liste.shift();
   state.ziele.scoreVerlauf = liste;
   persist(false);
 }
@@ -5961,9 +6476,11 @@ function renderScoreboard() {
   }
 
   if (sbBereich === 'woche') {
+    /* Fenster endet am angezeigten Tag – siehe essSchnitt(): beim
+       Zurückblättern gehören Balken und Schnitt zum gezeigten Tag. */
     const d = essDatum(), eWoche = [], sWoche = [];
     for (let i = 6; i >= 0; i--) {
-      const tag = isoAdd(today(), -i);
+      const tag = isoAdd(d, -i);
       const b = essBewertung(tag), sq = suppQuote(tag);
       const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0, 2);
       eWoche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${b ? b.punkte + ' Punkte' : 'nichts gebucht'}">
@@ -5971,8 +6488,8 @@ function renderScoreboard() {
       sWoche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${sq ? sq.genommen + ' von ' + sq.gesamt : 'keine Supplemente'}">
         <div class="bar"><i style="height:${sq ? sq.quote : 0}%;background:${sq ? sbFarbe(sq.quote) : 'transparent'}"></i></div><span>${wd}</span></div>`);
     }
-    const es = essSchnitt(7);
-    const supTage = [...Array(7)].map((_, i) => suppQuote(isoAdd(today(), -i))).filter(Boolean);
+    const es = essSchnitt(7, d);
+    const supTage = [...Array(7)].map((_, i) => suppQuote(isoAdd(d, -i))).filter(Boolean);
     const ss = supTage.length ? Math.round(supTage.reduce((a, x) => a + x.quote, 0) / supTage.length) : null;
     box.innerHTML =
       `<div class="sblabel">Ernährung</div><div class="fdweek">${eWoche.join('')}</div>` +
@@ -6001,20 +6518,25 @@ function renderScoreboard() {
     return;
   }
 
-  /* 6 Monate */
+  /* 6 oder 12 Monate – dieselbe Ansicht, nur ein anderes Fenster.
+     Gespeichert werden bis zu VERLAUF_MONATE Monate; die 6-Monats-Ansicht
+     zeigt davon die letzten sechs. */
   scoreVerlaufAktualisieren();
-  const reihe = state.ziele.scoreVerlauf || [];
+  const alle = state.ziele.scoreVerlauf || [];
+  const fenster = sbBereich === '12m' ? VERLAUF_MONATE : 6;
+  const reihe = alle.slice(-fenster);
   if (!reihe.length) { box.innerHTML = `<p class="hint" style="margin:10px 0 0">Noch keine Monate mit Daten.</p>`; return; }
-  const monatsname = m => new Date(m + '-01T12:00:00').toLocaleDateString('de-DE', { month:'short' });
+  const monatsname = m => new Date(m + '-01T12:00:00')
+    .toLocaleDateString('de-DE', { month:'short' }).replace('.', '').slice(0, 3);
   box.innerHTML = gymLinie(reihe, 'essen') +
-    `<div class="sbmonate">${reihe.map(x => `<div class="sbmonat">
+    `<div class="sbmonate${fenster > 6 ? ' eng' : ''}">${reihe.map(x => `<div class="sbmonat">
        <span class="pkt" style="color:${x.essen===null?'var(--muted)':sbFarbe(x.essen)}">${x.essen ?? '—'}</span>
        <span class="nm">${esc(monatsname(x.m))}</span></div>`).join('')}</div>` +
     (reihe.some(x => x.supp !== null) ? `<p class="hint" style="margin:10px 0 0">Supplemente je Monat: ` +
       reihe.map(x => `${esc(monatsname(x.m))} ${x.supp !== null ? x.supp + ' %' : '—'}`).join(' · ') + `</p>` : '');
 }
-['tag','woche','monat','6m'].forEach(k => {
-  const map = { tag:'#sbTag', woche:'#sbWoche', monat:'#sbMonat', '6m':'#sb6m' };
+['tag','woche','monat','6m','12m'].forEach(k => {
+  const map = { tag:'#sbTag', woche:'#sbWoche', monat:'#sbMonat', '6m':'#sb6m', '12m':'#sb12m' };
   $(map[k]).onclick = () => {
     sbBereich = k;
     Object.values(map).forEach(s => $(s).setAttribute('aria-pressed', String(map[k] === s)));
@@ -6029,7 +6551,7 @@ function openSuppForm(id) {
   const x = id ? suppDefs().find(v => v.id === id) : null;
   $('#suppFormTitle').textContent = x ? 'Supplement bearbeiten' : 'Supplement anlegen';
   $('#suName').value  = x?.name ?? '';
-  $('#suIco').value   = x?.ico ?? '';
+  $('#suIco').value   = (x?.ico && !ICONS[x.ico]) ? x.ico : '';
   $('#suDosis').value = x?.dosis ?? '';
   $('#suDelete').hidden = !x;
   $('#scrim7').classList.add('on');
@@ -6038,14 +6560,14 @@ function openSuppForm(id) {
 function saveSupp() {
   const name = $('#suName').value.trim();
   if (!name) { toast('Bitte einen Namen eintragen.'); return; }
-  const daten = { name, ico: $('#suIco').value.trim().slice(0,4) || '💊',
+  const daten = { name, ico: $('#suIco').value.trim().slice(0,4) || 'pill',
                   dosis: $('#suDosis').value.trim() };
   const defs = suppDefs();
   if (suppEditId) { const x = defs.find(v => v.id === suppEditId); if (x) Object.assign(x, daten); }
   else defs.push({ id: uid(), ...daten });
   $('#scrim7').classList.remove('on');
   suppEditId = null;
-  persist(); renderSupps(); toast('Gespeichert.');
+  persist(); renderSupps(); scoreNachziehen(); toast('Gespeichert.');
 }
 function delSupp() {
   const x = suppDefs().find(v => v.id === suppEditId); if (!x) return;
@@ -6053,7 +6575,7 @@ function delSupp() {
   state.ziele.supps = suppDefs().filter(v => v.id !== suppEditId);
   suppEditId = null;
   $('#scrim7').classList.remove('on');
-  persist(); renderSupps(); toast('Entfernt.');
+  persist(); renderSupps(); scoreNachziehen(); toast('Entfernt.');
 }
 
 $('#suppAdd').onclick = () => openSuppForm();
@@ -6318,7 +6840,7 @@ ${JSON.stringify(offeneTeile)}`;
     const menge = num(e.menge) ?? 1;
     const art = ['produkt','standard','schaetzung'].indexOf(String(e.quelle||'').toLowerCase()) > -1
       ? String(e.quelle).toLowerCase() : 'schaetzung';
-    return { neu:true, name: e.name || 'Unbekannt', ico: (e.ico || '✨').slice(0,4),
+    return { neu:true, name: e.name || 'Unbekannt', ico: (e.ico || 'sparkles').slice(0,4),
              menge, bezugMenge: menge || 1, einheit: e.einheit || 'g',
              kcal: num(e.kcal), p: num(e.eiweiss), k: num(e.kohlenhydrate), f: num(e.fett),
              faktor: 1, quelle: art, hinweis: String(e.hinweis || '').trim(),
@@ -6403,7 +6925,7 @@ function kiListeZeichnen() {
     const q = KI_QUELLE[v.quelle] || KI_QUELLE.schaetzung;
     return `
     <div class="kizeile">
-      <span class="ico">${esc(v.ico || '🍽')}</span>
+      <span class="ico">${icoHtml(v.ico || 'utensils')}</span>
       <span class="ktx"><b>${esc(v.name)}</b>
         <small>${Math.round(w.kcal)} kcal · ${Math.round(w.p)} E · ${Math.round(w.k)} KH · ${Math.round(w.f)} F</small>
         <span class="kiq"><i class="kimarke ${q.klasse}">${q.text}</i>${
@@ -6460,7 +6982,7 @@ function kiBuchen() {
          in der Bibliothek „200 g = 350 kcal", wenn die KI 100 g gemeint und
          der Nutzer auf 200 g korrigiert hatte. */
       const bm = v.bezugMenge || v.menge || 1;
-      const l = { id: uid(), name: v.name, ico: v.ico || '✨',
+      const l = { id: uid(), name: v.name, ico: v.ico || 'sparkles',
                   menge: bm, einheit: v.einheit || 'g',
                   kcal: v.kcal, p: v.p, k: v.k, f: v.f,
                   quelle: v.quelle, geschaetzt: v.quelle === 'schaetzung' };
@@ -6554,9 +7076,15 @@ function renderFood() {
     const namen = luecken.slice(0, 3).map(x => x.l.name).join(', ')
                 + (luecken.length > 3 ? ` und ${luecken.length - 3} weitere` : '');
     lk.hidden = false;
+    /* Seit dem Bewertungs-Audit werden unvollständige Makros nicht mehr als
+       0 g bestraft, sondern aus der Tageswertung herausgenommen (Eiweiß nur
+       dann, wenn schon das Gemessene unter dem Ziel liegt). Der Hinweis sagt
+       das jetzt auch so — vorher stand hier „zu niedrig gerechnet", was nicht
+       mehr stimmt. Die Kalorien zählen weiter voll mit. */
     lk.innerHTML = `<b>Werte fehlen:</b> bei ${esc(namen)} ${luecken.length === 1 ? 'ist' : 'sind'} `
-      + `${arten.join(' bzw. ')} nicht eingetragen. Die Makros dieses Tages sind deshalb `
-      + `zu niedrig gerechnet. Antippen zum Nachtragen.`;
+      + `${arten.join(' bzw. ')} nicht eingetragen. ${arten.length === 1 ? 'Diese Kennzahl' : 'Diese Kennzahlen'} `
+      + `${arten.length === 1 ? 'bleibt' : 'bleiben'} heute unbewertet – die Kalorien zählen trotzdem. `
+      + `Antippen zum Nachtragen.`;
     lk.onclick = () => openFoodForm(luecken[0].l.id);
   }
 
@@ -6579,7 +7107,7 @@ function renderFood() {
         ${heute[l.id] ? `<span class="heute">${heute[l.id]}×</span>` : ''}
         ${lmFehlend(l).length ? `<span class="luecke" title="Nährwerte unvollständig: ${
             esc(lmFehlend(l).map(k => NW_NAMEN[k]).join(', '))}">!</span>` : ''}
-        <span class="ico">${esc(l.ico || '🍽')}</span>
+        <span class="ico">${icoHtml(l.ico || 'utensils')}</span>
         <span class="nm">${esc(l.name)}</span>
         <span class="kc">${kcalOf(l)} kcal</span>
       </div>`).join('')
@@ -6610,7 +7138,7 @@ function renderFood() {
         : `${(bezug(l).menge * n).toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`;
 
       return `<div class="fdrow">
-        <span class="ico">${esc(l && l.ico || '🍽')}</span>
+        <span class="ico">${icoHtml(l && l.ico || 'utensils')}</span>
         <span class="nm">${esc(nm)}${wieviel ? ` · ${esc(wieviel)}` : ''}<small>${uhr}${mk ? ' · ' + mk : ''}</small></span>
         <span class="kc">${kc} kcal</span>
         <button class="x" data-weg="${i}" title="Entfernen">×</button>
@@ -6630,7 +7158,7 @@ function openMenge(lid) {
   const l = essLib().find(x => x.id === lid); if (!l) return;
   mgLid = lid;
   const bz = bezug(l);
-  $('#mgTitle').textContent = `${l.ico || '🍽'} ${l.name}`;
+  $('#mgTitle').innerHTML = `${icoHtml(l.ico || 'utensils')} ${esc(l.name)}`;
   $('#mgSub').textContent = `Nährwerte gelten für ${bezugText(l)} · ${kcalOf(l)} kcal`;
   $('#mgEinheit').textContent = bz.einheit;
   $('#mgMenge').value = deIn(bz.menge);
@@ -6687,7 +7215,7 @@ function openFoodForm(id) {
   const l = id ? essLib().find(x => x.id === id) : null;
   $('#fdFormTitle').textContent = l ? 'Lebensmittel bearbeiten' : 'Lebensmittel anlegen';
   $('#lfName').value    = l?.name ?? '';
-  $('#lfIco').value     = l?.ico ?? '';
+  $('#lfIco').value     = (l?.ico && !ICONS[l.ico]) ? l.ico : '';
   const bz = l ? bezug(l) : { menge:100, einheit:'g' };
   $('#lfMenge').value   = l ? deIn(bz.menge) : '';
   $('#lfEinheit').value = bz.einheit;
@@ -6707,7 +7235,7 @@ function saveFood() {
   if (kcal === null && p === null && k === null && f === null) {
     toast('Trag wenigstens die Kalorien oder die Nährwerte ein.'); return;
   }
-  const daten = { name, ico: $('#lfIco').value.trim().slice(0,4) || '🍽',
+  const daten = { name, ico: $('#lfIco').value.trim().slice(0,4) || 'utensils',
                   menge: numDe($('#lfMenge').value) || 100,
                   einheit: $('#lfEinheit').value, portion: '', kcal, p, k, f };
   const lib = essLib();
@@ -6717,7 +7245,9 @@ function saveFood() {
     lib.push({ id: uid(), ...daten });
   }
   $('#scrim5').classList.remove('on');
-  persist(); renderFood();
+  /* Nachgetragene Nährwerte ändern die Bewertung jedes Tages, an dem das
+     Lebensmittel gebucht ist – auch die von heute, also den Gesamtscore. */
+  persist(); renderFood(); scoreNachziehen();
   toast(lmEditId ? 'Gespeichert.' : `${daten.ico} ${name} angelegt – Kachel antippen bucht eine Portion.`);
   lmEditId = null;
 }
@@ -6727,7 +7257,7 @@ function delFood() {
   state.ziele.lebensmittel = essLib().filter(x => x.id !== lmEditId);
   lmEditId = null;
   $('#scrim5').classList.remove('on');
-  persist(); renderFood(); toast('Gelöscht.');
+  persist(); renderFood(); scoreNachziehen(); toast('Gelöscht.');
 }
 
 /* ---------- Ziele ---------- */
@@ -6764,7 +7294,7 @@ function saveZiele() {
   z.kcal = numDe($('#zKcal').value); z.p = numDe($('#zP').value);
   z.k = numDe($('#zK').value);       z.f = numDe($('#zF').value);
   $('#scrim6').classList.remove('on');
-  persist(); renderFood(); toast('Ziele gespeichert.');
+  persist(); renderFood(); scoreNachziehen(); toast('Ziele gespeichert.');
 }
 
 /* ---------- Verdrahtung ---------- */
@@ -6837,10 +7367,15 @@ const GYM_START_UE = ['g01','g02','g03','g04','g05','g06','g07','g08','g09','g10
 const GYM_START_PLAN = ['tp1','tp2','tp3'];
 function gymStartdatenRaus() {
   /* Reste der Ton-Versuche aus v49/v50 wegräumen – die Felder werden nicht
-     mehr gelesen und haben im Sync-Container nichts verloren. */
+     mehr gelesen und haben im Sync-Container nichts verloren.
+     Dazu seit v72 die abgeschafften Wochenziele „Sätze" und „Minuten":
+     stehen gelassen würden sie unsichtbar weiterliegen, ohne dass man sie
+     noch ändern kann. */
   const z = gymZiele();
-  if ('ton' in z || 'signal' in z || 'kbName' in z) {
+  if ('ton' in z || 'signal' in z || 'kbName' in z || 'saetze' in z
+      || 'minuten' in z || 'gruppen' in z) {
     delete z.ton; delete z.signal; delete z.kbName;
+    delete z.saetze; delete z.minuten; delete z.gruppen;
     persist(false);
   }
   if (lsGet(LS_GYM_CLEAN)) return;
@@ -6863,8 +7398,8 @@ function gymStartdatenRaus() {
 }
 
 const LS_GYM_SEED = 'pt.gym.seed.v1';
-const GYM_ZIEL_VORGABE = { einheiten:4, saetze:60, gruppen:5, minuten:null };
-const GYM_STD = { einheiten:null, saetze:null, gruppen:null, minuten:null };
+const GYM_ZIEL_VORGABE = { einheiten:4 };
+const GYM_STD = { einheiten:null };
 
 function gymLib() {
   if (!state.ziele) state.ziele = {};
@@ -6907,7 +7442,7 @@ function gymVorlagenUebernehmen() {
   if (gesehen.indexOf('ziele') === -1) {
     gesehen.push('ziele');
     const z = gymZiele();
-    if (num(z.einheiten) === null && num(z.saetze) === null && num(z.gruppen) === null) {
+    if (num(z.einheiten) === null) {
       Object.assign(z, GYM_ZIEL_VORGABE); neu++;
     }
   }
@@ -6960,14 +7495,19 @@ function gymWoche(bis) {
   return w;
 }
 
-/* Alle vier sind Untergrenzen mit linearer Kurve ('anteil'): mehr ist nie
+/* Beide sind Untergrenzen mit linearer Kurve ('anteil'): mehr ist nie
    ein Fehler, halb geschafft gibt halbe Punkte. Beim Essen wäre das falsch
-   (zu viel ist dort ein Fehler), beim Training ist es genau richtig. */
+   (zu viel ist dort ein Fehler), beim Training ist es genau richtig.
+
+   Bis v71 standen hier auch „Sätze", „Minuten" und „Muskelgruppen".
+   Auf Wunsch entfernt (17.09.2026): die Gym-Bewertung soll nur eine Frage
+   beantworten – war ich oft genug da. Sätze, Minuten, Muskelgruppen und
+   bewegte Kilos werden weiter gezählt und unter der Wochenübersicht
+   angezeigt, sie sind nur kein Ziel mehr. Bleibt bewusst eine Liste mit
+   einem Eintrag: bewerteWoche und die Aufschlüsselung im Score-Block
+   laufen unverändert weiter, und ein zweites Ziel wäre eine Zeile. */
 const GYM_KENNZAHLEN = [
-  { key:'einheiten', name:'Trainingstage', art:'anteil', gewicht:35, einheit:'' },
-  { key:'saetze',    name:'Sätze',         art:'anteil', gewicht:35, einheit:'' },
-  { key:'gruppen',   name:'Muskelgruppen', art:'anteil', gewicht:30, einheit:'' },
-  { key:'minuten',   name:'Minuten',       art:'anteil', gewicht:20, einheit:'min' }
+  { key:'einheiten', name:'Trainingstage', art:'anteil', gewicht:100, einheit:'' }
 ];
 
 function bewerteWoche(w) {
@@ -6989,35 +7529,6 @@ function gymBewertung(d) {
   return bewerteWoche(gymWoche(d));
 }
 
-/* Was fehlt noch zur 90? Für jede Übung wird durchgerechnet, wie die Woche
-   mit drei zusätzlichen Sätzen dastünde — fehlende Muskelgruppen bringen
-   dabei automatisch am meisten. */
-function gymVorschlaege(d, hoechstens = 3) {
-  const jetzt = gymBewertung(d);
-  if (!jetzt || jetzt.punkte >= ZIEL_SCORE) return [];
-  const w = jetzt.woche;
-  const heuteLeer = gymTag(d).length === 0;
-  const treffer = [];
-  gymLib().forEach(u => {
-    const neueGruppe = u.muskel && w.gruppenListe.indexOf(u.muskel) === -1;
-    const probe = {
-      einheiten: w.einheiten + (heuteLeer ? 1 : 0),
-      saetze:    w.saetze + (u.typ === 'ausdauer' ? 0 : 3),
-      gruppen:   w.gruppen + (neueGruppe ? 1 : 0),
-      minuten:   w.minuten + (u.typ === 'ausdauer' ? 20 : 0)
-    };
-    const b = bewerteWoche(probe);
-    if (!b) return;
-    const delta = b.punkte - jetzt.punkte;
-    if (delta > 0) treffer.push({ u, delta, grund: neueGruppe ? u.muskel + ' fehlt noch' : '' });
-  });
-  const proGruppe = {};
-  treffer.forEach(t => {
-    const k = t.u.muskel || t.u.id;
-    if (!proGruppe[k] || t.delta > proGruppe[k].delta) proGruppe[k] = t;
-  });
-  return Object.values(proGruppe).sort((a,b) => b.delta - a.delta).slice(0, hoechstens);
-}
 
 /* ---------- Anzeige-Hilfen ---------- */
 let gymTagAnzeige = null;                    // null = heute
@@ -7207,10 +7718,7 @@ function renderGymPlaene() {
              : zul ? `<span>🕐 ${esc(wannText(zul))}</span>` : `<span>noch nie</span>`}
       </div>
     </div>`;
-  }).join('') + `<div class="gyplan neu" data-plneu="1">+ Plan anlegen</div>` +
-    (plaene.length ? '' : `<p class="fdempty" style="grid-column:1/-1;padding:2px 2px 0;margin:0">
-       Fang mit einem Plan an: Name eintippen, dann die Übungen gleich im selben
-       Dialog anlegen – über „+ Neue Übung anlegen".</p>`);
+  }).join('') + `<div class="gyplan neu" data-plneu="1">+ Plan anlegen</div>`;
 
   $$('#gyPlans [data-plstart]').forEach(el => el.onclick = ev => {
     if (ev.target.closest('[data-pledit]')) return;
@@ -7248,7 +7756,7 @@ function openPlanVorschau(id) {
         const z = (x.s || []).find(y => y.g !== null || y.w !== null);
         const ziel = z ? `${z.g !== null ? kg(z.g) + ' kg × ' : ''}${z.w !== null ? z.w : '?'}` : '';
         return `<button class="gyvorrow" data-vorue="${esc(x.id)}">
-          <span class="ico">${esc(u.ico || '🏋️')}</span>
+          <span class="ico">${icoHtml(u.ico || 'dumbbell')}</span>
           <span class="nm"><b>${x.n} ×</b> ${esc(u.name)}
             <small>${esc([u.muskel || '', ziel].filter(Boolean).join(' · '))}</small></span>
           <span class="hk">${hat ? `${hat}/${x.n} ✓` : ''}</span>
@@ -7395,12 +7903,12 @@ function plVerdrahten() {
     const i = +b.dataset.plmenu;
     plLesen();
     plPopOeffnen(b, [
-      { ico:'✎', text:'Übung bearbeiten', tun: () => openUebung(plEintraege[i].id, () => plZeichnen()) },
-      { ico:'↗', text:'Fortschritt ansehen', tun: () => openUeVerlauf(plEintraege[i].id) },
-      { ico:'⏱', text:'Pause einstellen',  tun: () => openPause(plEintraege[i].id) },
-      { ico:'↑', text:'Nach oben',   tun: () => plTausch(i, i - 1) },
-      { ico:'↓', text:'Nach unten',  tun: () => plTausch(i, i + 1) },
-      { ico:'✕', text:'Aus dem Plan nehmen', weg:true, tun: () => {
+      { ico:'pencil', text:'Übung bearbeiten', tun: () => openUebung(plEintraege[i].id, () => plZeichnen()) },
+      { ico:'trending_up', text:'Fortschritt ansehen', tun: () => openUeVerlauf(plEintraege[i].id) },
+      { ico:'timer', text:'Pause einstellen',  tun: () => openPause(plEintraege[i].id) },
+      { ico:'arrow_up', text:'Nach oben',   tun: () => plTausch(i, i - 1) },
+      { ico:'arrow_down', text:'Nach unten',  tun: () => plTausch(i, i + 1) },
+      { ico:'x', text:'Aus dem Plan nehmen', weg:true, tun: () => {
           plEintraege.splice(i, 1); plZeichnen(); } }
     ]);
   });
@@ -7429,7 +7937,7 @@ function plPopOeffnen(anker, punkte) {
   const pop = $('#plPop'), liste = $('#plPopListe');
   liste.innerHTML = punkte.map((p, i) =>
     `<button data-pop="${i}" class="${p.weg ? 'weg' : ''}" role="menuitem">
-       <span>${esc(p.ico || '')}</span>${esc(p.text)}</button>`).join('');
+       <span>${icoHtml(p.ico)}</span>${esc(p.text)}</button>`).join('');
   $$('#plPopListe [data-pop]').forEach(b => b.onclick = () => {
     pop.classList.remove('on');
     punkte[+b.dataset.pop].tun();
@@ -7533,7 +8041,7 @@ function renderGym() {
     const u = gymUe(e.ueid);
     const v = satzVol(e);
     return `<div class="gyrow">
-      <span class="ico">${esc(u ? (u.ico || '🏋️') : '❔')}</span>
+      <span class="ico">${icoHtml(u ? (u.ico || 'dumbbell') : 'circle_help')}</span>
       <span class="nm">${esc(u ? u.name : 'Gelöschte Übung')}
         <small>${esc(satzText(e)) || '—'}</small></span>
       <span class="vol">${v ? Math.round(v).toLocaleString('de-DE') + ' kg' : ''}</span>
@@ -7571,7 +8079,7 @@ function renderGym() {
                            : (heute ? (satzZahl(heute) || '✓') : '');
         return `<button class="gytile" data-gy="${esc(u.id)}">
           ${marke ? `<span class="heute">${marke}</span>` : ''}
-          <span class="kopf"><span class="ico">${esc(u.ico || '🏋️')}</span>
+          <span class="kopf"><span class="ico">${icoHtml(u.ico || 'dumbbell')}</span>
             <span class="nm">${esc(u.name)}</span></span>
           <span class="lz">${letzt ? esc(satzText(letzt)) : 'noch nie'}</span>
           <span class="mg">${esc(u.muskel || '')}</span>
@@ -7612,7 +8120,6 @@ function renderGymScore() {
     note.textContent = !hatZiele ? 'Erst Wochenziele setzen, dann gibt es Punkte'
                                  : 'Noch nichts eingetragen';
     auf.innerHTML = ''; $('#gyZiel').textContent = '';
-    $('#gyTipps').hidden = true; $('#gyTipps').innerHTML = '';
     ring.setAttribute('stroke-dashoffset', String(U));
     $('#gyWeek').innerHTML = '';
     return;
@@ -7636,36 +8143,30 @@ function renderGymScore() {
     </div>`;
   }).join('');
 
-  /* Konkreter Weg zur 90 – ein Tipp öffnet gleich die Satzeingabe */
-  const vor = gymVorschlaege(d);
-  const vBox = $('#gyTipps');
-  if (!vor.length) { vBox.innerHTML = ''; vBox.hidden = true; }
-  else {
-    vBox.hidden = false;
-    vBox.innerHTML = `<div class="fdtipp-kopf">Das bringt dich weiter</div>` + vor.map((v, i) =>
-      `<button class="fdtipp" data-gytipp="${i}">
-         <span class="ic">${esc(v.u.ico || '🏋️')}</span>
-         <span class="nm">${esc(v.u.name)}${v.grund ? ` · ${esc(v.grund)}` : ''}</span>
-         <span class="dl">+${v.delta}</span>
-       </button>`).join('');
-    $$('#gyTipps [data-gytipp]').forEach(el => el.onclick = () => openSatz(vor[+el.dataset.gytipp].u.id));
-  }
+  /* Der Block „Das bringt dich weiter" ist mit v73 entfallen. Er rechnete
+     für jede Übung durch, wie die Woche mit drei Sätzen mehr dastünde –
+     das ergab nur bei mehreren Kennzahlen einen Sinn. Jetzt zählt allein,
+     ob ein Tag ein Trainingstag war: jede Übung wäre gleich viel wert und
+     die Liste eine Zufallsauswahl. */
 
-  /* Sieben Tage: Balkenhöhe sind die Sätze des Tages, gemessen am
-     Tagespensum (Wochenziel Sätze geteilt durch Trainingstage). */
-  const z = gymZiele();
-  const proTag = (num(z.saetze) && num(z.einheiten)) ? z.saetze / z.einheiten : 15;
+  /* Sieben Tage: Balkenhöhe sind die Sätze des Tages – gemessen am stärksten
+     Tag der Woche, nicht an einem Satzziel (das gibt es seit v72 nicht
+     mehr). Ein Vergleich untereinander sagt hier ohnehin mehr als einer
+     gegen eine Zahl: man sieht, wie die Woche verteilt war. */
+  const maxTag = Math.max(...b.woche.tage.map(t => t.saetze), 1);
   $('#gyWeek').innerHTML = `<div class="fdweek">` + b.woche.tage.map(t => {
-    const q = Math.min(1, proTag ? t.saetze / proTag : 0);
+    const q = t.saetze / maxTag;
     const wd = new Date(t.d + 'T12:00:00').toLocaleDateString('de-DE', { weekday:'short' }).slice(0,2);
-    const voll = t.saetze >= proTag;
     return `<div class="fdday ${t.d === d ? 'aktiv' : ''}" title="${dmy(t.d)}: ${t.saetze} Sätze">
       <div class="bar"><i style="height:${Math.round(q*100)}%;background:${
-        !t.n ? 'transparent' : voll ? 'var(--good-ink)' : 'var(--acc)'}"></i></div>
+        !t.n ? 'transparent' : 'var(--acc)'}"></i></div>
       <span>${wd}</span></div>`;
   }).join('') + `</div>` +
+    /* Sätze, Muskelgruppen und Kilos stehen hier als Information – kein Ziel,
+       nur „das war deine Woche". */
     `<p class="hint" style="margin:9px 0 0">Letzte 7 Tage: <b>${b.woche.einheiten}</b> Trainingstage
-     · <b>${b.woche.saetze}</b> Sätze${b.woche.volumen ? ` · <b>${Math.round(b.woche.volumen).toLocaleString('de-DE')}</b> kg bewegt` : ''}</p>`;
+     · <b>${b.woche.saetze}</b> Sätze${b.woche.gruppen ? ` · <b>${b.woche.gruppen}</b> Muskelgruppe${b.woche.gruppen === 1 ? '' : 'n'}` : ''}${
+       b.woche.volumen ? ` · <b>${Math.round(b.woche.volumen).toLocaleString('de-DE')}</b> kg bewegt` : ''}</p>`;
 }
 
 function gymEintragWeg(idx) {
@@ -7972,7 +8473,7 @@ function renderGymFortschritt() {
       letzten zwölf Monate.</p>` +
     (ohne.length ? `<div class="plkopf">Noch ohne primäre Muskelgruppe</div>
       <div class="gymuskel">${ohne.map(u =>
-        `<button class="gymus" data-gymzu="${esc(u.id)}">${esc(u.ico || '🏋️')} ${esc(u.name)}${
+        `<button class="gymus" data-gymzu="${esc(u.id)}">${icoHtml(u.ico || 'dumbbell')} ${esc(u.name)}${
           u.muskel ? ` · ${esc(u.muskel)}` : ''}</button>`).join('')}</div>
       <p class="hint" style="margin:9px 0 0">Antippen und eine der sieben Gruppen wählen –
         dann zählt die Übung mit.</p>` : '');
@@ -8181,7 +8682,7 @@ function szSpeichern() {
   const neuBest = eintrag.s.reduce((a, s) => Math.max(a, num(s.g) || 0), 0);
   renderGym();
   if (neuBest > 0 && neuBest > altBest) toast(`🏆 Bestleistung: ${u.name} mit ${kg(neuBest)} kg`);
-  else toast(`${u.ico || '🏋️'} ${u.name} · ${satzText(eintrag)}`);
+  else toast(`${u.name} · ${satzText(eintrag)}`);
 }
 function szLoeschen() {
   if (szIdx === -1) return;
@@ -8213,7 +8714,7 @@ function openUebung(id, danach, muskelVorgabe) {
   const u = id ? gymUe(id) : null;
   $('#ubTitle').textContent = u ? 'Übung bearbeiten' : 'Übung anlegen';
   $('#ubName').value  = u?.name ?? '';
-  $('#ubIco').value   = u?.ico ?? '';
+  $('#ubIco').value   = (u?.ico && !ICONS[u.ico]) ? u.ico : '';
   $('#ubTyp').value   = u?.typ ?? 'kraft';
   ubMuskelFuellen(u?.muskel ?? muskelVorgabe ?? 'Brust');
   $('#ubPause').value = deIn(num(u?.pause));
@@ -8225,7 +8726,7 @@ function saveUebung() {
   const name = $('#ubName').value.trim();
   if (!name) { toast('Bitte einen Namen eintragen.'); return; }
   const p = numDe($('#ubPause').value);
-  const daten = { name, ico: $('#ubIco').value.trim().slice(0,4) || '🏋️',
+  const daten = { name, ico: $('#ubIco').value.trim().slice(0,4) || 'dumbbell',
                   typ: $('#ubTyp').value, muskel: $('#ubMuskel').value,
                   /* leer heißt: nimm die allgemeine Pause */
                   pause: (p === null || p < 0) ? null : Math.round(p) };
@@ -8259,20 +8760,13 @@ function delUebung() {
 function openGymZiele() {
   const z = gymZiele();
   $('#wzEinheiten').value = deIn(z.einheiten);
-  $('#wzSaetze').value    = deIn(z.saetze);
-  $('#wzGruppen').value   = deIn(z.gruppen);
-  $('#wzMinuten').value   = deIn(z.minuten);
   $('#scrim12').classList.add('on');
 }
 function saveGymZiele() {
   const z = gymZiele();
   z.einheiten = numDe($('#wzEinheiten').value);
-  z.saetze    = numDe($('#wzSaetze').value);
-  z.gruppen   = numDe($('#wzGruppen').value);
-  z.minuten   = numDe($('#wzMinuten').value);
-  if (num(z.gruppen) !== null && z.gruppen > MUSKEL_PRIMAER.length) z.gruppen = MUSKEL_PRIMAER.length;
   $('#scrim12').classList.remove('on');
-  persist(); renderGym(); toast('Wochenziele gespeichert.');
+  persist(); renderGym(); scoreNachziehen(); toast('Wochenziele gespeichert.');
 }
 
 /* ---------- Verdrahtung ---------- */
@@ -8295,8 +8789,8 @@ $('#plAddBtn').onclick = () => {
 };
 $('#plMenu').onclick = () => {
   plLesen();
-  const punkte = [{ ico:'⌨', text:'Namen ändern', tun: () => $('#plName').focus() }];
-  if (plEditId) punkte.push({ ico:'🗑', text:'Plan löschen', weg:true, tun: delGymPlan });
+  const punkte = [{ ico:'keyboard', text:'Namen ändern', tun: () => $('#plName').focus() }];
+  if (plEditId) punkte.push({ ico:'trash_2', text:'Plan löschen', weg:true, tun: delGymPlan });
   plPopOeffnen($('#plMenu'), punkte);
 };
 $('#plClose').onclick = plSchliessen;
@@ -8629,7 +9123,86 @@ function wkStarten(planId, d) {
   gymAlle = false;
   wkOeffnen(tag);
 }
+/* Weicht das Training von den Vorgaben im Plan ab (z.B. 82,5 kg statt der
+   hinterlegten 80 kg), UND hat die betroffene Übung überhaupt feste
+   Vorgaben — bei „wie beim letzten Mal" ohne eigene Zahlen gibt es nichts
+   zum Abgleichen, das übernimmt sich beim nächsten Training ohnehin von
+   selbst. Verglichen wird je Satz auf Position i; eine andere Satzzahl
+   zählt ebenfalls als Abweichung. */
+function wkVorlagenAbgleich(d, plan) {
+  const diffs = []; let saetzeGeaendert = 0;
+  planUe(plan).forEach(x => {
+    const hatVorgabe = x.s && x.s.length && x.s.some(v => v.g !== null || v.w !== null);
+    if (!hatVorgabe) return;
+    const e = gymTag(d).find(y => y.ueid === x.id);
+    const fertig = e ? satzFertig(e) : [];
+    if (!fertig.length) return;
+    const neu = fertig.map(s => ({ g: num(s.g), w: num(s.w) }));
+    const len = Math.max(neu.length, x.s.length);
+    let geaendert = 0;
+    for (let i = 0; i < len; i++) {
+      const a = x.s[i] || { g:null, w:null }, b = neu[i] || { g:null, w:null };
+      if (a.g !== b.g || a.w !== b.w) geaendert++;
+    }
+    if (geaendert) { diffs.push({ id: x.id, n: Math.max(1, neu.length), s: neu }); saetzeGeaendert += geaendert; }
+  });
+  return { diffs, saetzeGeaendert };
+}
+let wuPlanId = null, wuDiffs = null;
+
+/* Jede Übung im DOM in den Tag schreiben, BEVOR wir irgendwas auswerten —
+   sonst zählt ein Wert, der gerade erst getippt aber noch nicht per blur
+   gespeichert wurde, beim Beenden nicht mit. */
+function wkAlleSpeichern() {
+  $$('#wkBody [data-wkue]').forEach(box => wkSpeichern(box.dataset.wkue));
+}
+/* Sätze mit Gewicht oder Wiederholungen, die aber nicht abgehakt sind –
+   „ausgefüllt, aber vergessen zu bestätigen". Genau die will der Nutzer vor
+   dem Beenden noch einmal sehen, statt dass sie stillschweigend als nicht
+   gemacht gelten (satzFertig zählt ok:false nirgendwo mit). */
+function wkOffeneSaetze(d) {
+  const raus = [];
+  gymTag(d).forEach(e => (e.s || []).forEach((s, i) => {
+    if (s.ok === false && (num(s.w) || num(s.g))) raus.push({ ueid: e.ueid, i });
+  }));
+  return raus;
+}
+function wkOffeneAbschliessen() {
+  const d = wkDatum;
+  gymTag(d).forEach(e => (e.s || []).forEach(s => {
+    if (s.ok === false && (num(s.w) || num(s.g))) s.ok = true;
+  }));
+  setTagWert(d, 'training', gymTag(d));
+  $('#scrim18').classList.remove('on');
+  if (!$('#wkView').hidden) wkZeichnen();     // Haken auch sofort sichtbar, falls noch offen
+  wkBeendenWeiter();
+}
+function wkOffeneVerwerfen() {
+  const d = wkDatum;
+  const liste = gymTag(d).map(e => {
+    if (!Array.isArray(e.s)) return e;
+    const s = e.s.filter(x => !(x.ok === false && (num(x.w) || num(x.g))));
+    return { ...e, s };
+  }).filter(e => (e.s && e.s.length) || num(e.min) || num(e.km));
+  setTagWert(d, 'training', liste.length ? liste : null);
+  $('#scrim18').classList.remove('on');
+  if (!$('#wkView').hidden) wkZeichnen();
+  wkBeendenWeiter();
+}
+
 function wkBeenden() {
+  wkAlleSpeichern();
+  const offen = wkOffeneSaetze(wkDatum);
+  if (offen.length) {
+    $('#weText').textContent = offen.length === 1
+      ? 'Ein ausgefüllter Satz ist noch nicht abgehakt. Übernehmen oder verwerfen?'
+      : `${offen.length} ausgefüllte Sätze sind noch nicht abgehakt. Übernehmen oder verwerfen?`;
+    $('#scrim18').classList.add('on');
+    return;
+  }
+  wkBeendenWeiter();
+}
+function wkBeendenWeiter() {
   const d = wkDatum, t = (state.tage || {})[d] || {};
   const sek = t.wstart ? Math.round((Date.now() - t.wstart) / 1000) : 0;
   const liste = gymTag(d);
@@ -8639,10 +9212,36 @@ function wkBeenden() {
   setTagWert(d, 'wstart', null);
   if (sek > 30) setTagWert(d, 'wdauer', sek);
   pauseStop();                        // beim echten Beenden auch den Gong abbestellen
+
+  const plan = gymPlanDesTages(d);
+  const abgleich = plan ? wkVorlagenAbgleich(d, plan) : null;
   wkSchliessen();
-  toast(`Fertig · ${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}` +
+  const fertigToast = () => toast(`Fertig · ${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}` +
         (vol ? ` · ${Math.round(vol).toLocaleString('de-DE')} kg` : '') +
         (sek > 30 ? ` · ${mmss(sek)} min` : ''));
+
+  if (abgleich && abgleich.diffs.length) {
+    wuPlanId = plan.id; wuDiffs = abgleich.diffs;
+    $('#wuText').textContent = `Du hast bei „${plan.name}" andere Werte trainiert als hinterlegt. Für den Plan übernehmen?`;
+    $('#wuSub').textContent = `${abgleich.saetzeGeaendert} Satz${abgleich.saetzeGeaendert === 1 ? '' : 'e'} betroffen`;
+    $('#scrim17').classList.add('on');
+    fertigToast();
+  } else fertigToast();
+}
+function wkVorlageUebernehmen(uebernehmen) {
+  $('#scrim17').classList.remove('on');
+  if (uebernehmen && wuPlanId) {
+    const p = gymPlan(wuPlanId);
+    if (p) {
+      wuDiffs.forEach(x => {
+        const pe = planUe(p).find(y => y.id === x.id);
+        if (pe) { pe.s = x.s.map(y => ({ ...y })); pe.n = x.n; }
+      });
+      persist(); renderGym();
+      toast('Plan aktualisiert.');
+    }
+  }
+  wuPlanId = null; wuDiffs = null;
 }
 /* Übung ergänzen, die nicht im Plan steht */
 function wkUebungDazu() {
@@ -8721,6 +9320,13 @@ function pauseDialogZu(sek, zurueck) {
 $('#gyWeiter').onclick   = () => wkOeffnen(gymDatum());
 $('#wkZurueck').onclick  = wkSchliessen;
 $('#wkEnde').onclick     = wkBeenden;
+$('#wuUebernehmen').onclick = () => wkVorlageUebernehmen(true);
+$('#wuClose').onclick       = () => wkVorlageUebernehmen(false);
+$('#scrim17').onclick = e => { if (e.target === $('#scrim17')) wkVorlageUebernehmen(false); };
+$('#weAbschliessen').onclick = wkOffeneAbschliessen;
+$('#weVerwerfen').onclick    = wkOffeneVerwerfen;
+$('#weAbbrechen').onclick    = () => $('#scrim18').classList.remove('on');
+$('#scrim18').onclick = e => { if (e.target === $('#scrim18')) $('#scrim18').classList.remove('on'); };
 $('#wkPauseBtn').onclick = () => openPause();
 $('#wkExtra').onclick    = wkUebungDazu;
 $('#wkMinus').onclick    = () => pauseSchieben(-15);
@@ -8800,11 +9406,11 @@ const STRAVA_SPORT = {
    selbst mit Sätzen und Gewicht ein. Sonst stünde jede Einheit doppelt in
    der Wochenwertung. */
 const STRAVA_AUS = ['WeightTraining','Crossfit','Workout','HighIntensityIntervalTraining'];
-const ST_ICO = { Laufen:'🏃', Trailrun:'⛰️', 'Laufen (virtuell)':'🏃', Radfahren:'🚴',
-  'Radfahren (Rolle)':'🚲', Gravelbike:'🚵', Mountainbike:'🚵', 'E-Bike':'🔋',
-  Schwimmen:'🏊', Gehen:'🚶', Wandern:'🥾', Rudergerät:'🚣', Crosstrainer:'⚙️',
-  Stepper:'🪜', Yoga:'🧘', Pilates:'🧘', Fußball:'⚽', Tennis:'🎾', Golf:'⛳',
-  Ski:'🎿', Skilanglauf:'🎿', Snowboard:'🏂', Kajak:'🛶', Kanu:'🛶', Klettern:'🧗' };
+const ST_ICO = { Laufen:'footprints', Trailrun:'mountain', 'Laufen (virtuell)':'footprints', Radfahren:'bike',
+  'Radfahren (Rolle)':'bike', Gravelbike:'bike', Mountainbike:'bike', 'E-Bike':'battery_charging',
+  Schwimmen:'waves', Gehen:'footprints', Wandern:'mountain_snow', Rudergerät:'sailboat', Crosstrainer:'cog',
+  Stepper:'activity', Yoga:'flower_2', Pilates:'flower_2', Fußball:'circle_dot', Tennis:'target', Golf:'flag',
+  Ski:'snowflake', Skilanglauf:'snowflake', Snowboard:'snowflake', Kajak:'anchor', Kanu:'anchor', Klettern:'trending_up' };
 
 /* Passende Übung finden oder anlegen. Gibt es sie schon unter demselben
    Namen (egal wie groß geschrieben), wird die genommen. */
@@ -8814,7 +9420,7 @@ function stravaUebung(sportTyp) {
   const lib = gymLib();
   const treffer = lib.find(u => normal(u.name) === normal(name));
   if (treffer) return treffer;
-  const u = { id: uid(), name, ico: ST_ICO[name] || '🏅', typ:'ausdauer', muskel:'Cardio', pause:null };
+  const u = { id: uid(), name, ico: ST_ICO[name] || 'medal', typ:'ausdauer', muskel:'Cardio', pause:null };
   lib.push(u);
   return u;
 }
