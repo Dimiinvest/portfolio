@@ -6,8 +6,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Portfolio · Investment Tracker</title>
-<meta name="theme-color" content="#0b0b0c">
+<title>Tracker</title>
+<meta name="theme-color" content="#0E1114">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -75,8 +75,9 @@ body{
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
   /* mehr Luft als früher: die Tableiste schwebt jetzt und deckt nichts
-     mehr mit einer eigenen Fläche ab */
-  padding:0 0 112px;
+     mehr mit einer eigenen Fläche ab. Mit Home-Balken-Abstand – die Kurzform
+     padding:0 0 112px hob die Zeile darüber bis v82 wieder auf. */
+  padding:0 0 calc(112px + env(safe-area-inset-bottom));
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
 .tnum{font-variant-numeric:tabular-nums}
@@ -321,10 +322,22 @@ tfoot td{font-weight:400;background:var(--surface-2)}
 label{font-size:11.5px;color:var(--muted);font-weight:640;letter-spacing:.05em;text-transform:uppercase}
 input,select{appearance:none;background:var(--surface-3);border:1px solid var(--hair);color:#fff;font:inherit;
   font-size:14px;padding:10px 12px;border-radius:0px;width:100%;transition:.15s}
-input:focus,select:focus{outline:0;border-color:#3DDC97;box-shadow:0 0 0 1px var(--acc);background:#232a31}
+input:focus,select:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#232a31}
 .hint{font-size:11.5px;color:var(--muted);line-height:1.4}
 .mrow{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
 .mrow .sp{margin-right:auto}
+/* Rückfrage-Dialog (frage()) – liegt über allen anderen Dialogen */
+#scrimQ{z-index:130}
+#qText{white-space:pre-line;line-height:1.5}
+#qText:empty{display:none}
+.btn.gefahr{background:var(--bad-ink);border-color:transparent;color:#0E1114;font-weight:650}
+#qListe{display:flex;flex-direction:column;gap:8px}
+#qListe:empty{display:none}
+.qopt{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;text-align:left;
+  padding:13px 14px;min-height:48px;border:1px solid var(--hair);border-radius:14px;background:var(--surface-3);
+  color:var(--text-primary);font:inherit;font-size:14px;cursor:pointer}
+.qopt:hover,.qopt:focus-visible{border-color:var(--acc);outline:0}
+.qopt small{color:var(--muted);font-size:12px;font-weight:400}
 .secbox{border:1px solid var(--hair);border-radius:0px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.02)}
 .sect{font-size:13px;font-weight:650;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .sect .tag{font-weight:700}
@@ -539,7 +552,10 @@ input:focus,select:focus{outline:0;border-color:#3DDC97;box-shadow:0 0 0 1px var
 /* Panels leicht durchscheinend, damit der Nebel trägt */
 .card,.panel,.kpi,.pos,.res,.tx,.box{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
 header.top{background:rgba(14,17,20,.88)}
-nav,.tabbar{background:rgba(14,17,20,.92)}
+nav{background:rgba(14,17,20,.92)}
+/* .tabbar gehört hier NICHT dazu: sie ist die durchsichtige Hülle um die
+   schwebende Pille – mit Hintergrund lag bis v82 ein 77 px hohes dunkles Band
+   über die ganze Breite hinter der Pille. */
 
 /* Aktualisierungs-Hinweis */
 /* Wie #updBar, nur rot. Bis v55 wurde ein fehlgeschlagenes localStorage-Schreiben
@@ -702,7 +718,7 @@ body.hidden-nums [data-money]{
   margin-top:11px;overflow:hidden;flex:0 0 auto}
 .tdbar i{display:block;height:100%;border-radius:999px;background:var(--acc);
   transition:width .5s cubic-bezier(.2,.7,.3,1)}
-.tdbar i.gut{background:var(--good-ink)} .tdbar i.warn{background:var(--acc-warm,#FCD34D)}
+.tdbar i.gut{background:var(--good-ink)} .tdbar i.warn{background:var(--warn)}
 .tdbar i.schlecht{background:var(--bad-ink)}
 
 /* Minikurve in der Depot-Kachel */
@@ -828,12 +844,12 @@ main{position:relative;z-index:1}
    erste Lebensmittel mit Lücke. */
 .fdluecke{display:block;width:100%;text-align:left;margin-top:12px;
   appearance:none;font:inherit;font-size:12.5px;line-height:1.45;cursor:pointer;
-  padding:10px 12px;border-radius:11px;color:#FCD34D;
+  padding:10px 12px;border-radius:11px;color:var(--warn);
   border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.08)}
 .fdluecke b{font-weight:640}
 .fdtile .luecke{position:absolute;top:6px;left:7px;width:17px;height:17px;border-radius:99px;
   display:grid;place-items:center;font-size:11px;font-weight:800;
-  color:#FCD34D;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
+  color:var(--warn);border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
 
 .fdrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid var(--hair)}
 .fdrow:first-child{border-top:0}
@@ -879,13 +895,17 @@ main{position:relative;z-index:1}
 /* Score-Verlauf (neu): Monatsraster + 6-Monats-Übersicht. Tag/Woche nutzen
    bewusst .fdscore-zeile/.fdweek weiter, dafür keine neuen Regeln nötig. */
 .sblabel{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
-.sbgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
+.sbgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px;max-width:420px}
+/* max-width: am PC wurden die Zellen sonst 150 px große Quadrate */
+.sbwt{text-align:center;font-size:9.5px;font-weight:600;letter-spacing:.06em;color:var(--muted);padding-bottom:2px}
 .sbcell{aspect-ratio:1;border-radius:7px;background:rgba(255,255,255,.03);display:flex;
   align-items:center;justify-content:center;font-size:10px;
   font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--muted)}
-.sbcell.leer{color:transparent}
-.sbcell.gut{background:rgba(61,220,151,.16);color:var(--good-ink)}
-.sbcell.mittel{background:rgba(61,220,151,.14);color:var(--acc)}
+.sbcell.leer{color:var(--muted)}
+.sbcell.frei{background:transparent}
+.sbcell.kommt{background:transparent;opacity:.35}
+.sbcell.gut{background:rgba(61,220,151,.18);color:var(--good-ink)}
+.sbcell.mittel{background:rgba(252,211,77,.13);color:var(--warn)}
 .sbcell.schlecht{background:rgba(255,107,107,.14);color:var(--bad-ink)}
 .sbcell.heute{outline:1px solid var(--hair-strong);outline-offset:1px}
 /* Fünf Zeiträume passen auf schmalen Geräten nicht mehr in eine Zeile –
@@ -978,13 +998,13 @@ main{position:relative;z-index:1}
 .kizeile .kiq em{font-style:normal;color:var(--muted);font-size:11px}
 .kimarke{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;
   font-style:normal;letter-spacing:.02em;
-  background:rgba(255,255,255,.07);color:#FCD34D;vertical-align:middle}
+  background:rgba(255,255,255,.07);color:var(--warn);vertical-align:middle}
 /* Woher die Zahlen stammen. Grün = seine eigenen Werte, blau = Hersteller,
    neutral = Nährwerttabelle, gold = geraten. */
 .kimarke.q-liste{background:rgba(61,220,151,.13);color:var(--good-ink)}
 .kimarke.q-produkt{background:var(--acc-dim);color:var(--acc)}
 .kimarke.q-standard{background:rgba(255,255,255,.08);color:var(--text-secondary)}
-.kimarke.q-schaetzung{background:rgba(255,255,255,.07);color:#FCD34D}
+.kimarke.q-schaetzung{background:rgba(255,255,255,.07);color:var(--warn)}
 .kisumme{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
   margin-top:14px;padding-top:12px;border-top:1px solid var(--hair-strong)}
 .kisumme b{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:19px;font-weight:600}
@@ -1186,11 +1206,11 @@ main{position:relative;z-index:1}
    Eigene Ebene über allem (auch über der Tableiste, die bei z-index 70 liegt).
    Während des Trainings soll nichts ablenken. */
 #wkView{position:fixed;inset:0;z-index:90;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
+  background:var(--plane);background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
   padding:0 0 calc(96px + env(safe-area-inset-bottom))}
 .wktop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
   padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
-  background:linear-gradient(to bottom,rgba(12,11,10,.98) 70%,rgba(12,11,10,0));
+  background:linear-gradient(to bottom,rgba(14,17,20,.98) 70%,rgba(14,17,20,0));
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .wkwrap{padding:4px 16px 0;max-width:640px;margin:0 auto}
 .wkkopf h2{font-size:26px;font-weight:680;letter-spacing:-.03em;margin:8px 0 8px}
@@ -1277,11 +1297,11 @@ main{position:relative;z-index:1}
    im Workout (.wkue/.wkkopfzeile/.wkzeile) – beides ist dieselbe Tabelle,
    einmal mit Ziel- und einmal mit Istwerten. */
 #plView{position:fixed;inset:0;z-index:75;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:#0B0A09;background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
+  background:var(--plane);background-image:linear-gradient(180deg,rgba(255,255,255,.045),transparent 380px);
   padding:0 0 calc(40px + env(safe-area-inset-bottom))}
 .pltop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;
   padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
-  background:linear-gradient(to bottom,rgba(12,11,10,.98) 70%,rgba(12,11,10,0));
+  background:linear-gradient(to bottom,rgba(14,17,20,.98) 70%,rgba(14,17,20,0));
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .pltop .tt{flex:1 1 auto;min-width:0;text-align:center;font-size:15px;font-weight:640;
   letter-spacing:-.01em;color:var(--text-primary);
@@ -1350,6 +1370,46 @@ main{position:relative;z-index:1}
 .wklaeuft b{color:var(--acc)}
 .wklaeuft .sp{flex:1 1 auto}
 .wklaeuft .go{color:var(--acc);font-size:17px}
+
+/* ═══════════ v83 Feinschliff ═══════════
+   Gezielte Korrekturen aus dem Gesamt-Check – keine neue Optik. */
+/* Kopfzeile: Depot-Knöpfe (Währung, Kurse, + Position) nur im Depot. Auf
+   Heute/Essen/Gym kosteten sie am iPhone 123–177 px feste Höhe. */
+body:not([data-tab="home"]):not([data-tab="history"]) .top-inner > .seg,
+body:not([data-tab="home"]):not([data-tab="history"]) #btnRefresh,
+body:not([data-tab="home"]):not([data-tab="history"]) #btnAdd{display:none}
+/* Neues, leeres Depot: vier „—"-Kacheln, leere Kurve und leerer Ring vor der
+   eigentlichen Aufforderung sagen nichts – die Aufforderung kommt nach oben. */
+body.depot-leer #viewHome .kpis,
+body.depot-leer #histPanel,
+body.depot-leer #viewHome .grid2{display:none}
+/* Aufgabe löschen: war nur bei Mausberührung sichtbar – am iPhone ein
+   unsichtbarer 22-px-Knopf */
+.task .del{min-width:40px;min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+@media (hover:none){.task .del{opacity:.55}}
+/* Die einzige Checkbox (Sparplan automatisch) zeigte wegen appearance:none
+   nie einen Haken */
+input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:18px;height:18px;padding:0;
+  accent-color:var(--acc);flex:0 0 auto}
+/* Größere Tippflächen ohne sichtbare Änderung */
+.alert .x,.gyplan .mehr,.plmehr,.wkpz{position:relative}
+.alert .x::after,.gyplan .mehr::after,.plmehr::after,.wkpz::after{content:'';position:absolute;inset:-8px}
+/* Übungsnamen: lieber trennen als mitten im Wort abschneiden */
+.gytile .nm{overflow-wrap:anywhere;-webkit-hyphens:auto;hyphens:auto}
+@media (min-width:700px){.gygrid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+/* Am PC nicht über die volle Breite ziehen */
+.gypcmp{max-width:520px}
+/* Formulare: mehrzeilige Beschriftung schiebt das Feld nicht aus der Reihe */
+.f{justify-content:flex-end}
+#lfMenge{min-width:56px}
+#lfEinheit{flex:0 0 76px !important}
+/* Dialoge: nicht unter Notch/Statusleiste und Home-Balken */
+.scrim{padding:max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom))}
+.modal{max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+@media (max-width:400px){.modal{padding:18px}.mrow .btn{padding-left:12px;padding-right:12px}}
+.swrow small{font-weight:400}
+/* Karten, die bündig aufeinander lagen */
+#viewFood > section + section, #viewGym > section + section{margin-top:12px}
 </style>
 </head>
 <body>
@@ -1422,7 +1482,7 @@ main{position:relative;z-index:1}
       <div class="k">Realisiert</div><div class="v tnum" id="kReal">—</div><div class="d" id="kRealD">—</div></div>
   </section>
 
-  <section class="panel" style="margin-bottom:12px">
+  <section class="panel" id="histPanel" style="margin-bottom:12px">
     <div class="ph">
       <div><h2>Wertentwicklung</h2><p id="histSub">Gesamtes Depot</p></div>
       <div class="ctrls">
@@ -1958,6 +2018,35 @@ main{position:relative;z-index:1}
   </div>
 </div>
 
+<!-- Rückfrage/Auswahl im App-Stil – ersetzt seit v83 die nativen
+     confirm()/prompt()-Fenster des Browsers (am iPhone grau, ohne Kontext). -->
+<div class="scrim" id="scrimQ">
+  <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="qTitel" style="width:min(420px,100%)">
+    <h3 id="qTitel"></h3>
+    <p class="msub" id="qText"></p>
+    <div id="qListe"></div>
+    <div class="mrow">
+      <button class="btn" id="qCancel">Abbrechen</button>
+      <button class="btn primary" id="qOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim19">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(420px,100%)">
+    <h3>Neue Aufgabe</h3>
+    <p class="msub">Was willst du täglich schaffen?</p>
+    <div class="form">
+      <div class="f full"><label for="tdAufgabeName">Aufgabe</label>
+        <input id="tdAufgabeName" type="text" maxlength="60" autocomplete="off" placeholder="z. B. 10.000 Schritte"></div>
+    </div>
+    <div class="mrow">
+      <button class="btn" id="tdAufgabeCancel">Abbrechen</button>
+      <button class="btn primary" id="tdAufgabeSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim10">
   <div class="modal" role="dialog" aria-modal="true" style="width:min(430px,100%)">
     <h3 id="szTitle">Übung</h3>
@@ -2372,7 +2461,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v81 · Mint · 18.09.2026';
+const APP_VERSION = 'v83 · Mint · 29.09.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -2412,6 +2501,14 @@ const DEMO = [
 const uid = () => 'p' + Math.random().toString(36).slice(2, 9);
 /* Ältere Daten: ETFs waren früher als "Aktie" gespeichert */
 function migrate(p) {
+  /* Kaputte oder fremde Datensätze (Import, alte Fassung, anderes Schema)
+     dürfen die App nicht zum Absturz bringen: fehlt die Menge, rechnete
+     calc() mit undefined, und schon toLocaleString() in der Karte warf. */
+  p.qty = num(p.qty) ?? 0;
+  p.entry = num(p.entry) ?? 0;
+  if (p.cur !== 'EUR' && p.cur !== 'USD') p.cur = 'EUR';
+  if (['crypto','stock','etf','other'].indexOf(p.type) === -1) p.type = 'other';
+  if (typeof p.name !== 'string' || !p.name.trim()) p.name = p.symbol ? String(p.symbol) : 'Unbenannt';
   if (p.type === 'stock' && /\betfs?\b|\bindex\b|msci|s&p|ishares|vanguard|xtrackers|lyxor|amundi/i.test(p.name || '')) p.type = 'etf';
   return p;
 }
@@ -2523,6 +2620,7 @@ function totals(cls) {
 
 /* ---------- Alarm-Zustand je Position ---------- */
 function alertOf(p) {
+  if (!(p.qty > 0)) return null;        // ausverkauft: kein Stop-Loss-/Zielalarm mehr
   const c = calc(p);
   if (c.price === null) return null;
   if (num(p.sl) !== null && c.price <= p.sl) return 'stop';
@@ -2765,7 +2863,7 @@ function snapshot() {
     if (t.count && t.known) s[c.key] = { v: Math.round(t.val*100)/100, i: Math.round(t.inv*100)/100 };
   });
   if (!Object.keys(s).length) return;
-  const d = new Date().toISOString().slice(0,10);
+  const d = today();              // lokaler Tag – toISOString() ist UTC, bis 2 Uhr nachts also noch „gestern"
   const rec = { d, c: state.base, s };
   const i = history.findIndex(h => h.d === d && h.c === state.base);
   if (i >= 0) history[i] = rec; else history.push(rec);
@@ -2805,7 +2903,7 @@ function intraSeries(cls) {
   const pts = intra
     .filter(p => p.c === state.base && p.t >= t0.getTime() && p.s && p.s[cls] && isFinite(p.s[cls].v))
     .map(p => ({ t: p.t, v: p.s[cls].v, i: p.s[cls].i }));
-  const heute = new Date().toISOString().slice(0,10);
+  const heute = today();
   const gestern = [...history].reverse()
     .find(h => h.d < heute && h.c === state.base && h.s && h.s[cls] && isFinite(h.s[cls].v));
   if (gestern) pts.unshift({ t: t0.getTime(), v: gestern.s[cls].v, i: gestern.s[cls].i, ref: true });
@@ -3309,6 +3407,7 @@ function renderPosListe() {
   else { $('#cards').hidden = true; $('#tableview').hidden = false; renderTable(); }
 }
 function render() {
+  document.body.classList.toggle('depot-leer', !state.positions.length);
   renderHero(); renderAlerts(); sicherungAnbieten(); renderHistory(); renderDonut(); renderBars();
   const vt = $('#viewToday'); if (vt && !vt.hidden) renderToday();   // Hinweise mitziehen
   renderPosListe();
@@ -3581,8 +3680,20 @@ function fetchStock(sym) {
   return raceProxies(base, j => {
     const m = j?.chart?.result?.[0]?.meta;
     const px = m && (m.regularMarketPrice ?? m.previousClose);
-    return px ? { price: px, cur: (m.currency || 'USD').toUpperCase() } : null;
+    return px ? { price: px, cur: m.currency || 'USD' } : null;   // Groß/klein zählt: „GBp" sind Pence
   });
+}
+/* Kurs in die Währung der Position. Nur EUR und USD – alles andere (Pence,
+   Franken …) liefert null und landet bei „ohne Treffer", statt mit dem
+   EUR/USD-Kurs still falsch umgerechnet zu werden. */
+function kursIn(v, von, nach) {
+  v = num(v);
+  if (!(v > 0)) return null;
+  if (von === nach) return v;
+  const r = state.fx.EURUSD || 1.09;
+  if (von === 'USD' && nach === 'EUR') return v / r;
+  if (von === 'EUR' && nach === 'USD') return v * r;
+  return null;
 }
 let loading = false;
 let liveOk = 0;                       // wie viele Kurse beim letzten Abruf wirklich ankamen
@@ -3638,7 +3749,8 @@ async function refreshPrices(silent) {
   state.positions.forEach(p => {
     if (p.type === 'crypto' && p.symbol) {
       const d = cg[cgId(p.symbol)];
-      if (d) { const key = p.cur.toLowerCase(); if (d[key] != null) { p.price = d[key]; p.live = true; ok++; } else { p.price = d.eur ?? d.usd; p.cur = d.eur!=null?'EUR':'USD'; p.live = true; ok++; } }
+      const px = d ? (kursIn(d[p.cur.toLowerCase()], p.cur, p.cur) ?? kursIn(d.eur, 'EUR', p.cur) ?? kursIn(d.usd, 'USD', p.cur)) : null;
+      if (px !== null) { p.price = px; p.live = true; ok++; }
       else if (p.price == null) fail++;
     }
   });
@@ -3646,7 +3758,12 @@ async function refreshPrices(silent) {
   stocks.forEach(p => {
     const s = p.symbol.trim().toUpperCase();
     const e = einzeln[s];
-    if (e) { p.price = e.price; p.cur = e.cur; p.live = true; ok++; return; }
+    /* Bis v82 übernahm die Position hier still die Währung des Kurses
+       (p.cur = e.cur) – Einstieg, Ziele und Stop-Loss blieben aber in der
+       eingetragenen Währung stehen. Aus „180 €" wurden so „180 $". Jetzt wird
+       der Kurs in die Währung der Position umgerechnet. */
+    const epx = e ? kursIn(e.price, e.cur, p.cur) : null;
+    if (epx !== null) { p.price = epx; p.live = true; ok++; return; }
     const px = spark && spark[s];
     if (px > 0) { p.price = px; p.live = true; ok++; return; }   // Währung bleibt wie eingetragen
     ohneTreffer.push(p.symbol.trim());
@@ -3785,13 +3902,52 @@ function saveTrade() {
     if (q > p.qty + 1e-9) { toast('Mehr als vorhanden kannst du nicht verkaufen.'); return; }
     if (!Array.isArray(p.tx) || !p.tx.length) p.tx = [{ t:'buy', d: p.since || null, qty: p.qty, price: p.entry }];
     p.realized = (p.realized || 0) + (pr - p.entry) * q;
-    p.qty = Math.max(0, p.qty - q);
+    /* 1,1 − 1 − 0,1 ist im Rechner nicht 0, sondern 9e-17 – die Vorschau
+       versprach aber „wird auf 0 gesetzt". */
+    const rest = p.qty - q;
+    p.qty = rest <= Math.max(1e-9, p.qty * 1e-9) ? 0 : rest;
     addTx(p, 'sell', q, pr, dt);
     toast(`Verkauf gebucht – realisiert ${(p.realized>=0?'+':'')+fmtC(p.realized, p.cur)}`);
   }
   $('#scrim3').classList.remove('on');
   render(); persist();
 }
+
+/* ============================================================
+   RÜCKFRAGEN IM APP-STIL
+   frage({titel, text, ja, nein, gefahr})        → Promise<boolean>
+   frage({titel, text, liste:[{label, sub}]})     → Promise<Index|null>
+   Ersetzt confirm()/prompt(): die nativen Fenster sind am iPhone grau,
+   zeigen die Adresse der Seite als Titel und passen nicht zur App.
+   Escape, Klick daneben und „Abbrechen" heißen immer: nein.
+   ============================================================ */
+let qFertig = null, qMitListe = false;
+function frage({ titel = '', text = '', ja = 'OK', nein = 'Abbrechen', gefahr = false, liste = null } = {}) {
+  if (qFertig) qSchliessen(false);             // ein offener Dialog wird sauber verneint
+  return new Promise(res => {
+    qFertig = res; qMitListe = !!liste;
+    $('#qTitel').textContent = titel;
+    $('#qText').textContent = text;
+    const ok = $('#qOk');
+    ok.textContent = ja; ok.hidden = qMitListe;
+    ok.className = 'btn ' + (gefahr ? 'gefahr' : 'primary');
+    $('#qCancel').textContent = nein;
+    const box = $('#qListe');
+    box.innerHTML = qMitListe ? liste.map((e, i) =>
+      `<button class="qopt" data-q="${i}"><b>${esc(e.label)}</b>${e.sub ? `<small>${esc(e.sub)}</small>` : ''}</button>`).join('') : '';
+    box.querySelectorAll('[data-q]').forEach(b => b.onclick = () => qSchliessen(+b.dataset.q));
+    $('#scrimQ').classList.add('on');
+    setTimeout(() => { const f = qMitListe ? box.querySelector('button') : (gefahr ? $('#qCancel') : ok); if (f) f.focus(); }, 60);
+  });
+}
+function qSchliessen(wert) {
+  $('#scrimQ').classList.remove('on');
+  const r = qFertig; qFertig = null;
+  if (r) r(wert === false && qMitListe ? null : wert);
+}
+$('#qOk').onclick = () => qSchliessen(true);
+$('#qCancel').onclick = () => qSchliessen(false);
+$('#scrimQ').onclick = e => { if (e.target === $('#scrimQ')) qSchliessen(false); };
 
 /* ============================================================
    DAUERHAFTES SPEICHERN — lokal (Browser) + Cloud (jsonbin.io)
@@ -3818,7 +3974,8 @@ function payload() {
       history: history.slice(-500)
     },
     tage:  state.tage  || {},
-    ziele: state.ziele || {}
+    ziele: state.ziele || {},
+    stempel: state.stempel || stempelLeer()        // v83: Abgleich je Teil, siehe ABGLEICH
   };
 }
 
@@ -3834,7 +3991,8 @@ function normalize(j) {
       depot: { positions: Array.isArray(j.depot.positions) ? j.depot.positions : [],
                history:   Array.isArray(j.depot.history)   ? j.depot.history   : [] },
       tage:  (j.tage  && typeof j.tage  === 'object') ? j.tage  : {},
-      ziele: (j.ziele && typeof j.ziele === 'object') ? j.ziele : {}
+      ziele: (j.ziele && typeof j.ziele === 'object') ? j.ziele : {},
+      stempel: (j.stempel && typeof j.stempel === 'object') ? j.stempel : stempelLeer()
     };
   }
   if (Array.isArray(j.positions)) {                      // Version 3 und älter
@@ -3843,7 +4001,7 @@ function normalize(j) {
       updatedAt: j.updatedAt || 0,
       base: j.base || 'EUR',
       depot: { positions: j.positions, history: Array.isArray(j.history) ? j.history : [] },
-      tage: {}, ziele: {}
+      tage: {}, ziele: {}, stempel: stempelLeer()
     };
   }
   return null;
@@ -3860,6 +4018,7 @@ function setTagWert(d, feld, wert) {
   if (wert === null || wert === undefined || wert === '') delete t[feld];
   else t[feld] = wert;
   if (!Object.keys(t).length) delete state.tage[d];
+  tageRev++;
   persist();
   scoreNachziehen();          // jede Tagesdaten-Änderung bewegt einen Bereichsscore
 }
@@ -3927,9 +4086,11 @@ function persist(toCloud = true) {
       }
     } catch(e) {}
   }
+  stempelPflegen(toCloud);    // Nutzeränderung → Zeitstempel je geändertem Teil
   lsSet(LS_DATA, JSON.stringify(payload()));
   updateSyncUi();
-  if (toCloud && cloud.on) { clearTimeout(pushT); pushT = setTimeout(() => cloudPush(true), 2500); }
+  if (toCloud) tagesSicherung();   // auch wenn die App tagelang offen bleibt
+  if (toCloud && cloud.on) { clearTimeout(pushT); pushOffen = true; pushT = setTimeout(() => abgleichen(true), 2500); }
 }
 function restoreLocal() {
   const raw = lsGet(LS_DATA);
@@ -3941,6 +4102,7 @@ function restoreLocal() {
     state.base  = rec.base;
     state.tage  = rec.tage;
     state.ziele = rec.ziele;
+    state.stempel = rec.stempel;
     if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
     state.editStamp = rec.updatedAt || 0;
     return true;
@@ -4067,12 +4229,11 @@ async function ghSchreiben(body) {
     const j = await schreib(cloud.ghSha);
     if (j && j.content) cloud.ghSha = j.content.sha;
   } catch (e) {
-    /* Veralteter sha — das andere Gerät war schneller. Einmal frisch lesen
-       und nochmal schreiben; „letzter Schreiber gewinnt" wie gehabt. */
-    if (!/\b(409|422)\b/.test(e.message)) throw e;
-    await ghLesen();
-    const j = await schreib(cloud.ghSha);
-    if (j && j.content) cloud.ghSha = j.content.sha;
+    /* Veralteter sha — das andere Gerät hat inzwischen geschrieben. Bis v82
+       wurde dann blind drübergeschrieben. Jetzt meldet das einen Konflikt,
+       und abgleichen() liest neu, führt zusammen und schreibt erst dann. */
+    if (/\b(409|422)\b/.test(e.message)) { const k = new Error('Konflikt'); k.konflikt = true; throw k; }
+    throw e;
   }
   ghZuletzt = txt;
 }
@@ -4110,29 +4271,19 @@ async function cloudConnectGh() {
     const info = await ghFetch(`/repos/${repo}`);
     if (info.fehlt) throw new Error('Repo nicht gefunden – Name richtig? Token für dieses Repo freigegeben?');
     if (!info.private) {
-      if (!confirm(`Achtung: „${repo}" ist ÖFFENTLICH.\n\nDeine Daten wären für jeden lesbar. Nur fortfahren, wenn du ein Passwort für die Verschlüsselung gesetzt hast.\n\nTrotzdem verbinden?`)) {
+      if (!(await frage({ titel: 'Öffentliches Repo', text: `„${repo}" ist ÖFFENTLICH – deine Daten wären für jeden lesbar.\n\nNur fortfahren, wenn du ein Passwort für die Verschlüsselung gesetzt hast.`, ja: 'Trotzdem verbinden', gefahr: true }))) {
         cloud.busy = false; cloud.art = 'jsonbin'; updateSyncUi();
         $('#cStatus').textContent = 'Abgebrochen – bitte ein privates Repo nehmen.'; return;
       }
     }
-    const rec = await ghLesen();
-    cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
-
-    const fern = normalize(isEnc(rec) ? null : rec);
-    const fernHat = fern ? fern.depot.positions.length : 0;
-    const hierHat = state.positions.length;
-    /* Gleiche Regel wie bei jsonbin: Zeitstempel entscheidet nur, wenn
-       beide Seiten etwas haben. Leer schlägt nie voll. */
-    if (rec && fern && (hierHat === 0 || (rec.updatedAt || 0) >= (state.editStamp || 0))) {
-      applyRemote(rec); toast('Verbunden – Daten aus dem Repo geladen.');
-    } else if (rec && hierHat === 0 && fernHat === 0 && isEnc(rec) && !cloud.pass) {
-      toast('Daten im Repo sind verschlüsselt – bitte Passwort eintragen.');
-    } else {
-      cloud.busy = false;          // siehe Kommentar beim jsonbin-Weg
-      await cloudPush();
-      cloud.busy = true;
-      toast(rec ? 'Verbunden – lokale Daten hochgeladen.' : 'Verbunden – Datei im Repo angelegt.');
-    }
+    await ghLesen();                 // Zugriff prüfen, sha merken
+    cloud.on = true; saveCfg();
+    /* Seit v83 kein Entweder-oder mehr: beide Stände werden zusammengeführt.
+       Bis v82 galten verschlüsselte Repo-Daten hier als „nichts da" – ein
+       neues Gerät hat dann seine Demo-Daten darübergeschrieben. */
+    cloud.busy = false;
+    await abgleichen(false);
+    cloud.busy = true;
   } catch (e) {
     cloud.on = false; cloud.art = 'github';
     $('#cStatus').textContent = 'Verbindung fehlgeschlagen: ' + e.message;
@@ -4172,10 +4323,10 @@ async function ghVersionen() {
         if (!norm) { toast('Diese Fassung ist nicht lesbar.'); b2.textContent = 'Ansehen'; b2.disabled = false; return; }
         const n = norm.depot.positions.length;
         const tage = Object.keys(norm.tage || {}).length;
-        if (confirm(`Fassung ${sha.slice(0,7)}\n\n${n} Position${n===1?'':'en'}, ${tage} Tag${tage===1?'':'e'} mit Einträgen.\n\nDiesen Stand laden?\n\nDein jetziger Stand wird ersetzt – vorher aber gesichert (⋯ → Letzte Sicherungen).`)) {
-          applyRemote(rec);
-          persist();
-          toast('Fassung geladen.');
+        if (await frage({ titel: `Fassung ${sha.slice(0,7)} laden?`,
+            text: `${inhaltText(norm)}.\n\nDas Depot wird auf diesen Stand gesetzt. Tage und Ziele daraus kommen nur dazu, wo hier nichts steht – nichts Neueres geht verloren. Dein jetziger Stand wird vorher gesichert.`,
+            ja: 'Laden' })) {
+          if (sicherungEinspielen(rec)) toast('Fassung geladen.');
         }
       } catch (e) { toast('Konnte die Fassung nicht laden: ' + e.message); }
       b2.textContent = 'Ansehen'; b2.disabled = false;
@@ -4199,18 +4350,20 @@ async function applyPass() {
   if (neu === alt) return true;
 
   if (neu && !alt) {
-    if (!confirm('Cloud-Daten ab jetzt verschlüsseln?\n\nWichtig: Ohne dieses Passwort kommst du an die Cloud-Daten nicht mehr heran – auch ich nicht. Schreib es dir auf.\n\nDeine Daten auf diesem Gerät bleiben in jedem Fall lesbar.')) {
+    if (!(await frage({ titel: 'Cloud-Daten verschlüsseln?', text: 'Ohne dieses Passwort kommst du an die Cloud-Daten nicht mehr heran – auch ich nicht. Schreib es dir auf.\n\nDeine Daten auf diesem Gerät bleiben in jedem Fall lesbar.', ja: 'Verschlüsseln' }))) {
       $('#cPass').value = alt; return false;
     }
   }
   if (!neu && alt) {
-    if (!confirm('Verschlüsselung abschalten?\n\nDeine Daten liegen dann wieder im Klartext beim Anbieter.')) {
+    if (!(await frage({ titel: 'Verschlüsselung abschalten?', text: 'Deine Daten liegen dann wieder im Klartext beim Anbieter.', ja: 'Abschalten', gefahr: true }))) {
       $('#cPass').value = alt; return false;
     }
   }
   cloud.pass = neu;
   saveCfg();
-  if (cloud.on) { await cloudPush(true); toast(neu ? 'Verschlüsselt hochgeladen.' : 'Unverschlüsselt hochgeladen.'); }
+  /* Mit dem ALTEN Passwort lesen, mit dem neuen schreiben. */
+  if (cloud.on && await abgleichen(true, { lesePass: alt, immerSchreiben: true }) === 'ok')
+    toast(neu ? 'Verschlüsselt hochgeladen.' : 'Unverschlüsselt hochgeladen.');
   return true;
 }
 
@@ -4224,27 +4377,17 @@ async function cloudConnect() {
   try {
     if (bin) {
       cloud.bin = bin;
-      const j = await jbFetch(`${JB}/${bin}/latest`, { method:'GET' });
-      const rec = j.record;
-      cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
-      const fern = normalize(isEnc(rec) ? null : rec);
-      const fernHat = fern ? fern.depot.positions.length : 0;
-      const hierHat = state.positions.length;
-      /* Zeitstempel entscheiden nur, wenn beide Seiten etwas haben. Steht hier
-         nichts und dort etwas, wird immer geladen – egal wie neu der lokale
-         Stempel aussieht. */
-      if (fern && (hierHat === 0 || (rec.updatedAt||0) >= (state.editStamp||0))) {
-        applyRemote(rec); toast('Verbunden – Daten aus der Cloud geladen.');
-      } else if (hierHat === 0 && fernHat === 0 && isEnc(rec) && !cloud.pass) {
-        toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
-      } else {
-        cloud.busy = false;        // sonst steigt cloudPush sofort wieder aus
-        await cloudPush();
-        cloud.busy = true;
-        toast('Verbunden – lokale Daten hochgeladen.');
-      }
+      await jbFetch(`${JB}/${bin}/latest`, { method:'GET' });    // Schlüssel und Bin prüfen
+      cloud.on = true; saveCfg();
+      /* Zusammenführen statt Entweder-oder – siehe ABGLEICH. */
+      cloud.busy = false;
+      await abgleichen(false);
+      cloud.busy = true;
     } else {
-      const j = await jbFetch(JB, { method:'POST', headers:{ 'X-Bin-Private':'true', 'X-Bin-Name':'portfolio-tracker' }, body: JSON.stringify(payload()) });
+      /* Mit Passwort schon verschlüsselt anlegen: jsonbin hebt alte Fassungen
+         auf, ein Klartext-Erststand bliebe dort sonst dauerhaft abrufbar. */
+      const erst = cloud.pass ? await encryptRec(payload(), cloud.pass) : payload();
+      const j = await jbFetch(JB, { method:'POST', headers:{ 'X-Bin-Private':'true', 'X-Bin-Name':'portfolio-tracker' }, body: JSON.stringify(erst) });
       cloud.bin = j.metadata.id; cloud.on = true; cloud.lastSync = Date.now(); saveCfg();
       $('#cBin').value = cloud.bin;
       toast('Cloud angelegt. Bin-ID auf dem anderen Gerät eintragen.');
@@ -4292,155 +4435,345 @@ async function decryptRec(rec, pass) {
 }
 const isEnc = r => !!(r && r.enc === 1 && r.data && r.salt && r.iv);
 
-/* Letzte Sicherung vor jedem Überschreiben – liegt nur auf diesem Gerät und
-   kostet nichts. Hätte es die am 08.09.2026 gegeben, wäre nichts weg gewesen. */
+/* Sicherungen – liegen nur auf diesem Gerät und kosten nichts.
+   Zwei getrennte Schlüssel: bis v82 teilten sich Tagessicherung (7 Tage) und
+   die Sicherung vor einem Abgleich (3 Stück) denselben Schlüssel, und jeder
+   Abgleich kürzte die Liste auf drei – das 7-Tage-Netz gab es nie wirklich.
+   Außerdem zählten beide nur Positionen: wer nur Essen und Training führt,
+   bekam gar keine Sicherung. */
 const LS_BACKUP = 'pt.backup.v1';
-/* ---- Sicherheitsnetz -------------------------------------------------
-   Unabhängig von jeder Sync-Logik: einmal am Tag ein vollständiger Stand,
-   sieben Tage Vorhalt. Liegt in einem eigenen Schlüssel, den weder Cloud
-   noch Import je anfassen. Wenn irgendetwas die Positionen leert – ein
-   Fehler von mir eingeschlossen – ist der letzte gute Stand noch da. */
+const LS_BACKUP_SYNC = 'pt.backup.sync.v1';
+const hatInhalt = rec => !!rec && ((rec.depot?.positions || []).length > 0 || Object.keys(rec.tage || {}).length > 0);
+const inhaltText = rec => {
+  const n = (rec?.depot?.positions || []).length, t = Object.keys(rec?.tage || {}).length;
+  return `${n} Position${n===1?'':'en'} · ${t} Tag${t===1?'':'e'} mit Einträgen`;
+};
+/* Speichern ohne rote Warnleiste – für Sicherungen, die bei vollem Speicher
+   lieber kürzer ausfallen als die Nutzdaten zu verdrängen. */
+function lsSetStill(k, v) { try { localStorage.setItem(k, v); return true; } catch(e) { return false; } }
+function lsListe(k) { try { const l = JSON.parse(lsGet(k) || '[]'); return Array.isArray(l) ? l : []; } catch(e) { return []; } }
+
+let tagesSicherungAm = null;
 function tagesSicherung() {
-  if (!state.positions.length) return;
-  let liste = [];
-  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
   const heute = today();
-  if (liste.some(b => b.tag === heute)) return;          // heute schon gesichert
-  liste.unshift({ tag: heute, gesichertAm: Date.now(), anzahl: state.positions.length,
-                  daten: normalize(payload()) });
-  lsSet(LS_BACKUP, JSON.stringify(liste.slice(0, 7)));
+  if (tagesSicherungAm === heute) return;            // billiger Vorabtest, läuft bei jedem persist()
+  const daten = normalize(payload());
+  if (!hatInhalt(daten)) return;
+  const liste = lsListe(LS_BACKUP);
+  tagesSicherungAm = heute;
+  if (liste.some(b => b.tag === heute)) return;
+  liste.unshift({ tag: heute, gesichertAm: Date.now(), anzahl: daten.depot.positions.length,
+                  tage: Object.keys(daten.tage).length, daten });
+  for (let n = 7; n >= 1; n--) if (lsSetStill(LS_BACKUP, JSON.stringify(liste.slice(0, n)))) break;
+}
+function alleSicherungen() {
+  return [...lsListe(LS_BACKUP).map(b => ({ ...b, art: 'Tagessicherung' })),
+          ...lsListe(LS_BACKUP_SYNC).map(b => ({ ...b, art: 'vor Abgleich/Einspielen' }))]
+    .filter(b => b && b.daten)
+    .sort((a, b) => (b.gesichertAm || 0) - (a.gesichertAm || 0));
 }
 /* Leeres Depot, aber eine Sicherung mit Positionen? Dann sagt die App das
-   sofort und deutlich, statt den Nutzer vor einer leeren Liste stehen zu
-   lassen. Genau das hat am 08.09.2026 gefehlt. */
+   sofort und deutlich. Zurückgeholt wird hier NUR das Depot – Essen,
+   Training und Ziele von heute bleiben, wie sie sind. */
 function sicherungAnbieten() {
   if (state.positions.length) return;
-  let liste = [];
-  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
-  const gut = liste.find(b => b.anzahl > 0);
+  const gut = alleSicherungen().find(b => (b.daten?.depot?.positions || []).length > 0);
   if (!gut) return;
   const box = $('#alerts');
   if (!box) return;
+  const n = gut.daten.depot.positions.length;
   const wann = new Date(gut.gesichertAm).toLocaleString('de-DE');
   const div = document.createElement('div');
   div.className = 'alert stop';
   div.innerHTML = `<span style="font-size:17px">🛟</span>
     <span style="flex:1 1 auto"><b>Dein Depot ist leer – es gibt aber eine Sicherung.</b><br>
-    ${gut.anzahl} Positionen, gesichert am ${esc(wann)}.
+    ${n} Positionen, gesichert am ${esc(wann)}.
     <button class="btn" id="sicherJetzt" style="margin-top:9px">Wiederherstellen</button></span>`;
   box.prepend(div);
-  $('#sicherJetzt').onclick = () => {
-    if (!confirm(`${gut.anzahl} Positionen aus der Sicherung vom ${wann} wiederherstellen?`)) return;
-    applyRemote(gut.daten);
-    render(); persist();
+  $('#sicherJetzt').onclick = async () => {
+    if (!(await frage({ titel: 'Depot wiederherstellen?',
+      text: `${n} Positionen aus der Sicherung vom ${wann}.\n\nEssen, Training und Ziele bleiben, wie sie sind.`,
+      ja: 'Wiederherstellen' }))) return;
+    state.positions = gut.daten.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
+    render(); persist(); refreshPrices(true);
     toast(`${state.positions.length} Positionen wiederhergestellt.`);
   };
 }
 function sicherungSchreiben(rec) {
   try {
-    const alt = JSON.parse(lsGet(LS_BACKUP) || '[]');
-    const n = (rec?.depot?.positions || []).length;
-    if (!n) return;                                  // leere Stände sichern nichts
+    if (!hatInhalt(rec)) return;                     // leere Stände sichern nichts
+    const alt = lsListe(LS_BACKUP_SYNC);
     if (alt[0] && alt[0].updatedAt === rec.updatedAt) return;
-    alt.unshift({ updatedAt: rec.updatedAt || Date.now(), gesichertAm: Date.now(), anzahl: n, daten: rec });
-    lsSet(LS_BACKUP, JSON.stringify(alt.slice(0, 3)));
+    alt.unshift({ updatedAt: rec.updatedAt || Date.now(), gesichertAm: Date.now(),
+                  anzahl: rec.depot.positions.length, tage: Object.keys(rec.tage || {}).length, daten: rec });
+    for (let n = 3; n >= 1; n--) if (lsSetStill(LS_BACKUP_SYNC, JSON.stringify(alt.slice(0, n)))) break;
   } catch(e) {}
 }
-async function cloudPush(silent) {
-  if (!cloud.on || cloud.busy) return;
-  /* Ein Push, der drüben alles löscht, passiert nicht ungefragt. */
-  if (!state.positions.length) {
-    try {
-      const roh = await remoteLesen();
-      const fern = normalize(isEnc(roh) ? null : roh);
-      const drueben = fern ? fern.depot.positions.length : 0;
-      if (drueben > 0) {
-        sicherungSchreiben(fern);
-        if (!confirm(`Achtung: In der Cloud liegen ${drueben} Positionen, hier keine einzige.\n\nHochladen würde sie dort löschen. Willst du das wirklich?\n\nAbbrechen ist fast immer richtig – dann lade stattdessen über „↓ Laden" herunter.`)) {
-          toast('Nicht hochgeladen – die Cloud bleibt, wie sie ist.');
-          return;
-        }
-      }
-    } catch(e) { /* nicht erreichbar – dann wie gehabt weiter */ }
-  }
-  cloud.busy = true; updateSyncUi();
-  try {
-    let body = payload();
-    if (cloud.pass) body = await encryptRec(body, cloud.pass);
-    await remoteSchreiben(body);
-    cloud.lastSync = Date.now(); saveCfg();
-    if (!silent) toast('In die Cloud hochgeladen.');
-  } catch(e) { if (!silent) toast('Hochladen fehlgeschlagen: ' + e.message); }
-  cloud.busy = false; updateSyncUi();
-}
-async function cloudPull(silent, compare) {
-  if (!cloud.on || cloud.busy) return;
-  cloud.busy = true; updateSyncUi();
-  try {
-    let rec = await remoteLesen();
-    /* Beim GitHub-Weg kann die Datei noch gar nicht existieren. */
-    if (rec === null || rec === undefined) {
-      cloud.busy = false; updateSyncUi();
-      if (state.positions.length || Object.keys(state.tage||{}).length) await cloudPush(silent);
-      else if (!silent) toast('Im Repo liegt noch nichts.');
-      return;
-    }
-
-    if (isEnc(rec)) {
-      if (!cloud.pass) {
-        cloud.busy = false; updateSyncUi();
-        toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.');
-        return;                                    // lokale Daten bleiben unangetastet
-      }
-      if (compare && state.positions.length && (rec.updatedAt||0) < (state.editStamp||0)) {
-        cloud.busy = false; await cloudPush(true); return;
-      }
-      try { rec = await decryptRec(rec, cloud.pass); }
-      catch(e) {
-        cloud.busy = false; updateSyncUi();
-        toast('Passwort passt nicht – lokale Daten bleiben unverändert.');
-        return;                                    // NIE überschreiben
-      }
-    }
-
-    if (rec && normalize(rec)) {
-      /* Leer schlägt nie voll: nur hochladen, wenn hier überhaupt etwas steht */
-      if (compare && state.positions.length && (rec.updatedAt||0) < (state.editStamp||0)) {
-        cloud.busy = false; await cloudPush(true); return;   // lokal ist neuer → hochladen
-      }
-      applyRemote(rec, silent);
-      cloud.lastSync = Date.now(); saveCfg();
-      if (!silent) toast(`${state.positions.length} Positionen aus der Cloud geladen.`);
-    }
-  } catch(e) { if (!silent) toast('Laden fehlgeschlagen: ' + e.message); }
-  cloud.busy = false; updateSyncUi();
-}
-function applyRemote(raw, still) {
+/* Eine Sicherung, eine frühere Cloud-Fassung oder eine Exportdatei zurückholen.
+   Das Depot wird auf deren Stand gesetzt. Bei Tagen und Zielen kommt nur
+   dazu, was hier fehlt – ein neuerer Eintrag geht dabei nie verloren. Bis v82
+   ersetzte das still auch sämtliche Tage, obwohl die Rückfrage nur von
+   „Positionen" sprach. */
+function sicherungEinspielen(raw) {
   const rec = normalize(raw);
-  if (!rec) { toast('Cloud-Daten nicht lesbar – lokaler Stand bleibt.'); return; }
-  /* Was hier steht, bevor es ersetzt wird – als Netz für den Fall, dass der
-     Fernstand schlechter ist als der eigene. */
-  if (state.positions.length) sicherungSchreiben(normalize(payload()));
-  /* Die Gegenrichtung zum Push-Schutz: ein leerer Cloud-Stand räumt niemals
-     ungefragt ein volles Gerät leer. Beim stillen Abgleich gar nicht erst. */
-  if (state.positions.length && !rec.depot.positions.length) {
-    const txt = `In der Cloud steht keine einzige Position, auf diesem Gerät ${state.positions.length}.\n\nLaden würde sie hier löschen. Wirklich?`;
-    if (still || !confirm(txt)) {
-      toast('Cloud-Stand ist leer – dein Gerät behält seine Positionen.');
-      return;
-    }
-  }
+  if (!rec) { toast('Dieser Stand ist nicht lesbar.'); return false; }
+  sicherungSchreiben(normalize(payload()));
   state.positions = rec.depot.positions.map(p => migrate({ live:false, ...p, id: p.id || uid() }));
   if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
-  state.tage  = rec.tage;
+  if (!state.ziele || typeof state.ziele !== 'object') state.ziele = {};
+  Object.entries(rec.tage || {}).forEach(([d, t]) => {
+    if (!t || typeof t !== 'object' || !Object.keys(t).length) return;
+    const hier = tagOf(d);
+    Object.entries(t).forEach(([f, v]) => { if (!(f in hier)) hier[f] = v; });
+  });
+  Object.entries(rec.ziele || {}).forEach(([k, v]) => { if (!(k in state.ziele)) state.ziele[k] = v; });
+  if (rec.base) setBase(rec.base);
+  render(); persist(); refreshPrices(true);
+  return true;
+}
+
+/* ============================================================
+   ABGLEICH ZWISCHEN GERÄTEN (v83)
+   Bis v82 galt „jüngster Gesamtstand gewinnt": Handy und PC schrieben
+   jeweils ihren ganzen Datensatz, und wer zuletzt schrieb, löschte die
+   Tage des anderen – auch ohne jeden Konflikt (PC trägt Montag ein, Handy
+   Dienstag, einer von beiden war danach weg).
+   Jetzt trägt jeder Teil einen eigenen Zeitstempel: das Depot als Ganzes,
+   jedes Ziel-Feld einzeln und in den Tagen jedes Feld (Essen, Training,
+   Supps …). Beim Abgleich gewinnt je Teil der jüngere Stand; was nur eine
+   Seite hat, bleibt erhalten. Ein gelöschtes Feld behält seinen Stempel
+   ohne Wert, damit das andere Gerät es nicht zurückbringt.
+   Die Stempel entstehen automatisch in persist(): verglichen wird ein
+   Fingerabdruck jedes Teils mit dem zuletzt bekannten. Keine Speicherstelle
+   muss davon wissen. Kurse zählen nicht – ein Kursabruf ist keine Änderung.
+   ============================================================ */
+function fnv(s) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+  return h >>> 0;
+}
+/* JSON mit sortierten Schlüsseln – sonst gälten zwei gleiche Stände nur
+   wegen anderer Reihenfolge als verschieden. */
+function stabil(v) {
+  if (Array.isArray(v)) return '[' + v.map(stabil).join(',') + ']';
+  if (v && typeof v === 'object') return '{' + Object.keys(v).sort().map(k => JSON.stringify(k) + ':' + stabil(v[k])).join(',') + '}';
+  return JSON.stringify(v) ?? 'null';
+}
+const depotKern = positions => (positions || []).map(({ price, live, ...p }) => p);
+const stempelLeer = () => ({ depot: 0, ziele: {}, tage: {} });
+let syncFp = null;               // zuletzt bekannter Fingerabdruck je Teil
+let tageRev = 0;                 // zählt jede Datenänderung – Schlüssel für Zwischenspeicher
+
+function stempelPflegen(markieren) {
+  let st = state.stempel;
+  if (!st || typeof st !== 'object') st = state.stempel = stempelLeer();
+  if (!st.ziele || typeof st.ziele !== 'object') st.ziele = {};
+  if (!st.tage || typeof st.tage !== 'object') st.tage = {};
+  st.depot = +st.depot || 0;
+  tageRev++;
+  const jetzt = Date.now(), alt = syncFp, mark = !!(markieren && alt);
+  const neu = { depot: fnv(stabil(depotKern(state.positions)) + '|' + state.base), ziele: {}, tage: {} };
+  if (mark && neu.depot !== alt.depot) st.depot = jetzt;
+
+  const z = state.ziele || {};
+  Object.keys(z).forEach(k => {
+    neu.ziele[k] = fnv(stabil(z[k]));
+    if (mark && neu.ziele[k] !== alt.ziele[k]) st.ziele[k] = jetzt;
+  });
+  if (mark) Object.keys(alt.ziele).forEach(k => { if (!(k in z)) st.ziele[k] = jetzt; });
+
+  const tg = state.tage || {};
+  Object.keys(tg).forEach(d => {
+    const t = tg[d] || {}, h = neu.tage[d] = {};
+    Object.keys(t).forEach(f => {
+      h[f] = fnv(stabil(t[f]));
+      if (mark && h[f] !== (alt.tage[d] || {})[f]) (st.tage[d] = st.tage[d] || {})[f] = jetzt;
+    });
+  });
+  if (mark) Object.keys(alt.tage).forEach(d => Object.keys(alt.tage[d]).forEach(f => {
+    if (!(tg[d] && f in tg[d])) (st.tage[d] = st.tage[d] || {})[f] = jetzt;
+  }));
+  syncFp = neu;
+
+  /* Löschstempel nicht ewig mitschleppen – nach 120 Tagen kennt sie jedes Gerät. */
+  const grenze = jetzt - 120 * 864e5;
+  Object.keys(st.tage).forEach(d => {
+    const s = st.tage[d];
+    Object.keys(s).forEach(f => { if (!(tg[d] && f in tg[d]) && s[f] < grenze) delete s[f]; });
+    if (!Object.keys(s).length) delete st.tage[d];
+  });
+  Object.keys(st.ziele).forEach(k => { if (!(k in z) && st.ziele[k] < grenze) delete st.ziele[k]; });
+}
+
+/* Zwei normalisierte Datensätze zu einem. Reine Funktion, schreibt nichts. */
+function zusammenfuehren(lok, fern) {
+  const sl = lok.stempel || stempelLeer(), sf = fern.stempel || stempelLeer();
+  const lokJuenger = (lok.updatedAt || 0) >= (fern.updatedAt || 0);
+  /* Unterschiedliche Stempel: der jüngere gewinnt – auch wenn er „gelöscht"
+     bedeutet. Gleiche Stempel (meist beide 0, Daten von vor v83): was nur
+     eine Seite hat, bleibt; haben beide etwas, gilt wie früher der jüngere
+     Gesamtstand. */
+  const seite = (tl, tf, hatL, hatF) => {
+    tl = +tl || 0; tf = +tf || 0;
+    if (tl !== tf) return tl > tf ? 'l' : 'f';
+    if (hatL !== hatF) return hatL ? 'l' : 'f';
+    return lokJuenger ? 'l' : 'f';
+  };
+  const out = {
+    version: 4,
+    updatedAt: Math.max(lok.updatedAt || 0, fern.updatedAt || 0),
+    base: lok.base,
+    depot: { positions: [], history: mergeHistory(lok.depot.history, fern.depot.history) },
+    tage: {}, ziele: {},
+    stempel: { depot: Math.max(+sl.depot || 0, +sf.depot || 0), ziele: {}, tage: {} }
+  };
+  const dq = seite(sl.depot, sf.depot, lok.depot.positions.length > 0, fern.depot.positions.length > 0) === 'l' ? lok : fern;
+  out.depot.positions = dq.depot.positions;
+  out.base = dq.base || lok.base;
+
+  const zl = lok.ziele || {}, zf = fern.ziele || {}, szl = sl.ziele || {}, szf = sf.ziele || {};
+  new Set([...Object.keys(zl), ...Object.keys(zf), ...Object.keys(szl), ...Object.keys(szf)]).forEach(k => {
+    const q = seite(szl[k], szf[k], k in zl, k in zf) === 'l' ? zl : zf;
+    if (k in q) out.ziele[k] = q[k];
+    const t = Math.max(+szl[k] || 0, +szf[k] || 0);
+    if (t) out.stempel.ziele[k] = t;
+  });
+
+  const tl = lok.tage || {}, tf = fern.tage || {}, stl = sl.tage || {}, stf = sf.tage || {};
+  new Set([...Object.keys(tl), ...Object.keys(tf), ...Object.keys(stl), ...Object.keys(stf)]).forEach(d => {
+    const a = tl[d] || {}, b = tf[d] || {}, sa = stl[d] || {}, sb = stf[d] || {};
+    const tag = {}, st = {};
+    new Set([...Object.keys(a), ...Object.keys(b), ...Object.keys(sa), ...Object.keys(sb)]).forEach(f => {
+      const q = seite(sa[f], sb[f], f in a, f in b) === 'l' ? a : b;
+      if (f in q) tag[f] = q[f];
+      const t = Math.max(+sa[f] || 0, +sb[f] || 0);
+      if (t) st[f] = t;
+    });
+    if (Object.keys(tag).length) out.tage[d] = tag;
+    if (Object.keys(st).length) out.stempel.tage[d] = st;
+  });
+  return out;
+}
+const fpRec = r => fnv(stabil([depotKern(r.depot.positions), r.base, r.tage, r.ziele, r.stempel || stempelLeer()]));
+
+/* Zusammengeführten Stand auf diesem Gerät übernehmen – ohne die Rückfragen
+   von früher, denn hier kann nichts mehr verloren gehen. Kurse, die dieses
+   Gerät schon frisch hat, bleiben stehen. */
+function uebernehmen(rec) {
+  const hier = new Map(state.positions.map(p => [p.id, p]));
+  state.positions = rec.depot.positions.map(p => {
+    const neu = migrate({ live:false, ...p, id: p.id || uid() });
+    const a = hier.get(neu.id);
+    if (a && a.live && a.cur === neu.cur && num(a.price) !== null) { neu.price = a.price; neu.live = true; }
+    return neu;
+  });
+  if (rec.depot.history.length) { history = mergeHistory(history, rec.depot.history); saveHistory(); }
+  state.tage = rec.tage;
   state.ziele = rec.ziele;
-  state.editStamp = rec.updatedAt || Date.now();
+  state.stempel = rec.stempel || stempelLeer();
   if (rec.base) state.base = rec.base;
+  state.editStamp = Math.max(state.editStamp || 0, rec.updatedAt || 0);
+  stempelPflegen(false);
+  lsSet(LS_DATA, JSON.stringify(payload()));
   $('#curEUR').setAttribute('aria-pressed', state.base==='EUR');
   $('#curUSD').setAttribute('aria-pressed', state.base==='USD');
-  lsSet(LS_DATA, JSON.stringify(payload()));
-  render(); refreshPrices(true);
+  render();
+  if (!$('#viewFood').hidden) renderFood();
+  if (!$('#viewGym').hidden) renderGym();
 }
+
+let abgleichNochmal = false, letzterAbgleich = 0, abgleichSicherungAm = 0, pushOffen = false;
+/* Der eine Weg zur Cloud: lesen → zusammenführen → hier übernehmen →
+   dort schreiben. Ersetzt das frühere Entweder-oder aus cloudPull und
+   cloudPush. opt.lesePass: mit diesem Passwort lesen (Passwortwechsel),
+   opt.immerSchreiben: auch schreiben, wenn sich inhaltlich nichts ändert. */
+async function abgleichen(silent, opt = {}) {
+  if (!cloud.on) return null;
+  if (cloud.busy) { abgleichNochmal = true; return null; }
+  cloud.busy = true; pushOffen = false; updateSyncUi();
+  let erg = null;
+  try {
+    for (let versuch = 0; ; versuch++) {
+      try { erg = await abgleichEinmal(silent, opt); break; }
+      catch (e) { if (e.konflikt && versuch < 2) continue; throw e; }
+    }
+    letzterAbgleich = Date.now();
+  } catch (e) {
+    if (!silent) toast('Abgleich fehlgeschlagen: ' + e.message);
+  }
+  cloud.busy = false; updateSyncUi();
+  if (abgleichNochmal) {
+    abgleichNochmal = false; pushOffen = true;
+    clearTimeout(pushT); pushT = setTimeout(() => abgleichen(true), 1500);
+  }
+  return erg;
+}
+async function abgleichEinmal(silent, opt) {
+  let roh = await remoteLesen();
+  let fern = null;
+  if (roh !== null && roh !== undefined) {
+    if (isEnc(roh)) {
+      const pass = opt.lesePass !== undefined ? opt.lesePass : cloud.pass;
+      if (!pass) { toast('Cloud-Daten sind verschlüsselt – bitte Passwort eintragen.'); return 'gesperrt'; }
+      try { roh = await decryptRec(roh, pass); }
+      catch (e) { toast('Passwort passt nicht – es wurde nichts geladen und nichts hochgeladen.'); return 'gesperrt'; }
+    }
+    fern = normalize(roh);
+    if (!fern) { toast('Cloud-Daten nicht lesbar – es wurde nichts überschrieben.'); return 'gesperrt'; }
+  }
+  /* Den eigenen Stand erst JETZT nehmen, nach dem Warten aufs Netz – so geht
+     eine Eingabe von eben nicht verloren. updatedAt = 0 heißt: auf diesem
+     Gerät wurde noch nie etwas geändert (frisches Gerät, Demo-Daten) – dann
+     gewinnt bei Gleichstand immer die Cloud. */
+  const lokal = normalize(payload());
+  lokal.updatedAt = state.editStamp || 0;
+  const ziel = fern ? zusammenfuehren(lokal, fern) : lokal;
+
+  /* Leer schlägt nie ungefragt voll – in beide Richtungen. */
+  if (fern && fern.depot.positions.length && !ziel.depot.positions.length) {
+    const ok = await frage({ titel: 'Depot auch in der Cloud leeren?',
+      text: `In der Cloud liegen ${fern.depot.positions.length} Positionen, auf diesem Gerät keine.\n\nAbbrechen holt sie zurück auf dieses Gerät.`,
+      ja: 'In der Cloud löschen', gefahr: true });
+    if (!ok) { ziel.depot.positions = fern.depot.positions; ziel.stempel.depot = Date.now(); }
+  } else if (lokal.depot.positions.length && !ziel.depot.positions.length) {
+    const ok = await frage({ titel: 'Depot hier leeren?',
+      text: `Auf dem anderen Gerät wurde das Depot geleert. Hier stehen noch ${lokal.depot.positions.length} Positionen.\n\nAbbrechen behält sie und lädt sie wieder hoch.`,
+      ja: 'Hier auch löschen', gefahr: true });
+    if (!ok) { ziel.depot.positions = lokal.depot.positions; ziel.stempel.depot = Date.now(); }
+  }
+
+  const fpZiel = fpRec(ziel);
+  const hierNeu = fpZiel !== fpRec(lokal);
+  const dortNeu = !fern || fpZiel !== fpRec(fern);
+  if (hierNeu) {
+    if (Date.now() - abgleichSicherungAm > 10 * 60e3) { sicherungSchreiben(normalize(payload())); abgleichSicherungAm = Date.now(); }
+    uebernehmen(ziel);
+  }
+  if (dortNeu || opt.immerSchreiben) {
+    let body = { ...ziel, updatedAt: Math.max(ziel.updatedAt || 0, state.editStamp || 0) || Date.now() };
+    if (cloud.pass) body = await encryptRec(body, cloud.pass);
+    await remoteSchreiben(body);
+  }
+  cloud.lastSync = Date.now(); saveCfg();
+  if (!silent) toast(hierNeu && dortNeu ? 'Abgeglichen – Änderungen in beide Richtungen übernommen.'
+                   : hierNeu ? 'Abgeglichen – Änderungen vom anderen Gerät geladen.'
+                   : dortNeu ? 'Abgeglichen – deine Änderungen sind in der Cloud.'
+                   : 'Alles aktuell.');
+  return 'ok';
+}
+/* Alte Namen bleiben als Einstieg – beide führen jetzt denselben Abgleich. */
+const cloudPush = silent => abgleichen(silent);
+const cloudPull = silent => abgleichen(silent);
+
+/* Kommt die App aus dem Hintergrund, hat das andere Gerät vielleicht
+   inzwischen etwas eingetragen – bis v82 wurde nur beim Start geladen.
+   Geht sie in den Hintergrund, wird ein noch wartender Upload sofort
+   losgeschickt; iOS beendet Web-Apps im Hintergrund gern ohne Vorwarnung. */
+document.addEventListener('visibilitychange', () => {
+  if (!cloud.on) return;
+  if (document.hidden) { if (pushOffen) { clearTimeout(pushT); abgleichen(true); } }
+  else if (Date.now() - letzterAbgleich > 20000) abgleichen(true);
+});
 function cloudOff() {
   cloud.on = false; cloud.key = ''; cloud.bin = '';
   cloud.ghToken = ''; cloud.ghRepo = ''; cloud.ghSha = null; ghZuletzt = '';
@@ -4454,7 +4787,7 @@ function cloudOff() {
    ============================================================ */
 function exportJson() {
   const blob = new Blob([JSON.stringify(payload(), null, 2)], {type:'application/json'});
-  dl(blob, `portfolio-${new Date().toISOString().slice(0,10)}.json`);
+  dl(blob, `portfolio-${today()}.json`);
   toast('Export erstellt.');
 }
 function exportCsv() {
@@ -4464,7 +4797,7 @@ function exportCsv() {
       round2(c.invest),c.value===null?'':round2(c.value),c.pl===null?'':round2(c.pl),c.plPct===null?'':round2(c.plPct)];
   });
   const csv = [head, ...rows].map(r => r.map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(';')).join('\n');
-  dl(new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8'}), `portfolio-${new Date().toISOString().slice(0,10)}.csv`);
+  dl(new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8'}), `portfolio-${today()}.csv`);
   toast('CSV erstellt.');
 }
 const round2 = v => v===null||v===undefined?'':Math.round(v*100)/100;
@@ -4472,22 +4805,25 @@ function dl(blob, name) {
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
 }
+/* Bis v82 las der Import nur das alte Format (positions oben) – die eigene
+   Exportdatei (seit Version 4: depot.positions, tage, ziele) wurde mit
+   „konnte nicht gelesen werden" abgelehnt, und ein geglückter Import
+   ersetzte alles ohne Rückfrage und ohne Sicherung. */
 function importJson(file) {
   const fr = new FileReader();
-  fr.onload = () => {
-    try {
-      const j = JSON.parse(fr.result);
-      if (!Array.isArray(j.positions)) throw 0;
-      state.positions = j.positions.map(p => migrate({ id: p.id || uid(), live:false, ...p }));
-      if (Array.isArray(j.history)) { history = mergeHistory(history, j.history); saveHistory(); }
-      if (j.base) setBase(j.base);
-      render(); persist(); toast(`${state.positions.length} Positionen importiert.`); refreshPrices(true);
-    } catch(e) { toast('Datei konnte nicht gelesen werden.'); }
+  fr.onload = async () => {
+    let rec = null;
+    try { rec = normalize(JSON.parse(fr.result)); } catch(e) {}
+    if (!rec) { toast('Datei konnte nicht gelesen werden.'); return; }
+    if (!(await frage({ titel: 'Datei einspielen?',
+      text: `${inhaltText(rec)}.\n\nDas Depot wird auf den Stand der Datei gesetzt. Tage und Ziele aus der Datei kommen dazu, wo hier noch nichts steht – nichts Neueres geht verloren. Dein jetziger Stand wird vorher gesichert.`,
+      ja: 'Einspielen' }))) return;
+    if (sicherungEinspielen(rec)) toast(`${state.positions.length} Positionen importiert.`);
   };
   fr.readAsText(file);
 }
 function demoPositions() {
-  const iso = off => new Date(Date.now() + off*864e5).toISOString().slice(0,10);
+  const iso = off => { const d = new Date(); d.setDate(d.getDate() + off); return isoOf(d); };
   return DEMO.map(({txo, ...p}) => {
     const tx = (txo || []).map(([off, qty, price]) => ({ t:'buy', d: iso(off), qty, price }));
     return { ...p, id: uid(), live:false, tx, since: tx[0]?.d || null };
@@ -4497,12 +4833,12 @@ function demoPositions() {
    v53 ohne jede Rückfrage — ein Fehlgriff im Menü hätte dasselbe angerichtet
    wie der Verlust vom 08.09.2026. Deshalb: Rückfrage mit Zahl, und vorher eine
    Sicherung, die über ⋯ → „Letzte Sicherungen" zurückzuholen ist. */
-function loadDemo() {
+async function loadDemo() {
   const n = state.positions.length;
   if (n) {
-    if (!confirm(`Achtung: Demo-Daten ERSETZEN deine ${n} Position${n===1?'':'en'}.\n\n`
-      + `Sie werden auch im Cloud-Speicher überschrieben. Essen, Training und Ziele bleiben.\n\n`
-      + `Wirklich ersetzen?\n\nAbbrechen ist fast immer richtig.`)) {
+    if (!(await frage({ titel: 'Demo-Daten laden?',
+      text: `Demo-Daten ERSETZEN deine ${n} Position${n===1?'':'en'} – auch in der Cloud. Essen, Training und Ziele bleiben.\n\nAbbrechen ist fast immer richtig.`,
+      ja: 'Ersetzen', gefahr: true }))) {
       toast('Nichts geändert.');
       return;
     }
@@ -4599,12 +4935,12 @@ async function cloudVersionen() {
         <button class="btn" data-ver="${i}" style="min-height:38px;padding:8px 12px;font-size:13px">Laden</button>
       </div>`;
     }).join('') + '<p class="hint" style="margin:10px 0 0">Beim Laden wird dein jetziger Stand vorher automatisch gesichert.</p>';
-    $$('#cVerOut [data-ver]').forEach(b2 => b2.onclick = () => {
+    $$('#cVerOut [data-ver]').forEach(b2 => b2.onclick = async () => {
       const v = versionen.filter(x => x.n > 0)[+b2.dataset.ver];
-      if (!confirm(`Fassung mit ${v.n} Positionen laden?\n\nDein jetziger Stand wird ersetzt – vorher aber gesichert (⋯ → Letzte Sicherungen).`)) return;
-      applyRemote(v.rec);
-      render(); persist();
-      toast(`${state.positions.length} Positionen wiederhergestellt.`);
+      if (!(await frage({ titel: `Fassung mit ${v.n} Positionen laden?`,
+        text: 'Das Depot wird auf diesen Stand gesetzt. Tage und Ziele daraus kommen nur dazu, wo hier nichts steht – nichts Neueres geht verloren. Dein jetziger Stand wird vorher gesichert.',
+        ja: 'Laden' }))) return;
+      if (sicherungEinspielen(v.rec)) toast(`${state.positions.length} Positionen wiederhergestellt.`);
     });
   }
   btn.disabled = false; btn.textContent = '⟲ Frühere Cloud-Fassungen suchen';
@@ -4612,20 +4948,18 @@ async function cloudVersionen() {
 }
 $('#cVersions').onclick = cloudVersionen;
 
-$('#oBackup').onclick = () => {
-  let liste = [];
-  try { liste = JSON.parse(lsGet(LS_BACKUP) || '[]'); } catch(e) {}
+$('#oBackup').onclick = async () => {
+  const liste = alleSicherungen();
   if (!liste.length) { toast('Noch keine Sicherung vorhanden.'); return; }
-  const zeilen = liste.map((b, i) =>
-    `${i+1})  ${b.anzahl} Positionen  ·  gesichert ${new Date(b.gesichertAm).toLocaleString('de-DE')}`).join('\n');
-  const wahl = prompt(`Automatische Sicherungen:\n\n${zeilen}\n\nNummer eintragen zum Wiederherstellen, leer lassen zum Abbrechen.`);
-  const n = parseInt(wahl, 10);
-  if (!n || n < 1 || n > liste.length) return;
-  const b = liste[n-1];
-  if (!confirm(`Sicherung ${n} mit ${b.anzahl} Positionen wiederherstellen?\n\nDein jetziger Stand wird ersetzt.`)) return;
-  applyRemote(b.daten);
-  render(); persist();
-  toast(`${state.positions.length} Positionen wiederhergestellt.`);
+  const i = await frage({ titel: 'Letzte Sicherungen', text: 'Liegen nur auf diesem Gerät. Antippen zum Wiederherstellen.',
+    liste: liste.map(b => ({ label: new Date(b.gesichertAm).toLocaleString('de-DE', { weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }),
+                             sub: `${inhaltText(b.daten)} · ${b.art}` })) });
+  if (i === null || i === undefined) return;
+  const b = liste[i];
+  if (!(await frage({ titel: 'Diese Sicherung einspielen?',
+    text: `${inhaltText(b.daten)}.\n\nDas Depot wird auf diesen Stand gesetzt. Tage und Ziele daraus kommen nur dazu, wo hier nichts steht – nichts Neueres geht verloren.`,
+    ja: 'Einspielen' }))) return;
+  if (sicherungEinspielen(b.daten)) toast(`${state.positions.length} Positionen wiederhergestellt.`);
 };
 $('#oCsv').onclick = exportCsv;
 $('#oDemo').onclick = loadDemo;
@@ -4662,9 +4996,9 @@ function setzeArt(art) {
   $('#cJb').hidden = cloud.art !== 'jsonbin';
   updateSyncUi();
 }
-$$('#cArt [data-art]').forEach(b => b.onclick = () => {
+$$('#cArt [data-art]').forEach(b => b.onclick = async () => {
   if (cloud.on && b.dataset.art !== cloud.art) {
-    if (!confirm('Speicherort wechseln?\n\nDie Verbindung zum bisherigen Ort wird getrennt. Deine Daten auf diesem Gerät bleiben unangetastet und werden beim Verbinden hochgeladen.')) return;
+    if (!(await frage({ titel: 'Speicherort wechseln?', text: 'Die Verbindung zum bisherigen Ort wird getrennt. Deine Daten auf diesem Gerät bleiben unangetastet und werden beim Verbinden hochgeladen.', ja: 'Wechseln' }))) return;
     cloud.on = false;
   }
   setzeArt(b.dataset.art);
@@ -4819,7 +5153,8 @@ function allTx() {
 function dayLabel(d) {
   if (!d) return 'Datum nicht erfasst';
   const t = today();
-  const y = new Date(Date.now() - 864e5).toISOString().slice(0,10);
+  const g = new Date(); g.setDate(g.getDate() - 1);
+  const y = isoOf(g);
   if (d === t) return 'Heute';
   if (d === y) return 'Gestern';
   return dmy(d);
@@ -4843,6 +5178,10 @@ function setTab(tab, keepDetail) {
      nichts und man weiß nicht mehr, wo man gerade steht. */
   const reiter = tab === 'history' ? 'home' : tab;
   $$('#tabbar .tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === reiter));
+  /* Kopfzeile passt sich an: Depot-Knöpfe nur im Depot (siehe CSS v83) */
+  document.body.dataset.tab = showDetail ? 'home' : tab;
+  const unter = { today:'Dein Tag auf einen Blick', food:'Essen & Supplemente', gym:'Training & Fortschritt' };
+  const bs = $('#brandSub'); if (bs) bs.textContent = unter[tab] && !showDetail ? unter[tab] : 'Live-Übersicht deiner Investments';
   if (showDetail) renderDetail();
   else if (tab === 'today') renderToday();
   else if (tab === 'history') renderTxList();
@@ -4861,10 +5200,20 @@ function closeDetail() { state.detailId = null; setTab(state.tab); }
    HEUTE — Tagesaufgaben
    Definitionen liegen in ziele.aufgaben, das Abhaken in tage[d].aufgaben.
    ============================================================ */
-function aufgabenDefs() {
+function aufgabenAlle() {
   if (!state.ziele) state.ziele = {};
   if (!Array.isArray(state.ziele.aufgaben)) state.ziele.aufgaben = [];
   return state.ziele.aufgaben;
+}
+/* Wie bei den Supplementen: angezeigt wird die aktuelle Liste, gewertet
+   wird je Tag nur, was an dem Tag schon (und noch) galt. */
+const aufgabenDefs = () => aufgabenAlle().filter(x => !x.bis);
+function aufgabenAktiv(d) {
+  const start = ersterTagMit('aufgaben');
+  return aufgabenAlle().filter(x => {
+    const ab = x.seit || start;
+    return ab && ab <= d && !(x.bis && d > x.bis);
+  });
 }
 function erledigt(d) {
   const t = (state.tage || {})[d];
@@ -4876,7 +5225,7 @@ function erledigt(d) {
    dieselbe Formel stand an zwei Orten. null = keine Aufgaben angelegt, der
    Bereich existiert dann nicht und darf auch nicht als 0 einfließen. */
 function aufgabenQuote(d) {
-  const defs = aufgabenDefs();
+  const defs = aufgabenAktiv(d);
   if (!defs.length) return null;
   const fertig = erledigt(d).filter(id => defs.some(x => x.id === id)).length;
   return { erledigt: fertig, gesamt: defs.length,
@@ -4890,17 +5239,29 @@ function toggleAufgabe(id) {
   renderToday();
 }
 function addAufgabe() {
-  const name = (prompt('Neue Aufgabe – was willst du täglich schaffen?') || '').trim();
-  if (!name) return;
+  $('#tdAufgabeName').value = '';
+  $('#scrim19').classList.add('on');
+  setTimeout(() => $('#tdAufgabeName').focus(), 80);
+}
+function speichereAufgabe() {
+  const name = $('#tdAufgabeName').value.trim();
+  if (!name) { toast('Bitte einen Namen eingeben.'); return; }
   if (name.length > 60) { toast('Bitte kürzer fassen.'); return; }
-  aufgabenDefs().push({ id: uid(), name });
+  aufgabenAlle().push({ id: uid(), name, seit: today() });
+  $('#scrim19').classList.remove('on');
   persist(); renderToday();
 }
-function delAufgabe(id) {
+$('#tdAufgabeCancel').onclick = () => $('#scrim19').classList.remove('on');
+$('#tdAufgabeSave').onclick = speichereAufgabe;
+$('#scrim19').onclick = e => { if (e.target === $('#scrim19')) $('#scrim19').classList.remove('on'); };
+$('#tdAufgabeName').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); speichereAufgabe(); } };
+async function delAufgabe(id) {
   const defs = aufgabenDefs();
   const a = defs.find(x => x.id === id); if (!a) return;
-  if (!confirm(`„${a.name}" entfernen?\n\nBereits abgehakte Tage bleiben im Verlauf erhalten.`)) return;
-  state.ziele.aufgaben = defs.filter(x => x.id !== id);
+  if (!(await frage({ titel: `„${a.name}" entfernen?`, text: 'Bereits abgehakte Tage bleiben im Verlauf erhalten.', ja: 'Entfernen', gefahr: true }))) return;
+  const benutzt = Object.values(state.tage || {}).some(t => t && Array.isArray(t.aufgaben) && t.aufgaben.indexOf(id) > -1);
+  if (benutzt) a.bis = isoAdd(today(), -1);
+  else state.ziele.aufgaben = aufgabenAlle().filter(x => x.id !== id);
   persist(); renderToday();
 }
 
@@ -4952,7 +5313,18 @@ function normBereich(p) {
   return Math.min(100, Math.max(0, v));
 }
 
+/* Ein vergangener Tag ganz ohne Eintrag (kein Essen, kein Supplement, keine
+   Aufgabe, kein Training) ist „nicht erfasst", nicht „alles verfehlt": bis
+   v82 stand dort eine rote 0 – meist, weil die App an dem Tag gar nicht
+   offen war. Heute zählt weiter live, damit der Ring morgens nicht leer ist. */
+function tagHatEintrag(d) {
+  const t = (state.tage || {})[d];
+  if (!t) return false;
+  const voll = v => Array.isArray(v) && v.length > 0;
+  return voll(t.essen) || voll(t.supps) || voll(t.aufgaben) || gymTagZaehlt(d);
+}
 function tagesScore(d) {
+  if (d < today() && !tagHatEintrag(d)) return null;
   const teile = [];
   TD_BEREICHE.forEach(b => {
     const w = b.wert(d);                              // nur über den Bereichsscore
@@ -5065,17 +5437,14 @@ function renderTsBoard() {
   }
 
   if (tsbBereich === 'monat') {
-    const m = d.slice(0, 7), tageM = monatTage(m), heuteT = Number(d.slice(8, 10));
-    const zellen = [];
-    for (let t = 1; t <= tageM; t++) {
-      if (t > heuteT) { zellen.push('<div class="sbcell leer"></div>'); continue; }
-      const tag = m + '-' + String(t).padStart(2, '0'), ts = tagesScore(tag);
-      const klasse = !ts ? 'leer' : ts.punkte >= 75 ? 'gut' : ts.punkte >= 50 ? 'mittel' : 'schlecht';
-      zellen.push(`<div class="sbcell ${klasse}${tag === d ? ' heute' : ''}" title="${dmy(tag)}: ${
-        ts ? ts.punkte + ' Punkte' : 'nichts eingetragen'}">${t}</div>`);
-    }
+    const m = d.slice(0, 7), heuteT = Number(d.slice(8, 10));
+    const raster = monatsRaster(m, heuteT, (tag, t) => {
+      const ts = tagesScore(tag);
+      return `<div class="sbcell ${sbKlasse(ts && ts.punkte)}${tag === d ? ' heute' : ''}" title="${dmy(tag)}: ${
+        ts ? ts.punkte + ' Punkte' : 'nichts eingetragen'}">${t}</div>`;
+    });
     const ms = tsMonatSchnitt(m);
-    box.innerHTML = `<div class="sbgrid">${zellen.join('')}</div>`
+    box.innerHTML = raster
       + (ms ? leer(`Schnitt: <b>${ms.punkte}</b> Punkte · ${ms.tage} Tag${ms.tage === 1 ? '' : 'e'} mit Einträgen`)
             : leer('Diesen Monat ist noch nichts eingetragen.'));
     if (kopf && ms) kopf.textContent = 'Ø ' + ms.punkte;
@@ -5267,7 +5636,15 @@ function renderToday() {
     if (laeuft) {
       /* Läuft ein Workout, interessiert nicht die Woche, sondern wie weit
          der heutige Plan ist. */
-      const plan = gymPlanDesTages(d), ue = plan ? planUe(plan) : [];
+      const plan = gymPlanDesTages(d);
+      /* je Übung einmal (doppelte zusammengezählt), gelöschte Übungen raus –
+         sonst wurde ein Plan nie „fertig" */
+      const ue = [];
+      (plan ? planUe(plan) : []).forEach(x => {
+        if (!gymUe(x.id)) return;
+        const da = ue.find(y => y.id === x.id);
+        if (da) da.n += x.n; else ue.push({ id: x.id, n: x.n });
+      });
       const liste = gymTag(d);
       const fertigUe = ue.filter(x => {
         const e = liste.find(y => y.ueid === x.id);
@@ -5697,7 +6074,9 @@ function undoAuto(id) {
   p.tx = (p.tx || []).filter(x => !(x.sp && dates.indexOf(x.d) > -1));
   p.qty   = a.before.qty;
   p.entry = a.before.entry;
-  if (p.sp) p.sp.last = a.before.last;
+  /* sp.last bleibt bewusst auf dem neuen Stand: bis v82 wurde es
+     zurückgesetzt, und beim nächsten Start buchte checkPlans() genau diese
+     Raten ungefragt wieder ein. „Rückgängig" heißt: diese Raten gab es nicht. */
   autoBooked = autoBooked.filter(x => x.id !== id);
   render(); persist(); renderPlanBanner();
   toast(`${a.rates.length} ${a.rates.length===1?'Rate':'Raten'} zurückgenommen.`);
@@ -5801,6 +6180,12 @@ function essLib() {
   if (!Array.isArray(state.ziele.lebensmittel)) state.ziele.lebensmittel = [];
   return state.ziele.lebensmittel;
 }
+/* Gelöschte Lebensmittel bleiben als „geloescht" in der Bibliothek, solange
+   ein Tag sie gebucht hat: Kachel, Vorschläge und Texterkennung sehen sie
+   nicht mehr, die Tage rechnen aber weiter mit ihren Werten. Bis v82 wurden
+   sie entfernt – vergangene Tage verloren still ihre Kalorien, und die
+   Bewertung dieser Tage änderte sich rückwirkend. */
+const essLibAktiv = () => essLib().filter(l => !l.geloescht);
 function essVorlagenUebernehmen() {
   if (!ESS_VORLAGEN.length) return;
   let gesehen = [];
@@ -5895,7 +6280,8 @@ function essSumme(d) {
   const lib = essLib(), s = { kcal:0, p:0, k:0, f:0, n:0, fehlt: { p:false, k:false, f:false } };
   essTag(d).forEach(e => {
     const l = lib.find(x => x.id === e.lid); if (!l) return;
-    const n = e.n || 1;
+    const n = portionen(e);
+    if (!(n > 0)) return;
     s.kcal += kcalOf(l) * n;
     ['p','k','f'].forEach(key => {
       const v = num(l[key]);
@@ -5905,6 +6291,8 @@ function essSumme(d) {
   });
   return s;
 }
+/* Portionen einer Buchung. `e.n || 1` machte aus 0 eine volle Portion. */
+const portionen = e => { const n = num(e && e.n); return n === null ? 1 : n; };
 let essTagAnzeige = null;                    // null = heute
 const essDatum = () => essTagAnzeige || today();
 
@@ -5912,11 +6300,12 @@ const essDatum = () => essTagAnzeige || today();
 let letzteBuchung = null;
 function essBuchen(lid, faktor, menge) {
   const l = essLib().find(x => x.id === lid); if (!l) return;
-  const n = (faktor === undefined || faktor === null) ? 1 : faktor;
-  const d = essDatum(), liste = essTag(d).slice();
-  liste.push({ lid, n, m: menge ?? null, t: Date.now() });
+  const n = (faktor === undefined || faktor === null) ? 1 : +faktor;
+  if (!(n > 0)) { toast('Menge muss größer als 0 sein.'); return; }
+  const d = essDatum(), liste = essTag(d).slice(), t = Date.now();
+  liste.push({ lid, n, m: menge ?? null, t });
   setTagWert(d, 'essen', liste);
-  letzteBuchung = { d, lid };
+  letzteBuchung = { d, lid, t };
   renderFood();
   const wieviel = menge != null
     ? `${menge.toLocaleString('de-DE',{maximumFractionDigits:2})} ${bezug(l).einheit}`
@@ -5925,11 +6314,14 @@ function essBuchen(lid, faktor, menge) {
 }
 function essBuchungZurueck() {
   if (!letzteBuchung) return;
-  const { d, lid } = letzteBuchung;
+  /* Genau DIESE Buchung – bis v82 die letzte mit demselben Lebensmittel.
+     Hatte man die neue schon per × entfernt, traf „Rückgängig" die vom
+     Morgen. Ist sie nicht mehr da, passiert nichts. */
+  const { d, lid, t } = letzteBuchung;
   const liste = essTag(d).slice();
-  for (let i = liste.length - 1; i >= 0; i--) {
-    if (liste[i].lid === lid) { liste.splice(i, 1); break; }
-  }
+  const i = liste.findIndex(e => e.lid === lid && e.t === t);
+  if (i < 0) { letzteBuchung = null; toast('Diese Buchung ist schon weg.'); return; }
+  liste.splice(i, 1);
   setTagWert(d, 'essen', liste.length ? liste : null);
   letzteBuchung = null;
   renderFood();
@@ -6111,7 +6503,7 @@ function essVorschlaege(d, hoechstens = 3) {
   const s = jetzt.summe;
   const treffer = [];
   const tagFehlt = s.fehlt || { p:false, k:false, f:false };
-  essLib().forEach(l => {
+  essLibAktiv().forEach(l => {
     for (let n = 1; n <= 2; n++) {
       /* Die Lücken des Tages UND die des Vorschlags übernehmen: sonst würde
          ein Lebensmittel ohne Nährwerte unter anderen Regeln bewertet als der
@@ -6252,15 +6644,46 @@ const SUPP_VORLAGEN = [
 ];
 const LS_SUPP_SEED = 'pt.supp.seed.v1';
 
-function suppDefs() {
+/* Alle Supplement-Definitionen, auch entfernte (mit `bis`). */
+function suppAlle() {
   if (!state.ziele) state.ziele = {};
   if (!Array.isArray(state.ziele.supps)) state.ziele.supps = [];
   return state.ziele.supps;
 }
+/* Die aktuelle Liste – was in der App angezeigt und abgehakt wird. */
+const suppDefs = () => suppAlle().filter(x => !x.bis);
+/* Welche Supplemente galten an Tag d? Bis v82 wurde jeder vergangene Tag
+   gegen die HEUTIGE Liste gerechnet: ein neues Supplement senkte rückwirkend
+   jeden alten Tag, ein entferntes hob ihn, und Tage vor dem ersten Abhaken
+   zählten als 0 %. Jetzt hat jede Definition einen Beginn (`seit`, beim
+   Anlegen gesetzt; ältere ohne Datum gelten ab dem ersten Tag, an dem
+   überhaupt ein Supplement abgehakt wurde) und nach dem Entfernen ein Ende
+   (`bis`). */
+function suppAktiv(d) {
+  const start = ersterTagMit('supps');
+  return suppAlle().filter(x => {
+    const ab = x.seit || start;
+    return ab && ab <= d && !(x.bis && d > x.bis);
+  });
+}
+/* Erster Tag, an dem Feld `feld` in den Tagesdaten vorkommt – für Supps und
+   Aufgaben der Beginn der Aufzeichnung. Zwischengespeichert je Datenstand. */
+let ersterCache = { rev: -1, werte: {} };
+function ersterTagMit(feld) {
+  if (ersterCache.rev !== tageRev) ersterCache = { rev: tageRev, werte: {} };
+  if (feld in ersterCache.werte) return ersterCache.werte[feld];
+  let erster = null;
+  const tg = state.tage || {};
+  for (const d in tg) {
+    const v = tg[d] && tg[d][feld];
+    if (Array.isArray(v) ? v.length : v) { if (!erster || d < erster) erster = d; }
+  }
+  return (ersterCache.werte[feld] = erster);
+}
 function suppVorlagenUebernehmen() {
   let gesehen = [];
   try { gesehen = JSON.parse(lsGet(LS_SUPP_SEED) || '[]'); } catch(e) { gesehen = []; }
-  const defs = suppDefs();
+  const defs = suppAlle();
   let neu = 0;
   SUPP_VORLAGEN.forEach(v => {
     if (gesehen.indexOf(v.id) > -1) return;
@@ -6284,11 +6707,12 @@ function suppToggle(id) {
 }
 /* Wie viele Tage am Stück alles genommen? Motiviert mehr als eine Tagesquote. */
 function suppSerie() {
-  const defs = suppDefs();
-  if (!defs.length) return 0;
+  if (!suppDefs().length) return 0;
   let n = 0;
   for (let i = 0; i < 365; i++) {
     const d = isoAdd(today(), -i);
+    const defs = suppAktiv(d);
+    if (!defs.length) break;                       // vor Beginn der Aufzeichnung
     const g = suppGenommen(d);
     const alle = defs.every(x => g.indexOf(x.id) > -1);
     if (!alle) { if (i === 0) continue; break; }   // heute darf noch offen sein
@@ -6324,15 +6748,16 @@ function renderSupps() {
     else suppToggle(el.dataset.supp);
   });
 
-  /* Sieben Tage: voll, teilweise, nichts */
+  /* Sieben Tage bis zum angezeigten Tag (bis v82 immer bis heute, auch wenn
+     man zurückgeblättert hatte): voll, teilweise, nichts */
   const woche = [];
   for (let i = 6; i >= 0; i--) {
-    const tag = isoAdd(today(), -i);
-    const gg = suppGenommen(tag);
-    const anz = defs.filter(x => gg.indexOf(x.id) > -1).length;
-    const quote = defs.length ? anz / defs.length : 0;
+    const tag = isoAdd(d, -i);
+    const q = suppQuote(tag);
+    const anz = q ? q.genommen : 0, ges = q ? q.gesamt : 0;
+    const quote = ges ? anz / ges : 0;
     const wd = new Date(tag + 'T12:00:00').toLocaleDateString('de-DE',{weekday:'short'}).slice(0,2);
-    woche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${anz} von ${defs.length}">
+    woche.push(`<div class="fdday ${tag===d?'aktiv':''}" title="${dmy(tag)}: ${q ? `${anz} von ${ges}` : 'noch nicht erfasst'}">
       <div class="bar"><i style="height:${Math.round(quote*100)}%;background:${
         quote >= 1 ? 'var(--good-ink)' : quote > 0 ? 'var(--acc)' : 'transparent'}"></i></div>
       <span>${wd}</span></div>`);
@@ -6354,7 +6779,7 @@ function renderSupps() {
 /* Tagesquote der Supplemente, analog zu essBewertung: null = an dem Tag
    nichts zu werten (keine Supplemente definiert), sonst {genommen,gesamt,quote}. */
 function suppQuote(d) {
-  const defs = suppDefs();
+  const defs = suppAktiv(d);
   if (!defs.length) return null;
   const g = suppGenommen(d);
   const genommen = defs.filter(x => g.indexOf(x.id) > -1).length;
@@ -6369,6 +6794,20 @@ function monatVor(n) {
   gm = ((gm % 12) + 12) % 12;
   return gj + '-' + String(gm + 1).padStart(2, '0');
 }
+/* Monatskalender für Heute und Essen: richtige Wochentage (der 1. steht
+   unter seinem Wochentag, Mo–So-Kopfzeile), Zahlen auch an leeren Tagen,
+   kommende Tage gedämpft. Bis v82 begann jeder Monat links oben, egal ob der
+   1. ein Dienstag war, und leere Tage hatten keine Zahl. */
+function monatsRaster(m, bisT, zelle) {
+  const [j, mo] = m.split('-').map(Number);
+  const versatz = (new Date(j, mo - 1, 1).getDay() + 6) % 7;        // Montag = 0
+  const out = ['Mo','Di','Mi','Do','Fr','Sa','So'].map(w => `<div class="sbwt">${w}</div>`);
+  for (let i = 0; i < versatz; i++) out.push('<div class="sbcell frei" aria-hidden="true"></div>');
+  for (let t = 1, n = monatTage(m); t <= n; t++)
+    out.push(t > bisT ? `<div class="sbcell kommt">${t}</div>` : zelle(m + '-' + String(t).padStart(2, '0'), t));
+  return `<div class="sbgrid">${out.join('')}</div>`;
+}
+const sbKlasse = p => (p === null || p === undefined || p === false) ? 'leer' : p >= 75 ? 'gut' : p >= 50 ? 'mittel' : 'schlecht';
 function monatTage(m) {                              // Tage im Monat 'YYYY-MM'
   const [j, mo] = m.split('-').map(Number);
   return new Date(j, mo, 0).getDate();
@@ -6410,9 +6849,17 @@ function scoreMonatBerechnen(m) {
    wird der gespeicherte Verlauf bei geänderten Maßstäben verworfen und aus den
    Tagesdaten neu aufgebaut. Gespeichert wird also nie ein Ergebnis, das nicht
    mehr zu den aktuellen Zielen passt. */
+/* Seit v83 gehören auch die Nährwerte der Lebensmittel, die Supplement-Liste
+   (mit Beginn/Ende) und die Tagesdaten dazu: vorher blieben 6/12-Monats-Werte
+   nach dem Ändern oder Löschen eines Lebensmittels, nach einem Tausch von
+   Supplementen oder nachträglich ergänzten Tagen (auch per Abgleich vom
+   anderen Gerät) auf dem alten Stand stehen. Neu rechnen kostet ~20 ms. */
 function zielFingerprint() {
   const z = essZiele();
-  return [num(z.kcal), num(z.p), num(z.k), num(z.f), suppDefs().length].join('|');
+  return fnv(stabil([num(z.kcal), num(z.p), num(z.k), num(z.f),
+    essLib().map(l => [l.id, kcalOf(l), num(l.p), num(l.k), num(l.f), bezug(l)]),
+    suppAlle().map(x => [x.id, x.seit || '', x.bis || '']),
+    state.tage || {}])).toString(36);
 }
 
 function scoreVerlaufAktualisieren() {
@@ -6457,7 +6904,8 @@ function scoreVerlaufAktualisieren() {
   persist(false);
 }
 
-const sbFarbe = p => p >= 75 ? 'var(--good-ink)' : p >= 50 ? 'var(--acc)' : 'var(--bad-ink)';
+/* „mittel" in Gelb – Mint war von „gut" (ebenfalls Mint) nicht zu unterscheiden */
+const sbFarbe = p => p >= 75 ? 'var(--good-ink)' : p >= 50 ? 'var(--warn)' : 'var(--bad-ink)';
 let sbBereich = 'tag';
 function renderScoreboard() {
   const box = $('#sbBody'); if (!box) return;
@@ -6500,17 +6948,13 @@ function renderScoreboard() {
   }
 
   if (sbBereich === 'monat') {
-    const m = today().slice(0, 7), tageM = monatTage(m), heuteT = Number(today().slice(8, 10));
-    const zellen = [];
-    for (let t = 1; t <= tageM; t++) {
-      if (t > heuteT) { zellen.push(`<div class="sbcell leer"></div>`); continue; }
-      const d = m + '-' + String(t).padStart(2, '0');
+    const m = today().slice(0, 7), heuteT = Number(today().slice(8, 10));
+    const raster = monatsRaster(m, heuteT, (d, t) => {
       const b = essBewertung(d);
-      const klasse = !b ? 'leer' : b.punkte >= 75 ? 'gut' : b.punkte >= 50 ? 'mittel' : 'schlecht';
-      zellen.push(`<div class="sbcell ${klasse}${d===essDatum()?' heute':''}" title="${dmy(d)}: ${b ? b.punkte + ' Punkte' : 'nichts gebucht'}">${t}</div>`);
-    }
+      return `<div class="sbcell ${sbKlasse(b && b.punkte)}${d===essDatum()?' heute':''}" title="${dmy(d)}: ${b ? b.punkte + ' Punkte' : 'nichts gebucht'}">${t}</div>`;
+    });
     const agg = scoreMonatBerechnen(m);
-    box.innerHTML = `<div class="sbgrid">${zellen.join('')}</div>` +
+    box.innerHTML = raster +
       (agg ? `<p class="hint" style="margin:10px 0 0">Ernährung Ø <b>${agg.essen ?? '—'}</b>` +
              ` · ${agg.essenTage} Tag${agg.essenTage===1?'':'e'} mit Einträgen` +
              (agg.supp !== null ? `<br>Supplemente Ø <b>${agg.supp} %</b>` : '') + `</p>`
@@ -6560,19 +7004,26 @@ function openSuppForm(id) {
 function saveSupp() {
   const name = $('#suName').value.trim();
   if (!name) { toast('Bitte einen Namen eintragen.'); return; }
-  const daten = { name, ico: $('#suIco').value.trim().slice(0,4) || 'pill',
+  const daten = { name, ico: emojiEins($('#suIco').value) || 'pill',
                   dosis: $('#suDosis').value.trim() };
   const defs = suppDefs();
-  if (suppEditId) { const x = defs.find(v => v.id === suppEditId); if (x) Object.assign(x, daten); }
-  else defs.push({ id: uid(), ...daten });
+  if (suppEditId) {
+    const x = defs.find(v => v.id === suppEditId);
+    if (x) { if (!emojiEins($('#suIco').value) && ICONS[x.ico]) daten.ico = x.ico; Object.assign(x, daten); }
+  }
+  else suppAlle().push({ id: uid(), ...daten, seit: today() });
   $('#scrim7').classList.remove('on');
   suppEditId = null;
   persist(); renderSupps(); scoreNachziehen(); toast('Gespeichert.');
 }
-function delSupp() {
+async function delSupp() {
   const x = suppDefs().find(v => v.id === suppEditId); if (!x) return;
-  if (!confirm(`„${x.name}" entfernen?\n\nBereits abgehakte Tage bleiben erhalten.`)) return;
-  state.ziele.supps = suppDefs().filter(v => v.id !== suppEditId);
+  if (!(await frage({ titel: `„${x.name}" entfernen?`, text: 'Bereits abgehakte Tage bleiben erhalten und zählen weiter so, wie sie waren.', ja: 'Entfernen', gefahr: true }))) return;
+  /* Ab heute nicht mehr in der Liste; vergangene Tage behalten ihre Quote.
+     Nie abgehakt? Dann einfach weg. */
+  const benutzt = Object.values(state.tage || {}).some(t => t && Array.isArray(t.supps) && t.supps.indexOf(x.id) > -1);
+  if (benutzt) x.bis = isoAdd(today(), -1);
+  else state.ziele.supps = suppAlle().filter(v => v.id !== x.id);
   suppEditId = null;
   $('#scrim7').classList.remove('on');
   persist(); renderSupps(); scoreNachziehen(); toast('Entfernt.');
@@ -6661,7 +7112,7 @@ function findeLm(suche) {
   if (!s) return null;
   const woerter = s.split(' ').filter(w => w.length > 2 && !FUELLWORT.has(w));
   let best = null, bestWert = 0;
-  essLib().forEach(l => {
+  essLibAktiv().forEach(l => {
     const n = normal(l.name);
     const nw = n.split(' ');
     let wert = 0, kern = false;
@@ -6735,9 +7186,17 @@ function waehleModell(liste) {
   };
   return liste.slice().sort((a,b) => punkte(b) - punkte(a))[0] || '';
 }
+/* Erstes Zeichen als ganzes Emoji – .slice(0,4) zerschnitt zusammengesetzte
+   Emojis (👨‍🍳, Flaggen) und machte aus dem Ersatzwort „sparkles" ein „spar". */
+function emojiEins(s) {
+  s = String(s || '').trim();
+  if (!s) return '';
+  try { if (typeof Intl !== 'undefined' && Intl.Segmenter) return [...new Intl.Segmenter('de', { granularity:'grapheme' }).segment(s)][0].segment; } catch(e) {}
+  return Array.from(s)[0];
+}
 async function kiFragen(text, offeneTeile) {
   if (!ki.an || !ki.key || !ki.modell) return [];
-  const lib = essLib().map(l => ({ id:l.id, name:l.name, menge:bezug(l).menge, einheit:bezug(l).einheit }));
+  const lib = essLibAktiv().map(l => ({ id:l.id, name:l.name, menge:bezug(l).menge, einheit:bezug(l).einheit }));
   /* Der Auftrag ist bewusst ausführlich. Der Nutzer soll Nährwerte, Zutaten und
      Mengen NICHT kennen müssen – er schreibt „war bei McDonald's, Big Mac und
      mittlere Pommes" und bekommt richtige Zahlen. Alles, was hier nicht
@@ -6811,7 +7270,7 @@ ${JSON.stringify(offeneTeile)}`;
             /* produkt = Herstellerangabe, standard = Nährwerttabelle,
                schaetzung = geraten. Steht in der Liste als Marke. */
             quelle:{type:'STRING'}, hinweis:{type:'STRING'}
-          }}},
+          }, required:['menge','einheit'] }},
           rueckfrage:{type:'STRING'}
         }
       }
@@ -6825,23 +7284,36 @@ ${JSON.stringify(offeneTeile)}`;
   let daten; try { daten = JSON.parse(roh); } catch(e) { throw new Error('Antwort nicht lesbar'); }
   kiRueckfrage = String(daten.rueckfrage || '').trim();
   return (daten.eintraege || []).map(e => {
-    const l = e.id ? essLib().find(x => x.id === e.id) : null;
+    const l = e.id ? essLibAktiv().find(x => x.id === e.id) : null;
     if (l) {
+      /* Die Menge gehört zu der Einheit, die das Modell nennt – nicht blind
+         zur Einheit des Lebensmittels. Bis v82 wurde „80" ohne Einheit bei
+         Müsli (je 100 g) als 80 Portionen gebucht (32.000 kcal) und „25 g"
+         Käse (je 1 Stk) als 25 Stück. */
       const bz = bezug(l);
-      const menge = num(e.menge) ?? bz.menge;
-      const faktor = (e.einheit && e.einheit !== 'Stk') ? menge / bz.menge : menge;
+      const eh = EINHEITEN.includes(e.einheit) ? e.einheit : null;
+      const menge = num(e.menge);
+      let hinweis = String(e.hinweis || '').trim(), faktor, gebucht;
+      if (!(menge > 0))                                   { faktor = 1; gebucht = bz.menge; }
+      else if (eh === bz.einheit)                         { faktor = menge / bz.menge; gebucht = menge; }
+      else if (eh === 'Stk' || (!eh && bz.einheit === 'Stk')) { faktor = menge; gebucht = bz.menge * menge; }
+      else if (!eh)                                        { faktor = menge / bz.menge; gebucht = menge; }
+      else {                                               // g ↔ ml oder g/ml bei Stückware: nicht umrechenbar
+        faktor = 1; gebucht = bz.menge;
+        hinweis = (hinweis ? hinweis + ' · ' : '') + `als 1 Portion (${bezugText(l)}) gebucht – bitte prüfen`;
+      }
       return { lid:l.id, name:l.name, ico:l.ico, faktor,
-               menge: Math.round((e.einheit && e.einheit !== 'Stk' ? menge : bz.menge*menge) * 100)/100,
-               einheit: bz.einheit, quelle:'liste', hinweis: String(e.hinweis || '').trim() };
+               menge: Math.round(gebucht * 100) / 100,
+               einheit: bz.einheit, quelle:'liste', hinweis };
     }
     /* bezugMenge ist die Menge, für die kcal/p/k/f gelten. Ohne sie ging beim
        Ändern der Menge in der Liste die Umrechnung verloren – der neue Eintrag
        bekam die Nährwerte der alten Menge zugeschrieben. */
-    const menge = num(e.menge) ?? 1;
+    const menge = num(e.menge) > 0 ? num(e.menge) : 1;
     const art = ['produkt','standard','schaetzung'].indexOf(String(e.quelle||'').toLowerCase()) > -1
       ? String(e.quelle).toLowerCase() : 'schaetzung';
-    return { neu:true, name: e.name || 'Unbekannt', ico: (e.ico || 'sparkles').slice(0,4),
-             menge, bezugMenge: menge || 1, einheit: e.einheit || 'g',
+    return { neu:true, name: e.name || 'Unbekannt', ico: emojiEins(e.ico) || 'sparkles',
+             menge, bezugMenge: menge, einheit: EINHEITEN.includes(e.einheit) ? e.einheit : 'g',
              kcal: num(e.kcal), p: num(e.eiweiss), k: num(e.kohlenhydrate), f: num(e.fett),
              faktor: 1, quelle: art, hinweis: String(e.hinweis || '').trim(),
              geschaetzt: art === 'schaetzung' };
@@ -6868,41 +7340,53 @@ async function kiFragenSicher(text, offen) {
       const r = await kiFragen(text, offen);
       if (r.length || versuch === 2) return r;
     } catch(e) {
-      if (versuch === 2) throw e;
+      /* 4xx (Schlüssel falsch, Kontingent weg) wird durch Wiederholen nicht besser */
+      if (versuch === 2 || /HTTP 4\d\d/.test(e.message)) throw e;
     }
   }
   return [];
 }
+let kiLaeuft = false;
 async function kiEintragen() {
+  if (kiLaeuft) return;                       // Enter doppelt gedrückt: keine zweite Anfrage
   const text = $('#kiText').value.trim();
   if (!text) { toast('Schreib kurz, was du gegessen hast.'); return; }
   const btn = $('#kiGo');
+  kiLaeuft = true;
   btn.disabled = true; btn.textContent = 'prüfe …';
   try {
     const kiBereit = ki.an && ki.key && ki.modell;
-    const { treffer, offen } = kiBereit ? { treffer: [], offen: textTeile(text) } : erkenneText(text);
+    let { treffer, offen } = kiBereit ? { treffer: [], offen: textTeile(text) } : erkenneText(text);
     kiRueckfrage = '';
-    let ergaenzung = [];
-    if (offen.length && ki.an && ki.key && ki.modell) {
+    let ergaenzung = [], kiFehler = '';
+    if (offen.length && kiBereit) {
       try { ergaenzung = await kiFragenSicher(text, offen); }
-      catch(e) { toast('Nachfrage fehlgeschlagen: ' + e.message); }
+      catch(e) {
+        /* Ohne Netz oder bei einem Fehler wenigstens die eigene Liste – bis
+           v82 ging dann gar nichts, und die Fehlermeldung wurde sofort von
+           „Nichts erkannt" überschrieben. */
+        kiFehler = e.message || 'Fehler';
+        ({ treffer, offen } = erkenneText(text));
+      }
     }
     /* Doppelte vermeiden: was die KI nochmal für dasselbe Lebensmittel liefert, fliegt raus */
     const schonDa = new Set(treffer.map(t => t.lid));
     kiVorschlag = treffer.concat(ergaenzung.filter(e => e.neu || !schonDa.has(e.lid)));
 
     if (!kiVorschlag.length) {
-      toast(ki.an ? 'Nichts erkannt – versuch es anders zu formulieren.'
+      toast(kiFehler ? `KI nicht erreichbar (${kiFehler}) – aus deiner Liste passte nichts.`
+          : ki.an ? 'Nichts erkannt – versuch es anders zu formulieren.'
                   : 'Nichts aus deiner Liste erkannt. Mit einem Google-Schlüssel (⋯ → Eintragen per Text) versteht die App auch alles andere.');
       return;
     }
-    const unklar = offen.filter(o => !ergaenzung.length);
-    $('#kiSub').textContent = unklar.length
+    const unklar = (kiFehler || !kiBereit) ? offen : offen.filter(o => !ergaenzung.length);
+    $('#kiSub').textContent = (kiFehler ? 'KI nicht erreichbar – nur aus deiner Liste. ' : '') + (unklar.length
       ? `${kiVorschlag.length} erkannt · nicht zugeordnet: ${unklar.join(', ')}`
-      : `${kiVorschlag.length} ${kiVorschlag.length===1?'Eintrag':'Einträge'} – Mengen kannst du noch ändern.`;
+      : `${kiVorschlag.length} ${kiVorschlag.length===1?'Eintrag':'Einträge'} – Mengen kannst du noch ändern.`);
     kiListeZeichnen();
     $('#scrim9').classList.add('on');
   } finally {
+    kiLaeuft = false;
     btn.disabled = false; btn.textContent = 'Eintragen';
   }
 }
@@ -7092,16 +7576,17 @@ function renderFood() {
   const zaehler = {};
   Object.keys(state.tage || {}).forEach(tag => {
     (Array.isArray(state.tage[tag].essen) ? state.tage[tag].essen : [])
-      .forEach(e => { zaehler[e.lid] = (zaehler[e.lid] || 0) + (e.n || 1); });
+      .forEach(e => { zaehler[e.lid] = (zaehler[e.lid] || 0) + portionen(e); });
   });
   const heute = {};
-  essTag(d).forEach(e => { heute[e.lid] = (heute[e.lid] || 0) + (e.n || 1); });
+  essTag(d).forEach(e => { heute[e.lid] = (heute[e.lid] || 0) + portionen(e); });
 
-  const sortiert = lib.slice().sort((a, b) =>
+  const aktiv = lib.filter(l => !l.geloescht);
+  const sortiert = aktiv.sort((a, b) =>
     (zaehler[b.id] || 0) - (zaehler[a.id] || 0) || a.name.localeCompare(b.name, 'de'));
 
-  $('#fdCount').textContent = lib.length ? `${lib.length} gespeichert` : '';
-  $('#fdGrid').innerHTML = (lib.length
+  $('#fdCount').textContent = aktiv.length ? `${aktiv.length} gespeichert` : '';
+  $('#fdGrid').innerHTML = (aktiv.length
     ? sortiert.map(l => `
       <div class="fdtile" data-lm="${esc(l.id)}" title="${esc(l.name)} – antippen bucht eine Portion">
         ${heute[l.id] ? `<span class="heute">${heute[l.id]}×</span>` : ''}
@@ -7129,7 +7614,7 @@ function renderFood() {
       const l = lib.find(x => x.id === e.lid);
       const nm = l ? l.name : 'Gelöschtes Lebensmittel';
       const uhr = e.t ? new Date(e.t).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : '';
-      const n = e.n || 1;
+      const n = portionen(e);
       const kc = l ? Math.round(kcalOf(l) * n) : 0;
       const mk = l ? `${Math.round((num(l.p)||0)*n)} E · ${Math.round((num(l.k)||0)*n)} KH · ${Math.round((num(l.f)||0)*n)} F` : '';
       /* Wie viel es war: die gebuchte Menge, sonst das Vielfache der Bezugsmenge */
@@ -7235,12 +7720,35 @@ function saveFood() {
   if (kcal === null && p === null && k === null && f === null) {
     toast('Trag wenigstens die Kalorien oder die Nährwerte ein.'); return;
   }
-  const daten = { name, ico: $('#lfIco').value.trim().slice(0,4) || 'utensils',
-                  menge: numDe($('#lfMenge').value) || 100,
-                  einheit: $('#lfEinheit').value, portion: '', kcal, p, k, f };
+  if ([kcal, p, k, f].some(v => v !== null && v < 0)) { toast('Nährwerte können nicht negativ sein.'); return; }
+  const mengeFeld = numDe($('#lfMenge').value);
+  if (mengeFeld !== null && !(mengeFeld > 0)) { toast('Die Menge, für die die Werte gelten, muss größer als 0 sein.'); return; }
   const lib = essLib();
-  if (lmEditId) {
-    const l = lib.find(x => x.id === lmEditId); if (l) Object.assign(l, daten);
+  const alt = lmEditId ? lib.find(x => x.id === lmEditId) : null;
+  /* Leeres Symbolfeld beim Bearbeiten heißt „nicht angefasst" – bis v82
+     wurde daraus immer das Besteck, auch bei Vorlagen mit eigenem Symbol. */
+  const icoFeld = emojiEins($('#lfIco').value);
+  const daten = { name, ico: icoFeld || (alt && ICONS[alt.ico] ? alt.ico : 'utensils'),
+                  menge: mengeFeld || 100,
+                  einheit: $('#lfEinheit').value, portion: '', kcal, p, k, f };
+  if (alt) {
+    /* Neue Bezugsmenge bei gleicher Einheit: gebuchte Portionen umrechnen.
+       Eine Buchung meint eine Menge in g/ml (90 g Müsli), keine Zahl von
+       Bezugseinheiten – sonst würden aus 90 g nach „100 g → 40 g" still
+       36 g, und alle vergangenen Tage änderten ihre Werte. */
+    const vorher = bezug(alt);
+    if (vorher.einheit === daten.einheit && vorher.menge !== daten.menge) {
+      const f = vorher.menge / daten.menge;
+      Object.values(state.tage || {}).forEach(t => {
+        if (!t || !Array.isArray(t.essen) || !t.essen.some(e => e.lid === alt.id)) return;
+        t.essen = t.essen.map(e => {
+          if (e.lid !== alt.id) return e;
+          const n = portionen(e);
+          return { ...e, n: n * f, m: e.m ?? Math.round(n * vorher.menge * 100) / 100 };
+        });
+      });
+    }
+    Object.assign(alt, daten);
   } else {
     lib.push({ id: uid(), ...daten });
   }
@@ -7251,10 +7759,14 @@ function saveFood() {
   toast(lmEditId ? 'Gespeichert.' : `${daten.ico} ${name} angelegt – Kachel antippen bucht eine Portion.`);
   lmEditId = null;
 }
-function delFood() {
+async function delFood() {
   const l = essLib().find(x => x.id === lmEditId); if (!l) return;
-  if (!confirm(`„${l.name}" löschen?\n\nBereits gebuchte Tage behalten den Eintrag, zeigen ihn aber ohne Nährwerte.`)) return;
-  state.ziele.lebensmittel = essLib().filter(x => x.id !== lmEditId);
+  const gebucht = Object.values(state.tage || {}).some(t => t && Array.isArray(t.essen) && t.essen.some(e => e.lid === l.id));
+  if (!(await frage({ titel: `„${l.name}" löschen?`,
+    text: gebucht ? 'Verschwindet aus deiner Liste. Tage, an denen du es gebucht hast, behalten ihre Werte.' : '',
+    ja: 'Löschen', gefahr: true }))) return;
+  if (gebucht) l.geloescht = true;
+  else state.ziele.lebensmittel = essLib().filter(x => x.id !== l.id);
   lmEditId = null;
   $('#scrim5').classList.remove('on');
   persist(); renderFood(); scoreNachziehen(); toast('Gelöscht.');
@@ -7465,13 +7977,27 @@ const satzFertig = e => (e && Array.isArray(e.s)) ? e.s.filter(s => s.ok !== fal
 const satzZahl = e => satzFertig(e).length;
 const satzVol  = e => satzFertig(e).reduce((a, s) => a + (num(s.w)||0) * (num(s.g)||0), 0);
 
+/* Zählt ein Eintrag als Training? Nur mit mindestens einem erledigten Satz
+   oder Minuten/Kilometern. Ein angefangenes Workout, bei dem nichts
+   abgehakt wurde, oder ein bloß ergänzter leerer Eintrag ist kein
+   Trainingstag – bis v82 zählte er als voller Tag (+25 Punkte bei 4 Tagen
+   Ziel) und verdrängte bei „Vorher" das echte letzte Training. */
+const eintragZaehlt = e => !!e && (satzZahl(e) > 0 || !!num(e.min) || !!num(e.km));
+const gymTagZaehlt = d => gymTag(d).some(eintragZaehlt);
+/* Erster Tag mit echtem Training – davor gibt es keinen Gym-Score. Bis v82
+   bekam jeder Tag vor Trainingsbeginn eine 0, sobald es irgendwo Training
+   gab, und zog Monats- und Jahresverlauf nach unten. */
+let gymErsterCache = { rev: -1, d: null };
+function gymErsterTag() {
+  if (gymErsterCache.rev === tageRev) return gymErsterCache.d;
+  let erster = null;
+  for (const d in (state.tage || {})) if ((!erster || d < erster) && gymTagZaehlt(d)) erster = d;
+  gymErsterCache = { rev: tageRev, d: erster };
+  return erster;
+}
 /* Gibt es überhaupt schon Trainingsdaten? Solange nicht, zeigt die App
    „noch nichts eingetragen" statt einer entmutigenden 0. */
-function gymHatDaten() {
-  const tage = state.tage || {};
-  for (const d in tage) if (Array.isArray(tage[d].training) && tage[d].training.length) return true;
-  return false;
-}
+const gymHatDaten = () => gymErsterTag() !== null;
 
 /* Die sieben Tage, die auf `bis` enden. */
 function gymWoche(bis) {
@@ -7480,16 +8006,17 @@ function gymWoche(bis) {
     const d = isoAdd(bis, -i);
     const liste = gymTag(d);
     let saetze = 0, vol = 0, min = 0;
-    liste.forEach(e => {
+    const zaehlt = liste.filter(eintragZaehlt);
+    zaehlt.forEach(e => {
       saetze += satzZahl(e);
       vol    += satzVol(e);
       min    += num(e.min) || 0;
       const u = gymUe(e.ueid);
       if (u && u.muskel && w.gruppenListe.indexOf(u.muskel) === -1) w.gruppenListe.push(u.muskel);
     });
-    if (liste.length) w.einheiten++;
+    if (zaehlt.length) w.einheiten++;
     w.saetze += saetze; w.volumen += vol; w.minuten += min;
-    w.tage.push({ d, saetze, vol, min, n: liste.length });
+    w.tage.push({ d, saetze, vol, min, n: zaehlt.length });
   }
   w.gruppen = w.gruppenListe.length;
   return w;
@@ -7525,7 +8052,8 @@ function bewerteWoche(w) {
   return { punkte: Math.round(erreicht / moeglich * 100), teile, woche: w };
 }
 function gymBewertung(d) {
-  if (!gymHatDaten()) return null;
+  const erster = gymErsterTag();
+  if (!erster || d < erster) return null;
   return bewerteWoche(gymWoche(d));
 }
 
@@ -7557,7 +8085,7 @@ function satzText(e) {
 function gymLetzter(ueid, vorTag) {
   const tage = Object.keys(state.tage || {}).filter(d => d < vorTag).sort();
   for (let i = tage.length - 1; i >= 0; i--) {
-    const e = gymTag(tage[i]).find(x => x.ueid === ueid);
+    const e = gymTag(tage[i]).find(x => x.ueid === ueid && eintragZaehlt(x));
     if (e) return { d: tage[i], e };
   }
   return null;
@@ -7570,7 +8098,7 @@ function gymBest(ueid, ohneTag) {
     if (d === ohneTag) continue;
     gymTag(d).forEach(e => {
       if (e.ueid !== ueid) return;
-      (e.s || []).forEach(s => { const g = num(s.g) || 0; if (g > best) best = g; });
+      satzFertig(e).forEach(s => { const g = num(s.g) || 0; if (g > best) best = g; });
     });
   }
   return best;
@@ -7588,8 +8116,10 @@ function gymVerlauf(ueid, n) {
     const s = satzFertig(e);
     if (!s.length && !num(e.min) && !num(e.km)) return;
     let best = 0, wdh = 0;
-    s.forEach(x => { const g = num(x.g) || 0; if (g > best) best = g;
-                     const w = num(x.w) || 0; if (g === best && w > wdh) wdh = w; });
+    /* Beim neuen Höchstgewicht zählen dessen Wiederholungen – bis v82 blieben
+       die vom leichteren Satz stehen (50×12, 60×5 → „60 kg × 12"). */
+    s.forEach(x => { const g = num(x.g) || 0, w = num(x.w) || 0;
+                     if (g > best) { best = g; wdh = w; } else if (g === best && w > wdh) wdh = w; });
     raus.push({ d, best, wdh, saetze: s.length, vol: satzVol(e),
                 min: num(e.min), km: num(e.km) });
   });
@@ -7857,8 +8387,8 @@ function plZeichnen() {
             <button class="plmehr" data-plmenu="${idx}" title="Mehr" aria-label="Mehr">•••</button>
           </div>
           <div class="wkkopfzeile">
-            <span class="nr">Set</span><span class="vor">Vorherige</span>
-            <span>kg</span><span>Wiederh.</span><span></span>
+            <span class="nr">Satz</span><span class="vor">Vorher</span>
+            <span>kg</span><span>Wdh</span><span></span>
           </div>
           <div class="wkzeilen">${tabelle}</div>
           <button class="btn wkplus" data-plsatz="${idx}">+ Satz${ps ? ` (${mmss(ps)})` : ''}</button>
@@ -8009,9 +8539,9 @@ function saveGymPlan() {
   plSchliessen();
   persist(); renderGym(); toast('Plan gespeichert.');
 }
-function delGymPlan() {
+async function delGymPlan() {
   const p = gymPlan(plEditId); if (!p) return;
-  if (!confirm(`Plan „${p.name}" löschen?\n\nEingetragene Sätze bleiben erhalten.`)) return;
+  if (!(await frage({ titel: `Plan „${p.name}" löschen?`, text: 'Eingetragene Sätze bleiben erhalten.', ja: 'Löschen', gefahr: true }))) return;
   state.ziele.plaene = gymPlaene().filter(x => x.id !== plEditId);
   plSchliessen();
   persist(); renderGym(); toast('Plan gelöscht.');
@@ -8218,12 +8748,16 @@ const e1rmSatz = s => {
 function gymMetrik(ueid) {
   const u = gymUe(ueid);
   if (u && u.typ === 'ausdauer') return { feld:'min', name:'Minuten', einheit:'min' };
+  /* Mehrheit der erledigten Sätze entscheidet. Bis v82 reichte EIN Satz mit
+     Gewicht: Klimmzüge, einmal mit +5 kg gemacht, verloren dadurch ihren
+     ganzen Wiederholungs-Verlauf. */
   const tage = state.tage || {};
+  let mit = 0, ohne = 0;
   for (const d in tage) {
     const e = gymTag(d).find(x => x.ueid === ueid);
-    if (e && satzFertig(e).some(s => (num(s.g) || 0) > 0))
-      return { feld:'e1rm', name:'Geschätztes 1RM', einheit:'kg' };
+    if (e) satzFertig(e).forEach(s => { if ((num(s.g) || 0) > 0) mit++; else if ((num(s.w) || 0) > 0) ohne++; });
   }
+  if (mit > 0 && mit >= ohne) return { feld:'e1rm', name:'Geschätztes 1RM', einheit:'kg' };
   return { feld:'wdh', name:'Beste Wiederholungen', einheit:'Wdh' };
 }
 /* Wert eines einzelnen Satzes in der Kennzahl der Übung */
@@ -8272,17 +8806,15 @@ function gymVerlaufAktualisieren() {
       v.n++;
     });
   });
-  Object.keys(proMonat).forEach(m => {
-    const eintrag = { m, ue: proMonat[m] };
-    const i = liste.findIndex(x => x && x.m === m);
-    if (i > -1) liste[i] = eintrag; else liste.push(eintrag);
-  });
-
-  /* Rollendes Fenster: was älter als zwölf Monate ist, fällt weg – sobald
+  /* Jedes Mal komplett neu aus den Tagesdaten statt hineinzumischen: bis v82
+     blieb ein gelöschter Tippfehler-Eintrag als Monatswert stehen und wurde
+     zur Basis des Prozentwerts, und nach einem Kennzahlwechsel (Wdh → 1RM)
+     lagen alte Wiederholungszahlen neben kg-Werten.
+     Rollendes Fenster: was älter als zwölf Monate ist, fällt weg – sobald
      ein dreizehnter Monat dazukommt, rutscht der älteste heraus. Das
      betrifft nur diese abgeleitete Ablage, nie den Trainingsverlauf. */
-  const neu = liste.filter(x => x && x.m >= grenze)
-                   .sort((a, b) => a.m < b.m ? -1 : a.m > b.m ? 1 : 0);
+  const neu = Object.keys(proMonat).filter(m => m >= grenze).sort()
+                    .map(m => ({ m, ue: proMonat[m] }));
   while (neu.length > GY_MONATE) neu.shift();
   state.ziele.gymVerlauf12 = neu;
   /* persist(false): von der App selbst gerechnet, kein Nutzereingriff –
@@ -8304,11 +8836,8 @@ function gymMonatsreihe(ueid, met) {
     if (s.wert > v.wert) v.wert = s.wert;
     v.n++;
   });
-  gymVerlaufCache().forEach(c => {
-    if (!c || c.m < grenze || proM[c.m]) return;
-    const v = c.ue && c.ue[ueid];
-    if (v && v.k > 0) proM[c.m] = { wert: v.k, n: v.n || 0, alt: true };
-  });
+  /* Kein Rückgriff mehr auf die Monatsablage: Tagesdaten werden nie
+     gelöscht, der Rückgriff brachte nur veraltete Werte zurück. */
   const reihe = [];
   for (let i = GY_MONATE - 1; i >= 0; i--) {
     const m = monatVor(i), v = proM[m];
@@ -8607,7 +9136,10 @@ function openSatz(ueid) {
     const soll = pe ? pe.n : null;
     const vorgabe = (pe && pe.s && pe.s.length && pe.s.some(x => x.g !== null || x.w !== null))
       ? pe.s : null;
-    const quelle = vorhanden ? vorhanden.s : (vorgabe || (letzt ? letzt.e.s : null));
+    /* Nur erledigte Sätze vorbelegen: der Dialog speichert alles als erledigt –
+       offen gelassene Workout-Sätze wären sonst still abgehakt worden. */
+    const fertigDa = vorhanden ? satzFertig(vorhanden) : [];
+    const quelle = fertigDa.length ? fertigDa : (vorgabe || (letzt ? satzFertig(letzt.e) : null));
     /* Kein Vorbild da? Dann so viele leere Zeilen, wie der laufende Plan
        vorsieht – „2 × Chest Fly" öffnet mit zwei Zeilen. */
     const saetze = (quelle && quelle.length) ? quelle
@@ -8672,6 +9204,9 @@ function szSpeichern() {
       eintrag.s.push({ w, g: g === null ? null : g });
     });
     if (!eintrag.s.length) { toast('Bitte mindestens einen Satz eintragen.'); return; }
+    /* Im Workout ausgefüllte, aber noch nicht abgehakte Sätze bleiben offen stehen */
+    const alt = szIdx > -1 ? liste[szIdx] : null;
+    if (alt && Array.isArray(alt.s)) alt.s.filter(x => x.ok === false).forEach(x => eintrag.s.push({ ...x }));
   }
 
   const altBest = gymBest(szUeId, d);
@@ -8740,10 +9275,12 @@ function saveUebung() {
   persist(); renderGym();
   if (danach) danach(id); else toast('Gespeichert.');
 }
-function delUebung() {
+async function delUebung() {
   const u = gymUe(ubEditId); if (!u) return;
-  if (!confirm(`„${u.name}" löschen?\n\nBereits eingetragene Einheiten bleiben im Verlauf erhalten.`)) return;
-  state.ziele.uebungen = gymLib().filter(x => x.id !== ubEditId);
+  if (!(await frage({ titel: `„${u.name}" löschen?`, text: 'Bereits eingetragene Einheiten bleiben im Verlauf erhalten. Aus deinen Plänen wird sie entfernt.', ja: 'Löschen', gefahr: true }))) return;
+  state.ziele.uebungen = gymLib().filter(x => x.id !== u.id);
+  /* auch aus allen gespeicherten Plänen – sonst zählte sie dort weiter mit */
+  gymPlaene().forEach(p => { p.ue = planUe(p).filter(x => x.id !== u.id); });
   ubEditId = null;
   $('#scrim11').classList.remove('on');
   persist(); renderGym();
@@ -8951,7 +9488,9 @@ function wkZeilen(ueid, sollN, ziel) {
 
 function wkZeilenHtml(ueid, s, i) {
   const v = wkVorher(ueid, i);
-  return `<div class="wkzeile ${s.ok ? 'ok' : ''}" data-ue="${esc(ueid)}" data-i="${i}">
+  /* ok fehlt bei Sätzen aus dem schnellen Satzdialog – die sind erledigt
+     (wie in satzFertig). Bis v82 standen sie hier als offen da. */
+  return `<div class="wkzeile ${s.ok !== false ? 'ok' : ''}" data-ue="${esc(ueid)}" data-i="${i}">
     <span class="nr">${i + 1}</span>
     <span class="vor">${v ? `${v.g ? kg(v.g) + ' kg × ' : ''}${v.w}` : '—'}</span>
     <input class="kg" type="text" inputmode="decimal" autocomplete="off"
@@ -8968,7 +9507,19 @@ function wkZeichnen() {
   $('#wkDatum').textContent = dmy(d);
 
   /* Reihenfolge: erst der Plan, dann alles, was heute sonst noch dazukam */
-  const ausPlan = plan ? planUe(plan) : [];
+  /* Steht eine Übung mehrfach im Plan (Aufwärmen + Hauptübung), wird sie hier
+     EIN Block mit allen Sätzen – ein Tag kennt je Übung nur einen Eintrag.
+     Bis v82 gab es zwei Blöcke auf denselben Eintrag, und jedes Speichern
+     verdoppelte die Sätze (4 → 8 → 16). */
+  const ausPlan = [];
+  (plan ? planUe(plan) : []).forEach(x => {
+    const leer = n => Array.from({ length: n }, () => ({ g:null, w:null }));
+    const da = ausPlan.find(y => y.id === x.id);
+    if (!da) { ausPlan.push({ ...x, s: (x.s || []).slice() }); return; }
+    const hatS = da.s.length || (x.s || []).length;
+    da.s = hatS ? [...(da.s.length ? da.s : leer(da.n)), ...((x.s || []).length ? x.s : leer(x.n))] : [];
+    da.n = Math.min(30, da.n + x.n);
+  });
   const extra = gymTag(d).filter(e => !ausPlan.some(x => x.id === e.ueid))
                          .map(e => ({ id: e.ueid, n: (e.s || []).length || 1 }));
   const liste = ausPlan.concat(extra);
@@ -9131,7 +9682,9 @@ function wkStarten(planId, d) {
    zählt ebenfalls als Abweichung. */
 function wkVorlagenAbgleich(d, plan) {
   const diffs = []; let saetzeGeaendert = 0;
+  const ids = planUe(plan).map(x => x.id);
   planUe(plan).forEach(x => {
+    if (ids.indexOf(x.id) !== ids.lastIndexOf(x.id)) return;   // doppelt im Plan: nicht eindeutig zurückzuschreiben
     const hatVorgabe = x.s && x.s.length && x.s.some(v => v.g !== null || v.w !== null);
     if (!hatVorgabe) return;
     const e = gymTag(d).find(y => y.ueid === x.id);
@@ -9202,15 +9755,18 @@ function wkBeenden() {
   }
   wkBeendenWeiter();
 }
-function wkBeendenWeiter() {
+async function wkBeendenWeiter() {
   const d = wkDatum, t = (state.tage || {})[d] || {};
   const sek = t.wstart ? Math.round((Date.now() - t.wstart) / 1000) : 0;
   const liste = gymTag(d);
   const saetze = liste.reduce((a, e) => a + satzZahl(e), 0);
   const vol = liste.reduce((a, e) => a + satzVol(e), 0);
-  if (!saetze && !confirm('Es ist noch kein Satz abgehakt. Workout trotzdem beenden?')) return;
+  if (!saetze && !(await frage({ titel: 'Workout beenden?', text: 'Es ist noch kein Satz abgehakt.', ja: 'Trotzdem beenden' }))) return;
   setTagWert(d, 'wstart', null);
-  if (sek > 30) setTagWert(d, 'wdauer', sek);
+  /* Über sechs Stunden war das Workout nur offen geblieben (über Nacht, App
+     vergessen) – eine solche „Dauer" würde jede Auswertung verzerren. */
+  const dauerOk = sek > 30 && sek <= 6 * 3600;
+  if (dauerOk) setTagWert(d, 'wdauer', sek);
   pauseStop();                        // beim echten Beenden auch den Gong abbestellen
 
   const plan = gymPlanDesTages(d);
@@ -9218,7 +9774,7 @@ function wkBeendenWeiter() {
   wkSchliessen();
   const fertigToast = () => toast(`Fertig · ${saetze} ${saetze === 1 ? 'Satz' : 'Sätze'}` +
         (vol ? ` · ${Math.round(vol).toLocaleString('de-DE')} kg` : '') +
-        (sek > 30 ? ` · ${mmss(sek)} min` : ''));
+        (dauerOk ? ` · ${mmss(sek)} min` : ''));
 
   if (abgleich && abgleich.diffs.length) {
     wuPlanId = plan.id; wuDiffs = abgleich.diffs;
@@ -9244,7 +9800,7 @@ function wkVorlageUebernehmen(uebernehmen) {
   wuPlanId = null; wuDiffs = null;
 }
 /* Übung ergänzen, die nicht im Plan steht */
-function wkUebungDazu() {
+async function wkUebungDazu() {
   const lib = gymLib();
   if (!lib.length) { toast('Erst eine Übung anlegen.'); return; }
   const drin = gymTag(wkDatum).map(e => e.ueid);
@@ -9252,9 +9808,8 @@ function wkUebungDazu() {
   if (plan) planUe(plan).forEach(x => drin.push(x.id));
   const frei = lib.filter(u => drin.indexOf(u.id) === -1);
   if (!frei.length) { toast('Alle Übungen sind schon dabei.'); return; }
-  const namen = frei.map((u, i) => `${i + 1}. ${u.name}`).join('\n');
-  const wahl = prompt('Welche Übung ergänzen?\n\n' + namen + '\n\nNummer eintragen:');
-  const i = parseInt(wahl, 10) - 1;
+  const i = await frage({ titel: 'Welche Übung ergänzen?',
+    liste: frei.map(u => ({ label: u.name, sub: u.typ === 'ausdauer' ? 'Ausdauer' : (u.muskel || '') })) });
   if (!(i >= 0 && i < frei.length)) return;
   const d = wkDatum, liste = gymTag(d).slice();
   liste.push({ ueid: frei[i].id, s: [{ w:null, g:null, ok:false }], t: Date.now() });
@@ -9549,8 +10104,8 @@ function stravaCodeUebernehmen() {
   toast('Zugang übernommen.');
   stravaSync();
 }
-function stravaOff() {
-  if (!confirm('Strava trennen?\n\nBereits übernommene Aktivitäten bleiben erhalten.')) return;
+async function stravaOff() {
+  if (!(await frage({ titel: 'Strava trennen?', text: 'Bereits übernommene Aktivitäten bleiben erhalten.', ja: 'Trennen', gefahr: true }))) return;
   strava.refresh = ''; strava.access = ''; strava.exp = 0; strava.last = 0;
   saveStrava();
   toast('Strava getrennt.');
@@ -9588,6 +10143,7 @@ function stravaOff() {
   if (!restored) {
     if (!lsGet(LS_SEEN)) { state.positions = demoPositions(); lsSet(LS_SEEN, '1'); }
   }
+  stempelPflegen(false);     // Ausgangsfingerabdruck: ab hier wird jede Änderung gestempelt
   tagesSicherung();          // erst jetzt – vorher steht in state noch nichts
   /* Vorlagen und Aufräumen ERST HIER. Davor war state.positions noch leer,
      und der persist(false) darin hat den lokalen Datensatz mit einem leeren
@@ -9602,8 +10158,16 @@ function stravaOff() {
   render(); updateSyncUi(); setTab('home');
   /* Läuft noch ein Workout, direkt wieder hineinspringen. Wichtig geworden,
      seit der Kurzbefehl-Weg die App kurz verlässt. */
-  if (wkLaeuft(today())) { setTab('gym'); wkOeffnen(today()); }
-  if (cloud.on) await cloudPull(true, true);
+  /* Auch über Mitternacht: ein Workout von gestern, das vor weniger als
+     sechs Stunden begann, läuft noch (bis v82 nur „heute" geprüft). */
+  {
+    const offen = [today(), isoAdd(today(), -1)].find(d => {
+      const st = ((state.tage || {})[d] || {}).wstart;
+      return st && (d === today() || Date.now() - st < 6 * 3600e3);
+    });
+    if (offen) { setTab('gym'); wkOeffnen(offen); }
+  }
+  if (cloud.on) await abgleichen(true);
   await refreshPrices(true);
   // Beim ersten Start den Verlauf einmal aus echten Kursen aufbauen,
   // damit 7T/30T/90T sofort etwas zeigen statt erst in Wochen
