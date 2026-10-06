@@ -863,6 +863,9 @@ main{position:relative;z-index:1}
 .fdmini button{min-width:36px;min-height:36px;padding:0;justify-content:center}
 
 #toast{display:flex;align-items:center;gap:14px;max-width:min(94vw,420px);text-align:left}
+/* Bis v83 war „Rückgängig" gar nicht antippbar: #toast hat pointer-events:none
+   (damit eine Meldung nichts darunter blockiert), und das erbte der Knopf. */
+#toast.on .tundo{pointer-events:auto;min-height:36px}
 .tundo{background:transparent;border:0;color:var(--acc);font:inherit;font-size:13px;font-weight:650;
   cursor:pointer;padding:4px 2px;white-space:nowrap}
 /* fünf Bereiche in der Leiste – etwas enger, sonst passt „Startseite" nicht */
@@ -1410,6 +1413,29 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:18px;heig
 .swrow small{font-weight:400}
 /* Karten, die bündig aufeinander lagen */
 #viewFood > section + section, #viewGym > section + section{margin-top:12px}
+
+/* ═══════════ v84 Körper-Karte ═══════════ */
+.kpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kptile{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0;min-height:96px;
+  padding:11px 11px 10px;border-radius:13px;border:1px solid var(--hair);background:rgba(255,255,255,.025);
+  color:var(--text-primary);font:inherit;cursor:pointer;transition:border-color .2s,background .2s}
+.kptile:active{border-color:var(--hair-strong);background:var(--surface-2)}
+.kptile .kpl{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kptile .kpv{font-family:var(--mono);font-size:19px;font-weight:500;margin-top:8px;line-height:1.05;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.kptile .kpv small{font-size:11px;color:var(--muted);font-weight:400}
+.kptile .kpd{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.3}
+.kptile .kpd.auf{color:var(--good-ink)} .kptile .kpd.ab{color:var(--bad-ink)}
+.kptile .tdbar{width:100%;margin-top:auto;padding-top:0;display:block}
+.kptile .kpd + .tdbar{margin-top:9px}
+@media (max-width:360px){.kptile .kpv{font-size:16px}.kptile{padding:10px 9px}}
+.kpziele{margin-top:14px;border-top:1px solid var(--hair);padding-top:10px}
+.kpziele summary{cursor:pointer;color:var(--text-secondary);font-size:13px;font-weight:600}
+.kvzahlen{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.kvzahlen div{padding:10px;border-radius:11px;border:1px solid var(--hair);background:var(--surface-1)}
+.kvzahlen b{display:block;font-family:var(--mono);font-size:16px;font-weight:500;margin-top:4px;font-variant-numeric:tabular-nums}
+.kvzahlen span{font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+#scrimK{z-index:115}
 </style>
 </head>
 <body>
@@ -1654,6 +1680,24 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:18px;heig
       <div class="v" id="tdSuppVal">—</div>
       <div class="tdpkt" id="tdSuppPkt"></div>
       <div class="d" id="tdSuppRest">—</div>
+    </section>
+
+    <!-- Körper: Gewicht, Schlaf, Schritte – nur Anzeige, zählt nicht zum Score -->
+    <section class="tdt breit" id="tdKoerper">
+      <div class="cardhead" style="margin-bottom:10px">
+        <div class="k">Körper</div>
+        <button class="btn" id="kpVerlaufBtn">Verlauf ›</button>
+      </div>
+      <div class="kpgrid">
+        <button class="kptile" data-kp="gewicht"><span class="kpl">Gewicht</span>
+          <span class="kpv" id="kpGewV">—</span><span class="kpd" id="kpGewD">eintragen</span></button>
+        <button class="kptile" data-kp="schlaf"><span class="kpl">Schlaf</span>
+          <span class="kpv" id="kpSchlafV">—</span><span class="kpd" id="kpSchlafD">eintragen</span>
+          <span class="tdbar"><i id="kpSchlafBar" style="width:0"></i></span></button>
+        <button class="kptile" data-kp="schritte"><span class="kpl">Schritte</span>
+          <span class="kpv" id="kpSchritteV">—</span><span class="kpd" id="kpSchritteD">eintragen</span>
+          <span class="tdbar"><i id="kpSchritteBar" style="width:0"></i></span></button>
+      </div>
     </section>
 
     <section class="tdt breit" id="tdTasks">
@@ -2028,6 +2072,53 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:18px;heig
     <div class="mrow">
       <button class="btn" id="qCancel">Abbrechen</button>
       <button class="btn primary" id="qOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrimK">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(420px,100%)">
+    <h3>Körper</h3>
+    <p class="msub">Trag ein, was du hast – leere Felder bleiben leer.</p>
+    <div class="form">
+      <div class="f full"><label for="kpDatum">Tag</label><input id="kpDatum" type="date"></div>
+      <div class="f"><label for="kpGewicht">Gewicht (kg)</label>
+        <input id="kpGewicht" type="text" inputmode="decimal" placeholder="80,5" autocomplete="off"></div>
+      <div class="f"><label for="kpSchlaf">Schlaf (Std.)</label>
+        <input id="kpSchlaf" type="text" inputmode="decimal" placeholder="7,5" autocomplete="off"></div>
+      <div class="f full"><label for="kpSchritte">Schritte</label>
+        <input id="kpSchritte" type="text" inputmode="numeric" placeholder="10.000" autocomplete="off"></div>
+    </div>
+    <details class="kpziele">
+      <summary>Ziele</summary>
+      <div class="form" style="margin-top:10px">
+        <div class="f"><label for="kpZSchlaf">Schlaf (Std.)</label>
+          <input id="kpZSchlaf" type="text" inputmode="decimal" placeholder="8" autocomplete="off"></div>
+        <div class="f"><label for="kpZSchritte">Schritte</label>
+          <input id="kpZSchritte" type="text" inputmode="numeric" placeholder="10.000" autocomplete="off"></div>
+        <div class="f full"><label for="kpZGewicht">Zielgewicht (optional)</label>
+          <input id="kpZGewicht" type="text" inputmode="decimal" placeholder="z. B. 78" autocomplete="off"></div>
+      </div>
+    </details>
+    <div class="mrow">
+      <button class="btn" id="kpCancel">Abbrechen</button>
+      <button class="btn primary" id="kpSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrimKV">
+  <div class="modal" role="dialog" aria-modal="true" style="width:min(440px,100%)">
+    <h3>Körper-Verlauf</h3>
+    <div class="seg" id="kvSeg" role="group" aria-label="Wert" style="margin:12px 0 14px">
+      <button data-kv="gewicht" aria-pressed="true">Gewicht</button>
+      <button data-kv="schlaf" aria-pressed="false">Schlaf</button>
+      <button data-kv="schritte" aria-pressed="false">Schritte</button>
+    </div>
+    <div id="kvBody"></div>
+    <div class="mrow">
+      <button class="btn" id="kvEintragen">Eintragen</button>
+      <button class="btn primary" id="kvClose">Schließen</button>
     </div>
   </div>
 </div>
@@ -2461,7 +2552,7 @@ document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preven
 /* ============================================================
    PORTFOLIO TRACKER — Zustand, Berechnung, Rendering
    ============================================================ */
-const APP_VERSION = 'v83 · Mint · 29.09.2026';
+const APP_VERSION = 'v84 · Mint · 06.10.2026';
 const SERIES = ['#7DD3FC','#d95926','#199e70','#c98500','#d55181','#008300','#9085e9','#e66767'];
 const GOOD = '#0ca30c', BAD = '#d03b3b';
 const $ = s => document.querySelector(s);
@@ -5729,6 +5820,7 @@ function renderToday() {
   /* Score-Verlauf mitzeichnen: er hängt an denselben Bereichsscores und
      wird damit über scoreNachziehen() automatisch mit aktuell gehalten. */
   renderTsBoard();
+  renderKoerper();
 }
 
 
@@ -5893,6 +5985,207 @@ render = function() {
   if (state.detailId) renderDetail();
   else if (state.tab === 'history') renderTxList();
 };
+
+/* ============================================================
+   KÖRPER — Gewicht, Schlaf, Schritte (v84)
+   Reine Aufzeichnung: fließt auf Wunsch NICHT in den Heute-Score ein
+   (tagesScore/TD_BEREICHE bleiben unberührt, ebenso tagHatEintrag).
+   Daten je Tag: state.tage[d].gewicht (kg), .schlaf (Stunden, Dezimal),
+   .schritte (ganze Zahl). Ziele: state.ziele.koerper = {schlaf, schritte,
+   gewicht}. Die Ziele werden beim LESEN nicht angelegt – sonst bekäme ein
+   frisches Gerät beim nächsten Speichern einen jüngeren Stempel und würde
+   beim Abgleich die Ziele des anderen Geräts überschreiben.
+   ============================================================ */
+const KP_VORGABE = { schlaf: 8, schritte: 10000, gewicht: null };
+const kpZiele = () => ({ ...KP_VORGABE, ...((state.ziele && state.ziele.koerper) || {}) });
+const KP_FELDER = {
+  gewicht:  { name:'Gewicht',  min:20, max:400,    fmt: v => kg(Math.round(v * 10) / 10) + ' kg' },
+  schlaf:   { name:'Schlaf',   min:0,  max:24,     fmt: v => schlafText(v) },
+  schritte: { name:'Schritte', min:0,  max:200000, fmt: v => Math.round(v).toLocaleString('de-DE') }
+};
+/* 7,5 → „7:30 h" */
+function schlafText(v) {
+  let h = Math.floor(v), m = Math.round((v - h) * 60);
+  if (m === 60) { h++; m = 0; }
+  return `${h}:${String(m).padStart(2, '0')} h`;
+}
+/* Schlaf darf als „7,5", „7.5" oder „7:30" kommen */
+function schlafLesen(t) {
+  const s = String(t || '').trim();
+  const m = s.match(/^(\d{1,2})\s*[:h]\s*(\d{1,2})\s*(min)?$/i);
+  if (m) return +m[1] + Math.min(59, +m[2]) / 60;
+  return numDe(s.replace(/\s*(h|std\.?|stunden)$/i, ''));
+}
+const kpWert = (d, key) => num(((state.tage || {})[d] || {})[key]);
+/* Schnitt über `tage` Tage, die auf `bis` enden – nur Tage mit Wert */
+function kpSchnitt(key, tage, bis) {
+  bis = bis || today();
+  let s = 0, n = 0;
+  for (let i = 0; i < tage; i++) { const v = kpWert(isoAdd(bis, -i), key); if (v !== null) { s += v; n++; } }
+  return n ? { wert: s / n, n } : null;
+}
+function kpLetzter(key, bis) {
+  bis = bis || today();
+  const tage = Object.keys(state.tage || {}).filter(d => d <= bis).sort();
+  for (let i = tage.length - 1; i >= 0; i--) { const v = kpWert(tage[i], key); if (v !== null) return { d: tage[i], v }; }
+  return null;
+}
+/* Zwölf Monate, ältester zuerst: Monatsschnitt oder null */
+function kpMonatsReihe(key) {
+  const sum = {};
+  Object.keys(state.tage || {}).forEach(d => {
+    const v = kpWert(d, key); if (v === null) return;
+    const m = d.slice(0, 7), x = sum[m] || (sum[m] = { s: 0, n: 0 });
+    x.s += v; x.n++;
+  });
+  const out = [];
+  for (let i = VERLAUF_MONATE - 1; i >= 0; i--) {
+    const m = monatVor(i), x = sum[m];
+    out.push({ m, wert: x ? x.s / x.n : null, n: x ? x.n : 0 });
+  }
+  return out;
+}
+
+function renderKoerper() {
+  if (!$('#tdKoerper')) return;
+  const d = today(), z = kpZiele();
+  /* Gewicht: letzter Wert; darunter der Wochenschnitt gegen die Vorwoche –
+     einzelne Tage schwanken um ein Kilo, der Schnitt zeigt die Richtung. */
+  const lg = kpLetzter('gewicht');
+  $('#kpGewV').innerHTML = lg ? `${kg(Math.round(lg.v * 10) / 10)} <small>kg</small>` : '—';
+  const w1 = kpSchnitt('gewicht', 7), w0 = kpSchnitt('gewicht', 7, isoAdd(d, -7));
+  const gd = $('#kpGewD'); gd.className = 'kpd';
+  if (!lg) gd.textContent = 'eintragen';
+  else if (w1 && w0) {
+    const dv = Math.round((w1.wert - w0.wert) * 10) / 10;
+    gd.textContent = dv === 0 ? '± 0 kg zur Vorwoche' : `${dv > 0 ? '+' : '−'}${kg(Math.abs(dv))} kg zur Vorwoche`;
+  } else gd.textContent = lg.d === d ? 'heute' : dayLabel(lg.d);
+  if (lg && num(z.gewicht)) {
+    const rest = Math.round((lg.v - z.gewicht) * 10) / 10;
+    if (Math.abs(rest) >= 0.1 && !(w1 && w0)) gd.textContent = `noch ${kg(Math.abs(rest))} kg bis Ziel`;
+  }
+  /* Schlaf und Schritte: der heutige Wert gegen das Ziel, darunter der Schnitt */
+  [['schlaf', 'kpSchlaf'], ['schritte', 'kpSchritte']].forEach(([key, id]) => {
+    const v = kpWert(d, key), ziel = num(z[key]), f = KP_FELDER[key];
+    $('#' + id + 'V').innerHTML = v === null ? '—'
+      : key === 'schlaf' ? `${schlafText(v).replace(' h', '')} <small>h</small>` : f.fmt(v);
+    const s7 = kpSchnitt(key, 7);
+    $('#' + id + 'D').textContent = s7 ? `Ø 7 Tage: ${f.fmt(s7.wert)}` : (v === null ? 'eintragen' : 'heute');
+    const bar = $('#' + id + 'Bar'), q = (v !== null && ziel) ? v / ziel : 0;
+    bar.style.width = Math.min(100, Math.round(q * 100)) + '%';
+    bar.className = q >= 1 ? 'gut' : '';
+  });
+}
+
+/* ---- Eintragen ---- */
+function kpOeffnen(fokus, tag) {
+  const d = tag || today(), z = kpZiele();
+  $('#kpDatum').value = d; $('#kpDatum').max = today();
+  kpFelderFuellen(d);
+  $('#kpZSchlaf').value = deIn(z.schlaf);
+  $('#kpZSchritte').value = num(z.schritte) !== null ? Math.round(z.schritte).toLocaleString('de-DE') : '';
+  $('#kpZGewicht').value = deIn(z.gewicht);
+  $('#scrimK').classList.add('on');
+  const ziel = { gewicht:'#kpGewicht', schlaf:'#kpSchlaf', schritte:'#kpSchritte' }[fokus] || '#kpGewicht';
+  setTimeout(() => $(ziel).focus(), 80);
+}
+function kpFelderFuellen(d) {
+  const g = kpWert(d, 'gewicht'), sl = kpWert(d, 'schlaf'), st = kpWert(d, 'schritte');
+  $('#kpGewicht').value = g === null ? '' : deIn(g);
+  $('#kpSchlaf').value = sl === null ? '' : schlafText(sl).replace(' h', '');
+  $('#kpSchritte').value = st === null ? '' : Math.round(st).toLocaleString('de-DE');
+}
+function kpSpeichern() {
+  const d = $('#kpDatum').value || today();
+  if (d > today()) { toast('Für die Zukunft kann nichts eingetragen werden.'); return; }
+  const roh = { gewicht: $('#kpGewicht').value, schlaf: $('#kpSchlaf').value, schritte: $('#kpSchritte').value };
+  const werte = {};
+  for (const key of ['gewicht', 'schlaf', 'schritte']) {
+    const t = roh[key].trim();
+    if (!t) { werte[key] = null; continue; }
+    let v = key === 'schlaf' ? schlafLesen(t) : numDe(t);
+    const f = KP_FELDER[key];
+    if (v === null || v < f.min || v > f.max) { toast(`${f.name}: bitte einen Wert zwischen ${f.min.toLocaleString('de-DE')} und ${f.max.toLocaleString('de-DE')} eintragen.`); return; }
+    if (key === 'schritte') v = Math.round(v);
+    else v = Math.round(v * 100) / 100;
+    werte[key] = v;
+  }
+  /* Ziele: nur schreiben, wenn sich wirklich etwas geändert hat */
+  const zs = schlafLesen($('#kpZSchlaf').value), zt = numDe($('#kpZSchritte').value), zg = numDe($('#kpZGewicht').value);
+  if ((zs !== null && !(zs > 0 && zs <= 24)) || (zt !== null && !(zt > 0)) || (zg !== null && !(zg >= 20 && zg <= 400))) {
+    toast('Bitte die Ziele prüfen.'); return;
+  }
+  const alt = kpZiele(), neu = { schlaf: zs ?? KP_VORGABE.schlaf, schritte: zt !== null ? Math.round(zt) : KP_VORGABE.schritte, gewicht: zg };
+  if (neu.schlaf !== alt.schlaf || neu.schritte !== alt.schritte || neu.gewicht !== alt.gewicht) {
+    if (!state.ziele) state.ziele = {};
+    state.ziele.koerper = neu;
+  }
+  Object.keys(werte).forEach(key => {
+    if (werte[key] !== kpWert(d, key)) setTagWert(d, key, werte[key]);
+  });
+  $('#scrimK').classList.remove('on');
+  persist();
+  renderKoerper();
+  if (!$('#scrimKV').classList.contains('on')) toast('Gespeichert.');
+  else kvZeichnen();
+}
+
+/* ---- Verlauf ---- */
+let kvFeld = 'gewicht';
+function kvZeichnen() {
+  const key = kvFeld, f = KP_FELDER[key], z = kpZiele(), d = today();
+  $$('#kvSeg [data-kv]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.kv === key)));
+  const reihe30 = [];
+  for (let i = 29; i >= 0; i--) { const t = isoAdd(d, -i), v = kpWert(t, key); if (v !== null) reihe30.push({ d: t, wert: v }); }
+  const monate = kpMonatsReihe(key), mitM = monate.filter(x => x.wert !== null);
+  const zahl = (titel, wert) => `<div><span>${esc(titel)}</span><b>${wert}</b></div>`;
+  let kopf;
+  if (key === 'gewicht') {
+    const lg = kpLetzter('gewicht');
+    const d30 = reihe30.length > 1 ? reihe30[reihe30.length - 1].wert - reihe30[0].wert : null;
+    const d12 = mitM.length > 1 ? mitM[mitM.length - 1].wert - mitM[0].wert : null;
+    const delta = v => v === null ? '—' : `${v > 0 ? '+' : v < 0 ? '−' : '±'}${kg(Math.abs(Math.round(v * 10) / 10))} kg`;
+    kopf = zahl('Aktuell', lg ? f.fmt(lg.v) : '—') + zahl('30 Tage', delta(d30)) + zahl('12 Monate', delta(d12));
+  } else {
+    const s7 = kpSchnitt(key, 7), s30 = kpSchnitt(key, 30), ziel = num(z[key]);
+    const erreicht = ziel ? reihe30.filter(x => x.wert >= ziel).length : null;
+    kopf = zahl('Ø 7 Tage', s7 ? f.fmt(s7.wert) : '—') + zahl('Ø 30 Tage', s30 ? f.fmt(s30.wert) : '—')
+         + zahl('Ziel erreicht', erreicht === null ? '—' : `${erreicht}/${reihe30.length} T.`);
+  }
+  const linie = gymLinie(reihe30, 'wert');
+  const zielZeile = key === 'gewicht'
+    ? (num(z.gewicht) ? `Zielgewicht ${f.fmt(z.gewicht)}` : 'Kein Zielgewicht gesetzt')
+    : `Ziel ${f.fmt(z[key])} pro Tag`;
+  $('#kvBody').innerHTML = `<div class="kvzahlen">${kopf}</div>
+    <div class="gyverlauf">
+      <div class="kopf"><span class="sblabel">Letzte 30 Tage</span></div>
+      ${linie || `<p class="hint" style="margin:0">${reihe30.length ? 'Ab zwei Einträgen steht hier eine Kurve.' : 'In den letzten 30 Tagen nichts eingetragen.'}</p>`}
+    </div>
+    <div class="gyverlauf">
+      <div class="kopf"><span class="sblabel">12 Monate · Monatsschnitt</span></div>
+      ${mitM.length ? gyMonatsBalken(monate, { fmt: f.fmt, leer: 'nichts eingetragen', nText: n => n + ' Tag' + (n === 1 ? '' : 'e'), top: key !== 'gewicht' })
+                    : '<p class="hint" style="margin:0">Noch keine Monate mit Einträgen.</p>'}
+    </div>
+    <p class="hint" style="margin:0">${esc(zielZeile)} · zählt nicht zum Tagesscore.</p>`;
+}
+function kvOeffnen(key) {
+  if (key) kvFeld = key;
+  kvZeichnen();
+  $('#scrimKV').classList.add('on');
+}
+
+$$('#tdKoerper [data-kp]').forEach(b => b.onclick = () => kpOeffnen(b.dataset.kp));
+$('#kpVerlaufBtn').onclick = () => kvOeffnen();
+$('#kpDatum').onchange = () => { const d = $('#kpDatum').value; if (d && d <= today()) kpFelderFuellen(d); };
+$('#kpSave').onclick = kpSpeichern;
+$('#kpCancel').onclick = () => $('#scrimK').classList.remove('on');
+$('#scrimK').onclick = e => { if (e.target === $('#scrimK')) $('#scrimK').classList.remove('on'); };
+['#kpGewicht', '#kpSchlaf', '#kpSchritte'].forEach(s => $(s).onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); kpSpeichern(); } });
+$$('#kvSeg [data-kv]').forEach(b => b.onclick = () => { kvFeld = b.dataset.kv; kvZeichnen(); });
+$('#kvClose').onclick = () => $('#scrimKV').classList.remove('on');
+$('#kvEintragen').onclick = () => kpOeffnen(kvFeld);
+$('#scrimKV').onclick = e => { if (e.target === $('#scrimKV')) $('#scrimKV').classList.remove('on'); };
+/* Eintragen liegt über dem Verlauf */
 
 /* ============================================================
    SPARPLÄNE
@@ -7457,7 +7750,11 @@ function kiSummeNeu() {
 }
 function kiBuchen() {
   let n = 0;
+  /* Für „Rückgängig" merken, was genau gebucht und neu angelegt wurde */
+  const gebucht = [], neueLm = [], text = $('#kiText').value;
+  const merken = () => { if (letzteBuchung) { gebucht.push({ ...letzteBuchung }); n++; } };
   kiVorschlag.forEach(v => {
+    letzteBuchung = null;
     if (v.neu) {
       /* Neues Lebensmittel anlegen – beim nächsten Mal steht es in der Liste
          und muss nicht wieder nachgeschlagen werden.
@@ -7470,17 +7767,36 @@ function kiBuchen() {
                   menge: bm, einheit: v.einheit || 'g',
                   kcal: v.kcal, p: v.p, k: v.k, f: v.f,
                   quelle: v.quelle, geschaetzt: v.quelle === 'schaetzung' };
-      essLib().push(l);
-      essBuchen(l.id, v.faktor || 1, v.menge); n++;
+      essLib().push(l); neueLm.push(l.id);
+      essBuchen(l.id, v.faktor || 1, v.menge); merken();
     } else {
-      essBuchen(v.lid, v.faktor, v.menge); n++;
+      essBuchen(v.lid, v.faktor, v.menge); merken();
     }
   });
   $('#scrim9').classList.remove('on');
   $('#kiText').value = '';
   kiVorschlag = [];
+  letzteBuchung = null;              // das Einzel-Rückgängig gilt hier nicht, sondern das für alle
   persist(); renderFood();
-  toast(`${n} ${n===1?'Eintrag':'Einträge'} gebucht.`);
+  toastUndo(`${n} ${n===1?'Eintrag':'Einträge'} gebucht.`, () => kiBuchungZurueck(gebucht, neueLm, text));
+}
+/* Nimmt eine komplette KI-Buchung zurück: genau die gebuchten Einträge
+   (über Lebensmittel + Zeitstempel, nicht „die letzten n") und die dabei neu
+   angelegten Lebensmittel, sofern sie nirgends sonst gebucht sind. Der Text
+   kommt zurück ins Feld, damit man ihn nur korrigieren muss. */
+function kiBuchungZurueck(gebucht, neueLm, text) {
+  const proTag = {};
+  gebucht.forEach(b => (proTag[b.d] = proTag[b.d] || []).push(b));
+  Object.entries(proTag).forEach(([d, liste]) => {
+    const tag = essTag(d).slice();
+    liste.forEach(b => { const i = tag.findIndex(e => e.lid === b.lid && e.t === b.t); if (i > -1) tag.splice(i, 1); });
+    setTagWert(d, 'essen', tag.length ? tag : null);
+  });
+  const benutzt = id => Object.values(state.tage || {}).some(t => t && Array.isArray(t.essen) && t.essen.some(e => e.lid === id));
+  if (neueLm.length) state.ziele.lebensmittel = essLib().filter(l => !(neueLm.indexOf(l.id) > -1 && !benutzt(l.id)));
+  if (text && !$('#kiText').value) $('#kiText').value = text;
+  persist(); renderFood(); scoreNachziehen();
+  toast('Zurückgenommen.');
 }
 
 /* ---- Einstellungen ---- */
@@ -8909,16 +9225,18 @@ function gySatzText(s) {
 
 /* Die Balkenreihe über zwölf Monate. Der Nullpunkt liegt bewusst NICHT bei
    null: von 80 auf 90 kg wären die Balken sonst kaum zu unterscheiden. */
-function gyMonatsBalken(reihe) {
+function gyMonatsBalken(reihe, o = {}) {
+  const fmt = o.fmt || kg, leerT = o.leer || 'kein Training';
+  const nT = o.nText || (n => n + ' Einheit' + (n === 1 ? '' : 'en'));
   const werte = reihe.filter(x => x.wert !== null).map(x => x.wert);
   if (!werte.length) return '';
   const max = Math.max(...werte), min = Math.min(...werte);
   const fuss = min === max ? max * .82 : min - (max - min) * .35;
   const hoehe = v => Math.max(8, Math.round((v - fuss) / ((max - fuss) || 1) * 100));
   const balken = reihe.map(x => x.wert === null
-    ? `<span class="leer" title="${esc(x.m)}: kein Training"></span>`
-    : `<span class="${x.wert === max ? 'top' : ''}" style="height:${hoehe(x.wert)}%"
-         title="${esc(x.m)}: ${kg(x.wert)}${x.n ? ' · ' + x.n + ' Einheit' + (x.n === 1 ? '' : 'en') : ''}"></span>`
+    ? `<span class="leer" title="${esc(x.m)}: ${esc(leerT)}"></span>`
+    : `<span class="${x.wert === max && o.top !== false ? 'top' : ''}" style="height:${hoehe(x.wert)}%"
+         title="${esc(x.m)}: ${esc(fmt(x.wert))}${x.n ? ' · ' + esc(nT(x.n)) : ''}"></span>`
   ).join('');
   /* Beschriftung nur jeden zweiten Monat – zwölf Kürzel nebeneinander sind
      auf einem 320-px-Display nicht mehr lesbar. */
